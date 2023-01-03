@@ -25,9 +25,9 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: sanghoonjeong/test
-          tag-semver: |
-            {{version}}
-            {{major}}.{{minor}}
+          # tag-semver: |
+          #   {{version}}
+          #   {{major}}.{{minor}}
 
       # 빌드 머신에 Docker 빌드에 필요한 사항 준비
       - name: Set up Docker Buildx
@@ -48,5 +48,5 @@ jobs:
           file: ./Dockerfile.prod
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
+          # tags: ${{ steps.docker_meta.outputs.tags }}
+          # labels: ${{ steps.docker_meta.outputs.labels }}
