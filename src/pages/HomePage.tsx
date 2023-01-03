@@ -1,10 +1,10 @@
 import React from 'react';
-import Summary from 'components/homePage/Summary';
+import SummaryHome from 'components/homePage/SummaryHome';
 
 const HomePage = () => {
   return (
     <div>
-      <Summary />
+      <SummaryHome />
     </div>
   );
 };

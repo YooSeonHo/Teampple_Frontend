@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import profile1 from '../images/profile1.png';
 
-const Summary = () => {
+const SummaryHome = () => {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
@@ -149,4 +149,4 @@ const Bar = styled.span`
   }
 `;
 
-export default Summary;
+export default SummaryHome;
