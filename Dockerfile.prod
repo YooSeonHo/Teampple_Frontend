@@ -11,7 +11,7 @@ RUN yarn install
 # 로컬에 있는 모든 파일을 복사
 COPY . ./ 
 # 빌드
-RUN npm run build 
+RUN yarn build 
 
 
 FROM nginx:1.21.4
