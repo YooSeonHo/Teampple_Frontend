@@ -9,7 +9,7 @@ COPY package.json ./
 # COPY . ./
 # RUN npm run build
 
-------- yarn --------
+# ------- yarn --------
 COPY yarn.lock ./
 COPY package-lock.json ./
 # npm install yarn, yarn install
