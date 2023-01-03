@@ -17,7 +17,7 @@ EXPOSE 3001
 # # nginx의 기본 설정을 삭제
 RUN rm -rf /etc/nginx/conf.d
 # 로컬에 있는 default.conf 파일을 도커 /etc/nginx/conf.d/defalut.conf로 복사
-COPY ./defalut.conf /etc/nginx/conf.d/default.conf 
+COPY ./default.conf /etc/nginx/conf.d/default.conf 
 # 위에서 생성한 build 파일을 /usr/share/nginx/html로 복사
 COPY --from=builder /app/build  /usr/share/nginx/html 
 
