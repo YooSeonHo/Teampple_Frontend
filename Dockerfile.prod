@@ -4,14 +4,20 @@ FROM node:latest as builder
 WORKDIR /app 
 # 먼저 package.json, yarn.lock 파일을 복사
 COPY package.json ./ 
-COPY yarn.lock ./
-# npm install yarn, yarn install
-RUN npm install yarn
-RUN yarn install
-# 로컬에 있는 모든 파일을 복사
-COPY . ./ 
-# 빌드
-RUN yarn build 
+# ------- npm -------
+RUN npm install
+COPY . ./
+RUN npm run build
+
+# ------- yarn --------
+# COPY yarn.lock ./
+# # npm install yarn, yarn install
+# RUN npm install yarn
+# RUN yarn install
+# # 로컬에 있는 모든 파일을 복사
+# COPY . ./ 
+# # 빌드
+# RUN yarn build 
 
 
 FROM nginx:1.21.4
