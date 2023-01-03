@@ -6,6 +6,7 @@ const TeampleHomePage = () => {
   return (
     <div>
       <SummaryTeample />
+      <FileInfo />
     </div>
   );
 };

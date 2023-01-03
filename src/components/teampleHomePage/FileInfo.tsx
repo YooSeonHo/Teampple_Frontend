@@ -17,7 +17,7 @@ const FileInfo = () => {
         <BarContainer>
           <ul>
             <li>
-              <Bar className="css-progressbar" />
+              <Bar className="file-progressbar" />
             </li>
           </ul>
         </BarContainer>
@@ -82,10 +82,10 @@ const Bar = styled.span`
   background-color: #fce44c;
   height: 16px;
   width: 25%;
-  -webkit-animation: css-progressbar 2s ease-out;
-  animation: css-progressbar 2s ease-out;
+  -webkit-animation: file-progressbar 2s ease-out;
+  animation: file-progressbar 2s ease-out;
 
-  @keyframes css-progressbar {
+  @keyframes file-progressbar {
     0% {
       width: 0px;
     }
