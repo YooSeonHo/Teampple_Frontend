@@ -5,7 +5,7 @@ import FileInfo from 'components/teampleHomePage/FileInfo';
 const TeampleHomePage = () => {
   return (
     <div>
-      <FileInfo />
+      <SummaryTeample />
     </div>
   );
 };

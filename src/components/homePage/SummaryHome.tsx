@@ -57,6 +57,7 @@ const SummaryHome = () => {
 const SummaryContainer = styled.div`
   width: 1680px;
   height: 296px;
+  position: relative;
 `;
 
 const DateContainer = styled.div`

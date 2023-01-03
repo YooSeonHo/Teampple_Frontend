@@ -53,6 +53,7 @@ const SummaryTeample = () => {
 const SummaryContainer = styled.div`
   width: 850px;
   height: 228px;
+  position: relative;
 `;
 
 const DateContainer = styled.div`
