@@ -115,7 +115,7 @@ const Bar = styled.span`
   position: absolute;
   border-radius: 46px;
   background-color: #487aff;
-  height: 20px;
+  height: 16px;
   width: 80%;
   -webkit-animation: css-progressbar 2s ease-out;
   animation: css-progressbar 2s ease-out;
