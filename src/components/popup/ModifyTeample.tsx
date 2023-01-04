@@ -13,7 +13,8 @@ import { ko } from 'date-fns/esm/locale';
 
 const ModifyTeample = () => {
   const today = new window.Date();
-  const [pickedDate, setPickedDate] = useState<Date>(today);
+  const [startDate, setStartDate] = useState<Date>(today);
+  const [endDate, setEndDate] = useState<Date>(today);
   const [name, setName] = useState('');
   const [aim, setAim] = useState('');
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +50,9 @@ const ModifyTeample = () => {
             <StyledDatePicker
               locale={ko} //한글
               dateFormat="yyyy-MM-dd"
-              selected={pickedDate}
+              selected={startDate}
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-              onChange={(date: Date) => setPickedDate(date)}
+              onChange={(date: Date) => setStartDate(date)}
             />
           </DateBox1>
           <Dash />
@@ -60,9 +61,9 @@ const ModifyTeample = () => {
             <StyledDatePicker
               locale={ko} //한글
               dateFormat="yyyy-MM-dd"
-              selected={pickedDate}
+              selected={endDate}
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-              onChange={(date: Date) => setPickedDate(date)}
+              onChange={(date: Date) => setEndDate(date)}
             />
           </DateBox2>
         </DateContainer>
