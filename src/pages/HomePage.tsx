@@ -5,6 +5,7 @@ import MiniTemplate from 'components/homePage/MiniTemplate';
 const HomePage = () => {
   return (
     <div>
+      <SummaryHome />
       <MiniTemplate />
     </div>
   );
