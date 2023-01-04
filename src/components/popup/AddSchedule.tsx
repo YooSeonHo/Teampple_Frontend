@@ -63,6 +63,7 @@ const CloseBtn = styled(GrClose)`
   position: absolute;
   top: 48px;
   right: 32px;
+  cursor: pointer;
 `;
 
 const Title = styled.div`
