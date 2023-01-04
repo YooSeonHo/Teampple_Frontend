@@ -49,7 +49,7 @@ const ModifyTeample = () => {
             <AiFillCalendar />
             <StyledDatePicker
               locale={ko} //한글
-              dateFormat="yyyy-MM-dd"
+              dateFormat="yyyy.MM.dd"
               selected={startDate}
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               onChange={(date: Date) => setStartDate(date)}
@@ -60,7 +60,7 @@ const ModifyTeample = () => {
             <AiFillCalendar />
             <StyledDatePicker
               locale={ko} //한글
-              dateFormat="yyyy-MM-dd"
+              dateFormat="yyyy.MM.dd"
               selected={endDate}
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               onChange={(date: Date) => setEndDate(date)}

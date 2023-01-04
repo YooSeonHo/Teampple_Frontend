@@ -37,7 +37,7 @@ const AddSchedule = () => {
             <AiFillCalendar />
             <StyledDatePicker
               locale={ko} //한글
-              dateFormat="yyyy-MM-dd"
+              dateFormat="yyyy.MM.dd"
               selected={pickedDate}
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               onChange={(date: Date) => setPickedDate(date)}
