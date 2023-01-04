@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
-import { AiFillCalendar } from 'react-icons/ai';
+import { AiFillCalendar,AiOutlineLine } from 'react-icons/ai';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
@@ -11,29 +11,40 @@ import { ko } from 'date-fns/esm/locale';
 // 언어 한글 설정
 // npm install @types/react-datepicker --save-dev
 
-const AddSchedule = () => {
+const ModifyTeample = () => {
   const today = new window.Date();
   const [pickedDate, setPickedDate] = useState<Date>(today);
-  const [value, setValue] = useState('');
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const [name, setName] = useState('');
+  const [aim, setAim] = useState('');
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const onChangeAim = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAim(e.target.value);
   };
 
   return (
-    <AddScheduleContainer>
+    <ModifyTeampleContainer>
       <CloseBtn />
-      <Title>일정 추가</Title>
+      <Title>팀플 수정</Title>
       <InputContainer>
         <NameContainer>
           <Tag1>이름</Tag1>
-          <Input value={value} onChange={onChange} maxLength={12} />
-          <TextLength>
-            ({value.replace(/<br\s*\/?>/gm, '\n').length}/12)
-          </TextLength>
+          <Input1 value={name} onChange={onChangeName} maxLength={12} />
+          <TextLength1>
+            ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
+          </TextLength1>
         </NameContainer>
+        <AimContainer>
+          <Tag2>목표</Tag2>
+          <Input2 value={aim} onChange={onChangeAim} maxLength={12} />
+          <TextLength2>
+            ({aim.replace(/<br\s*\/?>/gm, '\n').length}/12)
+          </TextLength2>
+        </AimContainer>
         <DateContainer>
-          <Tag2>일정</Tag2>
-          <DateBox>
+          <Tag3>일정</Tag3>
+          <DateBox1>
             <AiFillCalendar />
             <StyledDatePicker
               locale={ko} //한글
@@ -42,16 +53,26 @@ const AddSchedule = () => {
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               onChange={(date: Date) => setPickedDate(date)}
             />
-          </DateBox>
-          <Time placeholder="18 : 00" />
+          </DateBox1>
+          <Dash />
+          <DateBox2>
+            <AiFillCalendar />
+            <StyledDatePicker
+              locale={ko} //한글
+              dateFormat="yyyy-MM-dd"
+              selected={pickedDate}
+              closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+              onChange={(date: Date) => setPickedDate(date)}
+            />
+          </DateBox2>
         </DateContainer>
       </InputContainer>
       <SaveButton>저장</SaveButton>
-    </AddScheduleContainer>
+    </ModifyTeampleContainer>
   );
 };
 
-const AddScheduleContainer = styled.div`
+const ModifyTeampleContainer = styled.div`
   width: 640px;
   height: 640px;
   background: #ffffff;
@@ -77,8 +98,8 @@ const Title = styled.div`
 `;
 
 const InputContainer = styled.div``;
-
 const NameContainer = styled.div``;
+const AimContainer = styled.div``;
 const DateContainer = styled.div``;
 
 const Tag1 = styled.span`
@@ -86,7 +107,6 @@ const Tag1 = styled.span`
   font-size: 18px;
   line-height: 100%;
   color: #707070;
-  /* padding: 30px; */
   position: absolute;
   top: 136px;
   left: 32px;
@@ -96,7 +116,11 @@ const Tag2 = styled(Tag1)`
   top: 216px;
 `;
 
-const Input = styled.input`
+const Tag3 = styled(Tag1)`
+  top: 296px;
+`;
+
+const Input1 = styled.input`
   width: 515px;
   height: 48px;
   border: none;
@@ -112,16 +136,12 @@ const Input = styled.input`
   color: #707070;
 `;
 
-const Time = styled(Input)`
-  position: absolute;
-  width: 80px;
-  height: 48px;
-  left: 227px;
+const Input2 = styled(Input1)`
   top: 200px;
 `;
 
-const DateBox = styled.div`
-  width: 130px;
+const DateBox1 = styled.div`
+  width: 240px;
   height: 48px;
   border: none;
   background-color: rgba(237, 239, 246, 0.5);
@@ -131,11 +151,24 @@ const DateBox = styled.div`
   line-height: 100%;
   padding: 16px;
   position: absolute;
-  top: 200px;
+  top: 280px;
   left: 93px;
   &:hover {
     cursor: pointer;
   }
+`;
+
+const DateBox2 = styled(DateBox1)`
+  left: 365px;
+`;
+
+const Dash = styled(AiOutlineLine)`
+  position: absolute;
+  width: 16px;
+  height: 0px;
+  left: 341px;
+  top: 304px;
+  border: 0.6px solid #383838;
 `;
 
 const StyledDatePicker = styled(DatePicker)`
@@ -145,7 +178,7 @@ const StyledDatePicker = styled(DatePicker)`
   font-weight: 400;
   font-size: 16px;
   line-height: 100%;
-  padding: 16px;
+  padding: 20px;
   background-color: transparent;
   color: #707070;
   position: absolute;
@@ -153,7 +186,7 @@ const StyledDatePicker = styled(DatePicker)`
   left: 5px;
 `;
 
-const TextLength = styled.span`
+const TextLength1 = styled.span`
   position: absolute;
   top: 138px;
   right: 48px;
@@ -161,6 +194,10 @@ const TextLength = styled.span`
   font-size: 12px;
   line-height: 100%;
   color: #c0c0c0;
+`;
+
+const TextLength2 = styled(TextLength1)`
+  top: 218px;
 `;
 
 const SaveButton = styled.button`
@@ -177,4 +214,4 @@ const SaveButton = styled.button`
   line-height: 100%;
 `;
 
-export default AddSchedule;
+export default ModifyTeample;
