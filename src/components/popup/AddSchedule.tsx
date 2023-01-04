@@ -14,6 +14,10 @@ import { ko } from 'date-fns/esm/locale';
 const AddSchedule = () => {
   const today = new window.Date();
   const [pickedDate, setPickedDate] = useState<Date>(today);
+  const [value, setValue] = useState('');
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
 
   return (
     <AddScheduleContainer>
@@ -22,7 +26,10 @@ const AddSchedule = () => {
       <InputContainer>
         <NameContainer>
           <Tag1>이름</Tag1>
-          <Input />
+          <Input value={value} onChange={onChange} />
+          <TextLength>
+            ({value.replace(/<br\s*\/?>/gm, '\n').length}/12)
+          </TextLength>
         </NameContainer>
         <DateContainer>
           <Tag2>일정</Tag2>
@@ -143,6 +150,16 @@ const StyledDatePicker = styled(DatePicker)`
   position: absolute;
   top: -48px;
   left: 5px;
+`;
+
+const TextLength = styled.span`
+  position: absolute;
+  top: 138px;
+  right: 48px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  color: #c0c0c0;
 `;
 
 const SaveButton = styled.button`
