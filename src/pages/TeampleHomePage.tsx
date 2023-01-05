@@ -6,6 +6,7 @@ import ModifyTeample from 'components/popup/ModifyTeample';
 import AddTask from 'components/popup/AddTask';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
 import ModifyStep from 'components/popup/ModifyStep';
+import AddTeample1 from 'components/popup/AddTeample1';
 
 const TeampleHomePage = () => {
   return (
@@ -16,7 +17,8 @@ const TeampleHomePage = () => {
       {/* <ModifyTeample /> */}
       {/* <AddTask /> */}
       {/* <TeamMateInfo /> */}
-      <ModifyStep />
+      {/* <ModifyStep /> */}
+      <AddTeample1 />
     </div>
   );
 };
