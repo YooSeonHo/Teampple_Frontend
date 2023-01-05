@@ -6,12 +6,22 @@ const TemplateList = () => {
   return (
     <MiniTemplateContainer>
       <TemplateBoxContainer>
-        <TemplateBox>
-          <Template1>
-            <Img1 />
-            <Desc1>피피티 템플릿 모음집</Desc1>
-          </Template1>
-        </TemplateBox>
+        <Template1>
+          <Img1 />
+          <Desc1>피피티 템플릿 모음집</Desc1>
+        </Template1>
+        <Template1>
+          <Img1 />
+          <Desc1>피피티 템플릿 모음집</Desc1>
+        </Template1>
+        <Template1>
+          <Img1 />
+          <Desc1>피피티 템플릿 모음집</Desc1>
+        </Template1>
+        <Template1>
+          <Img1 />
+          <Desc1>피피티 템플릿 모음집</Desc1>
+        </Template1>
       </TemplateBoxContainer>
     </MiniTemplateContainer>
   );
@@ -21,22 +31,23 @@ const MiniTemplateContainer = styled.div`
   position: relative;
 `;
 
-
 const TemplateBoxContainer = styled.div`
-  overflow: auto;
-`;
-
-const TemplateBox = styled.div`
+  width: 1200px;
+  position: absolute;
+  top: 40px;
+  left: 254px;
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const Template1 = styled.div`
   position: relative;
   width: 372px;
   height: 200px;
-  background: #fce44c;
+  background: #edeff6;
   border-radius: 12px;
-  margin-right: 50px;
+  margin-right: 28px;
+  margin-bottom: 29px;
   display: grid;
   grid-template-rows: 8fr 2fr;
 `;
@@ -54,7 +65,7 @@ const Desc1 = styled.div`
   font-size: 20px;
   line-height: 100%;
   color: #707070;
-  background: #fff8b7;
+  background: #f9fafd;
   border-radius: 0px 0px 12px 12px;
   width: 372px;
   height: 55px;
