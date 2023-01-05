@@ -4,6 +4,7 @@ import FileInfo from 'components/teampleHomePage/FileInfo';
 import AddSchedule from 'components/popup/AddSchedule';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import AddTask from 'components/popup/AddTask';
+import TeamMateInfo from 'components/popup/TeamMateInfo';
 
 const TeampleHomePage = () => {
   return (
@@ -12,7 +13,8 @@ const TeampleHomePage = () => {
       {/* <FileInfo /> */}
       {/* <AddSchedule /> */}
       {/* <ModifyTeample /> */}
-      <AddTask />
+      {/* <AddTask /> */}
+      <TeamMateInfo />
     </div>
   );
 };
