@@ -5,6 +5,7 @@ import AddSchedule from 'components/popup/AddSchedule';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import AddTask from 'components/popup/AddTask';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
+import ModifyStep from 'components/popup/ModifyStep';
 
 const TeampleHomePage = () => {
   return (
@@ -14,7 +15,8 @@ const TeampleHomePage = () => {
       {/* <AddSchedule /> */}
       {/* <ModifyTeample /> */}
       {/* <AddTask /> */}
-      <TeamMateInfo />
+      {/* <TeamMateInfo /> */}
+      <ModifyStep />
     </div>
   );
 };
