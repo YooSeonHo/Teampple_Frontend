@@ -5,7 +5,7 @@ import TemplateList from 'components/templatePage/TemplateList';
 const TemplatePage = () => {
   return (
     <div>
-      {/* <TemplateHeader /> */}
+      <TemplateHeader />
       <TemplateList />
     </div>
   );

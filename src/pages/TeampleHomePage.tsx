@@ -12,15 +12,15 @@ import AddTeample2 from 'components/popup/AddTeample2';
 const TeampleHomePage = () => {
   return (
     <div>
-      {/* <SummaryTeample /> */}
-      {/* <FileInfo /> */}
-      {/* <AddSchedule /> */}
+      <SummaryTeample />
+      <FileInfo />
+      <AddSchedule />
       {/* <ModifyTeample /> */}
       {/* <AddTask /> */}
       {/* <TeamMateInfo /> */}
       {/* <ModifyStep /> */}
       {/* <AddTeample1 /> */}
-      <AddTeample2 />
+      {/* <AddTeample2 /> */}
     </div>
   );
 };
