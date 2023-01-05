@@ -11,8 +11,8 @@ const TeampleHomePage = () => {
       {/* <SummaryTeample /> */}
       {/* <FileInfo /> */}
       {/* <AddSchedule /> */}
-      <ModifyTeample />
-      {/* <AddTask /> */}
+      {/* <ModifyTeample /> */}
+      <AddTask />
     </div>
   );
 };
