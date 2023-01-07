@@ -9,6 +9,7 @@ import TeampleDetailPage from 'pages/TeampleDetailPage';
 import TemplatePage from 'pages/TemplatePage';
 import ProfilePage from 'pages/ProfilePage';
 import FilePage from 'pages/FilePage';
+import NotFoundPage from 'pages/NotFoundPage';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="/template" element={<TemplatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/file" element={<FilePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
