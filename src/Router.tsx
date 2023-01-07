@@ -9,7 +9,6 @@ import TeampleDetailPage from 'pages/TeampleDetailPage';
 import TemplatePage from 'pages/TemplatePage';
 import ProfilePage from 'pages/ProfilePage';
 import FilePage from 'pages/FilePage';
-import LoginInvitedPage from 'pages/LoginInvitedPage';
 
 const Router = () => {
   return (
@@ -18,7 +17,6 @@ const Router = () => {
         <Route path="/" element={<OnboardingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/login-invited" element={<LoginInvitedPage />} />
         <Route path="/moreinfo" element={<MoreInfoPage />} />
         <Route path="/teample-home" element={<TeampleHomePage />} />
         <Route path="/teample-detail" element={<TeampleDetailPage />} />

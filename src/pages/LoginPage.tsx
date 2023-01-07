@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import KakaoBtn from 'components/loginPage/KakaoBtn';
 import Logo from '../components/images/Logo_login.png';
 
 const LoginPage = () => {
+  const [teamname, setTeamname] = useState('경영전략');
+  const [invited, setInvited] = useState(false);
   return (
     <LoginPageContainer>
       <LogoImg src={Logo}></LogoImg>
       <Desc>서로가 모여 플러스가 되는 팀쁠</Desc>
+      {invited ? (
+        <TeamNameContainer>
+          <TeamName>{teamname} </TeamName>
+          팀메이트로 참여하기
+        </TeamNameContainer>
+      ) : (
+        <></>
+      )}
       <KakaoButton>
         <KakaoBtn />
       </KakaoButton>
@@ -32,7 +42,7 @@ const LogoImg = styled.img`
   width: 237.26px;
   height: 67px;
   position: absolute;
-  top: 276px;
+  top: 256px;
 `;
 
 const Desc = styled.div`
@@ -41,7 +51,7 @@ const Desc = styled.div`
   line-height: 100%;
   color: #707070;
   position: absolute;
-  top: 359px;
+  top: 339px;
 `;
 
 const KakaoButton = styled.div`
@@ -55,7 +65,20 @@ const SubDesc = styled.div`
   line-height: 140%;
   color: #c0c0c0;
   position: absolute;
-  top: 580px;
+  top: 568px;
+`;
+
+const TeamNameContainer = styled.div`
+  position: absolute;
+  top: 400px;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 100%;
+`;
+
+const TeamName = styled.span`
+  color: #487aff;
+  font-weight: 700;
 `;
 
 export default LoginPage;
