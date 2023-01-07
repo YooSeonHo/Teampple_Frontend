@@ -4,6 +4,7 @@ import KakaoBtn from 'components/loginPage/KakaoBtn';
 import Logo from '../components/images/Logo_login.png';
 
 const LoginPage = () => {
+  // 초대받았다면 팀 이름 출력
   const [teamname, setTeamname] = useState('경영전략');
   const [invited, setInvited] = useState(false);
   return (
