@@ -18,6 +18,7 @@ const LoginBtn = styled.button`
   height: 54px;
   background-color: #fae100;
   border-radius: 8px;
+  position: relative;
   svg {
     margin-right: 54px;
     position: absolute;
@@ -30,6 +31,9 @@ const Text = styled.span`
   font-size: 20px;
   line-height: 100%;
   color: #383838;
+  position: absolute;
+  top: 17px;
+  left: 96px;
 `;
 
 export default KakaoBtn;
