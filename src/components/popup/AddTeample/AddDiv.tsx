@@ -30,11 +30,24 @@ const AddDiv = (props: any) => {
     setStepName(e.target.value);
   };
 
+  const onClickDel = (e: any) => {
+    const n = parseInt(e.target.name) + 1; //몇번째 단계
+    console.log(n);
+    const countArr = [...props.countList];
+    // const counter = countArr.slice(1)[0];
+    // console.log(counter)
+    countArr.pop(); // index 사용 X
+    console.log(countArr);
+    // counter -= 1;
+    // countArr[counter] = counter; // index 사용 시
+    props.setCountList(countArr);
+  };
+
   return (
     <div>
       {props.countList &&
         props.countList.map((i: any) => (
-          <StepContainer key={i}>
+          <StepContainer key={i} id="step">
             <NameContainer>
               <TagContainer>
                 <Tag>{i + 1}단계</Tag>
@@ -78,7 +91,9 @@ const AddDiv = (props: any) => {
                   style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
                 />
               </DateBox2>
-              <DelBtn>삭제</DelBtn>
+              <DelBtn name={i} onClick={onClickDel}>
+                삭제
+              </DelBtn>
             </DateContainer>
           </StepContainer>
         ))}
@@ -152,7 +167,7 @@ const TextLength = styled.span`
   margin-right: 6px;
 `;
 
-const DelBtn = styled.div`
+const DelBtn = styled.button`
   margin-left: 16px;
   margin-top: -60px;
   font-weight: 600;

@@ -44,13 +44,14 @@ const AddTeample2 = () => {
   };
 
   const [countList, setCountList] = useState([0]);
-  const onAddDetailDiv = () => {
+  const onClickAdd = () => {
     const countArr = [...countList];
     let counter = countArr.slice(-1)[0];
     counter += 1;
     // countArr.push(counter); // index 사용 X
     countArr[counter] = counter; // index 사용 시
     setCountList(countArr);
+    console.log(countArr);
   };
 
   return (
@@ -60,8 +61,8 @@ const AddTeample2 = () => {
       <Desc>단계를 설정하면 전략적으로 프로젝트를 진행시킬 수 있어요.</Desc>
       <InputContainer>
         {/* 컴포넌트 추가 */}
-        <AddDiv countList={countList} />
-        <AddStepButton onClick={onAddDetailDiv}>+ 단계 추가하기</AddStepButton>
+        <AddDiv countList={countList} setCountList={setCountList} />
+        <AddStepButton onClick={onClickAdd}>+ 단계 추가하기</AddStepButton>
       </InputContainer>
       <PrevButton onClick={onClickPrev}>이전</PrevButton>
       <MakeButton onClick={onClickMake}>팀플 만들기</MakeButton>
