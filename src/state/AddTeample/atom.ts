@@ -29,4 +29,4 @@ export const stepState = atom<string[]>({
 export const testState = atom<string>({
   key: 'test',
   default: '단계 테스트',
-})
+});
