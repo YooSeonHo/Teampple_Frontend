@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
-import { AiFillCalendar } from 'react-icons/ai';
+import { IoCalendarNumberOutline } from 'react-icons/io5';
+import { CiAlarmOn } from 'react-icons/ci';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
@@ -34,7 +35,6 @@ const AddSchedule = () => {
         <DateContainer>
           <Tag2>일정</Tag2>
           <DateBox>
-            <AiFillCalendar />
             <StyledDatePicker
               locale={ko} //한글
               dateFormat="yyyy.MM.dd"
@@ -42,8 +42,12 @@ const AddSchedule = () => {
               closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               onChange={(date: Date) => setPickedDate(date)}
             />
+            <IoCalendarNumberOutline
+              style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+            />
           </DateBox>
-          <Time placeholder="18 : 00" />
+          <Time placeholder="18 : 00" maxLength={7} />
+          <Clock />
         </DateContainer>
       </InputContainer>
       <SaveButton>저장</SaveButton>
@@ -86,7 +90,6 @@ const Tag1 = styled.span`
   font-size: 18px;
   line-height: 100%;
   color: #707070;
-  /* padding: 30px; */
   position: absolute;
   top: 136px;
   left: 32px;
@@ -114,14 +117,23 @@ const Input = styled.input`
 
 const Time = styled(Input)`
   position: absolute;
-  width: 80px;
+  width: 116px;
   height: 48px;
-  left: 227px;
+  left: 263px;
   top: 200px;
 `;
 
+const Clock = styled(CiAlarmOn)`
+  position: absolute;
+  top: 212px;
+  left: 343px;
+  width: 24px;
+  height: 24px;
+  color: #a7a7a7;
+`;
+
 const DateBox = styled.div`
-  width: 130px;
+  width: 158px;
   height: 48px;
   border: none;
   background-color: rgba(237, 239, 246, 0.5);
@@ -133,13 +145,15 @@ const DateBox = styled.div`
   position: absolute;
   top: 200px;
   left: 93px;
+  display: flex;
+  align-items: center;
   &:hover {
     cursor: pointer;
   }
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-  width: 122px;
+  width: 158px;
   height: 48px;
   border: none;
   font-weight: 400;
@@ -149,8 +163,8 @@ const StyledDatePicker = styled(DatePicker)`
   background-color: transparent;
   color: #707070;
   position: absolute;
-  top: -48px;
-  left: 5px;
+  top: -30px;
+  left: -20px;
 `;
 
 const TextLength = styled.span`
@@ -165,7 +179,7 @@ const TextLength = styled.span`
 
 const SaveButton = styled.button`
   position: absolute;
-  width: 552px;
+  width: 576px;
   height: 56px;
   left: 32px;
   top: 552px;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
-import { AiFillCalendar, AiOutlineLine } from 'react-icons/ai';
+import { AiOutlineLine } from 'react-icons/ai';
+import { IoCalendarNumberOutline } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
@@ -23,7 +24,10 @@ const AddTeample2 = () => {
       <InputContainer>
         <StepContainer>
           <NameContainer>
-            <Tag>1단계</Tag>
+            <TagContainer>
+              <Tag>1단계</Tag>
+              {/* <SubTag>(필수)</SubTag> */}
+            </TagContainer>
             <InputBox>
               <Input
                 value={name}
@@ -38,7 +42,6 @@ const AddTeample2 = () => {
           </NameContainer>
           <DateContainer>
             <DateBox1>
-              <AiFillCalendar />
               <StyledDatePicker
                 locale={ko} //한글
                 dateFormat="yyyy.MM.dd"
@@ -46,16 +49,21 @@ const AddTeample2 = () => {
                 closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                 onChange={(date: Date) => setStartDate(date)}
               />
+              <IoCalendarNumberOutline
+                style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+              />
             </DateBox1>
             <Dash />
             <DateBox2>
-              <AiFillCalendar />
               <StyledDatePicker
                 locale={ko} //한글
                 dateFormat="yyyy.MM.dd"
                 selected={endDate}
                 closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                 onChange={(date: Date) => setEndDate(date)}
+              />
+              <IoCalendarNumberOutline
+                style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
               />
             </DateBox2>
             <DelBtn>삭제</DelBtn>
@@ -126,12 +134,27 @@ const NameContainer = styled.div`
   margin-bottom: 12px;
 `;
 
-const Tag = styled.span`
+const TagContainer = styled.div`
+  width: 50px;
+  height: 50px;
+  margin-top: 70px;
+  margin-left: 23px;
+  text-align: center;
+`;
+
+const Tag = styled.div`
   font-weight: 500;
   font-size: 18px;
   line-height: 100%;
   color: #707070;
-  margin-left: 32px;
+`;
+
+const SubTag = styled.span`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  color: #c0c0c0;
+  margin-top: 38px;
 `;
 
 const InputBox = styled.div`
@@ -165,6 +188,7 @@ const TextLength = styled.span`
 
 const DelBtn = styled.div`
   margin-left: 16px;
+  margin-top: -60px;
   font-weight: 600;
   font-size: 16px;
   color: #a7a7a7;
@@ -187,6 +211,8 @@ const DateBox1 = styled.div`
   line-height: 100%;
   padding: 16px;
   margin: 0px 6px 0px 0px;
+  display: flex;
+  align-items: center;
   &:hover {
     cursor: pointer;
   }
@@ -203,7 +229,7 @@ const Dash = styled(AiOutlineLine)`
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-  width: 122px;
+  width: 220px;
   height: 48px;
   border: none;
   font-weight: 400;
@@ -213,8 +239,8 @@ const StyledDatePicker = styled(DatePicker)`
   background-color: transparent;
   color: #707070;
   position: absolute;
-  top: -48px;
-  left: 5px;
+  top: -30px;
+  left: -20px;
 `;
 
 const MakeButton = styled.button`

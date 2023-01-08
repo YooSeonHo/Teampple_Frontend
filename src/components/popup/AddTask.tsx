@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
-import { AiFillCalendar, AiOutlineLine } from 'react-icons/ai';
+import { IoCalendarNumberOutline } from 'react-icons/io5';
+import { AiOutlineLine } from 'react-icons/ai';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
@@ -32,7 +33,6 @@ const AddTask = () => {
       </TextLength1>
       <Tag2>기간</Tag2>
       <DateBox1>
-        <AiFillCalendar />
         <StyledDatePicker
           locale={ko} //한글
           dateFormat="yyyy.MM.dd"
@@ -40,16 +40,21 @@ const AddTask = () => {
           closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
           onChange={(date: Date) => setStartDate(date)}
         />
+        <IoCalendarNumberOutline
+          style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+        />
       </DateBox1>
       <Dash />
       <DateBox2>
-        <AiFillCalendar />
         <StyledDatePicker
           locale={ko} //한글
           dateFormat="yyyy.MM.dd"
           selected={endDate}
           closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
           onChange={(date: Date) => setEndDate(date)}
+        />
+        <IoCalendarNumberOutline
+          style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
         />
       </DateBox2>
       <Tag3>담당자</Tag3>
@@ -175,6 +180,8 @@ const DateBox1 = styled.div`
   position: absolute;
   top: 200px;
   left: 93px;
+  display: flex;
+  align-items: center;
   &:hover {
     cursor: pointer;
   }
@@ -194,7 +201,7 @@ const Dash = styled(AiOutlineLine)`
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-  width: 122px;
+  width: 240px;
   height: 48px;
   border: none;
   font-weight: 400;
@@ -204,8 +211,8 @@ const StyledDatePicker = styled(DatePicker)`
   background-color: transparent;
   color: #707070;
   position: absolute;
-  top: -48px;
-  left: 5px;
+  top: -30px;
+  left: -20px;
 `;
 
 const TextLength1 = styled.span`
