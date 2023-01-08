@@ -7,19 +7,45 @@ import { IoCalendarNumberOutline } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
+import { useRecoilState } from 'recoil';
+import {
+  stepState,
+  testState,
+  nameState,
+  aimState,
+  startDateState,
+  endDateState,
+} from 'state/AddTeample/atom';
 
 const AddTeample2 = () => {
-  const [name, setName] = useState('');
+  // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
+  const [stepTest, setStepTest] = useRecoilState(testState);
+  // 하나씩 받아서 하나의 state로 묶어줄 예정?
+  const [stepName, setStepName] = useState('');
   const today = new window.Date();
-  const [startDate, setStartDate] = useState<Date>(today);
-  const [endDate, setEndDate] = useState<Date>(today);
-  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+  const [stepStartDate, setStepStartDate] = useState<Date>(today);
+  const [stepEndDate, setStepEndDate] = useState<Date>(today);
+
+  const [startDate, setStartDate] = useRecoilState<Date>(startDateState);
+  const [endDate, setEndDate] = useRecoilState<Date>(endDateState);
+  const [name, setName] = useRecoilState(nameState);
+  const [aim, setAim] = useRecoilState(aimState);
+  const onChangeStepName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStepName(e.target.value);
   };
   const navigate = useNavigate();
   const onClickPrev = (e: React.MouseEvent<HTMLElement>) => {
     navigate('/teample-home/add-teample1');
-    console.log(e.target);
+  };
+
+  const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
+    // if (stepName === '') alert('1단계는 필수 항목입니다.');
+    // else {
+    event.preventDefault();
+    console.log(name, aim, startDate, endDate, stepTest);
+    alert('팀플 만들기 완료');
+
+    // }
   };
 
   return (
@@ -36,13 +62,13 @@ const AddTeample2 = () => {
             </TagContainer>
             <InputBox>
               <Input
-                value={name}
-                onChange={onChangeName}
+                value={stepName}
+                onChange={onChangeStepName}
                 maxLength={9}
                 placeholder="ex. 자료 조사"
               />
               <TextLength>
-                ({name.replace(/<br\s*\/?>/gm, '\n').length}/9)
+                ({stepName.replace(/<br\s*\/?>/gm, '\n').length}/9)
               </TextLength>
             </InputBox>
           </NameContainer>
@@ -51,9 +77,9 @@ const AddTeample2 = () => {
               <StyledDatePicker
                 locale={ko} //한글
                 dateFormat="yyyy.MM.dd"
-                selected={startDate}
+                selected={stepStartDate}
                 closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                onChange={(date: Date) => setStartDate(date)}
+                onChange={(date: Date) => setStepStartDate(date)}
               />
               <IoCalendarNumberOutline
                 style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
@@ -64,9 +90,9 @@ const AddTeample2 = () => {
               <StyledDatePicker
                 locale={ko} //한글
                 dateFormat="yyyy.MM.dd"
-                selected={endDate}
+                selected={stepEndDate}
                 closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                onChange={(date: Date) => setEndDate(date)}
+                onChange={(date: Date) => setStepEndDate(date)}
               />
               <IoCalendarNumberOutline
                 style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
@@ -78,7 +104,7 @@ const AddTeample2 = () => {
         <AddStepButton>+ 단계 추가하기</AddStepButton>
       </InputContainer>
       <PrevButton onClick={onClickPrev}>이전</PrevButton>
-      <MakeButton>팀플 만들기</MakeButton>
+      <MakeButton onClick={onClickMake}>팀플 만들기</MakeButton>
     </ModifyTeampleContainer>
   );
 };
