@@ -21,10 +21,14 @@ export const endDateState = atom<Date>({
 });
 
 //단계 상태 ... 복잡각이다
-export const stepState = atom<string[]>({
+export const stepState = atom<string>({
   key: 'step',
-  default: [],
+  default: '',
 });
+// export const stepState = atom<string[]>({
+//   key: 'step',
+//   default: [],
+// });
 
 export const testState = atom<string>({
   key: 'test',

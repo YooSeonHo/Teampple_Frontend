@@ -16,6 +16,7 @@ import AddDiv from './AddTeample/AddDiv'; //단계 추가하기 버튼 클릭시
 
 const AddTeample2 = () => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
+  // 일단 setState를 sting으로 두고 테스트
   const [stepTest, setStepTest] = useRecoilState(testState);
   // 하나씩 받아서 하나의 state로 묶어줄 예정?
   // const [stepName, setStepName] = useState('');
@@ -37,6 +38,7 @@ const AddTeample2 = () => {
     // if (stepName === '') alert('1단계는 필수 항목입니다.');
     // else {
     event.preventDefault();
+    console.log()
     console.log(name, aim, startDate, endDate, stepTest);
     alert('팀플 만들기 완료');
 
@@ -59,13 +61,15 @@ const AddTeample2 = () => {
       <CloseBtn />
       <Title>팀플 단계</Title>
       <Desc>단계를 설정하면 전략적으로 프로젝트를 진행시킬 수 있어요.</Desc>
-      <InputContainer>
-        {/* 컴포넌트 추가 */}
-        <AddDiv countList={countList} setCountList={setCountList} />
-        <AddStepButton onClick={onClickAdd}>+ 단계 추가하기</AddStepButton>
-      </InputContainer>
-      <PrevButton onClick={onClickPrev}>이전</PrevButton>
-      <MakeButton onClick={onClickMake}>팀플 만들기</MakeButton>
+        <InputContainer>
+          {/* 컴포넌트 추가 */}
+          <AddDiv countList={countList} setCountList={setCountList} />
+          <AddStepButton onClick={onClickAdd}>+ 단계 추가하기</AddStepButton>
+        </InputContainer>
+        <PrevButton onClick={onClickPrev}>이전</PrevButton>
+        {/* <MakeButton onClick={onClickMake}>
+          팀플 만들기
+        </MakeButton> */}
     </ModifyTeampleContainer>
   );
 };
