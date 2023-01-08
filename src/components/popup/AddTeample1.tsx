@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
 import { AiOutlineLine } from 'react-icons/ai';
@@ -18,6 +19,11 @@ const AddTeample = () => {
   };
   const onChangeAim = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAim(e.target.value);
+  };
+  const navigate = useNavigate();
+  const onClickNext = (e: React.MouseEvent<HTMLElement>) => {
+    navigate('/teample-home/add-teample2');
+    console.log(e.target);
   };
 
   return (
@@ -78,7 +84,7 @@ const AddTeample = () => {
           </DateBox2>
         </DateContainer>
       </InputContainer>
-      <SaveButton>다음</SaveButton>
+      <NextButton onClick={onClickNext}>다음</NextButton>
     </ModifyTeampleContainer>
   );
 };
@@ -213,7 +219,7 @@ const TextLength2 = styled(TextLength1)`
   top: 218px;
 `;
 
-const SaveButton = styled.button`
+const NextButton = styled.button`
   position: absolute;
   width: 576px;
   height: 56px;

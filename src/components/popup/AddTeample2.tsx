@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
 import { AiOutlineLine } from 'react-icons/ai';
@@ -14,6 +15,11 @@ const AddTeample2 = () => {
   const [endDate, setEndDate] = useState<Date>(today);
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
+  };
+  const navigate = useNavigate();
+  const onClickPrev = (e: React.MouseEvent<HTMLElement>) => {
+    navigate('/teample-home/add-teample1');
+    console.log(e.target);
   };
 
   return (
@@ -69,8 +75,9 @@ const AddTeample2 = () => {
             <DelBtn>삭제</DelBtn>
           </DateContainer>
         </StepContainer>
+        <AddStepButton>+ 단계 추가하기</AddStepButton>
       </InputContainer>
-      <PrevButton>이전</PrevButton>
+      <PrevButton onClick={onClickPrev}>이전</PrevButton>
       <MakeButton>팀플 만들기</MakeButton>
     </ModifyTeampleContainer>
   );
@@ -241,6 +248,23 @@ const StyledDatePicker = styled(DatePicker)`
   position: absolute;
   top: -30px;
   left: -20px;
+`;
+
+const AddStepButton = styled.button`
+  position: absolute;
+  left: 42px;
+  width: 570px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #f4f8ff;
+  color: #5785ff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
 `;
 
 const MakeButton = styled.button`
