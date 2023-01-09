@@ -10,18 +10,42 @@ const MiniTemplate = () => {
       <Title>읽어보면 좋아요</Title>
       <TemplateBoxContainer>
         <TemplateBox>
-          <Template1>
+          <Template1
+            onClick={() =>
+              window.open('https://if-blog.tistory.com/10531', '_blank')
+            }
+          >
             <Img1 />
-            <Desc1>새내기를 위한 팀플 기본 예절</Desc1>
+            <Desc1>레포트 작성 가이드</Desc1>
           </Template1>
-          <Template2>
+          <Template2
+            onClick={() =>
+              window.open(
+                'https://m.post.naver.com/viewer/postView.naver?volumeNo=6959810&memberNo=10505396',
+                '_blank',
+              )
+            }
+          >
             <Img2 />
-            <Desc2>근거있는 자료 찾는 법</Desc2>
+            <Desc2>자료 조사 하는 법</Desc2>
           </Template2>
-          <Template2>
+          <Template2
+            onClick={() =>
+              window.open(
+                'https://m.post.naver.com/viewer/postView.nhn?volumeNo=4624319&memberNo=10505396',
+                '_blank',
+              )
+            }
+          >
             <Img3 />
-            <Desc2>레포트학 개론</Desc2>
+            <Desc2>보고서 각주와 참고문헌 작성법</Desc2>
           </Template2>
+          <Template1
+            onClick={() => window.open('https://linkareer.com', '_blank')}
+          >
+            <Img2 />
+            <Desc1>대학생 공모전 대외활동, 링커리어</Desc1>
+          </Template1>
         </TemplateBox>
       </TemplateBoxContainer>
     </MiniTemplateContainer>
