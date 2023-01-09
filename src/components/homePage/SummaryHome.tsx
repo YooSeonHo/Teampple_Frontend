@@ -46,7 +46,7 @@ const SummaryHome = () => {
       <BarContainer>
         <ul>
           <li>
-            <Bar className="css-progressbar" />
+            <Bar className="css-progressbar" remainPercent={remainPercent} />
           </li>
         </ul>
       </BarContainer>
@@ -116,12 +116,12 @@ const BarContainer = styled.div`
   }
 `;
 
-const Bar = styled.span`
+const Bar = styled.span<{ remainPercent: number }>`
   position: absolute;
   border-radius: 46px;
   background-color: #487aff;
   height: 16px;
-  width: 80%;
+  width: ${(props) => props.remainPercent}%;
   -webkit-animation: css-progressbar 2s ease-out;
   animation: css-progressbar 2s ease-out;
 
@@ -146,7 +146,7 @@ const Bar = styled.span`
     }
 
     100% {
-      width: 80%;
+      width: ${(props) => props.remainPercent}%;
     }
   }
 `;
