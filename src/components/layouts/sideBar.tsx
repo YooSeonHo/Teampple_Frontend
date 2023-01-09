@@ -5,6 +5,7 @@ import house from '../images/House.png';
 import usersThree from '../images/UsersThree.png';
 import folderIcon from '../images/FolderSimple.png';
 import headset from '../images/Headset.png';
+import { Link } from "react-router-dom";
 
 const SideBarBox = styled.div`
 
@@ -152,12 +153,14 @@ const SideBar = () =>{
                 <a id="userName">김팀쁠</a>
             </div>
 
+            <Link to='/home' style={{ textDecoration: 'none' }}>
             <div className="box">
                 <div className="iconWrap">
                     <img src={house} id="icon"/>
                 </div>
                 <div className="boxText">홈</div>
             </div>
+            </Link>
 
             <div className="box">
                 <div className="iconWrap">
@@ -179,12 +182,14 @@ const SideBar = () =>{
             </div>
 
             <div className="btm">
+                <Link to="/template" style={{ textDecoration: 'none' }}>
                 <div className="box">            
                     <div className="iconWrap">
                         <img src={folderIcon} id="icon"/>
                     </div>
                 <div className="boxText">템플릿</div>
                 </div>
+                </Link>
                 <div className="box">          
                     <div className="iconWrap">
                         <img src={headset} id="icon"/>
