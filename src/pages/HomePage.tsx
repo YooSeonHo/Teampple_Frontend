@@ -3,19 +3,20 @@ import styled from 'styled-components';
 import SummaryHome from 'components/homePage/SummaryHome';
 import MiniTemplate from 'components/homePage/MiniTemplate';
 import HomeHeader from 'components/homePage/HomeHeader';
+import SideBar from 'components/layouts/sideBar';
 
 const HomePage = () => {
   return (
     <HomePageContainer>
       <HeaderContainer><HomeHeader /></HeaderContainer>
-      <SideBarContainer />
+      <SideBarContainer><SideBar /></SideBarContainer>
       <SummaryHomeContainer>
         <SummaryHome />
       </SummaryHomeContainer>
       <TodoContainer />
       <MiniTemplateContainer>
         <MiniTemplate />
-      </MiniTemplateContainer>
+        </MiniTemplateContainer>
     </HomePageContainer>
   );
 };
@@ -31,7 +32,6 @@ const SideBarContainer = styled.div`
   height: 1081px;
   left: 0px;
   top: 0px;
-  background-color: pink;
 `;
 
 const HeaderContainer = styled.div`
