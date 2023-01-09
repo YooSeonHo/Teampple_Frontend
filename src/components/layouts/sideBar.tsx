@@ -196,12 +196,14 @@ const SideBar = () => {
       </div>
 
       {tnames.map((team, index) => (
-        <div className="box" key={index}>
+        <div key={index}>
           <Link
             to={`/teample-home/${team.tid}`}
             style={{ textDecoration: 'none', color: '#707070' }}
           >
-            <div className="subBoxText">{team.tname}</div>
+            <div className="box">
+              <div className="subBoxText">{team.tname}</div>
+            </div>
           </Link>
         </div>
       ))}
