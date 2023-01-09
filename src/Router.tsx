@@ -23,7 +23,7 @@ const Router = () => {
         {/* 초대받았으면 path에 팀 id - 이렇게 하는게 맞는 건지는 모름 */}
         <Route path="/login/:teamid" element={<LoginPage />} />
         <Route path="/moreinfo" element={<MoreInfoPage />} />
-        <Route path="/teample-home" element={<TeampleHomePage />} />
+        <Route path="/teample-home/:teamid" element={<TeampleHomePage />} />
         <Route path="/teample-detail" element={<TeampleDetailPage />} />
         <Route path="/template" element={<TemplatePage />} />
         <Route path="/profile" element={<ProfilePage />} />

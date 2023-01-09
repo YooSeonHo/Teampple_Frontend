@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import React,{useState} from "react";
+import styled from 'styled-components';
+import React, { useState } from 'react';
 import logo from '../images/logo.png';
 import house from '../images/House.png';
 import usersThree from '../images/UsersThree.png';
 import folderIcon from '../images/FolderSimple.png';
 import headset from '../images/Headset.png';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import prof1 from '../images/profile/prof1.png';
 import prof2 from '../images/profile/prof2.png';
 import prof3 from '../images/profile/prof3.png';
@@ -15,6 +15,8 @@ import prof6 from '../images/profile/prof6.png';
 import prof7 from '../images/profile/prof7.png';
 import prof8 from '../images/profile/prof8.png';
 import prof9 from '../images/profile/prof9.png';
+// import { teamidState } from 'state';
+// import { useRecoilState } from 'recoil';
 
 const SideBarBox = styled.div<{ userid: string }>`
   width: 240px;
@@ -154,66 +156,77 @@ const SideBarBox = styled.div<{ userid: string }>`
   }
 `;
 
-const SideBar = () =>{
-    const [userid, setUserid] = useState(prof1);
-    //임의로 생성
-    const tnames = ['경영 전략', '마케팅 원론', '팀플서비스', '세오스 기획', '세오스 디자인', '세오스 개발' ];
+const SideBar = () => {
+  const [userid, setUserid] = useState(prof1);
+  //임의로 생성
+  const tnames = [
+    { tname: '경영 전략', tid: 1 },
+    { tname: '마케팅 원론', tid: 2 },
+    { tname: '팀플 서비스', tid: 3 },
+    { tname: '세오스 기획', tid: 4 },
+    { tname: '세오스 디자인', tid: 5 },
+    { tname: '세오스 개발', tid: 6 },
+  ];
+  // const [teamid, setTeamid] = useRecoilState(teamidState);
 
-    return (
-      <SideBarBox userid={userid}>
-        <div className="logo">
-          <img src={logo} />
-        </div>
-        <div className="user">
-          <div id="userImage"></div>
-          <a id="userName">김팀쁠</a>
-        </div>
+  return (
+    <SideBarBox userid={userid}>
+      <div className="logo">
+        <img src={logo} />
+      </div>
+      <div className="user">
+        <div id="userImage"></div>
+        <a id="userName">김팀쁠</a>
+      </div>
 
-        <Link to="/home" style={{ textDecoration: 'none' }}>
-          <div className="box" style={{ marginTop: '12px' }}>
-            <div className="iconWrap">
-              <img src={house} id="icon" />
-            </div>
-            <div className="boxText">홈</div>
+      <Link to="/home" style={{ textDecoration: 'none' }}>
+        <div className="box" style={{ marginTop: '12px' }}>
+          <div className="iconWrap">
+            <img src={house} id="icon" />
           </div>
-        </Link>
-
-        <Link to="/teample-home" style={{ textDecoration: 'none' }}>
-          <div className="box">
-            <div className="iconWrap">
-              <img src={usersThree} id="icon" />
-            </div>
-            <div className="boxText">팀플</div>
-          </div>
-        </Link>
-
-        {tnames.map((tname, index) => (
-          <div className="box" key={index}>
-            <div className="subBoxText">{tname}</div>
-          </div>
-        ))}
-        <div className="newBox" id="newTeample">
-          <div>+ 새 팀플</div>
+          <div className="boxText">홈</div>
         </div>
+      </Link>
 
-        <div className="btm">
-          <Link to="/template" style={{ textDecoration: 'none' }}>
-            <div className="box">
-              <div className="iconWrap">
-                <img src={folderIcon} id="icon" />
-              </div>
-              <div className="boxText">템플릿</div>
-            </div>
+      <div className="box">
+        <div className="iconWrap">
+          <img src={usersThree} id="icon" />
+        </div>
+        <div className="boxText">팀플</div>
+      </div>
+
+      {tnames.map((team, index) => (
+        <div className="box" key={index}>
+          <Link
+            to={`/teample-home/${team.tid}`}
+            style={{ textDecoration: 'none', color: '#707070' }}
+          >
+            <div className="subBoxText">{team.tname}</div>
           </Link>
+        </div>
+      ))}
+      <div className="newBox" id="newTeample">
+        <div>+ 새 팀플</div>
+      </div>
+
+      <div className="btm">
+        <Link to="/template" style={{ textDecoration: 'none' }}>
           <div className="box">
             <div className="iconWrap">
-              <img src={headset} id="icon" />
+              <img src={folderIcon} id="icon" />
             </div>
-            <div className="boxText">고객센터</div>
+            <div className="boxText">템플릿</div>
           </div>
+        </Link>
+        <div className="box">
+          <div className="iconWrap">
+            <img src={headset} id="icon" />
+          </div>
+          <div className="boxText">고객센터</div>
         </div>
-      </SideBarBox>
-    );
-}
+      </div>
+    </SideBarBox>
+  );
+};
 
 export default SideBar;
