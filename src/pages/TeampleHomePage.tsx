@@ -13,19 +13,9 @@ import SideBar from 'components/layouts/sideBar';
 import TeampleHeader from 'components/layouts/teampleHeader';
 import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
+import Layout from 'components/layouts/layout';
 
-const Layout = styled.div`
-  display : flex;
 
-  .text{
-    margin-top : 48px;
-    color: #383838;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    margin-left : 54px;
-  }
-`;
 
 const Container = styled.div`
 
@@ -50,11 +40,6 @@ const TeampleHomePage = () => {
   return (
     <>
       <Layout>
-        <SideBar/>
-
-        <Container>
-          <TeampleHeader/>
-
         <AllBox>
           <div>
           <ContentBox>
@@ -70,7 +55,7 @@ const TeampleHomePage = () => {
           </div>
         <PlanManager/>
         </AllBox>
-        </Container>
+
       </Layout>
 
 
