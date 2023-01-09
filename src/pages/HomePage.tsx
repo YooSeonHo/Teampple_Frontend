@@ -8,15 +8,19 @@ import SideBar from 'components/layouts/sideBar';
 const HomePage = () => {
   return (
     <HomePageContainer>
-      <HeaderContainer><HomeHeader /></HeaderContainer>
-      <SideBarContainer><SideBar /></SideBarContainer>
+      <HeaderContainer>
+        <HomeHeader />
+      </HeaderContainer>
+      <SideBarContainer>
+        <SideBar />
+      </SideBarContainer>
       <SummaryHomeContainer>
         <SummaryHome />
       </SummaryHomeContainer>
       <TodoContainer />
       <MiniTemplateContainer>
         <MiniTemplate />
-        </MiniTemplateContainer>
+      </MiniTemplateContainer>
     </HomePageContainer>
   );
 };
@@ -24,6 +28,7 @@ const HomePageContainer = styled.div`
   position: relative;
   width: 100vw;
   height: 1602px;
+  overflow: hidden;
 `;
 
 const SideBarContainer = styled.div`
@@ -58,9 +63,9 @@ const SummaryHomeContainer = styled.div`
 
 const MiniTemplateContainer = styled.div`
   position: absolute;
+  width: 1680px;
   left: 240px;
   top: 1042px;
-  background-color: skyblue;
 `;
 
 export default HomePage;

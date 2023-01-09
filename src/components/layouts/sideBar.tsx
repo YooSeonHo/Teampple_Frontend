@@ -178,15 +178,18 @@ const SideBar = () =>{
           </div>
         </Link>
 
-        <div className="box">
-          <div className="iconWrap">
-            <img src={usersThree} id="icon" />
+        <Link to="/teample-home" style={{ textDecoration: 'none' }}>
+          <div className="box">
+            <div className="iconWrap">
+              <img src={usersThree} id="icon" />
+            </div>
+            <div className="boxText">팀플</div>
           </div>
-          <div className="boxText">팀플</div>
-        </div>
+        </Link>
+
         {tnames.map((tname, index) => (
           <div className="box" key={index}>
-                <div className="subBoxText">{tname}</div>
+            <div className="subBoxText">{tname}</div>
           </div>
         ))}
         <div className="newBox" id="newTeample">
