@@ -45,6 +45,10 @@ const SideBarBox = styled.div<{ userid: string }>`
     width: 240px;
     height: 64px;
     position: relative;
+    color: #383838;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   #userName {
@@ -174,10 +178,12 @@ const SideBar = () => {
       <div className="logo">
         <img src={logo} />
       </div>
-      <div className="user">
-        <div id="userImage"></div>
-        <a id="userName">김팀쁠</a>
-      </div>
+      <Link to="/profile" style={{ textDecoration: 'none' }}>
+        <div className="user">
+          <div id="userImage"></div>
+          <a id="userName">김팀쁠</a>
+        </div>
+      </Link>
 
       <Link to="/home" style={{ textDecoration: 'none' }}>
         <div className="box" style={{ marginTop: '12px' }}>
