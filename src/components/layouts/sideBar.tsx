@@ -15,8 +15,9 @@ import prof6 from '../images/profile/prof6.png';
 import prof7 from '../images/profile/prof7.png';
 import prof8 from '../images/profile/prof8.png';
 import prof9 from '../images/profile/prof9.png';
-// import { teamidState } from 'state';
-// import { useRecoilState } from 'recoil';
+import tnames from '../../data/teamList.json';
+import { teamidState } from 'state';
+import { useRecoilState } from 'recoil';
 
 const SideBarBox = styled.div<{ userid: string }>`
   width: 240px;
@@ -162,16 +163,10 @@ const SideBarBox = styled.div<{ userid: string }>`
 
 const SideBar = () => {
   const [userid, setUserid] = useState(prof1);
-  //임의로 생성
-  const tnames = [
-    { tname: '경영 전략', tid: 1 },
-    { tname: '마케팅 원론', tid: 2 },
-    { tname: '팀플 서비스', tid: 3 },
-    { tname: '세오스 기획', tid: 4 },
-    { tname: '세오스 디자인', tid: 5 },
-    { tname: '세오스 개발', tid: 6 },
-  ];
-  // const [teamid, setTeamid] = useRecoilState(teamidState);
+  const [teamid, setTeamid] = useRecoilState(teamidState);
+  const getTeamid = (team: any, e: React.MouseEvent<HTMLElement>) => {
+    setTeamid(team.tid);
+  };
 
   return (
     <SideBarBox userid={userid}>
@@ -202,7 +197,12 @@ const SideBar = () => {
       </div>
 
       {tnames.map((team, index) => (
-        <div key={index}>
+        <div
+          key={index}
+          onClick={(e) => {
+            getTeamid(team, e);
+          }}
+        >
           <Link
             to={`/teample-home/${team.tid}`}
             style={{ textDecoration: 'none', color: '#707070' }}
