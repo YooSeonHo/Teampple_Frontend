@@ -4,6 +4,7 @@ import SummaryHome from 'components/homePage/SummaryHome';
 import MiniTemplate from 'components/homePage/MiniTemplate';
 import HomeHeader from 'components/homePage/HomeHeader';
 import SideBar from 'components/layouts/sideBar';
+import ToDoBox from 'components/toDo/toDoBox';
 
 const HomePage = () => {
   return (
@@ -17,7 +18,7 @@ const HomePage = () => {
       <SummaryHomeContainer>
         <SummaryHome />
       </SummaryHomeContainer>
-      <TodoContainer />
+      <TodoContainer><ToDoBox /></TodoContainer>
       <MiniTemplateContainer>
         <MiniTemplate />
       </MiniTemplateContainer>
@@ -52,7 +53,6 @@ const TodoContainer = styled.div`
   height: 670px;
   left: 240px;
   top: 368px;
-  background-color: violet;
 `;
 
 const SummaryHomeContainer = styled.div`
