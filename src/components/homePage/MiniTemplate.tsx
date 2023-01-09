@@ -30,6 +30,7 @@ const MiniTemplate = () => {
 
 const MiniTemplateContainer = styled.div`
   position: relative;
+  margin-left: 54px;
 `;
 
 const Title = styled.div`
@@ -42,7 +43,6 @@ const Title = styled.div`
 const TemplateBoxContainer = styled.div`
   overflow: auto;
 `;
-
 
 const TemplateBox = styled.div`
   display: flex;
@@ -97,7 +97,5 @@ const Desc1 = styled.div`
 const Desc2 = styled(Desc1)`
   background: #d4e4ff;
 `;
-
-
 
 export default MiniTemplate;

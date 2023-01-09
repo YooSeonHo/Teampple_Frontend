@@ -58,6 +58,7 @@ const SummaryContainer = styled.div`
   width: 1680px;
   height: 296px;
   position: relative;
+  background: #f9fafd;
 `;
 
 const DateContainer = styled.div`
