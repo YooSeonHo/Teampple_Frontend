@@ -31,6 +31,7 @@ const MiniTemplate = () => {
 const MiniTemplateContainer = styled.div`
   position: relative;
   margin-left: 54px;
+  width: 1680px;
 `;
 
 const Title = styled.div`

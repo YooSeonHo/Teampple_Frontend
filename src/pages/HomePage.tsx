@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import SummaryHome from 'components/homePage/SummaryHome';
 import MiniTemplate from 'components/homePage/MiniTemplate';
+import HomeHeader from 'components/homePage/HomeHeader';
 
 const HomePage = () => {
   return (
     <HomePageContainer>
-      <HeaderContainer />
+      <HeaderContainer><HomeHeader /></HeaderContainer>
       <SideBarContainer />
       <SummaryHomeContainer>
         <SummaryHome />
@@ -39,7 +40,6 @@ const HeaderContainer = styled.div`
   height: 72px;
   left: 240px;
   top: 0px;
-  background-color: lemonchiffon;
 `;
 const TodoContainer = styled.div`
   position: absolute;
@@ -52,16 +52,12 @@ const TodoContainer = styled.div`
 
 const SummaryHomeContainer = styled.div`
   position: absolute;
-  width: 1680px;
-  height: 296px;
   left: 240px;
   top: 72px;
 `;
 
 const MiniTemplateContainer = styled.div`
   position: absolute;
-  width: 1680px;
-  height: 330px;
   left: 240px;
   top: 1042px;
   background-color: skyblue;
