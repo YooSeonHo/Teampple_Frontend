@@ -13,8 +13,8 @@ const HeaderBox = styled.div`
   font-size: 24px;
   line-height: 72px;
   white-space: nowrap;
-  overflow: hidden;
   position: relative;
+  z-index: 998;
 
   #main {
     margin-left: 54px;
@@ -122,8 +122,6 @@ const HeaderBox = styled.div`
 const ModalContainer = styled.div`
   position: fixed;
   margin: 0 auto;
-  /* left: 0;
-  right: 0; */
 `;
 
 const TeampleHeader = () => {

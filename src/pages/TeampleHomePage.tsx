@@ -5,8 +5,12 @@ import FileInfo from 'components/teampleHomePage/FileInfo';
 import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/layout';
+import SideBar from 'components/layouts/sideBar';
+import TeampleHeader from 'components/layouts/teampleHeader';
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+`;
 
 const ContentBox = styled.div`
   display: flex;
@@ -18,13 +22,11 @@ const MainContentBox = styled.div`
 
 const AllBox = styled.div`
   display: flex;
-  position: relative;
-  z-index: -1;
 `;
 
 const TeampleHomePage = () => {
   return (
-    <>
+    <Container>
       <Layout>
         <AllBox>
           <div>
@@ -42,7 +44,7 @@ const TeampleHomePage = () => {
           <PlanManager />
         </AllBox>
       </Layout>
-    </>
+    </Container>
   );
 };
 

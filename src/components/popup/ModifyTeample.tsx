@@ -91,7 +91,6 @@ const Background = styled.div`
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 999;
 `;
 
 const ModifyTeampleContainer = styled.div`
