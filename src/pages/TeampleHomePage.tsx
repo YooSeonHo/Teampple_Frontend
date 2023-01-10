@@ -5,7 +5,7 @@ import FileInfo from 'components/teampleHomePage/FileInfo';
 import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/layout';
-
+import { Link } from 'react-router-dom';
 
 
 const ContentBox = styled.div`
@@ -21,17 +21,29 @@ const MainContentBox = styled.div`
 
 const AllBox = styled.div`
   display : flex;
+
+  .text{
+    margin-top : 48px;
+    color: #383838;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin-left : 54px;
 `;
 
 const TeampleHomePage = () => {
   return (
     <>
       <Layout>
+
+
         <AllBox>
           <div>
           <ContentBox>
             <SummaryTeample />
-            <FileInfo/>
+            <Link to='/file' >
+              <FileInfo/>
+            </Link>
           </ContentBox>
 
           <div className='text'>할 일</div>
@@ -45,6 +57,14 @@ const TeampleHomePage = () => {
 
       </Layout>
 
+
+      {/* <AddSchedule /> */}
+      {/* <ModifyTeample /> */}
+      {/* <AddTask /> */}
+      {/* <TeamMateInfo /> */}
+      {/* <ModifyStep /> */}
+      {/* <AddTeample1 /> */}
+      {/* <AddTeample2 /> */}
     </>
   );
 };

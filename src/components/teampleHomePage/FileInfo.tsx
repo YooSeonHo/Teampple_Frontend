@@ -44,7 +44,10 @@ const Title = styled.div`
   position: absolute;
   top: 24px;
   left: 24px;
+
 `;
+
+
 
 const FileNum = styled.div`
   position: absolute;

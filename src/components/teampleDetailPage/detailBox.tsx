@@ -502,3 +502,6 @@ const DetailBox = () =>{
 }
 
 export default DetailBox;
+
+
+//피드백 부분 스크롤 필요하면 추가하기~

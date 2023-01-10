@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
+import fileIcon from '../images/Group 771.png';
+import headerImg from '../images/Group 773.png';
 
 const FileHeader = () => {
   return (
@@ -17,13 +19,18 @@ const FileHeader = () => {
   );
 };
 
+
 const FileHeaderContainer = styled.div`
-  /* width: 1680px; */
-  width: 100vw;
+  width: 1680px;
+  // width: 100vw;
   height: 200px;
-  background: #fffce3;
+  // background: #fffce3;
   position: relative;
+  background-image : url('${headerImg}');
+  background-size : 100% 100%;
 `;
+
+
 
 const TextContainer = styled.div`
   position: absolute;
@@ -48,7 +55,7 @@ const Desc = styled.div`
 const InputContainer = styled.div`
   position: absolute;
   top: 124px;
-  left: 1054px;
+  left: 1154px;
   width: 272px;
   height: 40px;
   background: #ffffff;
