@@ -18,7 +18,9 @@ const HomePage = () => {
       <SummaryHomeContainer>
         <SummaryHome />
       </SummaryHomeContainer>
-      <TodoContainer><ToDoBox /></TodoContainer>
+      <TodoContainer>
+        <ToDoBox />
+      </TodoContainer>
       <MiniTemplateContainer>
         <MiniTemplate />
       </MiniTemplateContainer>

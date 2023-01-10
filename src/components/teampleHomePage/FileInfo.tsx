@@ -28,7 +28,7 @@ const FileInfo = () => {
 };
 
 const FileInfoContainer = styled.div`
-  margin-top : 82px;
+  margin-top: 82px;
 `;
 
 const FileInfoBox = styled.div`

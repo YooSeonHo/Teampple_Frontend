@@ -18,6 +18,8 @@ const MainContentBox = styled.div`
 
 const AllBox = styled.div`
   display: flex;
+  position: relative;
+  z-index: -1;
 `;
 
 const TeampleHomePage = () => {
