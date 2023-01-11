@@ -4,7 +4,7 @@ import SummaryHome from 'components/homePage/SummaryHome';
 import MiniTemplate from 'components/homePage/MiniTemplate';
 import HomeHeader from 'components/homePage/HomeHeader';
 import SideBar from 'components/layouts/sideBar';
-import ToDoBox from 'components/toDo/toDoBox';
+import HomeToDo from 'components/homePage/HomeToDo';
 
 const HomePage = () => {
   return (
@@ -19,7 +19,7 @@ const HomePage = () => {
         <SummaryHome />
       </SummaryHomeContainer>
       <TodoContainer>
-        <ToDoBox />
+        <HomeToDo />
       </TodoContainer>
       <MiniTemplateContainer>
         <MiniTemplate />
@@ -29,7 +29,7 @@ const HomePage = () => {
 };
 const HomePageContainer = styled.div`
   position: relative;
-  width: 100vw;
+  width: 1920px;
   height: 1602px;
   overflow: hidden;
 `;
