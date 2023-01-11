@@ -14,3 +14,8 @@ export const teamMateNumState = atom<number>({
   key: 'teamMateNum',
   default: 0,
 })
+
+export const feedbackState = atom<boolean>({
+  key : 'isOpen',
+  default : false
+})

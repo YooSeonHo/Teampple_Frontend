@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const FileInfo = () => {
   const [fileNum, setFileNum] = useState(5);
@@ -8,21 +9,23 @@ const FileInfo = () => {
 
   return (
     <FileInfoContainer>
-      <FileInfoBox>
-        <Title>공유 파일함</Title>
-        <FileNum>
-          <span style={{ fontSize: '24px' }}>{fileNum}</span>
-          <span style={{ color: '#707070' }}>&nbsp;파일</span>
-        </FileNum>
-        <FileSize>{nowFileSize}GB/8GB</FileSize>
-        <BarContainer>
-          <ul>
-            <li>
-              <Bar className="file-progressbar" remainPercent={remainPercent} />
-            </li>
-          </ul>
-        </BarContainer>
-      </FileInfoBox>
+      <Link style={{ textDecoration: 'none', color: 'black' }} to='/file' >
+        <FileInfoBox>
+          <Title>공유 파일함</Title>
+          <FileNum>
+            <span style={{ fontSize: '24px' }}>{fileNum}</span>
+            <span style={{ color: '#707070' }}>&nbsp;파일</span>
+          </FileNum>
+          <FileSize>{nowFileSize}GB/8GB</FileSize>
+          <BarContainer>
+            <ul>
+              <li>
+                <Bar className="file-progressbar" remainPercent={remainPercent} />
+              </li>
+            </ul>
+          </BarContainer>
+        </FileInfoBox>
+      </Link>
     </FileInfoContainer>
   );
 };

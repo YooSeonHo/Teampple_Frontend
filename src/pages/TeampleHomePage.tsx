@@ -37,9 +37,7 @@ const TeampleHomePage = () => {
           <div>
           <ContentBox>
             <SummaryTeample />
-            <Link style={{ textDecoration: 'none', color: 'black' }} to='/file' >
               <FileInfo/>
-            </Link>
           </ContentBox>
 
             <div className="text">할 일</div>
