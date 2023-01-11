@@ -2,6 +2,14 @@ export interface IName {
   name: string;
 }
 
+
+export interface ITeamMate {
+  name: string;
+  major: string;
+  schoolName: string;
+  index?: number;
+}
+
 export interface FileInfo {
   fileName : string
   route : string 
@@ -10,3 +18,4 @@ export interface FileInfo {
   uploader : string
   url : string
 }
+
