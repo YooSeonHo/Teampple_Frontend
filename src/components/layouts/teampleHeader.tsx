@@ -17,7 +17,6 @@ white-space: nowrap;
 overflow: hidden;
 
 
-
 #main{
     margin-left: 54px;
     width: 250px;

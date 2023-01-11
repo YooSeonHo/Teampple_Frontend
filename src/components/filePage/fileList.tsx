@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import arrow from '../images/ArrowLineRight2.png';
+import axios from "axios";
+import { FileInfo } from "interfaces";
 
 const ListBox = styled.div`
 
@@ -44,18 +46,19 @@ const ListBox = styled.div`
 .fileList{
     display: flex;
     flex-direction: column;
-}
+}`;
 
-.file{
+
+const File = styled.div`
+
     display: flex;
     width: 1172px;
     height: 72px;
-}
 
-.file:hover{
+    :hover{
     background-color: #EAF2FF;
     cursor: grab;
-}
+    }
 
 .name{
     width: 376px;
@@ -122,7 +125,34 @@ img{
 }
 `;
 
+
 const FileList = () =>{
+    const [files,setFiles] = useState([]);
+
+    
+    useEffect(()=>{
+
+        const getFiles = async () =>{
+            await axios({
+                url : `/api/files`,
+                baseURL : "https://www.teampple.site/",
+                method : 'get',
+                params: {
+                    teamId: 1
+                }
+                //파람스 부분 바꾸면 댐
+            })
+            .then((res)=>{
+                setFiles(res.data.data);
+            })
+            .catch((e)=>{
+                console.log(e)
+            })
+        }
+
+        getFiles()
+    },[])
+
     return(
         <ListBox>
             <div className="fileHeader">
@@ -133,56 +163,29 @@ const FileList = () =>{
                 <div className="fileDate">날짜</div>
             </div>
             <div className="fileList">
-                <div className="file">
+                <File>
                     <div className="name">협업툴 시장 조사.docs</div>
                     <div className="loc">협업툴 시장조사...</div>
                     <div className="owner">안수빈</div>
                     <div className="size">85.0KB</div>
                     <div className="date">2022.11.24 20:34</div>
+                    {/* <div className="date">2022.11.24 20:34</div> */}
                     <div className="icon">
                         <img src={arrow}/>
                     </div>
-                </div>
-                <div className="file">
-                    <div className="name">협업툴 시장 조사.docs</div>
-                    <div className="loc">협업툴 시장조사...</div>
-                    <div className="owner">안수빈</div>
-                    <div className="size">85.0KB</div>
-                    <div className="date">2022.11.24 20:34</div>
-                    <div className="icon">
-                        <img src={arrow}/>
-                    </div>
-                </div>
-                <div className="file">
-                    <div className="name">협업툴 시장 조사.docs</div>
-                    <div className="loc">협업툴 시장조사...</div>
-                    <div className="owner">안수빈</div>
-                    <div className="size">85.0KB</div>
-                    <div className="date">2022.11.24 20:34</div>
-                    <div className="icon">
-                        <img src={arrow}/>
-                    </div>
-                </div>
-                <div className="file">
-                    <div className="name">협업툴 시장 조사.docs</div>
-                    <div className="loc">협업툴 시장조사...</div>
-                    <div className="owner">안수빈</div>
-                    <div className="size">85.0KB</div>
-                    <div className="date">2022.11.24 20:34</div>
-                    <div className="icon">
-                        <img src={arrow}/>
-                    </div>
-                </div>
-                <div className="file">
-                    <div className="name">협업툴 시장 조사.docs</div>
-                    <div className="loc">협업툴 시장조사...</div>
-                    <div className="owner">안수빈</div>
-                    <div className="size">85.0KB</div>
-                    <div className="date">2022.11.24 20:34</div>
-                    <div className="icon">
-                        <img src={arrow}/>
-                    </div>
-                </div>
+                </File>
+            {files && files.map((file : FileInfo)=>(
+                    file && <File key={file.fileName}>
+                        <div className="name">{file.fileName}</div>
+                        <div className="loc">{file.url}</div>
+                        <div className="owner">{file.uploader}</div>
+                        <div className="size">{file.size}</div>
+                        <div className="date">{file.updatedAt.replace(/-/g,".").replace("T", " ").replace(/:[0-9]+$/,"")}</div>
+                        <div className="icon">
+                            <img src={arrow}/>
+                        </div>
+                    </File>
+                ))}
             </div>
         </ListBox>
     );
