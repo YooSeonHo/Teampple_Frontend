@@ -5,6 +5,7 @@ import MiniTemplate from 'components/homePage/MiniTemplate';
 import HomeHeader from 'components/homePage/HomeHeader';
 import SideBar from 'components/layouts/sideBar';
 import HomeToDo from 'components/homePage/HomeToDo';
+import ToDoBox from 'components/toDo/toDoBox';
 
 const HomePage = () => {
   return (
@@ -19,7 +20,8 @@ const HomePage = () => {
         <SummaryHome />
       </SummaryHomeContainer>
       <TodoContainer>
-        <HomeToDo />
+      <div className="text">할 일</div>
+        <ToDoBox />
       </TodoContainer>
       <MiniTemplateContainer>
         <MiniTemplate />
@@ -55,6 +57,14 @@ const TodoContainer = styled.div`
   height: 670px;
   left: 240px;
   top: 368px;
+
+  .text{
+    margin-top : 48px;
+    color: #383838;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin-left : 54px;
 `;
 
 const SummaryHomeContainer = styled.div`

@@ -19,3 +19,9 @@ export interface FileInfo {
   url : string
 }
 
+<<<<<<< HEAD
+export interface StyledToDoInfo {
+  pathname : string
+}
+=======
+>>>>>>> 2c7992e2cfc805744af07d9697786e4b66f2945a
