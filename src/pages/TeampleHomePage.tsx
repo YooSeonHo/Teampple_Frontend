@@ -9,15 +9,12 @@ import { Link } from 'react-router-dom';
 
 
 const ContentBox = styled.div`
-  display : flex;
-
+  display: flex;
 `;
 
 const MainContentBox = styled.div`
-  display : flex;
-
+  display: flex;
 `;
-
 
 const AllBox = styled.div`
   display : flex;
@@ -33,7 +30,6 @@ const AllBox = styled.div`
 
 const TeampleHomePage = () => {
   return (
-    <>
       <Layout>
 
 
@@ -46,26 +42,15 @@ const TeampleHomePage = () => {
             </Link>
           </ContentBox>
 
-          <div className='text'>할 일</div>
+            <div className="text">할 일</div>
 
-          <MainContentBox>
-            <ToDoBox/>
-          </MainContentBox>
+            <MainContentBox>
+              <ToDoBox />
+            </MainContentBox>
           </div>
-        <PlanManager/>
+          <PlanManager />
         </AllBox>
-
       </Layout>
-
-
-      {/* <AddSchedule /> */}
-      {/* <ModifyTeample /> */}
-      {/* <AddTask /> */}
-      {/* <TeamMateInfo /> */}
-      {/* <ModifyStep /> */}
-      {/* <AddTeample1 /> */}
-      {/* <AddTeample2 /> */}
-    </>
   );
 };
 

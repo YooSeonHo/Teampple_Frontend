@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const FileInfo = () => {
   const [fileNum, setFileNum] = useState(5);
   const [nowFileSize, setNowFileSize] = useState(2);
+  const [remainPercent, setRemainPercent] = useState(nowFileSize/8*100);
 
   return (
     <FileInfoContainer>
@@ -17,7 +18,7 @@ const FileInfo = () => {
         <BarContainer>
           <ul>
             <li>
-              <Bar className="file-progressbar" />
+              <Bar className="file-progressbar" remainPercent={remainPercent} />
             </li>
           </ul>
         </BarContainer>
@@ -27,7 +28,7 @@ const FileInfo = () => {
 };
 
 const FileInfoContainer = styled.div`
-  margin-top : 82px;
+  margin-top: 82px;
 `;
 
 const FileInfoBox = styled.div`
@@ -81,12 +82,12 @@ const BarContainer = styled.div`
   }
 `;
 
-const Bar = styled.span`
+const Bar = styled.span<{ remainPercent: number }>`
   position: absolute;
   border-radius: 46px;
   background-color: #fce44c;
   height: 16px;
-  width: 25%;
+  width: ${(props) => props.remainPercent}%;
   -webkit-animation: file-progressbar 2s ease-out;
   animation: file-progressbar 2s ease-out;
 
@@ -96,7 +97,7 @@ const Bar = styled.span`
     }
 
     100% {
-      width: 25%;
+      width: ${(props) => props.remainPercent}%;
     }
   }
 `;

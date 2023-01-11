@@ -12,7 +12,7 @@ import { ko } from 'date-fns/esm/locale';
 // 언어 한글 설정
 // npm install @types/react-datepicker --save-dev
 
-const ModifyTeample = () => {
+const ModifyTeample = ({ setModal }: any) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
@@ -25,58 +25,73 @@ const ModifyTeample = () => {
     setAim(e.target.value);
   };
 
+  const closeModal = () => {
+    setModal(false);
+  };
+
   return (
-    <ModifyTeampleContainer>
-      <CloseBtn />
-      <Title>팀플 수정</Title>
-      <InputContainer>
-        <NameContainer>
-          <Tag1>이름</Tag1>
-          <Input1 value={name} onChange={onChangeName} maxLength={12} />
-          <TextLength1>
-            ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
-          </TextLength1>
-        </NameContainer>
-        <AimContainer>
-          <Tag2>목표</Tag2>
-          <Input2 value={aim} onChange={onChangeAim} maxLength={12} />
-          <TextLength2>
-            ({aim.replace(/<br\s*\/?>/gm, '\n').length}/12)
-          </TextLength2>
-        </AimContainer>
-        <DateContainer>
-          <Tag3>일정</Tag3>
-          <DateBox1>
-            <StyledDatePicker
-              locale={ko} //한글
-              dateFormat="yyyy.MM.dd"
-              selected={startDate}
-              closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-              onChange={(date: Date) => setStartDate(date)}
-            />
-            <IoCalendarNumberOutline
-              style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
-            />
-          </DateBox1>
-          <Dash />
-          <DateBox2>
-            <StyledDatePicker
-              locale={ko} //한글
-              dateFormat="yyyy.MM.dd"
-              selected={endDate}
-              closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-              onChange={(date: Date) => setEndDate(date)}
-            />
-            <IoCalendarNumberOutline
-              style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
-            />
-          </DateBox2>
-        </DateContainer>
-      </InputContainer>
-      <SaveButton>저장</SaveButton>
-    </ModifyTeampleContainer>
+    <Background>
+      <ModifyTeampleContainer>
+        <CloseBtn onClick={closeModal} />
+        <Title>팀플 수정</Title>
+        <InputContainer>
+          <NameContainer>
+            <Tag1>이름</Tag1>
+            <Input1 value={name} onChange={onChangeName} maxLength={12} />
+            <TextLength1>
+              ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
+            </TextLength1>
+          </NameContainer>
+          <AimContainer>
+            <Tag2>목표</Tag2>
+            <Input2 value={aim} onChange={onChangeAim} maxLength={12} />
+            <TextLength2>
+              ({aim.replace(/<br\s*\/?>/gm, '\n').length}/12)
+            </TextLength2>
+          </AimContainer>
+          <DateContainer>
+            <Tag3>일정</Tag3>
+            <DateBox1>
+              <StyledDatePicker
+                locale={ko} //한글
+                dateFormat="yyyy.MM.dd"
+                selected={startDate}
+                closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+                onChange={(date: Date) => setStartDate(date)}
+              />
+              <IoCalendarNumberOutline
+                style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+              />
+            </DateBox1>
+            <Dash />
+            <DateBox2>
+              <StyledDatePicker
+                locale={ko} //한글
+                dateFormat="yyyy.MM.dd"
+                selected={endDate}
+                closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+                onChange={(date: Date) => setEndDate(date)}
+              />
+              <IoCalendarNumberOutline
+                style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+              />
+            </DateBox2>
+          </DateContainer>
+        </InputContainer>
+        <SaveButton>저장</SaveButton>
+      </ModifyTeampleContainer>
+    </Background>
   );
 };
+
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+`;
 
 const ModifyTeampleContainer = styled.div`
   width: 640px;
@@ -84,6 +99,10 @@ const ModifyTeampleContainer = styled.div`
   background: #ffffff;
   border-radius: 16px;
   position: relative;
+  z-index: 999;
+  position: fixed;
+  top: 220px;
+  left: 640px;
 `;
 
 const CloseBtn = styled(GrClose)`

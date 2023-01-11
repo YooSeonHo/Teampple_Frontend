@@ -12,7 +12,7 @@ const SummaryTeample = () => {
 
   const [doneNum, setDoneNum] = useState(3);
   const [allNum, setAllNum] = useState(11);
-  const [currentPercent, setCurrentPercent] = useState(21);
+  const [currentPercent, setCurrentPercent] = useState(26);
 
   return (
     <SummaryContainer>
@@ -42,7 +42,7 @@ const SummaryTeample = () => {
       <BarContainer>
         <ul>
           <li>
-            <Bar className="css-progressbar" />
+            <Bar className="css-progressbar" currentPercent={currentPercent} />
           </li>
         </ul>
       </BarContainer>
@@ -112,12 +112,12 @@ const BarContainer = styled.div`
   }
 `;
 
-const Bar = styled.span`
+const Bar = styled.span<{ currentPercent: number }>`
   position: absolute;
   border-radius: 46px;
   background-color: #487aff;
   height: 16px;
-  width: 80%;
+  width: ${(props) => props.currentPercent}%;
   -webkit-animation: css-progressbar 2s ease-out;
   animation: css-progressbar 2s ease-out;
 
@@ -142,7 +142,7 @@ const Bar = styled.span`
     }
 
     100% {
-      width: 80%;
+      width: ${(props) => props.currentPercent}%;
     }
   }
 `;

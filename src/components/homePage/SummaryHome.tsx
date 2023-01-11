@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import profile1 from '../images/profile1.png';
+import prof1 from '../images/profile/prof1.png';
+import prof2 from '../images/profile/prof2.png';
+import prof3 from '../images/profile/prof3.png';
+import prof4 from '../images/profile/prof4.png';
+import prof5 from '../images/profile/prof5.png';
+import prof6 from '../images/profile/prof6.png';
+import prof7 from '../images/profile/prof7.png';
+import prof8 from '../images/profile/prof8.png';
+import prof9 from '../images/profile/prof9.png';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -13,6 +21,7 @@ const SummaryHome = () => {
   const [username, setUsername] = useState('김팀쁠');
   const [remainNum, setRemainNum] = useState(7);
   const [remainPercent, setRemainPercent] = useState(30);
+  const [userid, setUserid] = useState(prof1);
 
   return (
     <SummaryContainer>
@@ -46,7 +55,11 @@ const SummaryHome = () => {
       <BarContainer>
         <ul>
           <li>
-            <Bar className="css-progressbar" />
+            <Bar
+              className="css-progressbar"
+              remainPercent={remainPercent}
+              userid={userid}
+            />
           </li>
         </ul>
       </BarContainer>
@@ -58,6 +71,7 @@ const SummaryContainer = styled.div`
   width: 1680px;
   height: 296px;
   position: relative;
+  background: #f9fafd;
 `;
 
 const DateContainer = styled.div`
@@ -115,12 +129,17 @@ const BarContainer = styled.div`
   }
 `;
 
-const Bar = styled.span`
+interface IBar {
+  remainPercent: number;
+  userid: string;
+}
+
+const Bar = styled.span<IBar>`
   position: absolute;
   border-radius: 46px;
   background-color: #487aff;
   height: 16px;
-  width: 80%;
+  width: ${(props) => props.remainPercent}%;
   -webkit-animation: css-progressbar 2s ease-out;
   animation: css-progressbar 2s ease-out;
 
@@ -135,7 +154,8 @@ const Bar = styled.span`
     right: -10px;
     border: 1.5px solid #487aff;
     border-radius: 54px;
-    background-image: url(${profile1}); //사용자별 프로필 이미지 들어갈 예정
+    /* background-image: ${(props) => `url(${props.userid})`}; */
+    background-image: url(${(props) => props.userid});
     background-size: cover;
   }
 
@@ -145,7 +165,7 @@ const Bar = styled.span`
     }
 
     100% {
-      width: 80%;
+      width: ${(props) => props.remainPercent}%;
     }
   }
 `;

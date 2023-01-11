@@ -12,48 +12,62 @@ import { ko } from 'date-fns/esm/locale';
 // 언어 한글 설정
 // npm install @types/react-datepicker --save-dev
 
-const AddSchedule = () => {
+const AddSchedule = ({ setModal }: any) => {
   const today = new window.Date();
   const [pickedDate, setPickedDate] = useState<Date>(today);
   const [value, setValue] = useState('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+  const closeModal = () => {
+    setModal(false);
+  };
 
   return (
-    <AddScheduleContainer>
-      <CloseBtn />
-      <Title>일정 추가</Title>
-      <InputContainer>
-        <NameContainer>
-          <Tag1>이름</Tag1>
-          <Input value={value} onChange={onChange} maxLength={12} />
-          <TextLength>
-            ({value.replace(/<br\s*\/?>/gm, '\n').length}/12)
-          </TextLength>
-        </NameContainer>
-        <DateContainer>
-          <Tag2>일정</Tag2>
-          <DateBox>
-            <StyledDatePicker
-              locale={ko} //한글
-              dateFormat="yyyy.MM.dd"
-              selected={pickedDate}
-              closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-              onChange={(date: Date) => setPickedDate(date)}
-            />
-            <IoCalendarNumberOutline
-              style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
-            />
-          </DateBox>
-          <Time placeholder="18 : 00" maxLength={7} />
-          <Clock />
-        </DateContainer>
-      </InputContainer>
-      <SaveButton>저장</SaveButton>
-    </AddScheduleContainer>
+    <Background>
+      <AddScheduleContainer>
+        <CloseBtn onClick={closeModal} />
+        <Title>일정 추가</Title>
+        <InputContainer>
+          <NameContainer>
+            <Tag1>이름</Tag1>
+            <Input value={value} onChange={onChange} maxLength={12} />
+            <TextLength>
+              ({value.replace(/<br\s*\/?>/gm, '\n').length}/12)
+            </TextLength>
+          </NameContainer>
+          <DateContainer>
+            <Tag2>일정</Tag2>
+            <DateBox>
+              <StyledDatePicker
+                locale={ko} //한글
+                dateFormat="yyyy.MM.dd"
+                selected={pickedDate}
+                closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+                onChange={(date: Date) => setPickedDate(date)}
+              />
+              <IoCalendarNumberOutline
+                style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+              />
+            </DateBox>
+            <Time placeholder="18 : 00" maxLength={7} />
+            <Clock />
+          </DateContainer>
+        </InputContainer>
+        <SaveButton>저장</SaveButton>
+      </AddScheduleContainer>
+    </Background>
   );
 };
+
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+`;
 
 const AddScheduleContainer = styled.div`
   width: 640px;
@@ -61,6 +75,10 @@ const AddScheduleContainer = styled.div`
   background: #ffffff;
   border-radius: 16px;
   position: relative;
+  z-index: 999;
+  position: fixed;
+  top: 220px;
+  left: 640px;
 `;
 
 const CloseBtn = styled(GrClose)`
