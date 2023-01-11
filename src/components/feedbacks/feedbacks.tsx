@@ -11,6 +11,7 @@ width: 372px;
 height: 471px;
 display: flex;
 flex-direction: column;
+margin-top : 72px;
 
 .feedText{
     font-weight: 500;
@@ -30,13 +31,10 @@ flex-direction: column;
 }
 
 
-
 img{
     max-width: 100%;
     max-height: 100%;
 }
-
-
 `;
 
 const Feed = styled.div`
@@ -83,7 +81,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -91,7 +89,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -99,7 +97,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -107,7 +105,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -115,7 +113,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -123,7 +121,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -131,7 +129,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -139,7 +137,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -147,7 +145,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -155,7 +153,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -163,7 +161,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -171,7 +169,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -179,7 +177,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -187,7 +185,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -195,7 +193,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
             <Feed>
@@ -203,7 +201,7 @@ const Feedbacks = () => {
                     <img src={profile1}/>
                 </div>
                 <div className="feedContent">
-                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 방갑습니다 방가방가
+                    [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
                 </div>
             </Feed>
         </div>

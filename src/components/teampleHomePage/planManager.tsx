@@ -101,10 +101,6 @@ const ManagerBox = styled.div`
     color: #a7a7a7;
   }
 
-  .fixedSize {
-    margin-top: 14px;
-  }
-
   .addSch {
     width: 284px;
     height: 56px;
@@ -169,11 +165,9 @@ const PlanManager = () => {
           </div>
         </div>
       </div>
-      <div className="fixedSize" onClick={showModal}>
-        <div className="addSch">
+        <div className="addSch" onClick={showModal}>
           <div className="addText">+ 일정 추가하기</div>
         </div>
-      </div>
       <ModalContainer>
         {modal && <AddSchedule setModal={setModal} />}
       </ModalContainer>
