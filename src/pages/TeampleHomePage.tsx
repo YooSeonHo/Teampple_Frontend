@@ -37,7 +37,7 @@ const TeampleHomePage = () => {
           <div>
           <ContentBox>
             <SummaryTeample />
-            <Link to='/file' >
+            <Link style={{ textDecoration: 'none', color: 'black' }} to='/file' >
               <FileInfo/>
             </Link>
           </ContentBox>

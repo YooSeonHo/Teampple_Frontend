@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import prof from '../images/template1.png';
 import { FiLink2 } from 'react-icons/fi';
+import axios from 'axios';
+import { ITeamMate } from '../../interfaces';
+import { useRecoilState } from 'recoil';
+import { teamMateNumState } from 'state';
 
 const TeamMateInfo = () => {
+  const [teamMates, setTeamMates] = useState([]);
+  const [,setTeamMatesNum] = useRecoilState(teamMateNumState);
+  const getTeamMateAPI = async () => {
+    await axios({
+      url: `/api/teams/teammates`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      params: { teamId: 1 },
+    })
+      .then((response) => {
+        console.log(response.data.data.teammates);
+        setTeamMates(response.data.data.teammates);
+        setTeamMatesNum(response.data.data.teammates.length);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getTeamMateAPI();
+  }, []);
+
   return (
     <TeamMateInfoContainer>
       <Title>팀메이트 정보</Title>
@@ -18,13 +45,18 @@ const TeamMateInfo = () => {
           <Me>(나)</Me>
         </TeamMate>
         {/* 다른 사람 */}
-        <TeamMate>
-          <Profile />
-          <TextInfo>
-            <Name>정팀쁠</Name>
-            <School>홍익대학교 시각디자인과</School>
-          </TextInfo>
-        </TeamMate>
+        {teamMates &&
+          teamMates.map((teamMate: ITeamMate) => (
+            <TeamMate key={teamMate.name}>
+              <Profile />
+              <TextInfo>
+                <Name>{teamMate.name}</Name>
+                <School>
+                  {teamMate.schoolName} {teamMate.major}
+                </School>
+              </TextInfo>
+            </TeamMate>
+          ))}
       </TeamMateBox>
       <LinkBtn>
         <FiLink2 style={{ marginRight: '8px', fontSize: '16px' }} />

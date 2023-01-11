@@ -4,6 +4,7 @@ import SummaryHome from 'components/homePage/SummaryHome';
 import MiniTemplate from 'components/homePage/MiniTemplate';
 import HomeHeader from 'components/homePage/HomeHeader';
 import SideBar from 'components/layouts/sideBar';
+import HomeToDo from 'components/homePage/HomeToDo';
 import ToDoBox from 'components/toDo/toDoBox';
 
 const HomePage = () => {
@@ -30,7 +31,7 @@ const HomePage = () => {
 };
 const HomePageContainer = styled.div`
   position: relative;
-  width: 100vw;
+  width: 1920px;
   height: 1602px;
   overflow: hidden;
 `;

@@ -9,3 +9,8 @@ export const teamidState = atom<number>({
   key: 'teamid',
   default: 1,
 });
+
+export const teamMateNumState = atom<number>({
+  key: 'teamMateNum',
+  default: 0,
+})

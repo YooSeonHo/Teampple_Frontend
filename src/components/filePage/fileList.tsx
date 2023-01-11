@@ -175,7 +175,7 @@ const FileList = () =>{
                     </div>
                 </File>
             {files && files.map((file : FileInfo)=>(
-                    file && <File key={file.fileName}>
+                    file && <File key={file.updatedAt}>
                         <div className="name">{file.fileName}</div>
                         <div className="loc">{file.url}</div>
                         <div className="owner">{file.uploader}</div>
