@@ -12,7 +12,7 @@ import { ko } from 'date-fns/esm/locale';
 // 언어 한글 설정
 // npm install @types/react-datepicker --save-dev
 
-const ModifyTeample = ({ setModal }: any) => {
+const ModifyTeample = ({ setModal1 }: any) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
@@ -26,7 +26,7 @@ const ModifyTeample = ({ setModal }: any) => {
   };
 
   const closeModal = () => {
-    setModal(false);
+    setModal1(false);
   };
 
   return (

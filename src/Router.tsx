@@ -12,7 +12,6 @@ import FilePage from 'pages/FilePage';
 import NotFoundPage from 'pages/NotFoundPage';
 import AddTeample1 from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
-import TeamMateInfo from 'components/popup/TeamMateInfo';
 
 const Router = () => {
   return (
@@ -33,7 +32,6 @@ const Router = () => {
         <Route path="/teample-home/add-teample1" element={<AddTeample1 />} />
         <Route path="/teample-home/add-teample2" element={<AddTeample2 />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/teammate" element={<TeamMateInfo />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,9 +4,12 @@ import prof from '../images/template1.png';
 import { FiLink2 } from 'react-icons/fi';
 import axios from 'axios';
 import { ITeamMate } from '../../interfaces';
+import { useRecoilState } from 'recoil';
+import { teamMateNumState } from 'state';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
+  const [,setTeamMatesNum] = useRecoilState(teamMateNumState);
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
@@ -17,6 +20,7 @@ const TeamMateInfo = () => {
       .then((response) => {
         console.log(response.data.data.teammates);
         setTeamMates(response.data.data.teammates);
+        setTeamMatesNum(response.data.data.teammates.length);
       })
       .catch(function (error) {
         console.log(error);

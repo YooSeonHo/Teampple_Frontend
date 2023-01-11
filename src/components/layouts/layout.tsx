@@ -17,7 +17,6 @@ const Layout = ({children} : {children : any}) =>{
     return(
         <LayoutBox>
             <SideBar/>
-
             <Container>
             <TeampleHeader/>
             {children}

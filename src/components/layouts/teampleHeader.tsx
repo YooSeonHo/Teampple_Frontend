@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import feedback from '../images/feedback.png';
 import group from '../images/Group 697.png';
 import ModifyTeample from 'components/popup/ModifyTeample';
+import TeamMateInfo from 'components/popup/TeamMateInfo';
+import { useRecoilState } from 'recoil';
+import { teamMateNumState } from 'state';
 
 const HeaderBox = styled.div`
   width: 1680px;
@@ -88,13 +91,16 @@ const HeaderBox = styled.div`
     /* 만약 팀장이어서 팀플 수정 버튼 있으면 마진 61  없으면 193*/
     width: 72px;
     height: 40px;
-    margin-top: auto;
+    margin-top: 16px;
     margin-bottom: auto;
     background-image: url(${group});
     background-size: 72px 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover{
+      cursor: pointer;
+    }
   }
 
   #teamNum {
@@ -119,15 +125,28 @@ const HeaderBox = styled.div`
   }
 `;
 
-const ModalContainer = styled.div`
+const ModalContainer1 = styled.div`
   position: fixed;
   margin: 0 auto;
 `;
 
+const ModalContainer2 = styled.div`
+  position: absolute;
+  top: 67px;
+  right: 360px;
+`;
+
 const TeampleHeader = () => {
-  const [modal, setModal] = useState(false);
-  const showModal = () => {
-    setModal(!modal);
+  const [teamMatesNum,] = useRecoilState(teamMateNumState);
+
+
+  const [modal1, setModal1] = useState(false);
+  const showModal1 = () => {
+    setModal1(!modal1);
+  };
+  const [modal2, setModal2] = useState(false);
+  const showModal2 = () => {
+    setModal2(!modal2);
   };
 
   return (
@@ -139,15 +158,16 @@ const TeampleHeader = () => {
         <div id="dDay">D-24</div>
       </div>
       <div id="date">2022.11.22-2022.12.21</div>
-      <button className="editBox" onClick={showModal}>
+      <button className="editBox" onClick={showModal1}>
         팀플 수정
       </button>
-      <ModalContainer>
-        {modal && <ModifyTeample setModal={setModal} />}
-      </ModalContainer>
-      <div id="teamList">
-        <a id="teamNum">+3</a>
+      <ModalContainer1>
+        {modal1 && <ModifyTeample setModal1={setModal1} />}
+      </ModalContainer1>
+      <div id="teamList" onClick={showModal2}>
+        <a id="teamNum">+{teamMatesNum}</a>
       </div>
+      <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox">
         <img id="feedback" src={feedback} />
       </div>
