@@ -5,12 +5,8 @@ import FileInfo from 'components/teampleHomePage/FileInfo';
 import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/layout';
-import SideBar from 'components/layouts/sideBar';
-import TeampleHeader from 'components/layouts/teampleHeader';
+import { Link } from 'react-router-dom';
 
-const Container = styled.div`
-  display: flex;
-`;
 
 const ContentBox = styled.div`
   display: flex;
@@ -21,19 +17,30 @@ const MainContentBox = styled.div`
 `;
 
 const AllBox = styled.div`
-  display: flex;
+  display : flex;
+
+  .text{
+    margin-top : 48px;
+    color: #383838;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin-left : 54px;
 `;
 
 const TeampleHomePage = () => {
   return (
-    <Container>
       <Layout>
+
+
         <AllBox>
           <div>
-            <ContentBox>
-              <SummaryTeample />
-              <FileInfo />
-            </ContentBox>
+          <ContentBox>
+            <SummaryTeample />
+            <Link to='/file' >
+              <FileInfo/>
+            </Link>
+          </ContentBox>
 
             <div className="text">할 일</div>
 
@@ -44,7 +51,6 @@ const TeampleHomePage = () => {
           <PlanManager />
         </AllBox>
       </Layout>
-    </Container>
   );
 };
 
