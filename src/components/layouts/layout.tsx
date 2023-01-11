@@ -21,6 +21,7 @@ const Layout = ({children} : {children : any}) =>{
             <TeampleHeader/>
             {children}
             </Container>
+            
         </LayoutBox>
 
 
