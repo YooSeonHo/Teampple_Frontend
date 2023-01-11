@@ -5,10 +5,10 @@ import { GlobalStyle } from './css/GlobalStyle';
 
 function App() {
   return (
-      <RecoilRoot>
-        <GlobalStyle />
-        <Router />
-      </RecoilRoot>
+    <RecoilRoot>
+      <GlobalStyle />
+      <Router />
+    </RecoilRoot>
   );
 }
 
