@@ -10,3 +10,7 @@ export interface FileInfo {
   uploader : string
   url : string
 }
+
+export interface StyledToDoInfo {
+  pathname : string
+}

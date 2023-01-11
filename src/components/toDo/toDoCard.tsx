@@ -2,10 +2,11 @@ import styled from "styled-components";
 import React from "react";
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
+import { StyledToDoInfo } from "interfaces";
 
-const CardBox = styled.div`
+const CardBox = styled.div<StyledToDoInfo>`
     width: 372px;
-    height: 556px;
+    height: ${(props) => props.pathname === '/home'? '448px' : '556px' };
     background-color: #F4F8FF;
     /* border: 2px solid #487AFF; */
     border-radius: 16px;
@@ -15,6 +16,7 @@ const CardBox = styled.div`
 
 .toDos{
     overflow: auto;
+
 }
 
 .info{
@@ -48,7 +50,7 @@ const CardBox = styled.div`
 }
 
 .name{
-    margin-top :16px;
+    margin-top :${(props) => props.pathname === '/home'? '24px' : '16px' };
     margin-left : 24px;
     font-weight: 600;
     font-size: 22px;
@@ -58,7 +60,7 @@ const CardBox = styled.div`
 
 .left{
     margin-right: 20px;
-    margin-top: 14px;
+    margin-top: ${(props) => props.pathname === '/home'? '20px' : '14px' };
     display: flex;
 }
 
@@ -78,7 +80,7 @@ const CardBox = styled.div`
     background-color: #487AFF;
     width :28px;
     height: 28px;
-    border-radius: 10px;
+    border-radius: 100px;
     color: white;
     font-weight: 700;
     font-size: 16px;
@@ -92,85 +94,15 @@ const CardBox = styled.div`
     margin-bottom: auto;
 }
 
-.toDoBox{
-    width: 332px;
-    height: 72px;
-    background-color: #FFFFFF;
-    border-radius: 12px;
-    display: flex;
-    margin-left:20px;
-    justify-content: space-between;
-    margin-bottom: 12px;
-}
 
-.toDoText{
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 100%;
-    color: #505050;
-    margin-left:16px;
-    padding-top:28px;
-    overflow : hidden;
-    white-space : nowrap; 
-    text-overflow: ellipsis;
-    max-width: 180px;
-}
-
-.toDoArr{
-    color: #C0C0C0;
-    width: 32px;
-    height: 32px;  
-    margin-top: auto; 
-    margin-bottom: auto;
-    margin-right: 8px;
-}   
+ 
 
 img{
     max-width:100%;
 max-height:100%;
 }
 
-.doneBox{
-    width: 332px;
-    height: 72px;
-    background-color: #FFFFFF;
-    border-radius: 12px;
-    display: flex;
-    margin-left:20px;
-    margin-bottom: 12px;
-}
 
-.doneIcon{
-    width: 56px;
-    height: 34px;
-    margin-left: 12px;
-    margin-top: 21px;
-}
-
-.doneText{
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 100%;
-    color: #505050;
-    margin-left:16px;
-    padding-top:28px;
-    overflow : hidden;
-    white-space : nowrap; 
-    text-overflow: ellipsis;
-    max-width: 180px;
-}
-
-.doneArr{
-    color: #C0C0C0;
-    width: 32px;
-    height: 32px;  
-    margin-top: auto; 
-    margin-bottom: auto;
-    margin-right: 8px;
-    margin-left: auto;
-}
-/* 
-스크롤 관련해서 문제 있으면 체크하기 ->호버 할때 보이게해야댐 */
 
 .addBox{
     width: 332px;
@@ -198,13 +130,99 @@ max-height:100%;
 }
 `;
 
+const ToDoBox = styled.div`
+    width: 332px;
+    height: 72px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    display: flex;
+    margin-left:20px;
+    justify-content: space-between;
+    margin-bottom: 12px;
+
+    img{
+        max-width:100%;
+    max-height:100%;
+    }
+
+    .toDoText{
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 100%;
+        color: #505050;
+        margin-left:16px;
+        padding-top:28px;
+        overflow : hidden;
+        white-space : nowrap; 
+        text-overflow: ellipsis;
+        max-width: 180px;
+    }
+    
+    .toDoArr{
+        color: #C0C0C0;
+        width: 32px;
+        height: 32px;  
+        margin-top: auto; 
+        margin-bottom: auto;
+        margin-right: 8px;
+    }  
+`;
+
+const DoneBox = styled.div`
+        width: 332px;
+        height: 72px;
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        display: flex;
+        margin-left:20px;
+        margin-bottom: 12px;
+
+        img{
+            max-width:100%;
+        max-height:100%;
+        }
+
+    .doneIcon{
+        width: 56px;
+        height: 34px;
+        margin-left: 12px;
+        margin-top: 21px;
+    }
+
+    .doneText{
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 100%;
+        color: #505050;
+        margin-left:16px;
+        padding-top:28px;
+        overflow : hidden;
+        white-space : nowrap; 
+        text-overflow: ellipsis;
+        max-width: 180px;
+    }
+
+    .doneArr{
+        color: #C0C0C0;
+        width: 32px;
+        height: 32px;  
+        margin-top: auto; 
+        margin-bottom: auto;
+        margin-right: 8px;
+        margin-left: auto;
+    }
+    /* 
+    스크롤 관련해서 문제 있으면 체크하기 ->호버 할때 보이게해야댐 */
+`
+
 const ToDoCard = () =>{
     return(
-        <CardBox>
-        <div className="info">
+        <CardBox pathname={window.location.pathname}>
+            {window.location.pathname === '/home' ? null :
+            <div className="info">
             <div className="step">1단계</div>
             <div className="when">11.22~11.25</div>
-        </div>
+        </div> }
         <div className="headerText">
             <div className="name">마케팅 원론</div>
             <div className="left">
@@ -215,19 +233,19 @@ const ToDoCard = () =>{
             </div>
         </div>
         <div className="toDos">
-            <div className="toDoBox">
+            <ToDoBox>
                 <div className="toDoText">해외 시장 조사</div>
                 <div  className="toDoArr">
                     <img src={arrow}/>
                 </div>
-            </div>
-            <div className="toDoBox">
+            </ToDoBox>
+            <ToDoBox>
                 <div className="toDoText">국내 시장 조사</div>
                 <div  className="toDoArr">
                     <img src={arrow}/>
                 </div>
-            </div>
-            <div className="doneBox">
+            </ToDoBox>
+            <DoneBox>
                 <div className="doneIcon">
                     <img src={done}/>
                 </div>
@@ -235,8 +253,8 @@ const ToDoCard = () =>{
                 <div  className="doneArr">
                     <img src={arrow}/>
                 </div>
-            </div>
-            <div className="doneBox">
+            </DoneBox>
+            <DoneBox>
                 <div className="doneIcon">
                     <img src={done}/>
                 </div>
@@ -244,8 +262,8 @@ const ToDoCard = () =>{
                 <div  className="doneArr">
                     <img src={arrow}/>
                 </div>
-            </div>
-            <div className="doneBox">
+            </DoneBox>
+            <DoneBox>
                 <div className="doneIcon">
                     <img src={done}/>
                 </div>
@@ -253,13 +271,18 @@ const ToDoCard = () =>{
                 <div  className="doneArr">
                     <img src={arrow}/>
                 </div>
+            </DoneBox>
+        </div>
+        {
+            window.location.pathname === '/home' ? null :
+            <div className="addBox">
+                <div className="addText">+ 할 일 추가하기</div>
             </div>
-        </div>
-        <div className="addBox">
-            <div className="addText">+ 할 일 추가하기</div>
-        </div>
+        }
         </CardBox>
     )
 }
 
 export default ToDoCard;
+
+//해당 기간에 색깔 바꾸는 부분만 손 보면 될듯
