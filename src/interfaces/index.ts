@@ -22,3 +22,7 @@ export interface FileInfo {
 export interface StyledToDoInfo {
   pathname : string
 }
+
+export interface StyledFeedInfo {
+  pathname : string
+}

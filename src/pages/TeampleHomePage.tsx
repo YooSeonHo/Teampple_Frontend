@@ -41,7 +41,7 @@ const TeampleHomePage = () => {
       <Layout>
 
         <AllBox>
-          {isOpen? <Feedbacks/> : null}
+          {isOpen? <Feedbacks  pathname={window.location.pathname}/> : null}
           
           <div>
           <ContentBox>

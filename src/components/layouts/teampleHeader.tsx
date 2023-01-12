@@ -6,7 +6,6 @@ import ModifyTeample from 'components/popup/ModifyTeample';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
 import { useRecoilState } from 'recoil';
 import { feedbackState, teamMateNumState } from 'state';
-import Feedbacks from 'components/feedbacks/feedbacks';
 
 const HeaderBox = styled.div`
   width: 1680px;
@@ -176,7 +175,7 @@ const TeampleHeader = () => {
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox" onClick={openFeed}>
-        <img id="feedback" src={feedback} />
+        <img id="feedback" src={feedback}/>
       </div>
       
     </HeaderBox>

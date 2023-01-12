@@ -6,8 +6,14 @@ import HomeHeader from 'components/homePage/HomeHeader';
 import SideBar from 'components/layouts/sideBar';
 import HomeToDo from 'components/homePage/HomeToDo';
 import ToDoBox from 'components/toDo/toDoBox';
+import { useRecoilState } from 'recoil';
+import { feedbackState } from 'state';
+import Feedbacks from 'components/feedbacks/feedbacks';
+
 
 const HomePage = () => {
+  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+
   return (
     <HomePageContainer>
       <HeaderContainer>
@@ -19,6 +25,7 @@ const HomePage = () => {
       <SummaryHomeContainer>
         <SummaryHome />
       </SummaryHomeContainer>
+      {isOpen? <Feedbacks pathname={window.location.pathname}/> : null}
       <TodoContainer>
       <div className="text">할 일</div>
         <ToDoBox />

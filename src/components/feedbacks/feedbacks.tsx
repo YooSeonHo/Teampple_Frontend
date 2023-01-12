@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import profile1 from '../images/profile/prof1.png';
+import { StyledFeedInfo } from "interfaces";
 
-const FeedBox = styled.div`
+const FeedBox = styled.div<StyledFeedInfo>`
 border: 1px solid #DEDEDE;
 box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
 background-color : white;
@@ -16,7 +17,7 @@ left : 0;
 right: 0;
 position : absolute;
 margin-right : 54px;
-margin-top: 12px;
+margin-top: ${(props) => props.pathname === '/home'? '84px' : '12px' };
 margin-left : auto;
 z-index : 1001;
 
@@ -80,9 +81,9 @@ img{
 
 `;
 
-const Feedbacks = () => {
+const Feedbacks = ({pathname} : {pathname : string}) => {
     return(
-        <FeedBox>
+        <FeedBox pathname={pathname}>
             <div className="feedText">피드백</div>
             <div className="feedList">
                 <Feed>

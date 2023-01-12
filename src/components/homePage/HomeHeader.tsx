@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiFillMessage } from 'react-icons/ai';
+import { useRecoilState } from 'recoil';
+import { feedbackState } from 'state';
+import Feedbacks from 'components/feedbacks/feedbacks';
 
 const HomeHeader = () => {
   const navigation = useNavigate();
@@ -9,10 +12,18 @@ const HomeHeader = () => {
     navigation('/feedback');
     console.log(e.target);
   };
+
+  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+
+  const openFeed = () =>{
+    setIsOpen(!isOpen);
+  }
+
+
   return (
     <HomeHeaderContainer>
       <HomeTitle>홈</HomeTitle>
-      <button onClick={onClickMsg}>
+      <button onClick={openFeed}>
         <MsgIcon />
       </button>
     </HomeHeaderContainer>
@@ -38,8 +49,8 @@ const MsgIcon = styled(AiFillMessage)`
   top: 20px;
   right: 54px;
   color: #487aff;
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
 `;
 
 export default HomeHeader;
