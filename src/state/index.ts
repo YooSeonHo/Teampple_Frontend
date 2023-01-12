@@ -19,3 +19,13 @@ export const feedbackState = atom<boolean>({
   key : 'isOpen',
   default : false
 })
+
+export const searchFileState = atom<string>({
+  key : 'search',
+  default : ""
+})
+
+export const IsSearchState = atom<boolean>({
+  key : 'isSearch',
+  default : false
+})
