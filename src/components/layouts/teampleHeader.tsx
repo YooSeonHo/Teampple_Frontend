@@ -18,7 +18,7 @@ const HeaderBox = styled.div`
   line-height: 72px;
   white-space: nowrap;
   position: relative;
-  z-index: 998;
+  z-index: 999;
 
   #main {
     margin-left: 54px;
@@ -178,7 +178,7 @@ const TeampleHeader = () => {
       <div className="iconBox" onClick={openFeed}>
         <img id="feedback" src={feedback} />
       </div>
-      {isOpen? <Feedbacks/> : null}
+      
     </HeaderBox>
   );
 };

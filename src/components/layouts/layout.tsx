@@ -4,7 +4,6 @@ import SideBar from "./sideBar";
 import TeampleHeader from "./teampleHeader";
 
 const Container = styled.div`
-
 `
 
 const LayoutBox = styled.div`
@@ -18,8 +17,8 @@ const Layout = ({children} : {children : any}) =>{
         <LayoutBox>
             <SideBar/>
             <Container>
-            <TeampleHeader/>
-            {children}
+                <TeampleHeader/>
+                {children}
             </Container>
             
         </LayoutBox>

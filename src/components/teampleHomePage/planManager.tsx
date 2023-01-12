@@ -61,45 +61,6 @@ const ManagerBox = styled.div`
     overflow: auto;
   }
 
-  .content {
-    background: #f4f8ff;
-    border-radius: 12px;
-    width: 284px;
-    height: 64px;
-    margin-left: 20px;
-    display: flex;
-    margin-bottom: 8px;
-  }
-
-  .contentdDay {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 100%;
-    color: #707070;
-    margin: 24px;
-    margin-right: 28px;
-  }
-
-  .contentInfo {
-    display: flex;
-    flex-direction: column;
-    margin-top: 14px;
-  }
-
-  .contentName {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    color: #707070;
-    margin-bottom: 8px;
-  }
-
-  .when {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 100%;
-    color: #a7a7a7;
-  }
 
   .addSch {
     width: 284px;
@@ -135,6 +96,46 @@ const ModalContainer = styled.div`
   margin: 0 auto;
 `;
 
+const Content = styled.div`
+  background: #f4f8ff;
+  border-radius: 12px;
+  width: 284px;
+  height: 64px;
+  margin-left: 20px;
+  display: flex;
+  margin-bottom: 8px;
+
+.contentdDay {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  color: #707070;
+  margin: 24px;
+  margin-right: 28px;
+}
+
+.contentInfo {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+}
+
+.contentName {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  color: #707070;
+  margin-bottom: 8px;
+}
+
+.when {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  color: #a7a7a7;
+}
+`;
+
 const PlanManager = () => {
   const [modal, setModal] = useState(false);
   const showModal = () => {
@@ -150,20 +151,20 @@ const PlanManager = () => {
         </div>
       </div>
       <div className="contentBox">
-        <div className="content">
+        <Content>
           <div className="contentdDay">D-6</div>
           <div className="contentInfo">
             <div className="contentName">중간 발표</div>
             <div className="when">2022.12.14 18:00</div>
           </div>
-        </div>
-        <div className="content">
+        </Content>
+        <Content>
           <div className="contentdDay">D-15</div>
           <div className="contentInfo">
             <div className="contentName">3차 온라인 회의</div>
             <div className="when">2022.12.14 18:00</div>
           </div>
-        </div>
+        </Content>
       </div>
         <div className="addSch" onClick={showModal}>
           <div className="addText">+ 일정 추가하기</div>
