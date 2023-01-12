@@ -5,10 +5,7 @@ import FileInfo from 'components/teampleHomePage/FileInfo';
 import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/layout';
-import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { feedbackState } from 'state';
-import Feedbacks from 'components/feedbacks/feedbacks';
+
 
 
 const ContentBox = styled.div`
@@ -33,15 +30,9 @@ const AllBox = styled.div`
 `;
 
 const TeampleHomePage = () => {
-
-  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
-
-
   return (
       <Layout>
-
         <AllBox>
-          {isOpen? <Feedbacks  pathname={window.location.pathname}/> : null}
           
           <div>
           <ContentBox>

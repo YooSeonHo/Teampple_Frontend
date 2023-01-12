@@ -137,6 +137,7 @@ const ToDoBox = styled.div`
     border-radius: 12px;
     display: flex;
     margin-left:20px;
+    margin-right: 20px;
     justify-content: space-between;
     margin-bottom: 12px;
 
@@ -175,6 +176,7 @@ const DoneBox = styled.div`
         border-radius: 12px;
         display: flex;
         margin-left:20px;
+        margin-right: 20px;
         margin-bottom: 12px;
 
         img{
