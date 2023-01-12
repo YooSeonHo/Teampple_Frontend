@@ -6,6 +6,9 @@ import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/layout';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { feedbackState } from 'state';
+import Feedbacks from 'components/feedbacks/feedbacks';
 
 
 const ContentBox = styled.div`
@@ -18,6 +21,7 @@ const MainContentBox = styled.div`
 
 const AllBox = styled.div`
   display : flex;
+  position : relative;
 
   .text{
     margin-top : 48px;
@@ -29,17 +33,20 @@ const AllBox = styled.div`
 `;
 
 const TeampleHomePage = () => {
+
+  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+
+
   return (
       <Layout>
 
-
         <AllBox>
+          {isOpen? <Feedbacks  pathname={window.location.pathname}/> : null}
+          
           <div>
           <ContentBox>
             <SummaryTeample />
-            <Link style={{ textDecoration: 'none', color: 'black' }} to='/file' >
               <FileInfo/>
-            </Link>
           </ContentBox>
 
             <div className="text">할 일</div>
@@ -48,6 +55,7 @@ const TeampleHomePage = () => {
               <ToDoBox />
             </MainContentBox>
           </div>
+
           <PlanManager />
         </AllBox>
       </Layout>

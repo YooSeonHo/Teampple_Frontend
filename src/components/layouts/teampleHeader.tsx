@@ -5,7 +5,7 @@ import group from '../images/Group 697.png';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
 import { useRecoilState } from 'recoil';
-import { teamMateNumState } from 'state';
+import { feedbackState, teamMateNumState } from 'state';
 
 const HeaderBox = styled.div`
   width: 1680px;
@@ -17,7 +17,7 @@ const HeaderBox = styled.div`
   line-height: 72px;
   white-space: nowrap;
   position: relative;
-  z-index: 998;
+  z-index: 999;
 
   #main {
     margin-left: 54px;
@@ -149,6 +149,12 @@ const TeampleHeader = () => {
     setModal2(!modal2);
   };
 
+  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+
+  const openFeed = () =>{
+    setIsOpen(!isOpen);
+  }
+
   return (
     <HeaderBox>
       <div id="main">홈</div>
@@ -168,9 +174,10 @@ const TeampleHeader = () => {
         <a id="teamNum">+{teamMatesNum}</a>
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
-      <div className="iconBox">
-        <img id="feedback" src={feedback} />
+      <div className="iconBox" onClick={openFeed}>
+        <img id="feedback" src={feedback}/>
       </div>
+      
     </HeaderBox>
   );
 };
