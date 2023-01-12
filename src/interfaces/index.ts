@@ -26,3 +26,12 @@ export interface StyledToDoInfo {
 export interface StyledFeedInfo {
   pathname : string
 }
+
+
+export interface SearchFileInfo {
+  search : string
+}
+
+export interface SearchInputProps {
+  onChange : (e : React.ChangeEvent<HTMLInputElement>) => void
+}

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import arrow from '../images/ArrowLineRight2.png';
 import axios from "axios";
 import { FileInfo } from "interfaces";
+import { useRecoilState } from "recoil";
+import { IsSearchState, searchFileState } from "state";
 
 const ListBox = styled.div`
 
@@ -128,6 +130,8 @@ img{
 
 const FileList = () =>{
     const [files,setFiles] = useState([]);
+    const [searchFile,setSearchFile] = useRecoilState(searchFileState);
+    const [isSearch,setIsSearch] = useRecoilState(IsSearchState);
 
     
     useEffect(()=>{
@@ -174,7 +178,24 @@ const FileList = () =>{
                         <img src={arrow}/>
                     </div>
                 </File>
-            {files && files.map((file : FileInfo)=>(
+            {files && isSearch ? files.filter((file : FileInfo)=>{
+                return file.fileName.toLowerCase().includes(searchFile.toLowerCase())
+            }).map((file : FileInfo)=>{
+                return (
+                    <File key={file.updatedAt}>
+                        <div className="name">{file.fileName}</div>
+                        <div className="loc">{file.url}</div>
+                        <div className="owner">{file.uploader}</div>
+                        <div className="size">{file.size}</div>
+                        <div className="date">{file.updatedAt.replace(/-/g,".").replace("T", " ").replace(/:[0-9]+$/,"")}</div>
+                        <div className="icon">
+                            <img src={arrow}/>
+                        </div>
+                    </File>
+                )
+            }) : 
+            
+                files && files.map((file : FileInfo)=>(
                     file && <File key={file.updatedAt}>
                         <div className="name">{file.fileName}</div>
                         <div className="loc">{file.url}</div>

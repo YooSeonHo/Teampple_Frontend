@@ -3,8 +3,24 @@ import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import fileIcon from '../images/Group 771.png';
 import headerImg from '../images/Group 773.png';
+import { useRecoilState } from 'recoil';
+import { searchFileState,IsSearchState } from 'state';
+import { SearchFileInfo,SearchInputProps } from 'interfaces';
 
 const FileHeader = () => {
+  const [search,setSearch] = useRecoilState(searchFileState);
+  const [isSearch,setIsSearch] = useRecoilState(IsSearchState);
+
+  const onSearch = (e : React.ChangeEvent<HTMLInputElement>) =>{
+    if (e.currentTarget.value === "") {
+      setIsSearch(false)
+    }
+    else {
+      setIsSearch(true)
+    }
+    
+    setSearch(e.currentTarget.value)
+  }
   return (
     <FileHeaderContainer>
       <TextContainer>
@@ -13,7 +29,7 @@ const FileHeader = () => {
       </TextContainer>
       <InputContainer>
         <FiSearch />
-        <Input placeholder="검색" />
+        <Input placeholder="검색" onChange={onSearch}/>
       </InputContainer>
     </FileHeaderContainer>
   );
@@ -69,7 +85,7 @@ const InputContainer = styled.div`
   padding: 12px;
 `;
 
-const Input = styled.input`
+const Input = styled.input<SearchInputProps>`
   border: none;
   padding: 8px;
 `;
