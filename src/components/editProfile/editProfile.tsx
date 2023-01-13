@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import prof1 from '../images/profile/prof1.png';
 import editBtn from '../images/Frame 299.png';
+import { useNavigate } from "react-router-dom";
 
 const EditBox = styled.div`
     width: 972px;
@@ -143,6 +144,27 @@ input:focus{
 `;
 
 const EditProfile = ()=>{
+    const [school,setSchool] = useState("홍익대학교");
+    const [major,setMajor] = useState("컴퓨터공학과");
+    const [grade,setGrade] = useState("17");
+    const navigate = useNavigate();
+
+    const onSchool = (e : React.ChangeEvent<HTMLInputElement>) =>{
+        setSchool(e.target.value)
+    }
+    const onMajor = (e : React.ChangeEvent<HTMLInputElement>) =>{
+        setMajor(e.target.value)
+    }
+    const onGrade = (e : React.ChangeEvent<HTMLInputElement>) =>{
+        setGrade(e.target.value)
+    }
+
+    const onClick = () =>{
+        alert("프로필 수정이 완료되었습니다.")
+        navigate('/home')
+        //임시!
+    }
+
     return(
         <EditBox>
         <div className="profileImg">
@@ -156,20 +178,20 @@ const EditProfile = ()=>{
         <div className="schoolInfo">
             <div className="infoBox">
                 <div className="infoText">학교</div>
-                <input className="school" value="홍익대학교"/>
+                <input className="school" value={school} onChange={onSchool}></input>
             </div>
         </div>
         <div className="schoolInfoLine2">
             <div className="infoBox">
                 <div className="infoText">전공</div>
-                <input className="major" value="컴퓨터공학과"/>
+                <input className="major" value={major} onChange={onMajor}></input>
             </div>
             <div className="infoBox">
                 <div className="infoText">학번</div>
-                <input className="grade" value="17"/>
+                <input className="grade" value={grade} onChange={onGrade}></input>
             </div>
         </div>
-        <div className="editBtn">
+        <div className="editBtn" onClick={onClick}>
             <img src={editBtn}/>
         </div>
         <div className="extraText">
