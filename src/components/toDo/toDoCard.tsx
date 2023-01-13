@@ -15,7 +15,8 @@ const CardBox = styled.div<StyledToDoInfo>`
     margin-right:28px;
 
 .toDos{
-    overflow: auto;
+    overflow-x: hidden;
+
 
 }
 
@@ -140,10 +141,11 @@ const ToDoBox = styled.div`
     margin-right: 20px;
     justify-content: space-between;
     margin-bottom: 12px;
+    
 
     img{
         max-width:100%;
-    max-height:100%;
+        max-height:100%;
     }
 
     .toDoText{
@@ -181,7 +183,7 @@ const DoneBox = styled.div`
 
         img{
             max-width:100%;
-        max-height:100%;
+            max-height:100%;
         }
 
     .doneIcon{
