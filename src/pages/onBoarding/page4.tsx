@@ -5,12 +5,16 @@ import page4 from './images/Component 4.png';
 export const Box = styled.div`
     width : 100%;
     text-align : center;
-    margin-top : 116px;
+    height : 1080px;
+    display : flex;
+    flex-direction : column;
+
 `;
     
 export const Contents = styled.div`
     margin-left : auto;
     margin-right: auto;
+    margin-top : auto;
     .top{
         font-weight: 700;
         font-size: 24px;

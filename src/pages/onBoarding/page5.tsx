@@ -9,15 +9,15 @@ export const Background = styled.div`
     height : 400px;
     background-size: contain;
     background-repeat : no-repeat;
-    margin : auto;
-
+    margin: auto;
+    margin-top : 51px;
 `;
 
 
 const Page5 = () =>{
     return(
         <Box>
-            <Contents>
+            <Contents style={{width : '416px', height : '122px'}}>
                 <div className="top">파일 관리도 간편하게!</div>
                 <div className="mid">채팅방에 뒤죽박죽 섞인 파일을 찾기 어려우셨나요?<br/> 파일 모아보기로 간편하게 파일을 관리할 수 있습니다.</div>
             </Contents>

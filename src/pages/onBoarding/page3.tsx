@@ -4,8 +4,11 @@ import page3 from './images/Component 3.png';
 
 const Box = styled.div`
     width :100%;
+    height : 1080px;
     position : relative;
-    margin-top : 179px;
+    margin : auto;
+    display : flex;
+    flex-direction : column;
 
     .content{
         font-weight: 400;
@@ -13,24 +16,24 @@ const Box = styled.div`
         line-height: 160%;
         text-align: center;
         color: #505050;
-
+        margin-top : auto;
         span{
             color : #487AFF;
         }
 
-        margin-bottom : 142px;
     }
-
-`;
-
-
-const Background = styled.div`
+    
+    `;
+    
+    
+    const Background = styled.div`
     background-image : url('${page3}');
     width: 1172px;
     height : 586px;
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
+    margin-top : 142px;
     
 `;
 

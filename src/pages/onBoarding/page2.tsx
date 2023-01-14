@@ -5,8 +5,11 @@ import page2 from './images/Component 2.png';
 
 const Box = styled.div`
     width :100%;
-    height : 499px;
+    // height : 499px;
+    height : 1080px;
     position : relative;
+    margin-top : auto;
+    display : flex;
 `;
 
 const Background = styled.div`
@@ -24,7 +27,7 @@ const Contents = styled.div`
     flex-direction : column;
     position : absolute;
     left : 350px;
-    top : 5px;
+    top : 280px;
     width : 446px;
     height: 134px;
 
@@ -47,8 +50,7 @@ const Contents = styled.div`
 const Page2 = () =>{
     return(
         <Box>
-            <Background>
-            </Background>
+            <Background/>
                 <Contents>
                     <div className="header">대학에 갓 입학했는데<br/>전공에도 교양에도..팀플이..</div>
                     <div className="mid">잘 해보고 싶었지만 쉽게 알 수 없어서 나서기 힘들었던 새내기들</div>

@@ -10,14 +10,15 @@ export const Background = styled.div`
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
-
-`;
-
-const Content = styled.div`
+    margin-top : 0;
+    `;
+    
+    const Content = styled.div`
     font-weight: 600;
     font-size: 32px;
     line-height: 38px;
     color: #383838;
+    margin : auto;
     margin-bottom : 48px;
 `;
 

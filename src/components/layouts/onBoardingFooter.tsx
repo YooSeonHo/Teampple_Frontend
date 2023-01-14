@@ -16,7 +16,7 @@ const Contents = styled.div`
     justify-content : space-between;
     margin-left : 374px;
     margin-right : 374px;
-    margin-top : 27px;
+    padding-top : 27px;
 `;
 
 const OnBoardingFooter = () =>{

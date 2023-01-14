@@ -3,11 +3,17 @@ import React from "react";
 import OnBoardingHeader from "./onBoardingHeader";
 import OnBoardingFooter from "./onBoardingFooter";
 
+const Children = styled.div`
+
+`;
+
 const OnBoardingLayOut = ({children} : {children : any}) =>{
     return(
         <>
             <OnBoardingHeader/>
-            {children}
+            <Children>
+                {children}
+            </Children>
             <OnBoardingFooter/>
         </>
     )
