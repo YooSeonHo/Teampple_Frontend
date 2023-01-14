@@ -25,6 +25,8 @@ const SideBarBox = styled.div<{ userid: string }>`
   display: flex;
   flex-direction: column;
   background-color: #f4f8ff;
+  z-index : 998;
+  position : fixed;
 
   .logo {
     margin-left: 40px;

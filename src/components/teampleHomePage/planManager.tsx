@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
+import { useRecoilState } from 'recoil';
+import { zIndexState } from 'state';
 
 const ManagerBox = styled.div`
   width: 326px;
@@ -9,7 +11,6 @@ const ManagerBox = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 998;
 
   .dDayHeader {
     width: 324px;
@@ -138,11 +139,13 @@ const Content = styled.div`
 
 const PlanManager = () => {
   const [modal, setModal] = useState(false);
+  const [zIndex,setZIndex] = useRecoilState(zIndexState);
   const showModal = () => {
     setModal(!modal);
+    setZIndex(999)
   };
   return (
-    <ManagerBox>
+    <ManagerBox style={{zIndex : zIndex}}>
       <div className="dDayHeader">
         <div className="text">일정 관리자</div>
         <div className="headerBox">
