@@ -25,7 +25,6 @@ const FileInfo = () => {
         },
       })
         .then((res) => {
-          console.log(res.data.data);
           setFileNum(res.data.data.length);
           {
             res.data.data.map((file: IFileMap) => {
@@ -97,7 +96,7 @@ const FileNum = styled.div`
 const FileSize = styled.div`
   color: #707070;
   position: absolute;
-  top: 98px;
+  top: 90px;
   right: 24px;
   height: 16px;
 `;

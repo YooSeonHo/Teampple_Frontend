@@ -5,7 +5,6 @@ import progress1 from '../images/progressbar/LoadingIcon_Fire.png';
 import progress2 from '../images/progressbar/LoadingIcon_Turtle.png';
 import progress3 from '../images/progressbar/LoadingIcon_Boat.png';
 import progress4 from '../images/progressbar/LoadingIcon_lightening.png';
-
 import axios from 'axios';
 
 const SummaryTeample = () => {
@@ -16,7 +15,7 @@ const SummaryTeample = () => {
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
   const week = weeks[now.getDay()];
 
-  const [doneNum, setDoneNum] = useState(3); //수정 필요) API 가져온 정보로 계산해서 넣기
+  const [doneNum, setDoneNum] = useState(8); //수정 필요) API 가져온 정보로 계산해서 넣기
   const [allNum, setAllNum] = useState(11); //수정 필요) API 가져온 정보로 계산해서 넣기
   const [currentPercent, setCurrentPercent] = useState<number>(
     Math.round((doneNum / allNum) * 100),
@@ -39,6 +38,7 @@ const SummaryTeample = () => {
       setText('손발척척 빠른 진행 !');
     } else if (currentPercent === 0) {
       setIcon(progress0);
+      setText('팀쁠은 당신을 기다리는 중!');
     }
   };
 
@@ -94,7 +94,7 @@ const SummaryTeample = () => {
         <ul>
           <li>
             <Bar
-              className="css-progressbar"
+              className="teample-progressbar"
               currentPercent={currentPercent}
               icon={icon}
             />
@@ -173,8 +173,8 @@ const Bar = styled.span<{ currentPercent: number; icon: string }>`
   background-color: #487aff;
   height: 16px;
   width: ${(props) => props.currentPercent}%;
-  -webkit-animation: css-progressbar 2s ease-out;
-  animation: css-progressbar 2s ease-out;
+  -webkit-animation: teample-progressbar 2s ease-out;
+  animation: teample-progressbar 2s ease-out;
 
   &::after {
     -webkit-box-sizing: border-box;
@@ -190,7 +190,7 @@ const Bar = styled.span<{ currentPercent: number; icon: string }>`
     background-size: cover;
   }
 
-  @keyframes css-progressbar {
+  @keyframes teample-progressbar {
     0% {
       width: 0px;
     }
