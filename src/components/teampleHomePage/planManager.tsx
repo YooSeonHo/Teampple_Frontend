@@ -22,7 +22,6 @@ const PlanManager = () => {
       params: { teamId: 1 },
     })
       .then((response) => {
-        console.log(response.data.data.schedules);
         setPlans(response.data.data.schedules);
         setDueDate(response.data.data.dueDate);
         setDeadDay(getDeadDay(response.data.data.dueDate));

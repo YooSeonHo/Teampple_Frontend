@@ -72,6 +72,7 @@ const TodoContainer = styled.div`
     font-size: 24px;
     line-height: 29px;
     margin-left : 54px;
+  }
 `;
 
 const SummaryHomeContainer = styled.div`
