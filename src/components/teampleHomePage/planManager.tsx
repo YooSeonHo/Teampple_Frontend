@@ -62,14 +62,18 @@ const PlanManager = () => {
         </div>
       </div>
       <div className="contentBox">
-        {/* 시간 형식 바꿔야함 */}
         {plans &&
           plans.map((plan: IPlan, index: number) => (
             <Content key={index}>
               <div className="contentdDay">D-{getPlanDay(plan.dueDate)}</div>
               <div className="contentInfo">
                 <div className="contentName">{plan.name}</div>
-                <div className="when">{plan.dueDate}</div>
+                <div className="when">
+                  {plan.dueDate
+                    .replace(/-/g, '.')
+                    .replace('T', ' ')
+                    .replace(/:[0-9]+$/, '')}
+                </div>
               </div>
             </Content>
           ))}
