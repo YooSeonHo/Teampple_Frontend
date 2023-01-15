@@ -167,17 +167,6 @@ const FileList = () =>{
                 <div className="fileDate">날짜</div>
             </div>
             <div className="fileList">
-                <File>
-                    <div className="name">협업툴 시장 조사.docs</div>
-                    <div className="loc">협업툴 시장조사...</div>
-                    <div className="owner">안수빈</div>
-                    <div className="size">85.0KB</div>
-                    <div className="date">2022.11.24 20:34</div>
-                    {/* <div className="date">2022.11.24 20:34</div> */}
-                    <div className="icon">
-                        <img src={arrow}/>
-                    </div>
-                </File>
             {files && isSearch ? files.filter((file : FileInfo)=>{
                 return file.fileName.toLowerCase().includes(searchFile.toLowerCase())
             }).map((file : FileInfo)=>{
