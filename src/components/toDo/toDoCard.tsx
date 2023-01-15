@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
 import { StyledToDoInfo } from "interfaces";
+import axios from 'axios';
+
 
 const CardBox = styled.div<StyledToDoInfo>`
     width: 372px;
@@ -219,8 +221,31 @@ const DoneBox = styled.div`
     스크롤 관련해서 문제 있으면 체크하기 ->호버 할때 보이게해야댐 */
 `
 
-const ToDoCard = () =>{
-    return(
+const ToDoCard = () => {
+    const [todoList, setTodoList] = useState([]);
+    const [startDate, setStartDate] = useState();
+    const [dueDate, setDueDate] = useState();
+
+    const getTodoAPI = async () => {
+      await axios({
+        url: `/api/teams/tasks`,
+        baseURL: 'https://www.teampple.site',
+        method: 'get',
+        params: { teamId: 1 },
+      })
+        .then((response) => {
+          console.log(response.data.data);
+          setTodoList(response.data.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+    useEffect(() => {
+      getTodoAPI();
+    }, []);
+
+    return (
         <CardBox pathname={window.location.pathname}>
             {window.location.pathname === '/home' ? null :
             <div className="info">

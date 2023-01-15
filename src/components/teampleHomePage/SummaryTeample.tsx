@@ -54,7 +54,7 @@ const SummaryTeample = () => {
       params: { teamId: 1 },
     })
       .then((response) => {
-        console.log(response.data.data);
+        // console.log(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
