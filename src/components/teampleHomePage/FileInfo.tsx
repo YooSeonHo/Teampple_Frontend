@@ -1,26 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+interface IFileMap {
+  size: number;
+}
 
 const FileInfo = () => {
-  const [fileNum, setFileNum] = useState(5);
-  const [nowFileSize, setNowFileSize] = useState(2);
-  const [remainPercent, setRemainPercent] = useState(nowFileSize/8*100);
+  const [fileNum, setFileNum] = useState(0);
+  const [nowFileSize, setNowFileSize] = useState(0);
+  const [remainPercent, setRemainPercent] = useState((nowFileSize / 5) * 100);
+  const [count, setCount] = useState(0);
+  let fsize = 0;
+
+  useEffect(() => {
+    const getFiles = async () => {
+      await axios({
+        url: `/api/files`,
+        baseURL: 'https://www.teampple.site/',
+        method: 'get',
+        params: {
+          teamId: 1,
+        },
+      })
+        .then((res) => {
+          setFileNum(res.data.data.length);
+          {
+            res.data.data.map((file: IFileMap) => {
+              fsize += file.size;
+              setNowFileSize(fsize);
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+
+    getFiles();
+  }, []);
 
   return (
     <FileInfoContainer>
-      <Link style={{ textDecoration: 'none', color: 'black' }} to='/file' >
+      <Link style={{ textDecoration: 'none', color: 'black' }} to="/file">
         <FileInfoBox>
           <Title>공유 파일함</Title>
           <FileNum>
             <span style={{ fontSize: '24px' }}>{fileNum}</span>
             <span style={{ color: '#707070' }}>&nbsp;파일</span>
           </FileNum>
-          <FileSize>{nowFileSize}GB/8GB</FileSize>
+          <FileSize>{Math.round(nowFileSize / 1024)}MB/5GB</FileSize>
           <BarContainer>
             <ul>
               <li>
-                <Bar className="file-progressbar" remainPercent={remainPercent} />
+                <Bar
+                  className="file-progressbar"
+                  remainPercent={remainPercent}
+                />
               </li>
             </ul>
           </BarContainer>
@@ -48,10 +85,7 @@ const Title = styled.div`
   position: absolute;
   top: 24px;
   left: 24px;
-
 `;
-
-
 
 const FileNum = styled.div`
   position: absolute;
@@ -62,7 +96,7 @@ const FileNum = styled.div`
 const FileSize = styled.div`
   color: #707070;
   position: absolute;
-  top: 98px;
+  top: 90px;
   right: 24px;
   height: 16px;
 `;

@@ -10,9 +10,8 @@ import { useRecoilState } from 'recoil';
 import { feedbackState } from 'state';
 import Feedbacks from 'components/feedbacks/feedbacks';
 
-
 const HomePage = () => {
-  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
 
   return (
     <HomePageContainer>
@@ -25,9 +24,9 @@ const HomePage = () => {
       <SummaryHomeContainer>
         <SummaryHome />
       </SummaryHomeContainer>
-      {isOpen? <Feedbacks pathname={window.location.pathname}/> : null}
+      {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
       <TodoContainer>
-      <div className="text">할 일</div>
+        <div className="text">할 일</div>
         <ToDoBox />
       </TodoContainer>
       <MiniTemplateContainer>
@@ -65,13 +64,14 @@ const TodoContainer = styled.div`
   left: 240px;
   top: 368px;
 
-  .text{
-    margin-top : 48px;
+  .text {
+    margin-top: 48px;
     color: #383838;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
-    margin-left : 54px;
+    margin-left: 54px;
+  }
 `;
 
 const SummaryHomeContainer = styled.div`

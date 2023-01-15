@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import SummaryTeample from 'components/teampleHomePage/SummaryTeample';
-import FileInfo from 'components/teampleHomePage/FileInfo';
-import ToDoBox from 'components/toDo/toDoBox';
-import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/layout';
+import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';
+import NotToDoBox from '../components/teampleHomePage/nothing/NotToDoBox';
+import NotFileInfo from 'components/teampleHomePage/nothing/NotFileInfo';
+import NotPlanManager from 'components/teampleHomePage/nothing/NotPlanManager';
 
 const ContentBox = styled.div`
   display: flex;
@@ -28,24 +28,24 @@ const AllBox = styled.div`
   }
 `;
 
-const TeampleHomePage = () => {
+const InitialTeampleHomePage = () => {
   return (
     <Layout>
       <AllBox>
         <div>
           <ContentBox>
-            <SummaryTeample />
-            <FileInfo />
+            <NotSummaryTeample />
+            <NotFileInfo />
           </ContentBox>
           <div className="text">할 일</div>
           <MainContentBox>
-            <ToDoBox />
+            <NotToDoBox />
           </MainContentBox>
         </div>
-        <PlanManager />
+        <NotPlanManager />
       </AllBox>
     </Layout>
   );
 };
 
-export default TeampleHomePage;
+export default InitialTeampleHomePage;
