@@ -157,47 +157,69 @@ const FileList = () =>{
         getFiles()
     },[])
 
-    return(
-        <ListBox>
-            <div className="fileHeader">
-                <div className="fileName">파일명</div>
-                <div className="fileLoc">파일 경로</div>
-                <div className="fileOwner">파일 업로더</div>
-                <div className="fileSize">크기</div>
-                <div className="fileDate">날짜</div>
-            </div>
-            <div className="fileList">
-            {files && isSearch ? files.filter((file : FileInfo)=>{
-                return file.fileName.toLowerCase().includes(searchFile.toLowerCase())
-            }).map((file : FileInfo)=>{
-                return (
+    return (
+      <ListBox>
+        <div className="fileHeader">
+          <div className="fileName">파일명</div>
+          <div className="fileLoc">파일 경로</div>
+          <div className="fileOwner">파일 업로더</div>
+          <div className="fileSize">크기</div>
+          <div className="fileDate">날짜</div>
+        </div>
+        <div className="fileList">
+          {files && isSearch
+            ? files
+                .filter((file: FileInfo) => {
+                  return file.fileName
+                    .toLowerCase()
+                    .includes(searchFile.toLowerCase());
+                })
+                .map((file: FileInfo) => {
+                  return (
                     <File key={file.updatedAt}>
-                        <div className="name">{file.fileName}</div>
-                        <div className="loc">{file.url}</div>
-                        <div className="owner">{file.uploader}</div>
-                        <div className="size">{file.size}</div>
-                        <div className="date">{file.updatedAt.replace(/-/g,".").replace("T", " ").replace(/:[0-9]+$/,"")}</div>
-                        <div className="icon">
-                            <img src={arrow}/>
-                        </div>
+                      <div className="name">{file.fileName}</div>
+                      <div className="loc">{file.url}</div>
+                      <div className="owner">{file.uploader}</div>
+                      <div className="size">
+                        {Math.round(file.size / 1024)}MB
+                      </div>
+                      <div className="date">
+                        {file.updatedAt
+                          .replace(/-/g, '.')
+                          .replace('T', ' ')
+                          .replace(/:[0-9]+$/, '')}
+                      </div>
+                      <div className="icon">
+                        <img src={arrow} />
+                      </div>
                     </File>
-                )
-            }) : 
-            
-                files && files.map((file : FileInfo)=>(
-                    file && <File key={file.updatedAt}>
-                        <div className="name">{file.fileName}</div>
-                        <div className="loc">{file.url}</div>
-                        <div className="owner">{file.uploader}</div>
-                        <div className="size">{file.size}</div>
-                        <div className="date">{file.updatedAt.replace(/-/g,".").replace("T", " ").replace(/:[0-9]+$/,"")}</div>
-                        <div className="icon">
-                            <img src={arrow}/>
-                        </div>
+                  );
+                })
+            : files &&
+              files.map(
+                (file: FileInfo) =>
+                  file && (
+                    <File key={file.updatedAt}>
+                      <div className="name">{file.fileName}</div>
+                      <div className="loc">{file.url}</div>
+                      <div className="owner">{file.uploader}</div>
+                      <div className="size">
+                        {Math.round(file.size / 1024)}MB
+                      </div>
+                      <div className="date">
+                        {file.updatedAt
+                          .replace(/-/g, '.')
+                          .replace('T', ' ')
+                          .replace(/:[0-9]+$/, '')}
+                      </div>
+                      <div className="icon">
+                        <img src={arrow} />
+                      </div>
                     </File>
-                ))}
-            </div>
-        </ListBox>
+                  ),
+              )}
+        </div>
+      </ListBox>
     );
 }
 
