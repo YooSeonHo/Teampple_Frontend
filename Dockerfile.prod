@@ -1,0 +1,32 @@
+# node 최신 버전 사용 / build파일임을 명시
+FROM node:latest as builder 
+# working dir를 /app으로 설정
+WORKDIR /app 
+# 먼저 package.json, yarn.lock 파일을 복사
+COPY package.json ./ 
+# # ------- npm -------
+# RUN npm install
+# COPY . ./
+# RUN npm run build
+
+# ------- yarn --------
+COPY yarn.lock ./
+# npm install yarn, yarn install
+RUN npm install yarn
+RUN yarn install
+# 로컬에 있는 모든 파일을 복사
+COPY . ./ 
+# 빌드
+RUN yarn build 
+
+
+FROM nginx:1.21.4
+# 로컬에 있는 nginx/default.conf 파일을 도커 /etc/nginx/conf.d/defalut.conf로 복사
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf 
+# 위에서 생성한 build 파일을 /usr/share/nginx/html로 복사
+COPY --from=builder /app/build  /usr/share/nginx/html 
+
+# 3000포트 오픈하고 nginx 실행
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
+
