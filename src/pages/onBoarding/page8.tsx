@@ -3,6 +3,9 @@ import styled from "styled-components";
 import page8 from './images/Component 8.png';
 import btn from './images/Group 310.png';
 import { Link } from "react-router-dom";
+import AOS from 'aos';
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 export const Background = styled.div`
     background-image : url('${page8}');
@@ -38,8 +41,14 @@ const Contents = styled.div`
 `
 
 const Page8 = () =>{
+    useEffect(()=>{
+        AOS.init({
+            duration : 2000,
+        });
+        
+      })
     return(
-        <Background>
+        <Background data-aos="fade-down">
             <Contents>
                 <div>건강하고 성공적인 팀플을 위해<br/> 팀쁠의 가이드를 받아 볼 준비가 되셨나요?</div>
                 <div className="btn">

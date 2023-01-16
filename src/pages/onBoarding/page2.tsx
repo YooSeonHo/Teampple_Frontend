@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import page2 from './images/Component 2.png';
+import AOS from 'aos';
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 
 
 const Box = styled.div`
@@ -48,8 +52,17 @@ const Contents = styled.div`
 
 
 const Page2 = () =>{
+
+    useEffect(()=>{
+        AOS.init({
+            duration : 2000,
+            anchorPlacement : 'top-bottom'
+        });
+        
+      })
+
     return(
-        <Box>
+        <Box data-aos="fade-up">
             <Background/>
                 <Contents>
                     <div className="header">대학에 갓 입학했는데<br/>전공에도 교양에도..팀플이..</div>

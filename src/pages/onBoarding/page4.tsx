@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import page4 from './images/Component 4.png';
+import AOS from 'aos';
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 
 export const Box = styled.div`
     width : 100%;
@@ -48,8 +52,16 @@ export const Background = styled.div`
 `;
 
 const Page4 = () =>{
+
+    useEffect(()=>{
+        AOS.init({
+            duration : 2000,
+        });
+        
+      })
+
     return(
-        <Box>
+        <Box data-aos="zoom-out">
             <Contents>
                 <div className="top">처음이지만 체계적으로!</div>
                 <div className="mid">팀플을 어떻게 체계적으로 진행해야할지 막막하셨나요?<br/>

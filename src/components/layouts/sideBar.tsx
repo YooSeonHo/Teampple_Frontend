@@ -173,7 +173,9 @@ const SideBar = () => {
   return (
     <SideBarBox userid={userid}>
       <div className="logo">
-        <img src={logo} />
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <img src={logo} />
+        </Link>
       </div>
       <Link to="/profile" style={{ textDecoration: 'none' }}>
         <div className="user">

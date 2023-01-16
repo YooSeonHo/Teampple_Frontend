@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import page3 from './images/Component 3.png';
+import AOS from 'aos';
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 
 const Box = styled.div`
     width :100%;
@@ -39,8 +43,15 @@ const Box = styled.div`
 
 
 const Page3 = () =>{
+    useEffect(()=>{
+        AOS.init({
+            duration : 2000,
+        });
+        
+      })
+
     return(
-        <Box>
+        <Box data-aos="fade-down-right">
             <div className="content">걱정마세요!<br/> 이젠 <span>팀쁠</span>이 도와드려요!</div>
             <Background/>
         </Box>

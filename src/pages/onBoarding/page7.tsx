@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import page7 from './images/Component 7.png';
 import { Box } from "./page4";
+import AOS from 'aos';
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 export const Background = styled.div`
     background-image : url('${page7}');
@@ -23,8 +26,15 @@ export const Background = styled.div`
 `;
 
 const Page7 = () =>{
+    useEffect(()=>{
+        AOS.init({
+            duration : 2000,
+        });
+        
+      })
+
     return(
-        <Box>
+        <Box data-aos="zoom-out">
             <Content>
                 <div>또, 이런 사람들에게 필요해요</div>
             </Content>
