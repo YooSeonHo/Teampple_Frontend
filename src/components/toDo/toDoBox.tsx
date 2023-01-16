@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import React from "react";
 import ToDoCard from "./toDoCard";
+import { StyledToDoBoxInfo } from "interfaces";
 
-const ToDoWrapper = styled.div`
+const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 
-width: 1272px;
+width: ${(props)=> props.pathname === '/home'? '1680px': '1272px'};
 height: 556px;
 display: flex;
 border-radius: 16px;
@@ -38,10 +39,9 @@ justify-content : flex-start;
 }
 `;
 
-const ToDoBox = () =>{
-
+const ToDoBox = ({pathname} : {pathname : string}) =>{
     return(
-        <ToDoWrapper>
+        <ToDoWrapper pathname={pathname}>
             <ToDoCard/>
             <ToDoCard/>
             <ToDoCard/>
