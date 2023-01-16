@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import feedback from '../images/feedback.png';
 import group from '../images/Group 697.png';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
 import { useRecoilState } from 'recoil';
 import { feedbackState, modal2State, teamMateNumState } from 'state';
+import axios from 'axios';
 
 const HeaderBox = styled.div`
   width: 1680px;
@@ -141,7 +142,7 @@ const ModalContainer2 = styled.div`
 `;
 
 const TeampleHeader = () => {
-  const [teamMatesNum,] = useRecoilState(teamMateNumState);
+  const [teamMatesNum,setTeamMatesNum] = useRecoilState(teamMateNumState);
   const [isOpen,setIsOpen] = useRecoilState(feedbackState);
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useRecoilState(modal2State);
@@ -161,6 +162,22 @@ const TeampleHeader = () => {
   const openFeed = () =>{
     setIsOpen(!isOpen);
   }
+
+  const getMateNum = async() =>{
+    await axios({
+      method : 'get',
+      baseURL : 'https://www.teampple.site',
+      url : '/api/teams/teammates',
+      params : {teamId : 1},
+    })
+    .then((res)=>{
+      setTeamMatesNum(res.data.data.teammates.length);
+    })
+  }
+
+  useEffect(()=>{
+    getMateNum();
+  },[])
 
   return (
     <HeaderBox>
