@@ -2,15 +2,19 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
 import { useRecoilState } from 'recoil';
-import { zIndexState } from 'state';
+import { zIndexState,feedbackState,modal2State } from 'state';
 import axios from 'axios';
 import { IPlan } from '../../interfaces';
 
 const PlanManager = () => {
   const [modal, setModal] = useState(false);
   const [zIndex,setZIndex] = useRecoilState(zIndexState);
+  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+  const [modal2, setModal2] = useRecoilState(modal2State);
   const showModal = () => {
     setModal(!modal);
+    setIsOpen(false);
+    setModal2(false);
     setZIndex(999);
   };
   const [plans, setPlans] = useState([]);

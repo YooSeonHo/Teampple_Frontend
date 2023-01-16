@@ -26,6 +26,10 @@ export interface StyledFeedInfo {
   pathname: string;
 }
 
+export interface StyledToDoBoxInfo {
+  pathname: string;
+}
+
 export interface SearchFileInfo {
   search: string;
 }
