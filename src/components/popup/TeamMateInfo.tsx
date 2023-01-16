@@ -10,6 +10,7 @@ import { teamMateNumState } from 'state';
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
   const [,setTeamMatesNum] = useRecoilState(teamMateNumState);
+
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
@@ -27,9 +28,31 @@ const TeamMateInfo = () => {
       });
   };
 
+  const getLink = async () =>{
+    await axios({
+      url: '/api/invitations',
+      baseURL: 'https://www.teampple.site',
+      method : 'get',
+      params : {teamId : 1} //바꾸기 ㅋ
+    })
+    .then((res)=>{
+      navigator.clipboard.writeText(res.data.data.url).then(()=>{
+
+        alert('초대 코드 복사가 완료되었습니다.');
+      })
+    })
+    .catch((e)=>{
+      console.log(e);
+    })
+  }
+
   useEffect(() => {
     getTeamMateAPI();
   }, []);
+
+  const onCopy = async () =>{
+    await getLink();
+  }
 
   return (
     <TeamMateInfoContainer>
@@ -58,7 +81,7 @@ const TeamMateInfo = () => {
             </TeamMate>
           ))}
       </TeamMateBox>
-      <LinkBtn>
+      <LinkBtn onClick={onCopy}>
         <FiLink2 style={{ marginRight: '8px', fontSize: '16px' }} />
         팀원 초대 링크 복사
       </LinkBtn>
