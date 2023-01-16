@@ -5,11 +5,10 @@ import { FiLink2 } from 'react-icons/fi';
 import axios from 'axios';
 import { ITeamMate } from '../../interfaces';
 import { useRecoilState } from 'recoil';
-import { teamMateNumState,modal2State } from 'state';
+import { teamMateNumState, modal2State } from 'state';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
-  const [,setTeamMatesNum] = useRecoilState(teamMateNumState);
   const [modal2, setModal2] = useRecoilState(modal2State);
 
   const getTeamMateAPI = async () => {
@@ -20,41 +19,38 @@ const TeamMateInfo = () => {
       params: { teamId: 1 },
     })
       .then((response) => {
-        console.log(response.data.data.teammates);
         setTeamMates(response.data.data.teammates);
-        setTeamMatesNum(response.data.data.teammates.length);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const getLink = async () =>{
+  const getLink = async () => {
     await axios({
       url: '/api/invitations',
       baseURL: 'https://www.teampple.site',
-      method : 'get',
-      params : {teamId : 1} //바꾸기 ㅋ
+      method: 'get',
+      params: { teamId: 1 }, //바꾸기 ㅋ
     })
-    .then((res)=>{
-      navigator.clipboard.writeText(res.data.data.url).then(()=>{
-
-        alert('초대 코드 복사가 완료되었습니다.');
-        setModal2(false);
+      .then((res) => {
+        navigator.clipboard.writeText(res.data.data.url).then(() => {
+          alert('초대 코드 복사가 완료되었습니다.');
+          setModal2(false);
+        });
       })
-    })
-    .catch((e)=>{
-      console.log(e);
-    })
-  }
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   useEffect(() => {
     getTeamMateAPI();
   }, []);
 
-  const onCopy = async () =>{
+  const onCopy = async () => {
     await getLink();
-  }
+  };
 
   return (
     <TeamMateInfoContainer>
@@ -150,11 +146,9 @@ const School = styled.div`
 `;
 
 const Me = styled.div`
-  position: absolute;
-  width: 22px;
-  height: 14px;
-  right: 20px;
-  top: 25px;
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
   font-size: 14px;
   color: #487aff;
 `;
@@ -174,7 +168,7 @@ const LinkBtn = styled.div`
   align-items: center;
 
   :hover {
-    cursor : grab;
+    cursor: grab;
   }
 `;
 

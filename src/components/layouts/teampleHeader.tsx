@@ -146,7 +146,11 @@ const TeampleHeader = () => {
   const [isOpen,setIsOpen] = useRecoilState(feedbackState);
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useRecoilState(modal2State);
-
+  const [name, setName] = useState();
+  const [goal, setGoal] = useState();
+  const [startDate, setStartDate] = useState();
+  const [dueDate, setDueDate] = useState();
+  const [deadDay, setDeadDay] = useState<any | null>(null);
 
   const showModal1 = () => {
     setModal1(!modal1);
@@ -163,31 +167,44 @@ const TeampleHeader = () => {
     setIsOpen(!isOpen);
   }
 
-  const getMateNum = async() =>{
+  const getTHeader = async () => {
     await axios({
-      method : 'get',
-      baseURL : 'https://www.teampple.site',
-      url : '/api/teams/teammates',
-      params : {teamId : 1},
-    })
-    .then((res)=>{
-      setTeamMatesNum(res.data.data.teammates.length);
-    })
-  }
+      method: 'get',
+      baseURL: 'https://www.teampple.site',
+      url: '/api/teams',
+      params: { teamId: 1 },
+    }).then((res) => {
+      console.log(res.data.data);
+      setName(res.data.data.name);
+      setGoal(res.data.data.goal);
+      setTeamMatesNum(res.data.data.teammatesNum);
+      setStartDate(res.data.data.startDate);
+      setDueDate(res.data.data.dueDate);
+      setDeadDay(getDeadDay(res.data.data.dueDate));
+    });
+  };
 
   useEffect(()=>{
-    getMateNum();
-  },[])
+    getTHeader();
+  }, [])
+  
+  const getDeadDay = (dueDate: Date) => {
+    const setDate = new Date(dueDate);
+    const now = new Date();
+    const distance = setDate.getTime() - now.getTime();
+    const day = Math.floor(distance / (1000 * 60 * 60 * 24));
+    return day + 1;
+  };
 
   return (
     <HeaderBox>
-      <div id="main">홈</div>
+      <div id="main">{name}</div>
 
-      <div id="sub">팀플 가이드 서비스 개발</div>
+      <div id="sub">{goal}</div>
       <div id="dDayBox">
-        <div id="dDay">D-24</div>
+        <div id="dDay">D-{deadDay}</div>
       </div>
-      <div id="date">2022.11.22-2022.12.21</div>
+      <div id="date">{startDate}-{dueDate}</div>
       <button className="editBox" onClick={showModal1}>
         팀플 수정
       </button>
