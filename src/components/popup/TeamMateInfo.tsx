@@ -5,11 +5,12 @@ import { FiLink2 } from 'react-icons/fi';
 import axios from 'axios';
 import { ITeamMate } from '../../interfaces';
 import { useRecoilState } from 'recoil';
-import { teamMateNumState } from 'state';
+import { teamMateNumState,modal2State } from 'state';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
   const [,setTeamMatesNum] = useRecoilState(teamMateNumState);
+  const [modal2, setModal2] = useRecoilState(modal2State);
 
   const getTeamMateAPI = async () => {
     await axios({
@@ -39,6 +40,7 @@ const TeamMateInfo = () => {
       navigator.clipboard.writeText(res.data.data.url).then(()=>{
 
         alert('초대 코드 복사가 완료되었습니다.');
+        setModal2(false);
       })
     })
     .catch((e)=>{
@@ -170,6 +172,10 @@ const LinkBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  :hover {
+    cursor : grab;
+  }
 `;
 
 export default TeamMateInfo;

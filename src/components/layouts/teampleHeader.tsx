@@ -5,7 +5,7 @@ import group from '../images/Group 697.png';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
 import { useRecoilState } from 'recoil';
-import { feedbackState, teamMateNumState } from 'state';
+import { feedbackState, modal2State, teamMateNumState } from 'state';
 
 const HeaderBox = styled.div`
   width: 1680px;
@@ -142,18 +142,21 @@ const ModalContainer2 = styled.div`
 
 const TeampleHeader = () => {
   const [teamMatesNum,] = useRecoilState(teamMateNumState);
-
-
+  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
   const [modal1, setModal1] = useState(false);
+  const [modal2, setModal2] = useRecoilState(modal2State);
+
+
   const showModal1 = () => {
     setModal1(!modal1);
+    setModal2(false);
+    setIsOpen(false);
+
   };
-  const [modal2, setModal2] = useState(false);
   const showModal2 = () => {
     setModal2(!modal2);
   };
 
-  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
 
   const openFeed = () =>{
     setIsOpen(!isOpen);

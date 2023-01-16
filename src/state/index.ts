@@ -34,3 +34,8 @@ export const zIndexState = atom<number>({
   key : 'zIndex',
   default : 997
 })
+
+export const modal2State = atom<boolean>({
+  key : 'modal2',
+  default : false
+})
