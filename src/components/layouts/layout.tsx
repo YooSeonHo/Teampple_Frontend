@@ -7,6 +7,7 @@ import { feedbackState } from 'state';
 import Feedbacks from 'components/feedbacks/feedbacks';
 
 const Container = styled.div`
+    margin-left : 240px;
 `
 
 const LayoutBox = styled.div`
@@ -16,7 +17,13 @@ display : flex;
 
 const AllBox = styled.div`
   display : flex;
-  position : relative;`;
+  position : relative;
+  
+  `;
+
+  const Children = styled.div`
+  
+  `;
 
 const Layout = ({children} : {children : any}) =>{
     const [isOpen,setIsOpen] = useRecoilState(feedbackState);
@@ -29,7 +36,9 @@ const Layout = ({children} : {children : any}) =>{
                 <AllBox>
                     {isOpen? <Feedbacks  pathname={window.location.pathname}/> : null}
                 </AllBox>
-                {children}
+                <Children>
+                    {children}
+                </Children>
             </Container>
             
         </LayoutBox>

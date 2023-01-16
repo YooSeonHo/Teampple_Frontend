@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
+import { useRecoilState } from 'recoil';
+import { zIndexState } from 'state';
 import axios from 'axios';
 import { IPlan } from '../../interfaces';
 
 const PlanManager = () => {
   const [modal, setModal] = useState(false);
+  const [zIndex,setZIndex] = useRecoilState(zIndexState);
   const showModal = () => {
     setModal(!modal);
+    setZIndex(999);
   };
   const [plans, setPlans] = useState([]);
   const [deadDay, setDeadDay] = useState<any | null>(null);
@@ -53,7 +57,7 @@ const PlanManager = () => {
   };
 
   return (
-    <ManagerBox>
+    <ManagerBox style={{zIndex : zIndex}}>
       <div className="dDayHeader">
         <div className="text">일정 관리자</div>
         <div className="headerBox">
@@ -95,7 +99,6 @@ const ManagerBox = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 998;
 
   .dDayHeader {
     width: 324px;

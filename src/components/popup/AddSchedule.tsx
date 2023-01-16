@@ -6,6 +6,8 @@ import { CiAlarmOn } from 'react-icons/ci';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
+import { useRecoilState } from 'recoil';
+import { zIndexState } from 'state';
 // installation
 // npm install react-datepicker
 
@@ -16,11 +18,14 @@ const AddSchedule = ({ setModal }: any) => {
   const today = new window.Date();
   const [pickedDate, setPickedDate] = useState<Date>(today);
   const [value, setValue] = useState('');
+  const [zIndex,setZIndex] = useRecoilState(zIndexState);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   const closeModal = () => {
     setModal(false);
+    setZIndex(997)
   };
 
   return (

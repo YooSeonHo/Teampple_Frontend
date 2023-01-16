@@ -29,3 +29,8 @@ export const IsSearchState = atom<boolean>({
   key : 'isSearch',
   default : false
 })
+
+export const zIndexState = atom<number>({
+  key : 'zIndex',
+  default : 997
+})

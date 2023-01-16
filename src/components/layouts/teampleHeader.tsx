@@ -17,7 +17,7 @@ const HeaderBox = styled.div`
   line-height: 72px;
   white-space: nowrap;
   position: relative;
-  z-index: 999;
+  z-index: 998;
 
   #main {
     margin-left: 54px;
