@@ -13,12 +13,11 @@ const HomeHeader = () => {
     console.log(e.target);
   };
 
-  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
 
-  const openFeed = () =>{
+  const openFeed = () => {
     setIsOpen(!isOpen);
-  }
-
+  };
 
   return (
     <HomeHeaderContainer>
