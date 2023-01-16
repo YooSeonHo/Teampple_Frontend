@@ -76,7 +76,7 @@ const OnBoardingHeader = () => {
             <Contents>
                 <div className='aboutUs'>ABOUT US</div>
                 <div className='plan'>PLAN</div>
-                <Link to='/logn' style={{textDecoration : 'none', color: '#383838'}}>
+                <Link to='/login' style={{textDecoration : 'none', color: '#383838'}}>
                     <div className='login'>LOGIN</div>
                 </Link>
             </Contents>

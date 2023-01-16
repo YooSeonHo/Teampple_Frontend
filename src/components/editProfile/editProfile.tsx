@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import prof1 from '../images/profile/prof1.png';
 import editBtn from '../images/Frame 299.png';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const EditBox = styled.div`
     width: 972px;
@@ -147,6 +148,7 @@ const EditProfile = ()=>{
     const [school,setSchool] = useState("홍익대학교");
     const [major,setMajor] = useState("컴퓨터공학과");
     const [grade,setGrade] = useState("17");
+    const [profile,setProfile] = useState([]); 
     const navigate = useNavigate();
 
     const onSchool = (e : React.ChangeEvent<HTMLInputElement>) =>{
@@ -164,6 +166,25 @@ const EditProfile = ()=>{
         navigate('/home')
         //임시!
     }
+
+    const getProfile = async () =>{
+        await axios({
+            baseURL: 'https://www.teampple.site/',
+            url : 'api/users/userprofiles',
+            method: 'get',
+            //리프레쉬 토큰이 있어야댐.. -> 이후에 만들어둔 스테이트들 모두 프로필의 키값으로 대체하면 댈듯
+        })
+        .then((res)=>{
+            setProfile(res.data)
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+    }
+
+    useEffect(()=>{
+        getProfile();
+    },[])
 
     return(
         <EditBox>
