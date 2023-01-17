@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ToDoCard from './toDoCard';
 import { StyledToDoBoxInfo } from 'interfaces';
+import axios from 'axios';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: ${(props) => (props.pathname === '/home' ? '1680px' : '1272px')};
@@ -38,10 +39,31 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 `;
 
 const ToDoBox = ({ pathname }: { pathname: string }) => {
+  const [todoList, setTodoList] = useState([]);
+  const [startDate, setStartDate] = useState();
+  const [dueDate, setDueDate] = useState();
+
+  const getTodoAPI = async () => {
+    await axios({
+      url: `/api/teams/tasks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      params: { teamId: 1 },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        setTodoList(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getTodoAPI();
+  }, []);
   return (
     <ToDoWrapper pathname={pathname}>
-      <ToDoCard />
-      {/* <div className="empty">아직 할 일이 없어요.</div> */}
+      <ToDoCard todoList={todoList} />
     </ToDoWrapper>
   );
 };

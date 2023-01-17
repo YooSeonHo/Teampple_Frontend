@@ -9,12 +9,12 @@ import { useEffect } from "react";
 
 export const Background = styled.div`
     background-image : url('${page1}');
-    width : 100%;
-    height : 1080px;
+    width : 100vw;
+    height : 100vh;
     background-size: cover;
     justify-content : center;
     display:flex;
-    
+    overflow: hidden;
 `;
 
 const ContentBox = styled.div`
