@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import vector from '../images/Vector.png';
 import more from "../images/Group 419.png";
 import finBtn from "../images/Group 435.png";
@@ -8,8 +8,10 @@ import download from "../images/DownloadSimple.png";
 import trash from "../images/Trash.png";
 import ellipse from "../images/Ellipse 1.png";
 import send from "../images/send.png";
-
-
+import axios from "axios";
+import { detailInfo } from "interfaces";
+import S3 from 'react-aws-s3-typescript';
+import { config } from "config";
 
 const DetailContainer = styled.div`
     width: 1000px;
@@ -362,9 +364,95 @@ img{
 `;
 
 const DetailBox = () =>{
+    
+
+    const [detail,setDetail] = useState<detailInfo | undefined>();
+    const [file,setFile] = useState<File>();
+    const [fileLoc,setFileLoc] = useState('');
+    const fileInput = useRef<any>();
+    
+
+    const onClick = () =>{
+        fileInput.current && fileInput.current.click();
+    }
+
+    const onFileUpload = async (e : React.ChangeEvent<HTMLInputElement>) =>{
+        if (e.target.files){
+            setFile(e.target.files[0]);
+                if (e.target.files[0].name.length > 0){
+                    uploadFile(e.target.files[0])
+                }
+        }
+      
+    }
+
+    const uploadFile = async (file : File) =>{
+        const S3Client = new S3(config);
+        await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/,''))
+        .then((data)=>{
+            setFileLoc(data.location);
+            alert('파일 등록이 완료되었습니다.')
+            //후에 이 부분 지우고 post만 남겨두면 됨.
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+        // postFile();
+    } 
+
+    const onReset = (e : React.MouseEvent<HTMLInputElement>) =>{
+        e.currentTarget.value = '';
+    }
+    //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
+  
+    const postFile = async () =>{
+        await axios({
+            url: `/api/files`,
+            baseURL: 'https://www.teampple.site/',
+            method: 'post',
+            data : {
+                fileName : file?.name,
+                size : file?.size,
+                url : fileLoc
+               
+            },
+            params :{
+                taskId : 1,
+                teamId : 1
+            },
+            //여기에 헤더 추가
+        })
+        .then(()=>{
+            alert('파일 등록이 완료되었습니다.')
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+    }
+
+    const getDetail = async () =>{
+        await axios({
+            url: `/api/tasks`,
+            baseURL: 'https://www.teampple.site/',
+            method: 'get',
+            params: {
+              taskId: 1,
+            },
+        }).then((res)=>{
+            setDetail(res.data.data);
+        })
+        .catch((e) => {
+            console.log(e);
+          });
+    }
+
+    useEffect(()=>{
+        getDetail();
+    },[]);
 
     return(
-        <DetailContainer>
+        <>
+        {detail && <DetailContainer>
             <div className="headerBtns">
                 <div className="back">
                     <img src={vector}/>
@@ -377,12 +465,12 @@ const DetailBox = () =>{
                 <div className="top">
                     <div className="step">
                         <div className="stepRound">
-                            <a className="stepText">1단계</a>
+                            <span className="stepText">{`${detail.sequenceNum}단계`}</span>
                         </div>
-                        <div className="stepName">자료 조사</div>
+                        <div className="stepName">{detail.stageName}</div>
                     </div>
                     <div className="subName">
-                        <div className="taskName">협업툴 시장 조사</div>
+                        <div className="taskName">{detail.taskName}</div>
                         <div className="finBtn">
                             <img src={finBtn}/>
                         </div>
@@ -390,15 +478,22 @@ const DetailBox = () =>{
                     <div className="subInfo">
                         <div className="manager">
                             담당자
-                            <a className="managerInput">안수빈</a>
+                            <span className="managerInput">{detail.operators}</span>
                         </div>
                         <div className="date">
                             기간
-                            <a className="dateInput">2022.11.22-2022.11.23</a>
+                            <span className="dateInput">
+                                {`${detail.startDate.replace(/-/g, '.')
+                                .replace('T', ' ')
+                                .replace(/:[0-9]+$/, '')} - ${detail.dueDate.replace(/-/g, '.')
+                                .replace('T', ' ')
+                                .replace(/:[0-9]+$/, '')}`}
+                                </span>
+                            {/* <span className="dateInput">2022.11.22-2022.11.23</span> */}
                         </div>
                         <div className="state">
                             진행 상태
-                            <a className="stateInput">완료</a>
+                            {detail.done ? <span className="stateInput">완료</span> : <span className="stateInput">미완료</span>}
                         </div>
                     </div>
                 </div>
@@ -406,51 +501,43 @@ const DetailBox = () =>{
             <div className="mid">
                 <div className="file">
                     <div className="fileText">파일</div>
-                    <div className="addFile">
-                        <img src={addFile}/>
-                    </div>
+                    <input 
+                    accept="image/*, .docs, .key, .ppt, .pdf"
+                    style={{display : 'none'}}
+                    type='file'
+                    ref={fileInput}
+                    multiple={false}
+                    onChange={onFileUpload}
+                    onClick={onReset}/>
+
+                    <button style={{backgroundImage : `url(${addFile})` ,border : 'none', backgroundSize : 'cover'}} 
+                    className="addFile"
+                    onClick={onClick} />
+
                 </div>
-                <div className="files">
-                    <div className="fileCard">
+                {detail.files && <div className="files">
+                    {detail.files.map((file,index)=>(
+                    <div className="fileCard" key={index}>
                         <div className="fileName">
-                            <div className="nameText">협업툴 시장 조사.docs</div>
+                            <div className="nameText">{file.filename}</div>
                             <div className="icons">
                                 <img src={download} className="download"/>
                                 <img src={trash} className="trash"/>
                             </div>
                         </div>
                         <div className="fileInfo">
-                            <div className="uploadDate">2022.11.25 12:30</div>
-                            <div className="fileSize">85.0KB</div>
-                        </div>
-                    </div>
-                    <div className="fileCard">
-                        <div className="fileName">
-                            <div className="nameText">이미지.docs</div>
-                            <div className="icons">
-                                <img src={download} className="download"/>
-                                <img src={trash} className="trash"/>
+                            <div className="uploadDate">
+                                {file.updatedAt.replace(/-/g, '.')
+                                .replace('T', ' ')
+                                .replace(/:[0-9]+$/, '')}
                             </div>
-                        </div>
-                        <div className="fileInfo">
-                            <div className="uploadDate">2022.11.25 12:30</div>
-                            <div className="fileSize">85.0KB</div>
+                            {/* <div className="uploadDate">2022.11.25 12:30</div> */}
+                            <div className="fileSize">{Math.round(file.size / 1024)}MB</div>
                         </div>
                     </div>
-                    <div className="fileCard">
-                        <div className="fileName">
-                            <div className="nameText">장표 정리.docs</div>
-                            <div className="icons">
-                                <img src={download} className="download"/>
-                                <img src={trash} className="trash"/>
-                            </div>
-                        </div>
-                        <div className="fileInfo">
-                            <div className="uploadDate">2022.11.25 12:30</div>
-                            <div className="fileSize">85.0KB</div>
-                        </div>
-                    </div>
-                </div>
+
+                    ))}
+                </div>}
             </div>
             <div className="btm">
                 <div className="feedText">피드백</div>
@@ -464,40 +551,31 @@ const DetailBox = () =>{
                         </button>
                     </div>
                 </div>
-                <div className="feedbacks">
-                    <div className="feedBox">
+                {detail.feedbacks && <div className="feedbacks">
+                    {detail.feedbacks.map((feedback,index)=>(
+                    <div className="feedBox" key={index}>
                         <div className="profileImg">
-                            <img src={ellipse}/>
+                            <img src={require('../images/profile/' + feedback.adviserImage + '.png')}/>
                         </div>
                         <div className="fullFeed">
                             <div className="feedInfo">
-                                <div className="feedName">정서윤</div>
-                                <div className="feedDate">8일전</div>
+                                <div className="feedName">{feedback.adviser}</div>
+                                <div className="feedDate">
+                                    {feedback.createdAt.replace(/-/g, '.')
+                                    .replace('T', ' ')}
+                                </div>
                                 <div className="plusBtn">
                                     <img src={more}/>
                                 </div>
                             </div>
-                            <div className="feedContent">해외 시장조사도 추가하면 좋겠습니다.</div>
+                            <div className="feedContent">{feedback.comment}</div>
                         </div>
                     </div>
-                    <div className="feedBox">
-                        <div className="profileImg">
-                            <img src={ellipse}/>
-                        </div>
-                        <div className="fullFeed">
-                            <div className="feedInfo">
-                                <div className="feedName">안수빈</div>
-                                <div className="feedDate">8일전</div>
-                                <div className="plusBtn">
-                                    <img src={more}/>
-                                </div>
-                            </div>
-                            <div className="feedContent">해외 시장조사도 추가하면 좋겠습니다.</div>
-                        </div>
-                    </div>
-                </div>
+                    ))}
+                </div>}
             </div>
-        </DetailContainer>
+        </DetailContainer>}
+        </>
     );
 }
 
