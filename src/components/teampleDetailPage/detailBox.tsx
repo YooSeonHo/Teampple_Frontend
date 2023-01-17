@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import vector from '../images/Vector.png';
 import more from "../images/Group 419.png";
 import finBtn from "../images/Group 435.png";
@@ -10,7 +10,6 @@ import ellipse from "../images/Ellipse 1.png";
 import send from "../images/send.png";
 import axios from "axios";
 import { detailInfo } from "interfaces";
-import proImageU12 from '../images/profile/prof12.png';
 
 
 const DetailContainer = styled.div`
@@ -365,6 +364,20 @@ img{
 
 const DetailBox = () =>{
     const [detail,setDetail] = useState<detailInfo | undefined>();
+    const fileInput = useRef<any>();
+
+    const onClick = () =>{
+        fileInput.current && fileInput.current.click();
+    }
+
+    const onFileUpload = (e : React.ChangeEvent<HTMLInputElement>) =>{
+        console.log(e.target.files && e.target.files[0])
+    }
+
+    const onReset = (e : React.MouseEvent<HTMLInputElement>) =>{
+        e.currentTarget.value = '';
+    }
+    //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
   
     const getDetail = async () =>{
         await axios({
@@ -437,9 +450,19 @@ const DetailBox = () =>{
             <div className="mid">
                 <div className="file">
                     <div className="fileText">파일</div>
-                    <div className="addFile">
-                        <img src={addFile}/>
-                    </div>
+                    <input 
+                    accept="image/*, .docs, .key, .ppt, .pdf"
+                    style={{display : 'none'}}
+                    type='file'
+                    ref={fileInput}
+                    multiple={false}
+                    onChange={onFileUpload}
+                    onClick={onReset}/>
+
+                    <button style={{backgroundImage : `url(${addFile})` ,border : 'none', backgroundSize : 'cover'}} 
+                    className="addFile"
+                    onClick={onClick} />
+
                 </div>
                 {detail.files && <div className="files">
                     {detail.files.map((file,index)=>(
