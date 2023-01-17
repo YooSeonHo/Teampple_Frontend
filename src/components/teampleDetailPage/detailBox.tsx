@@ -11,6 +11,7 @@ import send from "../images/send.png";
 import axios from "axios";
 import { detailInfo } from "interfaces";
 import S3 from 'react-aws-s3-typescript';
+import { config } from "config";
 
 const DetailContainer = styled.div`
     width: 1000px;
@@ -363,25 +364,72 @@ img{
 `;
 
 const DetailBox = () =>{
+    
+
     const [detail,setDetail] = useState<detailInfo | undefined>();
+    const [file,setFile] = useState<File>();
+    const [fileLoc,setFileLoc] = useState('');
     const fileInput = useRef<any>();
+    
 
     const onClick = () =>{
         fileInput.current && fileInput.current.click();
     }
 
     const onFileUpload = async (e : React.ChangeEvent<HTMLInputElement>) =>{
-        console.log(e.target.files && e.target.files[0])
-        await axios({
-
-        })
+        if (e.target.files){
+            setFile(e.target.files[0]);
+                if (e.target.files[0].name.length > 0){
+                    uploadFile(e.target.files[0])
+                }
+        }
+      
     }
+
+    const uploadFile = async (file : File) =>{
+        const S3Client = new S3(config);
+        await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/,''))
+        .then((data)=>{
+            setFileLoc(data.location);
+            alert('파일 등록이 완료되었습니다.')
+            //후에 이 부분 지우고 post만 남겨두면 됨.
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+        // postFile();
+    } 
 
     const onReset = (e : React.MouseEvent<HTMLInputElement>) =>{
         e.currentTarget.value = '';
     }
     //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
   
+    const postFile = async () =>{
+        await axios({
+            url: `/api/files`,
+            baseURL: 'https://www.teampple.site/',
+            method: 'post',
+            data : {
+                fileName : file?.name,
+                size : file?.size,
+                url : fileLoc
+               
+            },
+            params :{
+                taskId : 1,
+                teamId : 1
+            },
+            //여기에 헤더 추가
+        })
+        .then(()=>{
+            alert('파일 등록이 완료되었습니다.')
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+    }
+
     const getDetail = async () =>{
         await axios({
             url: `/api/tasks`,
