@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import vector from '../images/Vector.png';
 import more from "../images/Group 419.png";
 import finBtn from "../images/Group 435.png";
@@ -8,7 +8,9 @@ import download from "../images/DownloadSimple.png";
 import trash from "../images/Trash.png";
 import ellipse from "../images/Ellipse 1.png";
 import send from "../images/send.png";
-
+import axios from "axios";
+import { detailInfo } from "interfaces";
+import proImageU12 from '../images/profile/prof12.png';
 
 
 const DetailContainer = styled.div`
@@ -362,9 +364,40 @@ img{
 `;
 
 const DetailBox = () =>{
+    const [detail,setDetail] = useState<detailInfo | undefined>();
+  
+    const getDetail = async () =>{
+        await axios({
+            url: `/api/tasks`,
+            baseURL: 'https://www.teampple.site/',
+            method: 'get',
+            params: {
+              taskId: 1,
+            },
+        }).then((res)=>{
+            setDetail(res.data.data);
+        })
+        .catch((e) => {
+            console.log(e);
+          });
+    }
+
+    const getAddDate = (addDate: string) => {
+        const setDate = new Date(addDate);
+        const now = new Date();
+        const distance = setDate.getTime() - now.getTime();
+        const day = Math.floor(distance / (1000 * 60 * 60 * 24));
+        return day + 1;
+      };
+    
+
+    useEffect(()=>{
+        getDetail();
+    },[]);
 
     return(
-        <DetailContainer>
+        <>
+        {detail && <DetailContainer>
             <div className="headerBtns">
                 <div className="back">
                     <img src={vector}/>
@@ -377,12 +410,12 @@ const DetailBox = () =>{
                 <div className="top">
                     <div className="step">
                         <div className="stepRound">
-                            <a className="stepText">1단계</a>
+                            <span className="stepText">{`${detail.sequenceNum}단계`}</span>
                         </div>
-                        <div className="stepName">자료 조사</div>
+                        <div className="stepName">{detail.stageName}</div>
                     </div>
                     <div className="subName">
-                        <div className="taskName">협업툴 시장 조사</div>
+                        <div className="taskName">{detail.taskName}</div>
                         <div className="finBtn">
                             <img src={finBtn}/>
                         </div>
@@ -390,15 +423,22 @@ const DetailBox = () =>{
                     <div className="subInfo">
                         <div className="manager">
                             담당자
-                            <a className="managerInput">안수빈</a>
+                            <span className="managerInput">{detail.operators}</span>
                         </div>
                         <div className="date">
                             기간
-                            <a className="dateInput">2022.11.22-2022.11.23</a>
+                            <span className="dateInput">
+                                {`${detail.startDate.replace(/-/g, '.')
+                                .replace('T', ' ')
+                                .replace(/:[0-9]+$/, '')} - ${detail.dueDate.replace(/-/g, '.')
+                                .replace('T', ' ')
+                                .replace(/:[0-9]+$/, '')}`}
+                                </span>
+                            {/* <span className="dateInput">2022.11.22-2022.11.23</span> */}
                         </div>
                         <div className="state">
                             진행 상태
-                            <a className="stateInput">완료</a>
+                            {detail.done ? <span className="stateInput">완료</span> : <span className="stateInput">미완료</span>}
                         </div>
                     </div>
                 </div>
@@ -410,47 +450,29 @@ const DetailBox = () =>{
                         <img src={addFile}/>
                     </div>
                 </div>
-                <div className="files">
-                    <div className="fileCard">
+                {detail.files && <div className="files">
+                    {detail.files.map((file,index)=>(
+                    <div className="fileCard" key={index}>
                         <div className="fileName">
-                            <div className="nameText">협업툴 시장 조사.docs</div>
+                            <div className="nameText">{file.filename}</div>
                             <div className="icons">
                                 <img src={download} className="download"/>
                                 <img src={trash} className="trash"/>
                             </div>
                         </div>
                         <div className="fileInfo">
-                            <div className="uploadDate">2022.11.25 12:30</div>
-                            <div className="fileSize">85.0KB</div>
-                        </div>
-                    </div>
-                    <div className="fileCard">
-                        <div className="fileName">
-                            <div className="nameText">이미지.docs</div>
-                            <div className="icons">
-                                <img src={download} className="download"/>
-                                <img src={trash} className="trash"/>
+                            <div className="uploadDate">
+                                {file.updatedAt.replace(/-/g, '.')
+                                .replace('T', ' ')
+                                .replace(/:[0-9]+$/, '')}
                             </div>
-                        </div>
-                        <div className="fileInfo">
-                            <div className="uploadDate">2022.11.25 12:30</div>
-                            <div className="fileSize">85.0KB</div>
+                            {/* <div className="uploadDate">2022.11.25 12:30</div> */}
+                            <div className="fileSize">{Math.round(file.size / 1024)}MB</div>
                         </div>
                     </div>
-                    <div className="fileCard">
-                        <div className="fileName">
-                            <div className="nameText">장표 정리.docs</div>
-                            <div className="icons">
-                                <img src={download} className="download"/>
-                                <img src={trash} className="trash"/>
-                            </div>
-                        </div>
-                        <div className="fileInfo">
-                            <div className="uploadDate">2022.11.25 12:30</div>
-                            <div className="fileSize">85.0KB</div>
-                        </div>
-                    </div>
-                </div>
+
+                    ))}
+                </div>}
             </div>
             <div className="btm">
                 <div className="feedText">피드백</div>
@@ -464,40 +486,28 @@ const DetailBox = () =>{
                         </button>
                     </div>
                 </div>
-                <div className="feedbacks">
-                    <div className="feedBox">
+                {detail.feedbacks && <div className="feedbacks">
+                    {detail.feedbacks.map((feedback,index)=>(
+                    <div className="feedBox" key={index}>
                         <div className="profileImg">
-                            <img src={ellipse}/>
+                            <img src={require('../images/profile/' + feedback.adviserImage + '.png')}/>
                         </div>
                         <div className="fullFeed">
                             <div className="feedInfo">
-                                <div className="feedName">정서윤</div>
-                                <div className="feedDate">8일전</div>
+                                <div className="feedName">{feedback.adviser}</div>
+                                <div className="feedDate">{getAddDate(feedback.createdAt)}일전</div>
                                 <div className="plusBtn">
                                     <img src={more}/>
                                 </div>
                             </div>
-                            <div className="feedContent">해외 시장조사도 추가하면 좋겠습니다.</div>
+                            <div className="feedContent">{feedback.comment}</div>
                         </div>
                     </div>
-                    <div className="feedBox">
-                        <div className="profileImg">
-                            <img src={ellipse}/>
-                        </div>
-                        <div className="fullFeed">
-                            <div className="feedInfo">
-                                <div className="feedName">안수빈</div>
-                                <div className="feedDate">8일전</div>
-                                <div className="plusBtn">
-                                    <img src={more}/>
-                                </div>
-                            </div>
-                            <div className="feedContent">해외 시장조사도 추가하면 좋겠습니다.</div>
-                        </div>
-                    </div>
-                </div>
+                    ))}
+                </div>}
             </div>
-        </DetailContainer>
+        </DetailContainer>}
+        </>
     );
 }
 

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import prof1 from '../images/profile/prof1.png';
-import prof2 from '../images/profile/prof2.png';
-import prof3 from '../images/profile/prof3.png';
-import prof4 from '../images/profile/prof4.png';
-import prof5 from '../images/profile/prof5.png';
-import prof6 from '../images/profile/prof6.png';
-import prof7 from '../images/profile/prof7.png';
-import prof8 from '../images/profile/prof8.png';
-import prof9 from '../images/profile/prof9.png';
+import prof1 from '../images/profile/proImageU1.png';
+import prof2 from '../images/profile/proImageU2.png';
+import prof3 from '../images/profile/proImageU3.png';
+import prof4 from '../images/profile/proImageU4.png';
+import prof5 from '../images/profile/proImageU5.png';
+import prof6 from '../images/profile/proImageU6.png';
+import prof7 from '../images/profile/proImageU7.png';
+import prof8 from '../images/profile/proImageU8.png';
+import prof9 from '../images/profile/proImageU9.png';
 
 const SummaryHome = () => {
   const now = new Date();

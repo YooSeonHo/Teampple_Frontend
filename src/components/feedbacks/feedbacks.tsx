@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import profile1 from '../images/profile/prof1.png';
+import profile1 from '../images/profile/proImageU1.png';
 import { StyledFeedInfo } from "interfaces";
 
 const FeedBox = styled.div<StyledFeedInfo>`

@@ -56,7 +56,6 @@ const Page2 = () =>{
     useEffect(()=>{
         AOS.init({
             duration : 2000,
-            anchorPlacement : 'top-bottom'
         });
         
       })

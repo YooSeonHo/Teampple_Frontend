@@ -8,19 +8,15 @@ import Page6 from './onBoarding/page6';
 import Page7 from './onBoarding/page7';
 import Page8 from './onBoarding/page8';
 import OnBoardingLayOut from 'components/layouts/onBoardingLayout';
-import AOS from 'aos';
-import "aos/dist/aos.css";
 
 
 const OnboardingPage = () => {
 
-  useEffect(()=>{
-    AOS.init();
-  })
+
   return (
     <OnBoardingLayOut>
       <Page1/>
-      <Page2 data-aos="fade-up"/>
+      <Page2 />
       <Page3/>
       <Page4/>
       <Page5/>
