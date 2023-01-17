@@ -382,15 +382,6 @@ const DetailBox = () =>{
           });
     }
 
-    const getAddDate = (addDate: string) => {
-        const setDate = new Date(addDate);
-        const now = new Date();
-        const distance = setDate.getTime() - now.getTime();
-        const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-        return day + 1;
-      };
-    
-
     useEffect(()=>{
         getDetail();
     },[]);
@@ -495,7 +486,10 @@ const DetailBox = () =>{
                         <div className="fullFeed">
                             <div className="feedInfo">
                                 <div className="feedName">{feedback.adviser}</div>
-                                <div className="feedDate">{getAddDate(feedback.createdAt)}일전</div>
+                                <div className="feedDate">
+                                    {feedback.createdAt.replace(/-/g, '.')
+                                    .replace('T', ' ')}
+                                </div>
                                 <div className="plusBtn">
                                     <img src={more}/>
                                 </div>
