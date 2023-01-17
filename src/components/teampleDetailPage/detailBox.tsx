@@ -10,7 +10,7 @@ import ellipse from "../images/Ellipse 1.png";
 import send from "../images/send.png";
 import axios from "axios";
 import { detailInfo } from "interfaces";
-
+import S3 from 'react-aws-s3-typescript';
 
 const DetailContainer = styled.div`
     width: 1000px;
@@ -370,8 +370,11 @@ const DetailBox = () =>{
         fileInput.current && fileInput.current.click();
     }
 
-    const onFileUpload = (e : React.ChangeEvent<HTMLInputElement>) =>{
+    const onFileUpload = async (e : React.ChangeEvent<HTMLInputElement>) =>{
         console.log(e.target.files && e.target.files[0])
+        await axios({
+
+        })
     }
 
     const onReset = (e : React.MouseEvent<HTMLInputElement>) =>{
