@@ -176,6 +176,7 @@ const EditProfile = ()=>{
         })
         .then((res)=>{
             setProfile(res.data)
+            console.log(res)
         })
         .catch((e)=>{
             console.log(e);

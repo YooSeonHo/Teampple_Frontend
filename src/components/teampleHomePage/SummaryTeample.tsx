@@ -15,7 +15,7 @@ const SummaryTeample = () => {
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
   const week = weeks[now.getDay()];
 
-  const [doneNum, setDoneNum] = useState(8); //수정 필요) API 가져온 정보로 계산해서 넣기
+  const [doneNum, setDoneNum] = useState(10); //수정 필요) API 가져온 정보로 계산해서 넣기
   const [allNum, setAllNum] = useState(11); //수정 필요) API 가져온 정보로 계산해서 넣기
   const [currentPercent, setCurrentPercent] = useState<number>(
     Math.round((doneNum / allNum) * 100),
