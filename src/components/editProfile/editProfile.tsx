@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-import prof1 from '../images/profile/prof1.png';
+import prof1 from '../images/profile/proImageU1.png';
 import editBtn from '../images/Frame 299.png';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

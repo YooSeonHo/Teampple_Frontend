@@ -1,3 +1,4 @@
+import { detailInfo } from 'interfaces';
 import { atom } from 'recoil';
 
 export const userState = atom<string>({

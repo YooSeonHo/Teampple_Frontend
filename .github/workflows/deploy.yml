@@ -1,0 +1,52 @@
+name: push to docker hub
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 빌드 머신 준비
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # env 저장
+      - name: Set env
+        run: echo ${{secrets.ENV_VARS}} >> .env.prod
+
+      # 생성할 이미지의 이름과 버전 정보 태깅
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: squirmm/teampple-client
+          tag-semver: |
+            {{version}}
+            {{major}}.{{minor}}
+
+      # 빌드 머신에 Docker 빌드에 필요한 사항 준비
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # 이미지를 업로드할 Docker Hub 로그인
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 이미지 빌드 및 Docker Hub로 배포
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile.prod
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}

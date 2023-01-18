@@ -6,14 +6,12 @@ import axios from 'axios';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: ${(props) => (props.pathname === '/home' ? '1680px' : '1272px')};
-  height: 556px;
+  height:${(props)=> props.pathname === '/home'? '448px': '556px'};
   display: flex;
   border-radius: 16px;
   overflow: overlay;
   margin-left: 54px;
   margin-top: 33px;
-
-  // background-color: #F9FAFD;
   background-color: white;
 
   justify-content: flex-start;
