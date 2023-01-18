@@ -389,12 +389,12 @@ const DetailBox = () =>{
     const uploadFile = async (file : File) =>{
         const S3Client = new S3(config);
         await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/,''))
-        .then((data)=>{
+        .then((data:any)=>{
             setFileLoc(data.location);
             alert('파일 등록이 완료되었습니다.')
             //후에 이 부분 지우고 post만 남겨두면 됨.
         })
-        .catch((e)=>{
+        .catch((e:any)=>{
             console.log(e)
         })
         // postFile();
