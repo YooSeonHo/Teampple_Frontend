@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: ${(props) => (props.pathname === '/home' ? '1680px' : '1272px')};
-  height:${(props)=> props.pathname === '/home'? '448px': '556px'};
+  height: ${(props) => (props.pathname === '/home' ? '448px' : '556px')};
   display: flex;
   border-radius: 16px;
   overflow: overlay;
@@ -40,13 +40,18 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
   const [startDate, setStartDate] = useState();
   const [dueDate, setDueDate] = useState();
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDE0MDk4Miwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQxNDQ1ODJ9.mJ5kVv4YDayOUjYK1hRo75q1hz4bu0pg-Pzm26O4m6c';
 
   const getTodoAPI = async () => {
     await axios({
       url: `/api/teams/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
-      params: { teamId: 1 },
+      headers: {
+        Authorization: testtoken,
+      },
+      params: { teamId: 8 },
     })
       .then((response) => {
         console.log(response.data.data);

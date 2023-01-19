@@ -1,11 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
+import axios from 'axios';
 
 const HomeToDo = () => {
   const [leftnum, setLeftnum] = useState(2);
   const [toDoTitle, setToDoTitle] = useState('경영전략');
+  const lstt = localStorage.getItem('jwt_accessToken');
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDE0MDk4Miwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQxNDQ1ODJ9.mJ5kVv4YDayOUjYK1hRo75q1hz4bu0pg-Pzm26O4m6c';
+
+  const getTodoAPI = async () => {
+    await axios({
+      url: `/api/teams/tasks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
+      params: { teamId: 8 },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getTodoAPI();
+  }, []);
+  
 
   return (
     <HomeToDoContainer>

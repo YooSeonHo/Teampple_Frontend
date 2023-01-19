@@ -23,14 +23,16 @@ const PlanManager = () => {
   const now = new Date();
   const testtoken =
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDE0MDk4Miwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQxNDQ1ODJ9.mJ5kVv4YDayOUjYK1hRo75q1hz4bu0pg-Pzm26O4m6c';
-
+  localStorage.setItem('jwt_accessToken', testtoken);
+  const lstt = localStorage.getItem('jwt_accessToken');
+  
   const getPlanAPI = async () => {
     await axios({
       url: `/api/teams/schedules`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: lstt,
       },
       params: { teamId: 8 },
     })
