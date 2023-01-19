@@ -1,12 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import KakaoBtn from 'components/loginPage/KakaoBtn';
 import Logo from '../components/images/Logo_login.png';
+import { useLocation, useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
+import {
+  idTokenState,
+  kakaoAccessTokenState,
+  kakaoRefreshTokenState,
+} from 'state';
 
 const LoginPage = () => {
   // 초대받았다면 팀 이름 출력
   const [teamname, setTeamname] = useState('경영전략');
   const [invited, setInvited] = useState(false);
+  const navigate = useNavigate();
+  const [, setIdToken] = useRecoilState(idTokenState);
+  const [, setKakaoAccessToken] = useRecoilState(kakaoAccessTokenState);
+  const [, setKakaoRefreshToken] = useRecoilState(kakaoRefreshTokenState);
+
+  const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458';
+  const REDIRECT_URI = 'http://localhost:3000/login';
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const handleLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
+
+  const location = useLocation();
+  const KAKAO_CODE = location.search.split('=')[1];
+
+  const getKakaoToken = () => {
+    fetch(`https://kauth.kakao.com/oauth/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setIdToken(data.id_token);
+        setKakaoAccessToken(data.acess_token);
+        setKakaoRefreshToken(data.refresh_token);
+        navigate('/moreinfo');
+      });
+  };
+  useEffect(() => {
+    if (!location.search) return;
+    getKakaoToken();
+  }, []);
+
   return (
     <LoginPageContainer>
       <LogoImg src={Logo}></LogoImg>
@@ -19,8 +61,10 @@ const LoginPage = () => {
       ) : (
         <></>
       )}
-      <KakaoButton>
-        <KakaoBtn />
+      <KakaoButton onClick={handleLogin}>
+        <a href={KAKAO_AUTH_URL}>
+          <KakaoBtn />
+        </a>
       </KakaoButton>
       <SubDesc>
         계정을 생성하면 서비스이용약관과 개인정보처리방침에 동의하게 됩니다.
@@ -55,7 +99,7 @@ const Desc = styled.div`
   top: 339px;
 `;
 
-const KakaoButton = styled.div`
+const KakaoButton = styled.button`
   position: absolute;
   top: 494px;
 `;

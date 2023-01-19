@@ -1,4 +1,4 @@
-import { detailInfo } from 'interfaces';
+// import { detailInfo } from 'interfaces';
 import { atom } from 'recoil';
 
 export const userState = atom<string>({
@@ -14,29 +14,54 @@ export const teamidState = atom<number>({
 export const teamMateNumState = atom<number>({
   key: 'teamMateNum',
   default: 0,
-})
+});
 
 export const feedbackState = atom<boolean>({
-  key : 'isOpen',
-  default : false
-})
+  key: 'isOpen',
+  default: false,
+});
 
 export const searchFileState = atom<string>({
-  key : 'search',
-  default : ""
-})
+  key: 'search',
+  default: '',
+});
 
 export const IsSearchState = atom<boolean>({
-  key : 'isSearch',
-  default : false
-})
+  key: 'isSearch',
+  default: false,
+});
 
 export const zIndexState = atom<number>({
-  key : 'zIndex',
-  default : 997
-})
+  key: 'zIndex',
+  default: 997,
+});
 
 export const modal2State = atom<boolean>({
-  key : 'modal2',
-  default : false
-})
+  key: 'modal2',
+  default: false,
+});
+
+export const idTokenState = atom<string>({
+  key: 'idtoken',
+  default: '',
+});
+
+export const kakaoAccessTokenState = atom<string>({
+  key: 'kakaoaccesstoken',
+  default: '',
+});
+
+export const kakaoRefreshTokenState = atom<string>({
+  key: 'kakaorefreshtoken',
+  default: '',
+});
+
+export const jwtAccessTokenState = atom<string>({
+  key: 'jwtaccesstoken',
+  default: '',
+});
+
+export const jwtRefreshTokenState = atom<string>({
+  key: 'jwtrefreshtoken',
+  default: '',
+});
