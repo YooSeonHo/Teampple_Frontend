@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
 import { useRecoilState } from 'recoil';
-import { zIndexState,feedbackState,modal2State } from 'state';
+import { zIndexState, feedbackState, modal2State } from 'state';
 import axios from 'axios';
 import { IPlan } from '../../interfaces';
 
 const PlanManager = () => {
   const [modal, setModal] = useState(false);
-  const [zIndex,setZIndex] = useRecoilState(zIndexState);
-  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+  const [zIndex, setZIndex] = useRecoilState(zIndexState);
+  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const showModal = () => {
     setModal(!modal);
@@ -21,18 +21,24 @@ const PlanManager = () => {
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
   const now = new Date();
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDE0MDk4Miwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQxNDQ1ODJ9.mJ5kVv4YDayOUjYK1hRo75q1hz4bu0pg-Pzm26O4m6c';
 
   const getPlanAPI = async () => {
     await axios({
       url: `/api/teams/schedules`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
-      params: { teamId: 1 },
+      headers: {
+        Authorization: testtoken,
+      },
+      params: { teamId: 8 },
     })
       .then((response) => {
         setPlans(response.data.data.schedules);
         setDueDate(response.data.data.dueDate);
         setDeadDay(getDeadDay(response.data.data.dueDate));
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -60,7 +66,7 @@ const PlanManager = () => {
   };
 
   return (
-    <ManagerBox style={{zIndex : zIndex}}>
+    <ManagerBox style={{ zIndex: zIndex }}>
       <div className="dDayHeader">
         <div className="text">일정 관리자</div>
         <div className="headerBox">
