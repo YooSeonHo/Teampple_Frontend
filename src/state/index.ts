@@ -1,67 +1,70 @@
 // import { detailInfo } from 'interfaces';
 import { atom } from 'recoil';
+import { v1 } from 'uuid';
+// key duplicate 방지를 위한 라이브러리 설치
+// npm i --save-dev @types/uuid
 
 export const userState = atom<string>({
-  key: 'user',
+  key: `user/${v1()}`,
   default: '',
 });
 
 export const teamidState = atom<number>({
-  key: 'teamid',
+  key: `teamid/${v1()}`,
   default: 1,
 });
 
 export const teamMateNumState = atom<number>({
-  key: 'teamMateNum',
+  key: `teamMateNum/${v1()}`,
   default: 0,
 });
 
 export const feedbackState = atom<boolean>({
-  key: 'isOpen',
+  key: `isOpen/${v1()}`,
   default: false,
 });
 
 export const searchFileState = atom<string>({
-  key: 'search',
+  key: `search/${v1()}`,
   default: '',
 });
 
 export const IsSearchState = atom<boolean>({
-  key: 'isSearch',
+  key: `isSearch/${v1()}`,
   default: false,
 });
 
 export const zIndexState = atom<number>({
-  key: 'zIndex',
+  key: `zIndex/${v1()}`,
   default: 997,
 });
 
 export const modal2State = atom<boolean>({
-  key: 'modal2',
+  key: `modal2/${v1()}`,
   default: false,
 });
 
 export const idTokenState = atom<string>({
-  key: 'idtoken',
+  key: `idtoken/${v1()}`,
   default: '',
 });
 
 export const kakaoAccessTokenState = atom<string>({
-  key: 'kakaoaccesstoken',
+  key: `kakaoaccesstoken/${v1()}`,
   default: '',
 });
 
 export const kakaoRefreshTokenState = atom<string>({
-  key: 'kakaorefreshtoken',
+  key: `kakaorefreshtoken/${v1()}`,
   default: '',
 });
 
 export const jwtAccessTokenState = atom<string>({
-  key: 'jwtaccesstoken',
+  key: `jwtaccesstoken/${v1()}`,
   default: '',
 });
 
 export const jwtRefreshTokenState = atom<string>({
-  key: 'jwtrefreshtoken',
+  key: `jwtrefreshtoken/${v1()}`,
   default: '',
 });
