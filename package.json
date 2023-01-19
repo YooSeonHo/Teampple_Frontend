@@ -53,6 +53,7 @@
   "devDependencies": {
     "@types/aos": "^3.0.4",
     "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^9.0.0",
     "eslint": "^8.30.0"
   }
 }
