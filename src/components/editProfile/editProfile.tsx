@@ -133,7 +133,7 @@ const EditBox = styled.div`
     font-size: 20px;
     line-height: 100%;
     color: #383838;
-    margin-top: 88px;
+    margin-top: 130px;
 
     .myPlan {
       margin-bottom: 28px;
@@ -173,7 +173,7 @@ const EditProfile = () => {
   };
 
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzNTM4OSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMzg5ODl9.jmiqOUTdJZrTx32NxWHcpQa9pGNnxXvz7_ePMuykAds';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDI0MzE3Niwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDY3NzZ9.sV_R1JI0P09i6-z3pRz5_nmmmsuUI3UJOXwWI7BnTwU';
 
   const getProfile = async () => {
     await axios({
