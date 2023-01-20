@@ -22,7 +22,7 @@ const PlanManager = () => {
   const [dueDate, setDueDate] = useState();
   const now = new Date();
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIyNTEwMSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMjg3MDF9.TI6lZ9e7Uxg1wOlak1oaAiLbYQxcXN9XalvM1CJDkv0';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
 
   const getPlanAPI = async () => {
     await axios({
