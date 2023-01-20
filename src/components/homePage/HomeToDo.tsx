@@ -5,10 +5,7 @@ import done from '../images/done icon.png';
 import axios from 'axios';
 
 const HomeToDo = () => {
-  // const [leftnum, setLeftnum] = useState(2);
-  // const [toDoTitle, setToDoTitle] = useState('경영전략');
   const [toDoList, setToDoList] = useState([]);
-  const lstt = localStorage.getItem('jwt_accessToken');
   const testtoken =
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIyNTEwMSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMjg3MDF9.TI6lZ9e7Uxg1wOlak1oaAiLbYQxcXN9XalvM1CJDkv0';
 
@@ -23,7 +20,6 @@ const HomeToDo = () => {
       params: { teamId: 1 },
     })
       .then((response) => {
-        console.log(response.data.data);
         setToDoList(response.data.data);
       })
       .catch(function (error) {

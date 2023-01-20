@@ -23,8 +23,6 @@ const PlanManager = () => {
   const now = new Date();
   const testtoken =
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIyNTEwMSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMjg3MDF9.TI6lZ9e7Uxg1wOlak1oaAiLbYQxcXN9XalvM1CJDkv0';
-  localStorage.setItem('jwt_accessToken', testtoken);
-  const lstt = localStorage.getItem('jwt_accessToken');
   
   const getPlanAPI = async () => {
     await axios({
@@ -32,7 +30,7 @@ const PlanManager = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: lstt,
+        Authorization: testtoken,
       },
       params: { teamId: 1 },
     })

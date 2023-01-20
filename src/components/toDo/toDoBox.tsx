@@ -38,10 +38,8 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 
 const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
-  const [startDate, setStartDate] = useState();
-  const [dueDate, setDueDate] = useState();
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDE0MDk4Miwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQxNDQ1ODJ9.mJ5kVv4YDayOUjYK1hRo75q1hz4bu0pg-Pzm26O4m6c';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzMDU5Nywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMzQxOTd9.Va1xDQdX8I4zY2VxakwxisZ_fR0pkJJj2-K-8rZfnmM';
 
   const getTodoAPI = async () => {
     await axios({
@@ -51,7 +49,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
       headers: {
         Authorization: testtoken,
       },
-      params: { teamId: 8 },
+      params: { teamId: 1 },
     })
       .then((response) => {
         console.log(response.data.data);

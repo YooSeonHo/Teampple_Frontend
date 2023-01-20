@@ -7,16 +7,19 @@ import axios from 'axios';
 
 const CardBox = styled.div<StyledToDoInfo>`
   width: 372px;
-  height: ${(props) => (props.pathname === '/home' ? '448px' : '556px')};
+  height: 556px;
+  /* height: ${(props) => (props.pathname === '/home' ? '448px' : '556px')}; */
   background-color: #f4f8ff;
   /* border: 2px solid #487AFF; */
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   margin-right: 28px;
+  position: relative;
 
   .toDos {
     overflow-x: hidden;
+    height: 324px;
   }
 
   .info {
@@ -107,7 +110,8 @@ const CardBox = styled.div<StyledToDoInfo>`
     margin-left: 20px;
     margin-bottom: 12px;
     justify-content: center;
-    margin-top: 26px;
+    position: absolute;
+    top: 464px;
   }
 
   .addBox:hover {
@@ -163,7 +167,7 @@ const ToDoBox = styled.div`
   }
 `;
 
-const DoneBox = styled.div`
+const Box = styled.div`
   width: 332px;
   height: 72px;
   background-color: #ffffff;
@@ -239,21 +243,21 @@ const ToDoCard = ({ todoList }: any) => {
               </div>
             </div>
             <div className="toDos">
-              <ToDoBox>
-                <div className="toDoText">해외 시장 조사</div>
-                <div className="toDoArr">
-                  <img src={arrow} />
-                </div>
-              </ToDoBox>
-              <DoneBox>
-                <div className="doneIcon">
-                  <img src={done} />
-                </div>
-                <div className="doneText">협업툴 시장 조사</div>
-                <div className="doneArr">
-                  <img src={arrow} />
-                </div>
-              </DoneBox>
+              {todo.tasks.map((doo: any, index: number) => (
+                <Box key={index}>
+                  {doo.done === 'true' ? (
+                    <div className="doneIcon">
+                      <img src={done} />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  <div className="doneText">{doo.name}</div>
+                  <div className="doneArr">
+                    <img src={arrow} />
+                  </div>
+                </Box>
+              ))}
             </div>
             <div className="addBox">
               <div className="addText">+ 할 일 추가하기</div>
@@ -262,46 +266,6 @@ const ToDoCard = ({ todoList }: any) => {
         </CardBox>
       ))}
     </>
-
-    // <CardBox pathname={window.location.pathname}>
-    //   {window.location.pathname === '/home' ? null : (
-    //     <div className="info">
-    //       <div className="step">1단계</div>
-    //       <div className="when">11.22~11.25</div>
-    //     </div>
-    //   )}
-    //   <div className="headerText">
-    //     <div className="name">마케팅 원론</div>
-    //     <div className="left">
-    //       <a className="leftText">남은 일</a>
-    //       <div className="leftNumBox">
-    //         <a className="leftNum">2</a>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className="toDos">
-    //     <ToDoBox>
-    //       <div className="toDoText">해외 시장 조사</div>
-    //       <div className="toDoArr">
-    //         <img src={arrow} />
-    //       </div>
-    //     </ToDoBox>
-    //     <DoneBox>
-    //       <div className="doneIcon">
-    //         <img src={done} />
-    //       </div>
-    //       <div className="doneText">협업툴 시장 조사</div>
-    //       <div className="doneArr">
-    //         <img src={arrow} />
-    //       </div>
-    //     </DoneBox>
-    //   </div>
-    //   {window.location.pathname === '/home' ? null : (
-    //     <div className="addBox">
-    //       <div className="addText">+ 할 일 추가하기</div>
-    //     </div>
-    //   )}
-    // </CardBox>
   );
 };
 
