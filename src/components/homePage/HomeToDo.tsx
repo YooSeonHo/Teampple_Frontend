@@ -5,22 +5,22 @@ import done from '../images/done icon.png';
 import axios from 'axios';
 
 const HomeToDo = () => {
-  const [toDoList, setToDoList] = useState([]);
+  const [teams, setTeams] = useState([]);
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIyNTEwMSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMjg3MDF9.TI6lZ9e7Uxg1wOlak1oaAiLbYQxcXN9XalvM1CJDkv0';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzMDU5Nywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMzQxOTd9.Va1xDQdX8I4zY2VxakwxisZ_fR0pkJJj2-K-8rZfnmM';
 
   const getTodoAPI = async () => {
     await axios({
-      url: `/api/teams/tasks`,
+      url: `/api/users/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
         Authorization: testtoken,
       },
-      params: { teamId: 1 },
     })
       .then((response) => {
-        setToDoList(response.data.data);
+        console.log(response.data.data.teams);
+        setTeams(response.data.data.teams);
       })
       .catch(function (error) {
         console.log(error);
@@ -34,18 +34,19 @@ const HomeToDo = () => {
     <HomeToDoContainer>
       <Title>할 일</Title>
       <ToDosContainer>
-        {toDoList.map((todo: any) => (
-          <ToDoContainer key={todo.sequenceNum}>
-            <ToDoTitle>{todo.taskname}</ToDoTitle>
+        {teams.map((team: any, index: number) => (
+          <ToDoContainer key={index}>
+            <ToDoTitle>{team.name}</ToDoTitle>
             <Left>
               <LeftText>남은 일</LeftText>
-              <LeftNum>{todo.totaltask - todo.achievement}</LeftNum>
+              {/* achievement 나오면 고쳐야함 */}
+              <LeftNum>{team.stages.length}</LeftNum>
             </Left>
             <ToDoList>
-              {todo.tasks.map((doo: any, index: number) => (
+              {team.stages.map((t: any, index: number) => (
                 <ToDo key={index}>
-                  {doo.done === 'true' ? <Done src={done} /> : <></>}
-                  <ToDoText>{doo.name}</ToDoText>
+                  {t.done === 'true' ? <Done src={done} /> : <></>}
+                  <ToDoText>{t.name}</ToDoText>
                   <Arrow src={arrow} />
                 </ToDo>
               ))}
