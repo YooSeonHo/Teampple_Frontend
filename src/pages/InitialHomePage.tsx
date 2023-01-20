@@ -5,6 +5,8 @@ import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeam
 import NotToDoBox from '../components/teampleHomePage/nothing/NotToDoBox';
 import NotFileInfo from 'components/teampleHomePage/nothing/NotFileInfo';
 import NotPlanManager from 'components/teampleHomePage/nothing/NotPlanManager';
+import MiniTemplate from 'components/homePage/MiniTemplate';
+
 
 const ContentBox = styled.div`
   display: flex;
@@ -28,24 +30,32 @@ const AllBox = styled.div`
   }
 `;
 
-const InitialTeampleHomePage = () => {
+const InitialHomePage = () => {
   return (
     <Layout>
       <AllBox>
         <div>
           <ContentBox>
             <NotSummaryTeample />
-            <NotFileInfo />
           </ContentBox>
           <div className="text">할 일</div>
           <MainContentBox>
             <NotToDoBox />
           </MainContentBox>
+          {/* <MiniTemplateContainer> */}
+            <MiniTemplate />
+          {/* </MiniTemplateContainer> */}
         </div>
-        <NotPlanManager />
       </AllBox>
     </Layout>
   );
 };
 
-export default InitialTeampleHomePage;
+const MiniTemplateContainer = styled.div`
+  position: absolute;
+  width: 1680px;
+  left: 240px;
+  top: 1042px;
+`;
+
+export default InitialHomePage;

@@ -7,95 +7,113 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import prof from '../images/template1.png';
+import { useRecoilState } from 'recoil';
+import { zIndexState } from 'state';
 //+버튼 만들지 말고 그냥 담당자 리스트에서 체크하면 추가, 체크 없애면 삭제
-const AddTask = () => {
+const AddTask = ({ setModal }: any) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
   const [name, setName] = useState('');
+  const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
+  const closeModal = () => {
+    setModal(false);
+    setZIndex(997);
+  };
 
   return (
-    <ModifyTeampleContainer>
-      <CloseBtn />
-      <Title>팀플 수정</Title>
-      <Tag1>할일</Tag1>
-      <Input1
-        value={name}
-        onChange={onChangeName}
-        maxLength={12}
-        placeholder="ex. 온라인 회의"
-      />
-      <TextLength1>
-        ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
-      </TextLength1>
-      <Tag2>기간</Tag2>
-      <DateBox1>
-        <StyledDatePicker
-          locale={ko} //한글
-          dateFormat="yyyy.MM.dd"
-          selected={startDate}
-          closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-          onChange={(date: Date) => setStartDate(date)}
+    <Background>
+      <ModifyTeampleContainer>
+        <CloseBtn onClick={closeModal} />
+        <Title>팀플 수정</Title>
+        <Tag1>할일</Tag1>
+        <Input1
+          value={name}
+          onChange={onChangeName}
+          maxLength={12}
+          placeholder="ex. 온라인 회의"
         />
-        <IoCalendarNumberOutline
-          style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
-        />
-      </DateBox1>
-      <Dash />
-      <DateBox2>
-        <StyledDatePicker
-          locale={ko} //한글
-          dateFormat="yyyy.MM.dd"
-          selected={endDate}
-          closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-          onChange={(date: Date) => setEndDate(date)}
-        />
-        <IoCalendarNumberOutline
-          style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
-        />
-      </DateBox2>
-      <Tag3>담당자</Tag3>
-      <ManagerContainer>
-        <Manager>김팀쁠</Manager>
-        <Manager>이팀쁠</Manager>
-        <Manager>박팀쁠</Manager>
-      </ManagerContainer>
-      <TeamMateContainer>
-        <AddTeamMate>팀원 추가</AddTeamMate>
-        <TeamMateBox>
-          <TeamMate>
-            <Profile />
-            <TextInfo>
-              <Name>정팀쁠</Name>
-              <School>홍익대학교 시각디자인과</School>
-            </TextInfo>
-            <CheckBox type="checkbox" />
-          </TeamMate>
-          <TeamMate>
-            <Profile />
-            <TextInfo>
-              <Name>이팀쁠</Name>
-              <School>서강대학교 경영학과</School>
-            </TextInfo>
-            <CheckBox type="checkbox" />
-          </TeamMate>
-          <TeamMate>
-            <Profile />
-            <TextInfo>
-              <Name>정팀쁠</Name>
-              <School>홍익대학교 시각디자인과</School>
-            </TextInfo>
-            <CheckBox type="checkbox" />
-          </TeamMate>
-        </TeamMateBox>
-      </TeamMateContainer>
-      <SaveButton>저장</SaveButton>
-    </ModifyTeampleContainer>
+        <TextLength1>
+          ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
+        </TextLength1>
+        <Tag2>기간</Tag2>
+        <DateBox1>
+          <StyledDatePicker
+            locale={ko} //한글
+            dateFormat="yyyy.MM.dd"
+            selected={startDate}
+            closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+            onChange={(date: Date) => setStartDate(date)}
+          />
+          <IoCalendarNumberOutline
+            style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+          />
+        </DateBox1>
+        <Dash />
+        <DateBox2>
+          <StyledDatePicker
+            locale={ko} //한글
+            dateFormat="yyyy.MM.dd"
+            selected={endDate}
+            closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+            onChange={(date: Date) => setEndDate(date)}
+          />
+          <IoCalendarNumberOutline
+            style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+          />
+        </DateBox2>
+        <Tag3>담당자</Tag3>
+        <ManagerContainer>
+          <Manager>김팀쁠</Manager>
+          <Manager>이팀쁠</Manager>
+          <Manager>박팀쁠</Manager>
+        </ManagerContainer>
+        <TeamMateContainer>
+          <AddTeamMate>팀원 추가</AddTeamMate>
+          <TeamMateBox>
+            <TeamMate>
+              <Profile />
+              <TextInfo>
+                <Name>정팀쁠</Name>
+                <School>홍익대학교 시각디자인과</School>
+              </TextInfo>
+              <CheckBox type="checkbox" />
+            </TeamMate>
+            <TeamMate>
+              <Profile />
+              <TextInfo>
+                <Name>이팀쁠</Name>
+                <School>서강대학교 경영학과</School>
+              </TextInfo>
+              <CheckBox type="checkbox" />
+            </TeamMate>
+            <TeamMate>
+              <Profile />
+              <TextInfo>
+                <Name>정팀쁠</Name>
+                <School>홍익대학교 시각디자인과</School>
+              </TextInfo>
+              <CheckBox type="checkbox" />
+            </TeamMate>
+          </TeamMateBox>
+        </TeamMateContainer>
+        <SaveButton>저장</SaveButton>
+      </ModifyTeampleContainer>
+    </Background>
   );
 };
+
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+`;
 
 const ModifyTeampleContainer = styled.div`
   width: 640px;
@@ -103,6 +121,10 @@ const ModifyTeampleContainer = styled.div`
   background: #ffffff;
   border-radius: 16px;
   position: relative;
+  z-index: 999;
+  position: fixed;
+  top: 220px;
+  left: 640px;
 `;
 
 const CloseBtn = styled(GrClose)`

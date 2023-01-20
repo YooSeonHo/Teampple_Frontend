@@ -25,8 +25,8 @@ margin-top : 33px;
 const NotToDoContainer = styled.div`
   background: #f9fafd;
   border-radius: 16px;
-  width: 1172px;
-  height: 556px;
+  width: 1650px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;

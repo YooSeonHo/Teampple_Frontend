@@ -54,6 +54,8 @@ const InfoInput = () => {
         console.log(response);
         setjwtAccessToken(response.data.jwtAccessToken);
         setjwtRefreshToken(response.data.jwtRefreshToken);
+        localStorage.setItem('jwt_accessToken', response.data.jwtAccessToken);
+        localStorage.setItem('jwt_refreshToken', response.data.jwtRefreshToken);
         navigate('/home');
       })
       .catch(function (error) {

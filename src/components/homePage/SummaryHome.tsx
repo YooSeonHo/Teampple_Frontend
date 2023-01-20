@@ -9,6 +9,7 @@ import prof6 from '../images/profile/proImageU6.png';
 import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
+import HomeSummaryBg from '../images/HomeSummaryBg.png';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -71,7 +72,8 @@ const SummaryContainer = styled.div`
   width: 1680px;
   height: 296px;
   position: relative;
-  background: #f9fafd;
+  background-image: url(${HomeSummaryBg});
+  background-size: cover;
 `;
 
 const DateContainer = styled.div`
