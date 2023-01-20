@@ -186,7 +186,6 @@ const SideBar = () => {
       params: { active: 1 },
     })
       .then((response) => {
-        console.log(response.data.data.teams);
         setActTeamList(response.data.data.teams);
       })
       .catch(function (error) {
@@ -204,7 +203,6 @@ const SideBar = () => {
       params: { active: 0 },
     })
       .then((response) => {
-        console.log(response.data.data.teams);
         setFinTeamList(response.data.data.teams);
       })
       .catch(function (error) {
