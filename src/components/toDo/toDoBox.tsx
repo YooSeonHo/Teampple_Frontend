@@ -39,7 +39,7 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzMDU5Nywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMzQxOTd9.Va1xDQdX8I4zY2VxakwxisZ_fR0pkJJj2-K-8rZfnmM';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
 
   const getTodoAPI = async () => {
     await axios({
@@ -52,7 +52,6 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
       params: { teamId: 1 },
     })
       .then((response) => {
-        console.log(response.data.data);
         setTodoList(response.data.data);
       })
       .catch(function (error) {

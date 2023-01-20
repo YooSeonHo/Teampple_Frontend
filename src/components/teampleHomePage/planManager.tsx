@@ -38,7 +38,6 @@ const PlanManager = () => {
         setPlans(response.data.data.schedules);
         setDueDate(response.data.data.dueDate);
         setDeadDay(getDeadDay(response.data.data.dueDate));
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);

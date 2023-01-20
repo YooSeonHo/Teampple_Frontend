@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../images/logo.png';
 import house from '../images/House.png';
 import usersThree from '../images/UsersThree.png';
@@ -15,9 +15,10 @@ import prof6 from '../images/profile/proImageU6.png';
 import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
-import tnames from '../../data/teamList.json';
+// import tnames from '../../data/teamList.json';
 import { teamidState } from 'state';
 import { useRecoilState } from 'recoil';
+import axios from 'axios';
 
 const SideBarBox = styled.div<{ userid: string }>`
   width: 240px;
@@ -25,8 +26,8 @@ const SideBarBox = styled.div<{ userid: string }>`
   display: flex;
   flex-direction: column;
   background-color: #f4f8ff;
-  z-index : 998;
-  position : fixed;
+  z-index: 998;
+  position: fixed;
 
   .logo {
     margin-left: 40px;
@@ -166,9 +167,54 @@ const SideBarBox = styled.div<{ userid: string }>`
 const SideBar = () => {
   const [userid, setUserid] = useState(prof1);
   const [teamid, setTeamid] = useRecoilState(teamidState);
+  const [actTeamList, setActTeamList] = useState([]);
+  const [finTeamList, setFinTeamList] = useState([]);
   const getTeamid = (team: any, e: React.MouseEvent<HTMLElement>) => {
-    setTeamid(team.tid);
+    setTeamid(team.teamId);
   };
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
+
+  const getActiveTeamsAPI = async () => {
+    await axios({
+      url: `/api/users/teams`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
+      params: { active: 1 },
+    })
+      .then((response) => {
+        console.log(response.data.data.teams);
+        setActTeamList(response.data.data.teams);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const getFinishedTeamsAPI = async () => {
+    await axios({
+      url: `/api/users/teams`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
+      params: { active: 0 },
+    })
+      .then((response) => {
+        console.log(response.data.data.teams);
+        setFinTeamList(response.data.data.teams);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getActiveTeamsAPI();
+    getFinishedTeamsAPI();
+  }, []);
 
   return (
     <SideBarBox userid={userid}>
@@ -200,7 +246,7 @@ const SideBar = () => {
         <div className="boxText">팀플</div>
       </div>
 
-      {tnames.map((team, index) => (
+      {actTeamList.map((team: any, index: number) => (
         <div
           key={index}
           onClick={(e) => {
@@ -208,11 +254,29 @@ const SideBar = () => {
           }}
         >
           <Link
-            to={`/teample-home/${team.tid}`}
+            to={`/teample-home/${team.teamId}`}
             style={{ textDecoration: 'none', color: '#707070' }}
           >
             <div className="box">
-              <div className="subBoxText">{team.tname}</div>
+              <div className="subBoxText">{team.name}</div>
+            </div>
+          </Link>
+        </div>
+      ))}
+      {/* 끝난 팀플 css 수정 필요 */}
+      {finTeamList.map((team: any, index: number) => ( 
+        <div
+          key={index}
+          onClick={(e) => {
+            getTeamid(team, e);
+          }}
+        >
+          <Link
+            to={`/teample-home/${team.teamId}`}
+            style={{ textDecoration: 'none', color: '#707070' }}
+          >
+            <div className="box">
+              <div className="subBoxText">{team.name}</div>
             </div>
           </Link>
         </div>
