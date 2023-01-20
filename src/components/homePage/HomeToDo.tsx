@@ -1,15 +1,16 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
 import axios from 'axios';
 
 const HomeToDo = () => {
-  const [leftnum, setLeftnum] = useState(2);
-  const [toDoTitle, setToDoTitle] = useState('경영전략');
+  // const [leftnum, setLeftnum] = useState(2);
+  // const [toDoTitle, setToDoTitle] = useState('경영전략');
+  const [toDoList, setToDoList] = useState([]);
   const lstt = localStorage.getItem('jwt_accessToken');
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDE0MDk4Miwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQxNDQ1ODJ9.mJ5kVv4YDayOUjYK1hRo75q1hz4bu0pg-Pzm26O4m6c';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIyNTEwMSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMjg3MDF9.TI6lZ9e7Uxg1wOlak1oaAiLbYQxcXN9XalvM1CJDkv0';
 
   const getTodoAPI = async () => {
     await axios({
@@ -19,10 +20,11 @@ const HomeToDo = () => {
       headers: {
         Authorization: testtoken,
       },
-      params: { teamId: 8 },
+      params: { teamId: 1 },
     })
       .then((response) => {
-        console.log(response);
+        console.log(response.data.data);
+        setToDoList(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -31,26 +33,29 @@ const HomeToDo = () => {
   useEffect(() => {
     getTodoAPI();
   }, []);
-  
 
   return (
     <HomeToDoContainer>
       <Title>할 일</Title>
       <ToDosContainer>
-        <ToDoContainer>
-          <ToDoTitle>{toDoTitle}</ToDoTitle>
-          <Left>
-            <LeftText>남은 일</LeftText>
-            <LeftNum>{leftnum}</LeftNum>
-          </Left>
-          <ToDoList>
-            <ToDo>
-              <Done src={done} />
-              <ToDoText>해외 시장 조사</ToDoText>
-              <Arrow src={arrow} />
-            </ToDo>
-          </ToDoList>
-        </ToDoContainer>
+        {toDoList.map((todo: any) => (
+          <ToDoContainer key={todo.sequenceNum}>
+            <ToDoTitle>{todo.taskname}</ToDoTitle>
+            <Left>
+              <LeftText>남은 일</LeftText>
+              <LeftNum>{todo.totaltask - todo.achievement}</LeftNum>
+            </Left>
+            <ToDoList>
+              {todo.tasks.map((doo: any, index: number) => (
+                <ToDo key={index}>
+                  {doo.done === 'true' ? <Done src={done} /> : <></>}
+                  <ToDoText>{doo.name}</ToDoText>
+                  <Arrow src={arrow} />
+                </ToDo>
+              ))}
+            </ToDoList>
+          </ToDoContainer>
+        ))}
       </ToDosContainer>
     </HomeToDoContainer>
   );

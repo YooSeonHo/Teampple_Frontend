@@ -22,7 +22,7 @@ const PlanManager = () => {
   const [dueDate, setDueDate] = useState();
   const now = new Date();
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDE0MDk4Miwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQxNDQ1ODJ9.mJ5kVv4YDayOUjYK1hRo75q1hz4bu0pg-Pzm26O4m6c';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIyNTEwMSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMjg3MDF9.TI6lZ9e7Uxg1wOlak1oaAiLbYQxcXN9XalvM1CJDkv0';
   localStorage.setItem('jwt_accessToken', testtoken);
   const lstt = localStorage.getItem('jwt_accessToken');
   
@@ -34,7 +34,7 @@ const PlanManager = () => {
       headers: {
         Authorization: lstt,
       },
-      params: { teamId: 8 },
+      params: { teamId: 1 },
     })
       .then((response) => {
         setPlans(response.data.data.schedules);
