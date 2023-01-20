@@ -47,14 +47,20 @@ const SummaryTeample = () => {
   }, [currentPercent]);
 
   const getTaskAPI = async () => {
+    const testtoken =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
+
     await axios({
       url: `/api/teams/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
       params: { teamId: 1 },
     })
       .then((response) => {
-        // console.log(response.data.data);
+        console.log(response.data.data);
       })
       .catch(function (error) {
         console.log(error);

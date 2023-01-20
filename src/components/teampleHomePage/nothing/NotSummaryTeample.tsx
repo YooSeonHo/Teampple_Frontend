@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import progress0 from '../../images/progressbar/LoadingIcon_Start.png';
+import HomeSummaryBg from '../../images/HomeSummaryBg.png';
 
 const NotSummaryTeample = () => {
   const now = new Date();
@@ -33,9 +34,11 @@ const NotSummaryTeample = () => {
 };
 
 const SummaryContainer = styled.div`
-  width: 850px;
-  height: 228px;
+  width: 1680px;
+  height: 296px;
   position: relative;
+  background-image: url(${HomeSummaryBg});
+  background-size: cover;
 `;
 
 const DateContainer = styled.div`
