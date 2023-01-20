@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
 import { StyledToDoInfo } from 'interfaces';
-import axios from 'axios';
+import AddTask from 'components/popup/AddTask';
+import { useRecoilState } from 'recoil';
+import { zIndexState, feedbackState, modal2State } from 'state';
 
 const CardBox = styled.div<StyledToDoInfo>`
   width: 372px;
@@ -215,17 +217,30 @@ const Box = styled.div`
     스크롤 관련해서 문제 있으면 체크하기 ->호버 할때 보이게해야댐 */
 `;
 
-const ToDoCard = ({ todoList }: any) => {
-  return (
-    //   <div>
-    //     {todoList.map((todo: any) => (
-    //       <div key={todo.taskname}>{todo.taskname}</div>
-    //     ))}
-    //   </div>
+const ModalContainer = styled.div`
+  position: fixed;
+  margin: 0 auto;
+`;
 
+const ToDoCard = ({ todoList }: any) => {
+  const [modal, setModal] = useState(false);
+  const [zIndex, setZIndex] = useRecoilState(zIndexState);
+  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
+  const [modal2, setModal2] = useRecoilState(modal2State);
+  const showModal = () => {
+    setModal(!modal);
+    setIsOpen(false);
+    setModal2(false);
+    setZIndex(999);
+  };
+  return (
     <>
-      {todoList.map((todo: any) => (
-        <CardBox pathname={window.location.pathname} key={todo.sequenceNum}>
+      {todoList.map((todo: any, index:number) => (
+        <CardBox
+          pathname={window.location.pathname}
+          key={index}
+          style={{ zIndex: zIndex }}
+        >
           <>
             <div className="info">
               <div className="step">{todo.sequenceNum}단계</div>
@@ -259,9 +274,12 @@ const ToDoCard = ({ todoList }: any) => {
                 </Box>
               ))}
             </div>
-            <div className="addBox">
+            <div className="addBox" onClick={showModal}>
               <div className="addText">+ 할 일 추가하기</div>
             </div>
+            <ModalContainer>
+              {modal && <AddTask setModal={setModal} />}
+            </ModalContainer>
           </>
         </CardBox>
       ))}

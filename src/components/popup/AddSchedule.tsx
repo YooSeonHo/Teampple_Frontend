@@ -18,14 +18,14 @@ const AddSchedule = ({ setModal }: any) => {
   const today = new window.Date();
   const [pickedDate, setPickedDate] = useState<Date>(today);
   const [value, setValue] = useState('');
-  const [zIndex,setZIndex] = useRecoilState(zIndexState);
+  const [zIndex, setZIndex] = useRecoilState(zIndexState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   const closeModal = () => {
     setModal(false);
-    setZIndex(997)
+    setZIndex(997);
   };
 
   return (

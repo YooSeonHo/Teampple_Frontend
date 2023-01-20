@@ -23,7 +23,7 @@ const PlanManager = () => {
   const now = new Date();
   const testtoken =
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIyNTEwMSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMjg3MDF9.TI6lZ9e7Uxg1wOlak1oaAiLbYQxcXN9XalvM1CJDkv0';
-  
+
   const getPlanAPI = async () => {
     await axios({
       url: `/api/teams/schedules`,
