@@ -169,7 +169,7 @@ const EditProfile = () => {
   const onClick = () => {
     alert('프로필 수정이 완료되었습니다.');
     navigate('/home');
-    //임시!
+    //임시!~
   };
 
   const testtoken =

@@ -39,7 +39,7 @@ const LoginPage = () => {
       .then((data) => {
         console.log(data);
         setIdToken(data.id_token);
-        setKakaoAccessToken(data.acess_token);
+        setKakaoAccessToken(data.access_token);
         setKakaoRefreshToken(data.refresh_token);
         navigate('/moreinfo');
       });
