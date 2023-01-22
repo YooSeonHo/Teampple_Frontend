@@ -39,7 +39,7 @@ const TeampleHomePage = () => {
           </ContentBox>
           <div className="text">할 일</div>
           <MainContentBox>
-            <ToDoBox pathname={window.location.pathname}/>
+            <ToDoBox pathname={window.location.pathname} />
           </MainContentBox>
         </div>
         <PlanManager />
