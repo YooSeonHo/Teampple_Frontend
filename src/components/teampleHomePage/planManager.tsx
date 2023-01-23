@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
 import { useRecoilState } from 'recoil';
-import { zIndexState, feedbackState, modal2State } from 'state';
+import { zIndexState, feedbackState, modal2State, teamidState } from 'state';
 import axios from 'axios';
 import { IPlan } from '../../interfaces';
 
@@ -20,11 +20,10 @@ const PlanManager = () => {
   const [plans, setPlans] = useState([]);
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
-  const now = new Date();
+  const [teamid, ] = useRecoilState(teamidState);
 
-  const teamId = 1; //test
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ1OTM3OSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjI5Nzl9._56W3058HGAKn4TkVniQPSBaGnf_yJGU2I27I6CGnjg';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2MzIzNCwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjY4MzR9.E2omeLTLlDZ3mcVA7E6FVzq97BXn3Km2H2xwFiC7Cr0';
 
   const getPlanAPI = async () => {
     await axios({
@@ -34,7 +33,7 @@ const PlanManager = () => {
       headers: {
         Authorization: testtoken,
       },
-      params: { teamId: teamId },
+      params: { teamId: teamid },
     })
       .then((response) => {
         setPlans(response.data.data.schedules);
@@ -48,7 +47,8 @@ const PlanManager = () => {
 
   useEffect(() => {
     getPlanAPI();
-  }, []);
+    console.log(teamid);
+  }, [teamid]);
 
   const getDeadDay = (dueDate: Date) => {
     const setDate = new Date(dueDate);
