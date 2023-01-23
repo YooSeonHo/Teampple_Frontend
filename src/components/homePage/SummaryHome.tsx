@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import prof1 from '../images/profile/proImageU1.png';
 import prof2 from '../images/profile/proImageU2.png';
@@ -10,6 +10,7 @@ import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
 import HomeSummaryBg from '../images/HomeSummaryBg.png';
+import axios from 'axios';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -19,10 +20,47 @@ const SummaryHome = () => {
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
   const week = weeks[now.getDay()];
 
-  const [username, setUsername] = useState('김팀쁠');
-  const [remainNum, setRemainNum] = useState(7);
-  const [remainPercent, setRemainPercent] = useState(30);
+  const [username, setUsername] = useState('');
+  const [doneNum, setDoneNum] = useState<number>(0);
+  const [allNum, setAllNum] = useState<number>(0);
+  const [remainPercent, setRemainPercent] = useState<number>(
+    isNaN(Math.round((doneNum / allNum) * 100))
+      ? 0
+      : Math.round((doneNum / allNum) * 100),
+  );
   const [userid, setUserid] = useState(prof1);
+  let s1 = 0;
+  let s2 = 0;
+
+  const getTaskAPI = async () => {
+    const testtoken =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ5MDMzMywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTM5MzN9.sOYSw3d4vtKDUF1l8QhiUy0jMuSly2M4wIVSr9HqVwI';
+
+    await axios({
+      url: `/api/users/tasks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
+    })
+      .then((response) => {
+        setUsername(response.data.data.username);
+        response.data.data.teams.map((t: any) =>
+          setDoneNum((s1 += parseInt(t.achievement))),
+        );
+        response.data.data.teams.map((t: any) =>
+          setAllNum((s2 += parseInt(t.totalStage))),
+        );
+        setRemainPercent((doneNum / allNum) * 100);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getTaskAPI();
+  }, [doneNum, allNum]);
 
   return (
     <SummaryContainer>
@@ -39,7 +77,7 @@ const SummaryHome = () => {
             <div style={{ marginTop: '18px' }}>
               <span>할 일이</span>
               <span style={{ color: '#487AFF', fontWeight: '700' }}>
-                &nbsp;{remainNum}개&nbsp;
+                &nbsp;{allNum - doneNum}개&nbsp;
               </span>
               <span>
                 남았어요.

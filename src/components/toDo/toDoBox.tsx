@@ -42,7 +42,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
   const [teamid] = useRecoilState(teamidState);
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ4NjY0OSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTAyNDl9.ks-mlIJSX21w3KeLHSf07hK33lVks_1zD0E2-vFlyOI';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ5MDMzMywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTM5MzN9.sOYSw3d4vtKDUF1l8QhiUy0jMuSly2M4wIVSr9HqVwI';
 
   const getTodoAPI = async () => {
     await axios({

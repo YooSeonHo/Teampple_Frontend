@@ -8,7 +8,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
-import { zIndexState } from 'state';
+import { zIndexState, teamidState } from 'state';
+import moment from 'moment';
+import axios from 'axios';
 //+버튼 만들지 말고 그냥 담당자 리스트에서 체크하면 추가, 체크 없애면 삭제
 const AddTask = ({ setModal }: any) => {
   const today = new window.Date();

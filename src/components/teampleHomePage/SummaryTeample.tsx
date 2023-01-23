@@ -26,7 +26,6 @@ const SummaryTeample = () => {
   );
   const [icon, setIcon] = useState(progress1);
   const [text, setText] = useState('');
-  const [taskList, setTaskList] = useState([]);
   const [teamid] = useRecoilState(teamidState);
   let s1 = 0;
   let s2 = 0;
@@ -69,7 +68,6 @@ const SummaryTeample = () => {
     })
       .then((response) => {
         console.log(response.data.data);
-        setTaskList(response.data.data);
         const achievementAcum = response.data.data.map((t: any) =>
           setDoneNum((s1 += parseInt(t.achievement))),
         );

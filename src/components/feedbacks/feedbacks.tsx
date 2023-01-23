@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import profile1 from '../images/profile/proImageU1.png';
 import { StyledFeedInfo } from 'interfaces';
 import axios from 'axios';
+import moment from 'moment';
 
 const FeedBox = styled.div<StyledFeedInfo>`
   border: 1px solid #dedede;
@@ -82,13 +83,16 @@ const Feed = styled.div`
     font-size: 12px;
     line-height: 100%;
     color: #a7a7a7;
+    margin-top: 20px;
+    margin-left: 40px;
   }
 `;
 
 const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useState([]);
+  const [taskId, setTaskId] = useState<number>();
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ5MDMzMywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTM5MzN9.sOYSw3d4vtKDUF1l8QhiUy0jMuSly2M4wIVSr9HqVwI';
   const getFeedbackAPI = async () => {
     await axios({
       url: `/api/users/feedbacks`,
@@ -109,22 +113,32 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
     getFeedbackAPI();
   }, []);
 
+  const getTaskId = (fb: any, e: React.MouseEvent<HTMLElement>) => {
+    setTaskId(fb.taskId); //이 task id 가지고 맞는 할일에 라우팅
+  };
+
   return (
     <FeedBox pathname={pathname}>
       <div className="feedText">피드백</div>
       <div className="feedList">
         {fbList.map((fb: any, index: number) => (
-          <Feed key={index}>
+          <Feed
+            key={index}
+            onClick={(e) => {
+              getTaskId(fb, e);
+            }}
+          >
             <div className="icon">
               <img src={profile1} />
             </div>
             <div className="feedContent">
-              [팀플이름]
+              [{fb.teamName}]
               <br />
               {fb.taskName}에 적힌 피드백입니다.
             </div>
-            {/* 분단위로 수정해야함 .... */}
-            {/* <div className="feedAt">{fb.modifiedAt}</div> */}
+            <div className="feedAt">
+              {moment(fb.modifiedAt).format('MM-DD  HH:mm')}
+            </div>
           </Feed>
         ))}
       </div>
