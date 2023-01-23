@@ -56,18 +56,20 @@ const LoginPage = () => {
       });
   };
 
+  const data = {
+    idToken: idToken,
+    oauthAccessToken: kakaoAccessToken,
+    oauthRefreshToken: kakaoRefreshToken,
+  };
+
   const postAuthLoginAPI = async () => {
-    // 3. 백한테 카카오 토큰 넘겨주기 (회원가입 or 로그인 백에서 알려줘야함)
-    await axios({
-      url: `/api/auth/login`,
-      baseURL: 'https://www.teampple.site',
-      method: 'post',
-      data: {
-        idToken: idToken,
-        oauthAccessToken: kakaoAccessToken,
-        oauthRefreshToken: kakaoRefreshToken,
-      },
-    })
+    // 3-1. 백한테 카카오 토큰 넘겨주기 (회원가입 or 로그인 백에서 알려줘야함)
+    await axios
+      .post(`https://www.teampple.site/api/auth/login`, JSON.stringify(data), {
+        headers: {
+          'Content-Type': `application/json`,
+        },
+      })
       .then((response) => {
         console.log(response);
         setjwtAccessToken(response.data.jwtAccessToken);
