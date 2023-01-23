@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../images/logo.png';
 import house from '../images/House.png';
 import usersThree from '../images/UsersThree.png';
@@ -15,9 +15,12 @@ import prof6 from '../images/profile/proImageU6.png';
 import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
-import tnames from '../../data/teamList.json';
-import { teamidState } from 'state';
+// import tnames from '../../data/teamList.json';
 import { useRecoilState } from 'recoil';
+import axios from 'axios';
+import { teamidState, zIndexState, feedbackState, modal2State } from 'state';
+import { ModalContainer } from 'components/teampleHomePage/planManager';
+import AddTeample from 'components/popup/AddTeample1';
 
 const SideBarBox = styled.div<{ userid: string }>`
   width: 240px;
@@ -25,8 +28,8 @@ const SideBarBox = styled.div<{ userid: string }>`
   display: flex;
   flex-direction: column;
   background-color: #f4f8ff;
-  z-index : 998;
-  position : fixed;
+  z-index: 998;
+  position: fixed;
 
   .logo {
     margin-left: 40px;
@@ -166,9 +169,61 @@ const SideBarBox = styled.div<{ userid: string }>`
 const SideBar = () => {
   const [userid, setUserid] = useState(prof1);
   const [teamid, setTeamid] = useRecoilState(teamidState);
-  const getTeamid = (team: any, e: React.MouseEvent<HTMLElement>) => {
-    setTeamid(team.tid);
+  const [actTeamList, setActTeamList] = useState([]);
+  const [finTeamList, setFinTeamList] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [zIndex, setZIndex] = useRecoilState(zIndexState);
+  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
+  const [modal2, setModal2] = useRecoilState(modal2State);
+  const showModal = () => {
+    setModal(!modal);
+    setIsOpen(false);
+    setModal2(false);
+    setZIndex(999);
   };
+
+  const getTeamid = (team: any, e: React.MouseEvent<HTMLElement>) => {
+    setTeamid(team.teamId);
+  };
+  const testtoken = process.env.REACT_APP_JWTTOKEN
+  const getActiveTeamsAPI = async () => {
+    await axios({
+      url: `/api/users/teams`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
+      params: { active: 1 },
+    })
+      .then((response) => {
+        setActTeamList(response.data.data.teams);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const getFinishedTeamsAPI = async () => {
+    await axios({
+      url: `/api/users/teams`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
+      params: { active: 0 },
+    })
+      .then((response) => {
+        setFinTeamList(response.data.data.teams);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getActiveTeamsAPI();
+    getFinishedTeamsAPI();
+  }, []);
 
   return (
     <SideBarBox userid={userid}>
@@ -200,7 +255,7 @@ const SideBar = () => {
         <div className="boxText">팀플</div>
       </div>
 
-      {tnames.map((team, index) => (
+      {actTeamList.map((team: any, index: number) => (
         <div
           key={index}
           onClick={(e) => {
@@ -208,16 +263,34 @@ const SideBar = () => {
           }}
         >
           <Link
-            to={`/teample-home/${team.tid}`}
+            to={`/teample-home/${team.teamId}`}
             style={{ textDecoration: 'none', color: '#707070' }}
           >
             <div className="box">
-              <div className="subBoxText">{team.tname}</div>
+              <div className="subBoxText">{team.name}</div>
             </div>
           </Link>
         </div>
       ))}
-      <div className="newBox" id="newTeample">
+      {/* 끝난 팀플 css 수정 필요 */}
+      {finTeamList.map((team: any, index: number) => ( 
+        <div
+          key={index}
+          onClick={(e) => {
+            getTeamid(team, e);
+          }}
+        >
+          <Link
+            to={`/teample-home/${team.teamId}`}
+            style={{ textDecoration: 'none', color: '#707070' }}
+          >
+            <div className="box">
+              <div className="subBoxText">{team.name}</div>
+            </div>
+          </Link>
+        </div>
+      ))}
+      <div className="newBox" id="newTeample" onClick={showModal}>
         <div>+ 새 팀플</div>
       </div>
 
@@ -237,6 +310,9 @@ const SideBar = () => {
           <div className="boxText">고객센터</div>
         </div>
       </div>
+      <ModalContainer>
+        {modal && <AddTeample setModal={setModal} />}
+      </ModalContainer>
     </SideBarBox>
   );
 };

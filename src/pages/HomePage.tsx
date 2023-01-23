@@ -26,8 +26,9 @@ const HomePage = () => {
       </SummaryHomeContainer>
       {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
       <TodoContainer>
-        <div className="text">할 일</div>
-        <ToDoBox pathname={window.location.pathname}/>
+        {/* <div className="text">할 일</div> */}
+        {/* <ToDoBox pathname={window.location.pathname} /> */}
+        <HomeToDo />
       </TodoContainer>
       <MiniTemplateContainer>
         <MiniTemplate />

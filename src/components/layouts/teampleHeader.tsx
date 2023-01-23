@@ -151,6 +151,7 @@ const TeampleHeader = () => {
   const [startDate, setStartDate] = useState();
   const [dueDate, setDueDate] = useState();
   const [deadDay, setDeadDay] = useState<any | null>(null);
+  const testtoken = process.env.REACT_APP_JWTTOKEN
 
   const showModal1 = () => {
     setModal1(!modal1);
@@ -173,6 +174,9 @@ const TeampleHeader = () => {
       baseURL: 'https://www.teampple.site',
       url: '/api/teams',
       params: { teamId: 1 },
+      headers : {
+        Authorization: testtoken,
+      }
     }).then((res) => {
       console.log(res.data.data);
       setName(res.data.data.name);

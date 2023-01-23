@@ -10,13 +10,16 @@ import { teamMateNumState, modal2State } from 'state';
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
   const [modal2, setModal2] = useRecoilState(modal2State);
-
+  const testtoken = process.env.REACT_APP_JWTTOKEN;
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       params: { teamId: 1 },
+      headers :{
+        Authorization: testtoken,
+      }
     })
       .then((response) => {
         setTeamMates(response.data.data.teammates);
@@ -31,7 +34,10 @@ const TeamMateInfo = () => {
       url: '/api/invitations',
       baseURL: 'https://www.teampple.site',
       method: 'get',
-      params: { teamId: 1 }, //바꾸기 ㅋ
+      params: { teamId: 1 },
+      headers :{
+        Authorization: testtoken,
+      } //바꾸기 ㅋ
     })
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {

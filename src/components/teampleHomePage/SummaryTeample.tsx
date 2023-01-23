@@ -15,13 +15,18 @@ const SummaryTeample = () => {
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
   const week = weeks[now.getDay()];
 
-  const [doneNum, setDoneNum] = useState(8); //수정 필요) API 가져온 정보로 계산해서 넣기
-  const [allNum, setAllNum] = useState(11); //수정 필요) API 가져온 정보로 계산해서 넣기
+  const [doneNum, setDoneNum] = useState(0);
+  const [allNum, setAllNum] = useState(0);
   const [currentPercent, setCurrentPercent] = useState<number>(
-    Math.round((doneNum / allNum) * 100),
+    isNaN(Math.round((doneNum / allNum) * 100))
+      ? 0
+      : Math.round((doneNum / allNum) * 100),
   );
   const [icon, setIcon] = useState(progress1);
   const [text, setText] = useState('');
+  const [taskList, setTaskList] = useState([]);
+  let s1 = 0;
+  let s2 = 0;
 
   const changeStatus = () => {
     if (currentPercent >= 1 && currentPercent < 25) {
@@ -47,14 +52,27 @@ const SummaryTeample = () => {
   }, [currentPercent]);
 
   const getTaskAPI = async () => {
+    const testtoken =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDI0MzE3Niwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDY3NzZ9.sV_R1JI0P09i6-z3pRz5_nmmmsuUI3UJOXwWI7BnTwU';
+
     await axios({
       url: `/api/teams/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
       params: { teamId: 1 },
     })
       .then((response) => {
-        // console.log(response.data.data);
+        console.log(response.data.data);
+        setTaskList(response.data.data);
+        const achievementAcum = response.data.data.map((t: any) =>
+          setDoneNum((s1 += parseInt(t.achievement))),
+        );
+        const totaltaskAcum = response.data.data.map((t: any) =>
+          setAllNum((s2 += parseInt(t.totaltask))),
+        );
       })
       .catch(function (error) {
         console.log(error);

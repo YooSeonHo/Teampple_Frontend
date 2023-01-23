@@ -1,30 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const HomeToDo = () => {
-  const [leftnum, setLeftnum] = useState(2);
-  const [toDoTitle, setToDoTitle] = useState('경영전략');
+  const [teams, setTeams] = useState([]);
+  const testtoken = process.env.REACT_APP_JWTTOKEN
+  const getTodoAPI = async () => {
+    await axios({
+      url: `/api/users/tasks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: testtoken,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data.teams);
+        setTeams(response.data.data.teams);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getTodoAPI();
+  }, []);
 
   return (
     <HomeToDoContainer>
       <Title>할 일</Title>
       <ToDosContainer>
-        <ToDoContainer>
-          <ToDoTitle>{toDoTitle}</ToDoTitle>
-          <Left>
-            <LeftText>남은 일</LeftText>
-            <LeftNum>{leftnum}</LeftNum>
-          </Left>
-          <ToDoList>
-            <ToDo>
-              <Done src={done} />
-              <ToDoText>해외 시장 조사</ToDoText>
-              <Arrow src={arrow} />
-            </ToDo>
-          </ToDoList>
-        </ToDoContainer>
+        {teams.map((team: any, index: number) => (
+          <ToDoContainer key={index}>
+            <ToDoTitle>{team.name}</ToDoTitle>
+            <Left>
+              <LeftText>남은 일</LeftText>
+              {/* achievement 나오면 고쳐야함 */}
+              <LeftNum>{team.stages.length}</LeftNum>
+            </Left>
+            <ToDoList>
+              {team.stages.map((t: any, index: number) => (
+                <Link to='/teample-detail' key={index} style={{ textDecoration: 'none' }}>
+                  <ToDo>
+                    {t.done === 'true' ? <Done src={done} /> : <></>}
+                    <ToDoText>{t.name}</ToDoText>
+                    <Arrow src={arrow} />
+                  </ToDo>
+                </Link>
+              ))}
+            </ToDoList>
+          </ToDoContainer>
+        ))}
       </ToDosContainer>
     </HomeToDoContainer>
   );
