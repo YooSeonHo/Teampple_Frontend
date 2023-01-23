@@ -80,7 +80,7 @@ const AddDiv = (props: any) => {
      const temp = stages.map((s)=> s.sequenceNum === parseInt(e.target.id) ? {...s, name : e.target.value} : s)
      setStages(temp);
   }
-  
+
   return (
     <AddDivContainer>
       <form onSubmit={handleSubmit(Subb)}>
@@ -111,9 +111,12 @@ const AddDiv = (props: any) => {
                     <StyledDatePicker
                       locale={ko} //한글
                       dateFormat="yyyy.MM.dd"
-                      selected={stepStartDate}
+                      selected={i.startDate}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                      onChange={(date: Date) => setStepStartDate(date)}
+                      onChange={(date: Date) => {
+                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, startDate : date} : s)
+                        setStages(temp);
+                      }}
                     />
                     <IoCalendarNumberOutline
                       style={{
@@ -128,9 +131,12 @@ const AddDiv = (props: any) => {
                     <StyledDatePicker
                       locale={ko} //한글
                       dateFormat="yyyy.MM.dd"
-                      selected={stepEndDate}
+                      selected={i.dueDate}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                      onChange={(date: Date) => setStepEndDate(date)}
+                      onChange={(date: Date) => {
+                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, dueDate : date} : s)
+                        setStages(temp);
+                      }}
                     />
                     <IoCalendarNumberOutline
                       style={{
