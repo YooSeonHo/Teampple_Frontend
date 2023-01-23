@@ -37,7 +37,7 @@ const TeamMateInfo = () => {
       url: '/api/invitations',
       baseURL: 'https://www.teampple.site',
       method: 'get',
-      params: { teamId: 1 }, //바꾸기 ㅋ
+      params: { teamId: teamid },
     })
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {

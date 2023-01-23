@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import ToDoCard from './toDoCard';
 import { StyledToDoBoxInfo } from 'interfaces';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { teamidState } from 'state';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: ${(props) => (props.pathname === '/home' ? '1680px' : '1272px')};
@@ -38,8 +40,9 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 
 const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
+  const [teamid] = useRecoilState(teamidState);
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ1MzcyNSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NTczMjV9.ETWUoEZJZhP37wN1VpC5DoQYFIjnpFvL5T5IjbZ3hmU';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2MzIzNCwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjY4MzR9.E2omeLTLlDZ3mcVA7E6FVzq97BXn3Km2H2xwFiC7Cr0';
 
   const getTodoAPI = async () => {
     await axios({
@@ -49,7 +52,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
       headers: {
         Authorization: testtoken,
       },
-      params: { teamId: 1 },
+      params: { teamId: teamid },
     })
       .then((response) => {
         setTodoList(response.data.data);
@@ -60,7 +63,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
   };
   useEffect(() => {
     getTodoAPI();
-  }, []);
+  }, [teamid]);
   return (
     <ToDoWrapper pathname={pathname}>
       <ToDoCard todoList={todoList} />

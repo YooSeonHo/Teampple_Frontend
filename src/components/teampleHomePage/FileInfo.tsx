@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { teamidState } from 'state';
 
 interface IFileMap {
   size: number;
@@ -13,6 +15,9 @@ const FileInfo = () => {
   const [remainPercent, setRemainPercent] = useState((nowFileSize / 5) * 100);
   const [count, setCount] = useState(0);
   let fsize = 0;
+  const [teamid] = useRecoilState(teamidState);
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2MzIzNCwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjY4MzR9.E2omeLTLlDZ3mcVA7E6FVzq97BXn3Km2H2xwFiC7Cr0';
 
   useEffect(() => {
     const getFiles = async () => {
@@ -20,8 +25,11 @@ const FileInfo = () => {
         url: `/api/files`,
         baseURL: 'https://www.teampple.site/',
         method: 'get',
+        headers: {
+          Authorization: testtoken,
+        },
         params: {
-          teamId: 1,
+          teamId: teamid,
         },
       })
         .then((res) => {
@@ -37,9 +45,8 @@ const FileInfo = () => {
           console.log(e);
         });
     };
-
     getFiles();
-  }, []);
+  }, [teamid]);
 
   return (
     <FileInfoContainer>

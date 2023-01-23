@@ -4,7 +4,7 @@ import arrow from '../images/ArrowLineRight2.png';
 import axios from 'axios';
 import { FileInfo } from 'interfaces';
 import { useRecoilState } from 'recoil';
-import { IsSearchState, searchFileState } from 'state';
+import { IsSearchState, searchFileState, teamidState } from 'state';
 
 const ListBox = styled.div`
   width: 1172px;
@@ -129,6 +129,7 @@ const FileList = () => {
   const [files, setFiles] = useState([]);
   const [searchFile, setSearchFile] = useRecoilState(searchFileState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
+  const [teamid] = useRecoilState(teamidState);
 
   useEffect(() => {
     const getFiles = async () => {
@@ -137,9 +138,8 @@ const FileList = () => {
         baseURL: 'https://www.teampple.site/',
         method: 'get',
         params: {
-          teamId: 1,
+          teamId: teamid,
         },
-        //파람스 부분 바꾸면 댐
       })
         .then((res) => {
           setFiles(res.data.data);
