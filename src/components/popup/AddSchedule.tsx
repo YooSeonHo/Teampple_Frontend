@@ -8,24 +8,65 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
 import { zIndexState } from 'state';
-// installation
-// npm install react-datepicker
-
-// 언어 한글 설정
-// npm install @types/react-datepicker --save-dev
+import axios from 'axios';
+import moment from 'moment';
 
 const AddSchedule = ({ setModal }: any) => {
   const today = new window.Date();
-  const [pickedDate, setPickedDate] = useState<Date>(today);
-  const [value, setValue] = useState('');
+  const [pickedDate, setPickedDate] = useState<any>(today);
+  const [name, setName] = useState('');
+  const [time, setTime] = useState('');
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
+  const onChangeTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTime(e.target.value);
+  };
+
+  const onChangeDate = (date: any) => {
+    const Fdate = moment(date, 'YYYYMMDDHHmmss').format('YYYY-MM-DD HH:mm:ss');
+    console.log(Fdate);
+    setPickedDate(date);
+  };
+
   const closeModal = () => {
     setModal(false);
     setZIndex(997);
+  };
+
+  const teamId = 1; //test
+
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ1OTM3OSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjI5Nzl9._56W3058HGAKn4TkVniQPSBaGnf_yJGU2I27I6CGnjg';
+
+  const postAuthLoginAPI = async () => {
+    await axios({
+      url: `/api/teams/schedules`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      headers: {
+        Authorization: testtoken,
+      },
+      data: {
+        dueDate:
+          moment(pickedDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + time,
+        name: name,
+      },
+      params: {
+        teamId: teamId,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        alert('새로운 일정 추가 성공!');
+        // modal이어서 navigate 불가능하니까 성공하면 `/teample-home/${teamId}`이 화면 새로고침되게
+        window.location.replace('/teample-home/${teamId}');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -36,30 +77,35 @@ const AddSchedule = ({ setModal }: any) => {
         <InputContainer>
           <NameContainer>
             <Tag1>이름</Tag1>
-            <Input value={value} onChange={onChange} maxLength={12} />
+            <Input value={name} onChange={onChangeName} maxLength={12} />
             <TextLength>
-              ({value.replace(/<br\s*\/?>/gm, '\n').length}/12)
+              ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
             </TextLength>
           </NameContainer>
           <DateContainer>
             <Tag2>일정</Tag2>
             <DateBox>
               <StyledDatePicker
-                locale={ko} //한글
+                locale={ko}
                 dateFormat="yyyy.MM.dd"
                 selected={pickedDate}
-                closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                onChange={(date: Date) => setPickedDate(date)}
+                closeOnScroll={true}
+                onChange={onChangeDate}
               />
               <IoCalendarNumberOutline
                 style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
               />
             </DateBox>
-            <Time placeholder="18 : 00" maxLength={7} />
+            <Time
+              value={time}
+              onChange={onChangeTime}
+              placeholder="18 : 00"
+              maxLength={7}
+            />
             <Clock />
           </DateContainer>
         </InputContainer>
-        <SaveButton>저장</SaveButton>
+        <SaveButton onClick={postAuthLoginAPI}>저장</SaveButton>
       </AddScheduleContainer>
     </Background>
   );

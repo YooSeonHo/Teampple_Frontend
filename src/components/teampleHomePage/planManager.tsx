@@ -21,8 +21,10 @@ const PlanManager = () => {
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
   const now = new Date();
+
+  const teamId = 1; //test
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ1OTM3OSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjI5Nzl9._56W3058HGAKn4TkVniQPSBaGnf_yJGU2I27I6CGnjg';
 
   const getPlanAPI = async () => {
     await axios({
@@ -32,7 +34,7 @@ const PlanManager = () => {
       headers: {
         Authorization: testtoken,
       },
-      params: { teamId: 1 },
+      params: { teamId: teamId },
     })
       .then((response) => {
         setPlans(response.data.data.schedules);
