@@ -106,6 +106,9 @@ const ManagerBox = styled.div`
   width: 326px;
   height: 1008px;
   background-color: #ffffff;
+  border-left: solid;
+  border-width: 3px;
+  border-color: #edeff6;
   display: flex;
   flex-direction: column;
   position: relative;

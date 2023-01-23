@@ -17,6 +17,9 @@ const HeaderBox = styled.div`
   width: 1680px;
   height: 72px;
   background-color: #ffffff;
+  border-bottom: solid;
+  border-width: 3px;
+  border-color: #edeff6;
   display: flex;
   font-weight: 600;
   font-size: 24px;
