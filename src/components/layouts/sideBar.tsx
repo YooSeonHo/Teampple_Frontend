@@ -18,7 +18,7 @@ import prof9 from '../images/profile/proImageU9.png';
 // import tnames from '../../data/teamList.json';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
-import { teamidState, zIndexState, feedbackState, modal2State } from 'state';
+import { teamidState, AddTeamzIndexState, feedbackState, modal2State } from 'state';
 import { ModalContainer } from 'components/teampleHomePage/planManager';
 import AddTeample from 'components/popup/AddTeample1';
 
@@ -172,14 +172,19 @@ const SideBar = () => {
   const [actTeamList, setActTeamList] = useState([]);
   const [finTeamList, setFinTeamList] = useState([]);
   const [modal, setModal] = useState(false);
-  const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
+  const [zIndex,setZIndex] = useRecoilState(AddTeamzIndexState);
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);
     setModal2(false);
-    setZIndex(999);
+    if (modal){
+      setZIndex(997);
+    }
+    else{
+      setZIndex(1000);
+    }
   };
 
   const getTeamid = (team: any, e: React.MouseEvent<HTMLElement>) => {
@@ -226,7 +231,7 @@ const SideBar = () => {
   }, []);
 
   return (
-    <SideBarBox userid={userid}>
+    <SideBarBox userid={userid} style={{zIndex : zIndex}}>
       <div className="logo">
         <Link to="/" style={{ textDecoration: 'none' }}>
           <img src={logo} />

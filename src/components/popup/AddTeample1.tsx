@@ -14,7 +14,7 @@ import {
   startDateState,
   endDateState,
 } from 'state/AddTeample/atom';
-import { zIndexState } from 'state';
+import { AddTeamzIndexState } from 'state';
 import { Background } from './AddSchedule';
 
 const AddTeample = ({setModal} : {setModal : any}) => {
@@ -22,7 +22,7 @@ const AddTeample = ({setModal} : {setModal : any}) => {
   const [endDate, setEndDate] = useRecoilState<Date>(endDateState);
   const [name, setName] = useRecoilState(nameState);
   const [aim, setAim] = useRecoilState(aimState);
-  const [zIndex, setZIndex] = useRecoilState(zIndexState);
+  const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);

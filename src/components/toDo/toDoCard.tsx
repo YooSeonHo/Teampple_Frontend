@@ -228,6 +228,7 @@ const ToDoCard = ({ todoList }: any) => {
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
+  
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);
