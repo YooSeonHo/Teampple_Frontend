@@ -15,6 +15,8 @@ import {
 import AddDiv from './AddTeample/AddDiv'; //단계 추가하기 버튼 클릭시 Add 컴포넌트 추가
 import { Background } from './AddSchedule';
 import { ModalProps } from 'interfaces';
+import { stageInfo } from 'interfaces';
+import { stageState } from 'state';
 
 const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
@@ -30,8 +32,8 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   const [endDate] = useRecoilState<Date>(endDateState);
   const [name] = useRecoilState(nameState);
   const [aim] = useRecoilState(aimState);
+  const [stages,setStages] = useRecoilState<stageInfo[]>(stageState);
 
-  const navigate = useNavigate();
   const onClickPrev = (e: React.MouseEvent<HTMLElement>) => {
     setModal(true);
     setNextModal(false);
@@ -49,6 +51,7 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   };
 
   const [countList, setCountList] = useState([0]);
+
   const onClickAdd = () => {
     const countArr = [...countList];
     let counter = countArr.slice(-1)[0];
@@ -56,7 +59,16 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
     // countArr.push(counter); // index 사용 X
     countArr[counter] = counter; // index 사용 시
     setCountList(countArr);
-    console.log(countArr);
+
+    const newStage = {
+      dueDate : new Date(),
+      name : "",
+      sequenceNum : stages.length,
+      startDate : new Date()
+    };
+
+    setStages([...stages,newStage]);
+    console.log(stages);
   };
 
   const closeModal = () => {
@@ -93,6 +105,7 @@ const ModifyTeampleContainer = styled.div`
   position: fixed;
   top: 220px;
   left: 640px;
+  
 `;
 
 const CloseBtn = styled(GrClose)`

@@ -1,5 +1,5 @@
 // import { detailInfo } from 'interfaces';
-import { makeTeampleInfo } from 'interfaces';
+import { makeTeampleInfo, stageInfo } from 'interfaces';
 import { atom } from 'recoil';
 import { v1 } from 'uuid';
 // key duplicate 방지를 위한 라이브러리 설치
@@ -92,3 +92,14 @@ export const makeTeampleState = atom<makeTeampleInfo>({
     startDate: new Date,
   }  
 });
+
+export const stageState = atom<stageInfo[]>({
+  key : 'stage',
+  default :
+  [{
+    dueDate: new Date,
+    name: '',
+    sequenceNum: 0,
+    startDate: new Date,
+  }]
+})
