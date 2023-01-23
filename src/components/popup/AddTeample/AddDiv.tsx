@@ -138,9 +138,9 @@ const AddDiv = (props: any) => {
             ))}
         </div>
         {/* <button type="submit">전송</button> */}
-        <MakeButton type="submit">
+        {/* <MakeButton type="submit">
           팀플 만들기
-        </MakeButton>
+        </MakeButton> */}
       </form>
     </AddDivContainer>
   );

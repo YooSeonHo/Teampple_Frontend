@@ -21,6 +21,7 @@ import axios from 'axios';
 import { teamidState, AddTeamzIndexState, feedbackState, modal2State } from 'state';
 import { ModalContainer } from 'components/teampleHomePage/planManager';
 import AddTeample from 'components/popup/AddTeample1';
+import AddTeample2 from 'components/popup/AddTeample2';
 
 const SideBarBox = styled.div<{ userid: string }>`
   width: 240px;
@@ -172,6 +173,8 @@ const SideBar = () => {
   const [actTeamList, setActTeamList] = useState([]);
   const [finTeamList, setFinTeamList] = useState([]);
   const [modal, setModal] = useState(false);
+  const [nextModal,setNextModal]= useState(false);
+
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [zIndex,setZIndex] = useRecoilState(AddTeamzIndexState);
@@ -316,7 +319,8 @@ const SideBar = () => {
         </div>
       </div>
       <ModalContainer>
-        {modal && <AddTeample setModal={setModal} />}
+        {modal && <AddTeample setModal={setModal} setNextModal={setNextModal}/>}
+        {nextModal && <AddTeample2 setModal={setModal} setNextModal={setNextModal} />}
       </ModalContainer>
     </SideBarBox>
   );

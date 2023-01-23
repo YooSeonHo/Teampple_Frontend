@@ -13,8 +13,10 @@ import {
   endDateState,
 } from 'state/AddTeample/atom';
 import AddDiv from './AddTeample/AddDiv'; //단계 추가하기 버튼 클릭시 Add 컴포넌트 추가
+import { Background } from './AddSchedule';
+import { ModalProps } from 'interfaces';
 
-const AddTeample2 = () => {
+const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
   // 일단 setState를 sting으로 두고 테스트
   const [stepTest, setStepTest] = useRecoilState(testState);
@@ -31,7 +33,8 @@ const AddTeample2 = () => {
 
   const navigate = useNavigate();
   const onClickPrev = (e: React.MouseEvent<HTMLElement>) => {
-    navigate('/teample-home/add-teample1');
+    setModal(true);
+    setNextModal(false);
   };
 
   const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
@@ -56,21 +59,27 @@ const AddTeample2 = () => {
     console.log(countArr);
   };
 
+  const closeModal = () => {
+    setNextModal(false);
+  };
+
   return (
-    <ModifyTeampleContainer>
-      <CloseBtn />
-      <Title>팀플 단계</Title>
-      <Desc>단계를 설정하면 전략적으로 프로젝트를 진행시킬 수 있어요.</Desc>
-        <InputContainer>
-          {/* 컴포넌트 추가 */}
-          <AddDiv countList={countList} setCountList={setCountList} />
-          <AddStepButton onClick={onClickAdd}>+ 단계 추가하기</AddStepButton>
-        </InputContainer>
-        <PrevButton onClick={onClickPrev}>이전</PrevButton>
-        {/* <MakeButton onClick={onClickMake}>
-          팀플 만들기
-        </MakeButton> */}
-    </ModifyTeampleContainer>
+    <Background>
+      <ModifyTeampleContainer>
+        <CloseBtn onClick={closeModal}/>
+        <Title>팀플 단계</Title>
+        <Desc>단계를 설정하면 전략적으로 프로젝트를 진행시킬 수 있어요.</Desc>
+          <InputContainer>
+            {/* 컴포넌트 추가 */}
+            <AddDiv countList={countList} setCountList={setCountList} />
+            <AddStepButton onClick={onClickAdd}>+ 단계 추가하기</AddStepButton>
+          </InputContainer>
+          <PrevButton onClick={onClickPrev}>이전</PrevButton>
+          <MakeButton onClick={onClickMake}>
+            팀플 만들기
+          </MakeButton>
+      </ModifyTeampleContainer>
+    </Background>
   );
 };
 
@@ -80,6 +89,10 @@ const ModifyTeampleContainer = styled.div`
   background: #ffffff;
   border-radius: 16px;
   position: relative;
+  z-index: 999;
+  position: fixed;
+  top: 220px;
+  left: 640px;
 `;
 
 const CloseBtn = styled(GrClose)`

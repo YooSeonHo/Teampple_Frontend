@@ -16,8 +16,9 @@ import {
 } from 'state/AddTeample/atom';
 import { AddTeamzIndexState } from 'state';
 import { Background } from './AddSchedule';
+import { ModalProps } from 'interfaces';
 
-const AddTeample = ({setModal} : {setModal : any}) => {
+const AddTeample = ({setModal,setNextModal} : ModalProps) => {
   const [startDate, setStartDate] = useRecoilState<Date>(startDateState);
   const [endDate, setEndDate] = useRecoilState<Date>(endDateState);
   const [name, setName] = useRecoilState(nameState);
@@ -32,12 +33,13 @@ const AddTeample = ({setModal} : {setModal : any}) => {
     setAim(e.target.value);
     console.log(aim);
   };
-  const navigate = useNavigate();
+  
   const onClickNext = (e: React.MouseEvent<HTMLElement>) => {
     if (name === '') alert('이름을 입력하세요.');
     else if (aim === '') alert('목표를 입력하세요.');
     else {
-      navigate('/teample-home/add-teample2');
+      setNextModal(true);
+      setModal(false);
       console.log(name, aim, startDate, endDate);
     }
   };

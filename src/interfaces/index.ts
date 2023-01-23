@@ -72,3 +72,8 @@ export interface detailInfo{
   startDate : string;
   taskName : string;
 }
+
+export interface ModalProps{
+  setModal : any;
+  setNextModal : any;
+}
