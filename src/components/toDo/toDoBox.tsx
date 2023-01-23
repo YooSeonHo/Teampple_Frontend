@@ -6,7 +6,7 @@ import { StyledToDoBoxInfo } from "interfaces";
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 
 width: ${(props)=> props.pathname === '/home'? '1680px': '1272px'};
-height: 556px;
+height:${(props)=> props.pathname === '/home'? '448px': '556px'};
 display: flex;
 border-radius: 16px;
 overflow: overlay;
