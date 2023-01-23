@@ -14,9 +14,10 @@ import {
   startDateState,
   endDateState,
 } from 'state/AddTeample/atom';
-import { AddTeamzIndexState } from 'state';
+import { AddTeamzIndexState,makeTeampleState } from 'state';
 import { Background } from './AddSchedule';
 import { ModalProps } from 'interfaces';
+import { makeTeampleInfo } from 'interfaces';
 
 const AddTeample = ({setModal,setNextModal} : ModalProps) => {
   const [startDate, setStartDate] = useRecoilState<Date>(startDateState);
@@ -24,6 +25,7 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
   const [name, setName] = useRecoilState(nameState);
   const [aim, setAim] = useRecoilState(aimState);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
+  const [makeTeample,setMakeTeample] = useRecoilState(makeTeampleState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -41,6 +43,14 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
       setNextModal(true);
       setModal(false);
       console.log(name, aim, startDate, endDate);
+      setMakeTeample((prev)=>({
+        ...prev,
+        name : name,
+        goal : aim,
+        startDate : startDate,
+        dueDate : endDate
+      }));
+      console.log(makeTeample);
     }
   };
 

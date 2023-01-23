@@ -77,3 +77,18 @@ export interface ModalProps{
   setModal : any;
   setNextModal : any;
 }
+
+export interface makeTeampleInfo{
+  dueDate : Date;
+  goal: string;
+  name : string;
+  stages : stageInfo[];
+  startDate : Date;
+}
+
+export interface stageInfo{
+  dueDate: Date;
+  name: string
+  sequenceNum: number;
+  startDate: Date;
+}

@@ -23,6 +23,7 @@ import { ModalContainer } from 'components/teampleHomePage/planManager';
 import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
 
+
 const SideBarBox = styled.div<{ userid: string }>`
   width: 240px;
   height: 1080px;
@@ -178,6 +179,8 @@ const SideBar = () => {
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [zIndex,setZIndex] = useRecoilState(AddTeamzIndexState);
+
+
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);

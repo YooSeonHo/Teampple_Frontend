@@ -1,4 +1,5 @@
 // import { detailInfo } from 'interfaces';
+import { makeTeampleInfo } from 'interfaces';
 import { atom } from 'recoil';
 import { v1 } from 'uuid';
 // key duplicate 방지를 위한 라이브러리 설치
@@ -72,4 +73,22 @@ export const jwtAccessTokenState = atom<string>({
 export const jwtRefreshTokenState = atom<string>({
   key: `jwtrefreshtoken/${v1()}`,
   default: '',
+});
+
+export const makeTeampleState = atom<makeTeampleInfo>({
+  key : 'makeTeample',
+  default : {
+    dueDate: new Date,
+    goal: '',
+    name: '',
+    stages: [
+      {
+        dueDate: new Date,
+        name: '',
+        sequenceNum: 0,
+        startDate: new Date,
+      }
+    ],
+    startDate: new Date,
+  }  
 });
