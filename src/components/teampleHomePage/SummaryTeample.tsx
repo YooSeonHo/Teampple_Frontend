@@ -46,7 +46,7 @@ const SummaryTeample = () => {
       setText('손발척척 빠른 진행 !');
     } else if (currentPercent === 0) {
       setIcon(progress0);
-      setText('팀쁠은 당신을 기다리는 중!');
+      setText('많이 속도를 내야해요');
     }
   };
 

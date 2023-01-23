@@ -130,6 +130,8 @@ const FileList = () => {
   const [searchFile, setSearchFile] = useRecoilState(searchFileState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
   const [teamid] = useRecoilState(teamidState);
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2MzIzNCwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjY4MzR9.E2omeLTLlDZ3mcVA7E6FVzq97BXn3Km2H2xwFiC7Cr0';
 
   useEffect(() => {
     const getFiles = async () => {
@@ -137,6 +139,9 @@ const FileList = () => {
         url: `/api/files`,
         baseURL: 'https://www.teampple.site/',
         method: 'get',
+        headers: {
+          Authorization: testtoken,
+        },
         params: {
           teamId: teamid,
         },

@@ -18,6 +18,7 @@ const AddTask = ({ setModal }: any) => {
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
+    console.log(e.target.value);
   };
   const closeModal = () => {
     setModal(false);
@@ -28,7 +29,7 @@ const AddTask = ({ setModal }: any) => {
     <Background>
       <ModifyTeampleContainer>
         <CloseBtn onClick={closeModal} />
-        <Title>팀플 수정</Title>
+        <Title>할일 추가</Title>
         <Tag1>할일</Tag1>
         <Input1
           value={name}

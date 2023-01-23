@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
-import { zIndexState } from 'state';
+import { zIndexState, teamidState } from 'state';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -17,18 +17,18 @@ const AddSchedule = ({ setModal }: any) => {
   const [name, setName] = useState('');
   const [time, setTime] = useState('');
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
+  const [teamid] = useRecoilState(teamidState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
   const onChangeTime = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTime(e.target.value);
+    console.log(e.target.value);
   };
 
-  const onChangeDate = (date: any) => {
-    const Fdate = moment(date, 'YYYYMMDDHHmmss').format('YYYY-MM-DD HH:mm:ss');
-    console.log(Fdate);
-    setPickedDate(date);
+  const onChangeDate = (pickedDate: any) => {
+    setPickedDate(pickedDate);
   };
 
   const closeModal = () => {
@@ -36,12 +36,10 @@ const AddSchedule = ({ setModal }: any) => {
     setZIndex(997);
   };
 
-  const teamId = 1; //test
-
   const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ1OTM3OSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjI5Nzl9._56W3058HGAKn4TkVniQPSBaGnf_yJGU2I27I6CGnjg';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2NzUzMiwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NzExMzJ9.4AOVo1l2b6fotF9TiELTMoKbLI6-AZ_aFA51tnJc-RI';
 
-  const postAuthLoginAPI = async () => {
+  const postSchedulesAPI = async () => {
     await axios({
       url: `/api/teams/schedules`,
       baseURL: 'https://www.teampple.site/',
@@ -50,12 +48,16 @@ const AddSchedule = ({ setModal }: any) => {
         Authorization: testtoken,
       },
       data: {
-        dueDate:
-          moment(pickedDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + time,
+        dueDate: (
+          moment(pickedDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          time +
+          ':00'
+        ).toString(),
         name: name,
       },
       params: {
-        teamId: teamId,
+        teamId: teamid,
       },
     })
       .then((response) => {
@@ -66,7 +68,14 @@ const AddSchedule = ({ setModal }: any) => {
       })
       .catch((error) => {
         console.log(error);
+        alert('시간 입력 형식에 맞추어 입력하세요.');
       });
+  };
+
+  const onClickBtn = () => {
+    if (time === '') alert('시간 입력은 필수입니다.');
+    if (name === '') alert('일정 이름 입력은 필수입니다.');
+    else postSchedulesAPI();
   };
 
   return (
@@ -105,7 +114,7 @@ const AddSchedule = ({ setModal }: any) => {
             <Clock />
           </DateContainer>
         </InputContainer>
-        <SaveButton onClick={postAuthLoginAPI}>저장</SaveButton>
+        <SaveButton onClick={onClickBtn}>저장</SaveButton>
       </AddScheduleContainer>
     </Background>
   );
