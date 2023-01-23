@@ -5,18 +5,24 @@ import { FiLink2 } from 'react-icons/fi';
 import axios from 'axios';
 import { ITeamMate } from '../../interfaces';
 import { useRecoilState } from 'recoil';
-import { teamMateNumState, modal2State } from 'state';
+import { teamMateNumState, modal2State, teamidState } from 'state';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
   const [modal2, setModal2] = useRecoilState(modal2State);
+  const [teamid] = useRecoilState(teamidState);
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2MzIzNCwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjY4MzR9.E2omeLTLlDZ3mcVA7E6FVzq97BXn3Km2H2xwFiC7Cr0';
 
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
-      params: { teamId: 1 },
+      headers: {
+        Authorization: testtoken,
+      },
+      params: { teamId: teamid },
     })
       .then((response) => {
         setTeamMates(response.data.data.teammates);
@@ -46,7 +52,7 @@ const TeamMateInfo = () => {
 
   useEffect(() => {
     getTeamMateAPI();
-  }, []);
+  }, [teamid]);
 
   const onCopy = async () => {
     await getLink();
