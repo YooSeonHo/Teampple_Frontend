@@ -91,15 +91,15 @@ const Feed = styled.div`
 const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useState([]);
   const [taskId, setTaskId] = useState<number>();
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ5MDMzMywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTM5MzN9.sOYSw3d4vtKDUF1l8QhiUy0jMuSly2M4wIVSr9HqVwI';
+  const token = localStorage.getItem('jwt_accessToken');
+  
   const getFeedbackAPI = async () => {
     await axios({
       url: `/api/users/feedbacks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then((response) => {

@@ -52,44 +52,88 @@ const LoginPage = () => {
         setIdToken(data.id_token);
         setKakaoAccessToken(data.access_token);
         setKakaoRefreshToken(data.refresh_token);
-        postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
+        getKakaoInfo();
+      })
+      .catch(() => {
+        alert('다시 시도하세요');
       });
   };
 
-  const data = {
-    idToken: idToken,
-    oauthAccessToken: kakaoAccessToken,
-    oauthRefreshToken: kakaoRefreshToken,
+  const getKakaoInfo = () => {
+    // 3.기존 회원인지 아닌지 확인 -> 기존 회원이면 3-1 / 아니면 3-2
+    fetch(`https://kapi.kakao.com/v2/user/me`, {
+      method: 'GET',
+      headers: {
+        //테스트용
+        Authorization: `Bearer HbHbfub3Y5WkpxHuuHTVAEP0nmtoeItVAQq1hRRmCj1zmwAAAYXiPqjW'`,
+      },
+      // headers: {
+      //   Authorization: `Bearer ${kakaoAccessToken}`,
+      // },
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        alert('확인 성공');
+        postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
+      })
+      .catch(() => {
+        navigate('/moreinfo');
+        alert('다시 시도하세요');
+      });
   };
 
   const postAuthLoginAPI = async () => {
-    // 3-1. 백한테 카카오 토큰 넘겨주기 (회원가입 or 로그인 백에서 알려줘야함)
-    await axios
-      .post(`https://www.teampple.site/api/auth/login`, JSON.stringify(data), {
-        headers: {
-          'Content-Type': `application/json`,
-        },
-      })
+    // 3-1. 로그인 (백한테 카카오 토큰 넘겨주기)
+    await axios({
+      url: `/api/auth/login`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      data: {
+        // idToken: idToken,
+        // oauthAccessToken: kakaoAccessToken,
+        // oauthRefreshToken: kakaoRefreshToken,
+
+        // 테스트용
+        idToken:
+          'eyJraWQiOiI5ZjI1MmRhZGQ1ZjIzM2Y5M2QyZmE1MjhkMTJmZW…lnXtFDBTwQr8toha2LVsU8gjd1DE-SB7Kbb4a-NQ5SfsGSzkA',
+        oauthAccessToken: kakaoAccessToken,
+        oauthRefreshToken:
+          '4SWKUqzcosIvdimwkupQPJ0zWZsvL7VQx9u9cROkCj1zmwAAAYXiPqjV',
+      },
+    })
       .then((response) => {
         console.log(response);
-        setjwtAccessToken(response.data.jwtAccessToken);
-        setjwtRefreshToken(response.data.jwtRefreshToken);
-        localStorage.setItem('jwt_accessToken', response.data.jwtAccessToken);
-        localStorage.setItem('jwt_refreshToken', response.data.jwtRefreshToken);
+        setjwtAccessToken(response.data.data.jwtAccessToken);
+        setjwtRefreshToken(response.data.data.jwtRefreshToken);
+        localStorage.setItem(
+          'jwt_accessToken',
+          response.data.data.jwtAccessToken,
+        );
+        localStorage.setItem(
+          'jwt_refreshToken',
+          response.data.data.jwtRefreshToken,
+        );
+        alert('카카오 로그인 성공 (홈으로 이동합니다)');
         navigate('/home');
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
   useEffect(() => {
     if (!location.search) return;
     getKakaoToken();
   }, []);
 
+  const naviOnBoard = () => {
+    navigate('/');
+  };
+
   return (
     <LoginPageContainer>
-      <LogoImg src={Logo}></LogoImg>
+      <LogoImg src={Logo} onClick={naviOnBoard} />
       <Desc>서로가 모여 플러스가 되는 팀쁠</Desc>
       {invited ? (
         <TeamNameContainer>
@@ -117,6 +161,7 @@ const LoginPageContainer = styled.div`
   background-color: #f4f8ff;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   position: relative;
 `;
@@ -126,6 +171,9 @@ const LogoImg = styled.img`
   height: 67px;
   position: absolute;
   top: 256px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Desc = styled.div`

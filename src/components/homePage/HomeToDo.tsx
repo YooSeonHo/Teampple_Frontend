@@ -6,8 +6,7 @@ import axios from 'axios';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ4NjY0OSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTAyNDl9.ks-mlIJSX21w3KeLHSf07hK33lVks_1zD0E2-vFlyOI';
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getTodoAPI = async () => {
     await axios({
@@ -15,7 +14,7 @@ const HomeToDo = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then((response) => {

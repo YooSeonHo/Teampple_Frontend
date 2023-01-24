@@ -31,17 +31,16 @@ const SummaryHome = () => {
   const [userid, setUserid] = useState(prof1);
   let s1 = 0;
   let s2 = 0;
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getTaskAPI = async () => {
-    const testtoken =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ5MDMzMywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTM5MzN9.sOYSw3d4vtKDUF1l8QhiUy0jMuSly2M4wIVSr9HqVwI';
-
+    
     await axios({
       url: `/api/users/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then((response) => {
@@ -60,6 +59,7 @@ const SummaryHome = () => {
   };
   useEffect(() => {
     getTaskAPI();
+    console.log(localStorage.getItem('jwt_accessToken'));
   }, [doneNum, allNum]);
 
   return (

@@ -33,30 +33,29 @@ const InfoInput = () => {
     setMajor(e.target.value);
   };
 
-  const data = {
-    idToken: idToken,
-    oauthAccessToken: kakaoAccessToken,
-    oauthRefreshToken: kakaoRefreshToken,
-    name: name,
-    schoolName: school,
-    major: major,
-    profileImage: 'proImageU100', //아직 설정 안 함
-  };
-
   const postAuthInfoAPI = async () => {
-    // 3-2. 백한테 카카오 토큰 + 추가 정보 넘겨주기 (회원가입)
-    await axios
-      .post(`https://www.teampple.site/api/auth/info`, JSON.stringify(data), {
-        headers: {
-          'Content-Type': `application/json`,
-        },
-      })
+    // 3-2. 회원가입 (백한테 카카오 토큰 + 추가 정보 넘겨주기)
+    await axios({
+      url: `/api/auth/info`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      data: {
+        idToken: idToken,
+        oauthAccessToken: kakaoAccessToken,
+        oauthRefreshToken: kakaoRefreshToken,
+        name: name,
+        schoolName: school,
+        major: major,
+        profileImage: 'proImageU100', //아직 설정 안 함
+      },
+    })
       .then((response) => {
         console.log(response);
         setjwtAccessToken(response.data.jwtAccessToken);
         setjwtRefreshToken(response.data.jwtRefreshToken);
         localStorage.setItem('jwt_accessToken', response.data.jwtAccessToken);
         localStorage.setItem('jwt_refreshToken', response.data.jwtRefreshToken);
+        alert('회원가입 성공 (홈으로 이동합니다)');
         navigate('/home');
       })
       .catch(function (error) {

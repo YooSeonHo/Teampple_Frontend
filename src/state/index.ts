@@ -4,8 +4,8 @@ import { v1 } from 'uuid';
 // key duplicate 방지를 위한 라이브러리 설치
 // npm i --save-dev @types/uuid
 
-export const userState = atom<string>({
-  key: `user/${v1()}`,
+export const usernameState = atom<string>({
+  key: `username/${v1()}`,
   default: '',
 });
 

@@ -20,11 +20,40 @@ const AddTask = ({ setModal }: any) => {
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
-    console.log(e.target.value);
   };
   const closeModal = () => {
     setModal(false);
     setZIndex(997);
+  };
+
+  const testtoken =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ5MDMzMywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTM5MzN9.sOYSw3d4vtKDUF1l8QhiUy0jMuSly2M4wIVSr9HqVwI';
+
+  const postTasksAPI = async () => {
+    await axios({
+      url: `/api/tasks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'post',
+      headers: {
+        Authorization: testtoken,
+      },
+      data: {
+        name: name,
+        // startDate: (
+        //   moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+        //   'T' +
+        //   time +
+        //   ':00'
+        // ).toString(),
+      },
+      params: { stageId: 1 },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
