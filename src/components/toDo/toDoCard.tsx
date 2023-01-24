@@ -23,7 +23,8 @@ const CardBox = styled.div<StyledToDoInfo>`
   flex-direction: column;
   margin-right: 28px;
   position: relative;
-
+  flex-shrink: 0;
+  
   .toDos {
     overflow-x: hidden;
     height: 324px;
