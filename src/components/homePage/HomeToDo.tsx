@@ -9,7 +9,6 @@ const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
   const token = process.env.REACT_APP_JWTTOKEN
 
-
   const getTodoAPI = async () => {
     await axios({
       url: `/api/users/tasks`,
@@ -35,7 +34,7 @@ const HomeToDo = () => {
     <HomeToDoContainer>
       <Title>할 일</Title>
       <ToDosContainer>
-        {teams.map((team: any, index: number) => (
+        {teams && teams.map((team: any, index: number) => (
           <ToDoContainer key={index}>
             <ToDoTitle>{team.name}</ToDoTitle>
             <Left>
@@ -43,7 +42,7 @@ const HomeToDo = () => {
               <LeftNum>{team.totalStage - team.achievement}</LeftNum>
             </Left>
             <ToDoList>
-              {team.stages.map((t: any, index: number) => (
+              {teams && team.stages.map((t: any, index: number) => (
                 <Link to='/teample-detail' key={index} style={{ textDecoration: 'none' }}>
                   <ToDo>
                     {t.done === 'true' ? <Done src={done} /> : <></>}
