@@ -9,7 +9,7 @@ import trash from '../images/Trash.png';
 import ellipse from '../images/Ellipse 1.png';
 import send from '../images/send.png';
 import axios from 'axios';
-import { detailInfo } from 'interfaces';
+import { detailInfo, userInfo } from 'interfaces';
 import S3 from 'react-aws-s3-typescript';
 import { config } from 'config';
 import { useRecoilState } from 'recoil';
@@ -371,6 +371,8 @@ const DetailBox = () => {
   const [fileLoc, setFileLoc] = useState('');
   const fileInput = useRef<any>();
   const [teamid] = useRecoilState(teamidState);
+  const [user,setUser] = useState<userInfo>();
+  const [addFeed,setAddFeed] = useState('');
 
   const onClick = () => {
     fileInput.current && fileInput.current.click();
@@ -436,7 +438,7 @@ const DetailBox = () => {
       baseURL: 'https://www.teampple.site/',
       method: 'get',
       params: {
-        taskId: 1,
+        taskId: 2,
       },
       headers: {
         Authorization: token,
@@ -450,9 +452,48 @@ const DetailBox = () => {
       });
   };
 
+  const getUser = async () =>{
+    await axios({
+      url: '/api/users/userprofiles',
+      baseURL: 'https://www.teampple.site/',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+    }).then((res)=>{
+      setUser(res.data.data);
+    }).catch((e) => {
+      console.log(e);
+    });
+  }
+
+  const postFeedback = async () =>{
+    await axios({
+      url : '/api/feedbacks',
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      headers: {
+        Authorization: token,
+      },
+      params: {
+        taskId: 2,
+      },
+      data : {comment : addFeed}
+    }).then((res)=>{
+      location.reload();
+    }).catch((e) => {
+      console.log(e);
+    });
+  }
+
   useEffect(() => {
+    getUser();
     getDetail();
   }, []);
+
+  const onChangeFeed = (e : React.ChangeEvent<HTMLInputElement>) =>{
+    setAddFeed(e.target.value);
+  }
 
   return (
     <>
@@ -563,15 +604,20 @@ const DetailBox = () => {
           <div className="btm">
             <div className="feedText">피드백</div>
             <div className="addFeed">
-              <div className="profileImg">
-                <img src={ellipse} />
+            <div className="profileImg">
+                      {user && <img
+                        src={require('../images/profile/' +
+                        user.profileImage +
+                        '.png')}/>}
               </div>
               <div className="inputBox">
                 <input
                   className="feedInput"
                   placeholder="피드백을 입력해주세요."
+                  value={addFeed}
+                  onChange={onChangeFeed}
                 />
-                <button className="send"></button>
+                <button className="send" onClick={postFeedback}></button>
               </div>
             </div>
             {detail.feedbacks && (

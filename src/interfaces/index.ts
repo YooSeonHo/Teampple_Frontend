@@ -92,3 +92,13 @@ export interface stageInfo{
   dueDate: Date | string;
   startDate: Date | string;
 }
+
+export interface userInfo{
+  email : string;
+  entranceYear : string;
+  major : string;
+  name : string;
+  profileImage : string;
+  schoolName : string;
+  subscribePlan : string;
+  }
