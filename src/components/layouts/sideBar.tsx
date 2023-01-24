@@ -266,6 +266,7 @@ const SideBar = () => {
         <div className="boxText">팀플</div>
       </div>
 
+      <div style={{overflow : 'auto'}}>
       {actTeamList.map((team: any, index: number) => (
         <div
           key={index}
@@ -303,6 +304,7 @@ const SideBar = () => {
       ))}
       <div className="newBox" id="newTeample" onClick={showModal}>
         <div>+ 새 팀플</div>
+      </div>
       </div>
 
       <div className="btm">

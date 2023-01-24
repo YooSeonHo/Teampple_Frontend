@@ -35,11 +35,9 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
-    console.log(name);
   };
   const onChangeAim = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAim(e.target.value);
-    console.log(aim);
   };
   
   const onClickNext = (e: React.MouseEvent<HTMLElement>) => {
@@ -48,7 +46,6 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
     else {
       setNextModal(true);
       setModal(false);
-      console.log(name, aim, startDate, endDate);
       setMakeTeample((prev)=>({
         ...prev,
         name : name,

@@ -57,7 +57,7 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
       alert('팀플 생성이 완료되었습니다.');
       setModal(false);
       setNextModal(false);
-      // setMakeTeample();
+      location.reload();
     }).catch((e)=>{
       console.log(e);
     })
@@ -72,7 +72,7 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
     
     const onClickMake = async (event: React.MouseEvent<HTMLElement>) => {
       event.preventDefault();
-      
+
       setTemp(stages.map((s)=>(
         {...s, 
           startDate : moment(s.startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
