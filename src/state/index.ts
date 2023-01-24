@@ -78,3 +78,8 @@ export const jwtRefreshTokenState = atom<string>({
   key: `jwtrefreshtoken/${v1()}`,
   default: '',
 });
+
+export const sequenceNumState = atom<number>({
+  key: `sequencenum/${v1()}`,
+  default: 1,
+});
