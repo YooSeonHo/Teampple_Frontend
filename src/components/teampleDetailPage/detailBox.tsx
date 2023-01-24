@@ -12,6 +12,8 @@ import axios from 'axios';
 import { detailInfo } from 'interfaces';
 import S3 from 'react-aws-s3-typescript';
 import { config } from 'config';
+import { useRecoilState } from 'recoil';
+import { teamidState } from 'state';
 
 const DetailContainer = styled.div`
   width: 1000px;
@@ -362,11 +364,13 @@ const DetailContainer = styled.div`
 `;
 
 const DetailBox = () => {
-  const testtoken = process.env.REACT_APP_JWTTOKEN;
+  const token = process.env.REACT_APP_JWTTOKEN;
+
   const [detail, setDetail] = useState<detailInfo | undefined>();
   const [file, setFile] = useState<File>();
   const [fileLoc, setFileLoc] = useState('');
   const fileInput = useRef<any>();
+  const [teamid] = useRecoilState(teamidState);
 
   const onClick = () => {
     fileInput.current && fileInput.current.click();
@@ -412,10 +416,10 @@ const DetailBox = () => {
       },
       params: {
         taskId: 1,
-        teamId: 1,
+        teamId: teamid,
       },
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then(() => {
@@ -435,7 +439,7 @@ const DetailBox = () => {
         taskId: 1,
       },
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then((res) => {

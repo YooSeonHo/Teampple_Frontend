@@ -7,25 +7,74 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
-import { zIndexState } from 'state';
-// installation
-// npm install react-datepicker
-
-// 언어 한글 설정
-// npm install @types/react-datepicker --save-dev
+import { zIndexState, teamidState } from 'state';
+import axios from 'axios';
+import moment from 'moment';
 
 const AddSchedule = ({ setModal }: any) => {
   const today = new window.Date();
-  const [pickedDate, setPickedDate] = useState<Date>(today);
-  const [value, setValue] = useState('');
+  const [pickedDate, setPickedDate] = useState<any>(today);
+  const [name, setName] = useState('');
+  const [time, setTime] = useState('');
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
+  const [teamid] = useRecoilState(teamidState);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
+  const onChangeTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTime(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const onChangeDate = (pickedDate: any) => {
+    setPickedDate(pickedDate);
+  };
+
   const closeModal = () => {
     setModal(false);
     setZIndex(997);
+  };
+
+  const token = process.env.REACT_APP_JWTTKOEN;
+
+  const postSchedulesAPI = async () => {
+    await axios({
+      url: `/api/teams/schedules`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        dueDate: (
+          moment(pickedDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          time +
+          ':00'
+        ).toString(),
+        name: name,
+      },
+      params: {
+        teamId: teamid,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        alert('새로운 일정 추가 성공!');
+        // modal이어서 navigate 불가능하니까 성공하면 `/teample-home/${teamId}`이 화면 새로고침되게
+        window.location.replace('/teample-home/${teamId}');
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('시간 입력 형식에 맞추어 입력하세요.');
+      });
+  };
+
+  const onClickBtn = () => {
+    if (time === '') alert('시간 입력은 필수입니다.');
+    if (name === '') alert('일정 이름 입력은 필수입니다.');
+    else postSchedulesAPI();
   };
 
   return (
@@ -36,30 +85,35 @@ const AddSchedule = ({ setModal }: any) => {
         <InputContainer>
           <NameContainer>
             <Tag1>이름</Tag1>
-            <Input value={value} onChange={onChange} maxLength={12} />
+            <Input value={name} onChange={onChangeName} maxLength={12} />
             <TextLength>
-              ({value.replace(/<br\s*\/?>/gm, '\n').length}/12)
+              ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
             </TextLength>
           </NameContainer>
           <DateContainer>
             <Tag2>일정</Tag2>
             <DateBox>
               <StyledDatePicker
-                locale={ko} //한글
+                locale={ko}
                 dateFormat="yyyy.MM.dd"
                 selected={pickedDate}
-                closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                onChange={(date: Date) => setPickedDate(date)}
+                closeOnScroll={true}
+                onChange={onChangeDate}
               />
               <IoCalendarNumberOutline
                 style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
               />
             </DateBox>
-            <Time placeholder="18 : 00" maxLength={7} />
+            <Time
+              value={time}
+              onChange={onChangeTime}
+              placeholder="18 : 00"
+              maxLength={7}
+            />
             <Clock />
           </DateContainer>
         </InputContainer>
-        <SaveButton>저장</SaveButton>
+        <SaveButton onClick={onClickBtn}>저장</SaveButton>
       </AddScheduleContainer>
     </Background>
   );

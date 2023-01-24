@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import ToDoCard from './toDoCard';
 import { StyledToDoBoxInfo } from 'interfaces';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { teamidState } from 'state';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: ${(props) => (props.pathname === '/home' ? '1680px' : '1272px')};
@@ -38,19 +40,21 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 
 const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
-  const testtoken = process.env.REACT_APP_JWTTOKEN
+  const token = process.env.REACT_APP_JWTTOKEN
+  const [teamid] = useRecoilState(teamidState);
   const getTodoAPI = async () => {
     await axios({
       url: `/api/teams/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
-      params: { teamId: 1 },
+      params: { teamId: teamid },
     })
       .then((response) => {
         setTodoList(response.data.data);
+        console.log(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -58,7 +62,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
   };
   useEffect(() => {
     getTodoAPI();
-  }, []);
+  }, [teamid]);
   return (
     <ToDoWrapper pathname={pathname}>
       <ToDoCard todoList={todoList} />

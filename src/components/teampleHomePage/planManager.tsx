@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
 import { useRecoilState } from 'recoil';
-import { zIndexState, feedbackState, modal2State } from 'state';
+import { zIndexState, feedbackState, modal2State, teamidState } from 'state';
 import axios from 'axios';
 import { IPlan } from '../../interfaces';
 
@@ -20,9 +20,8 @@ const PlanManager = () => {
   const [plans, setPlans] = useState([]);
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
-  const now = new Date();
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
+  const [teamid, ] = useRecoilState(teamidState);
+  const token = process.env.REACT_APP_JWTTKOEN;
 
   const getPlanAPI = async () => {
     await axios({
@@ -30,9 +29,9 @@ const PlanManager = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
-      params: { teamId: 1 },
+      params: { teamId: teamid },
     })
       .then((response) => {
         setPlans(response.data.data.schedules);
@@ -46,7 +45,8 @@ const PlanManager = () => {
 
   useEffect(() => {
     getPlanAPI();
-  }, []);
+    console.log(teamid);
+  }, [teamid]);
 
   const getDeadDay = (dueDate: Date) => {
     const setDate = new Date(dueDate);
@@ -104,6 +104,9 @@ const ManagerBox = styled.div`
   width: 326px;
   height: 1008px;
   background-color: #ffffff;
+  border-left: solid;
+  border-width: 3px;
+  border-color: #edeff6;
   display: flex;
   flex-direction: column;
   position: relative;

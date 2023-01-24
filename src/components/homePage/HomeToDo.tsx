@@ -7,14 +7,16 @@ import { Link } from 'react-router-dom';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
-  const testtoken = process.env.REACT_APP_JWTTOKEN
+  const token = process.env.REACT_APP_JWTTOKEN
+
+
   const getTodoAPI = async () => {
     await axios({
       url: `/api/users/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then((response) => {
@@ -38,8 +40,7 @@ const HomeToDo = () => {
             <ToDoTitle>{team.name}</ToDoTitle>
             <Left>
               <LeftText>남은 일</LeftText>
-              {/* achievement 나오면 고쳐야함 */}
-              <LeftNum>{team.stages.length}</LeftNum>
+              <LeftNum>{team.totalStage - team.achievement}</LeftNum>
             </Left>
             <ToDoList>
               {team.stages.map((t: any, index: number) => (

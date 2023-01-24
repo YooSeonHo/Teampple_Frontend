@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { teamidState } from 'state';
 
 interface IFileMap {
   size: number;
@@ -13,6 +15,8 @@ const FileInfo = () => {
   const [remainPercent, setRemainPercent] = useState((nowFileSize / 5) * 100);
   const [count, setCount] = useState(0);
   let fsize = 0;
+  const [teamid] = useRecoilState(teamidState);
+  const token = process.env.REACT_APP_JWTTKOEN;
 
   useEffect(() => {
     const getFiles = async () => {
@@ -20,8 +24,11 @@ const FileInfo = () => {
         url: `/api/files`,
         baseURL: 'https://www.teampple.site/',
         method: 'get',
+        headers: {
+          Authorization: token,
+        },
         params: {
-          teamId: 1,
+          teamId: teamid,
         },
       })
         .then((res) => {
@@ -37,9 +44,8 @@ const FileInfo = () => {
           console.log(e);
         });
     };
-
     getFiles();
-  }, []);
+  }, [teamid]);
 
   return (
     <FileInfoContainer>

@@ -4,7 +4,7 @@ import arrow from '../images/ArrowLineRight2.png';
 import axios from 'axios';
 import { FileInfo } from 'interfaces';
 import { useRecoilState } from 'recoil';
-import { IsSearchState, searchFileState } from 'state';
+import { IsSearchState, searchFileState, teamidState } from 'state';
 
 const ListBox = styled.div`
   width: 1172px;
@@ -130,6 +130,9 @@ const FileList = () => {
   const [searchFile, setSearchFile] = useRecoilState(searchFileState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
   const testtoken = process.env.REACT_APP_JWTTOKEN;
+  const [teamid] = useRecoilState(teamidState);
+  const token = localStorage.getItem('jwt_accessToken');
+
   useEffect(() => {
     const getFiles = async () => {
       await axios({
@@ -137,7 +140,7 @@ const FileList = () => {
         baseURL: 'https://www.teampple.site/',
         method: 'get',
         params: {
-          teamId: 1,
+          teamId: teamid,
         },
         headers : {
           Authorization : testtoken

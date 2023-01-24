@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
@@ -8,7 +8,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
-import { zIndexState } from 'state';
+import { zIndexState, teamidState, sequenceNumState } from 'state';
+import moment from 'moment';
+import axios from 'axios';
 //+버튼 만들지 말고 그냥 담당자 리스트에서 체크하면 추가, 체크 없애면 삭제
 const AddTask = ({ setModal }: any) => {
   const today = new window.Date();
@@ -16,6 +18,12 @@ const AddTask = ({ setModal }: any) => {
   const [endDate, setEndDate] = useState<Date>(today);
   const [name, setName] = useState('');
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
+  const token = process.env.REACT_APP_JWTTKOEN;
+  const [teamid] = useRecoilState(teamidState);
+  const [teamMates, setTeamMates] = useState([]);
+  const [checkedList, setCheckedList] = useState<string[]>([]);
+  const [sequenceNum, setSequenceNum] = useRecoilState(sequenceNumState);
+
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -24,11 +32,85 @@ const AddTask = ({ setModal }: any) => {
     setZIndex(997);
   };
 
+  const postTasksAPI = async () => {
+    await axios({
+      url: `/api/tasks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'post',
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        dueDate: (
+          moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          '00:00:00'
+        ).toString(),
+        name: name,
+        operators: checkedList, // api 고치면 실행될 듯
+        startDate: (
+          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          '00:00:00'
+        ).toString(),
+      },
+      params: { stageId: sequenceNum },
+    })
+      .then((response) => {
+        console.log(response);
+        alert('새로운 할일 추가 성공!');
+        //api 수정되어 param에 teamId 추가되면 주석해제
+        // window.location.replace('/teample-home/${teamId}');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const getTeamMateAPI = async () => {
+    await axios({
+      url: `/api/teams/teammates`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+      params: { teamId: teamid },
+    })
+      .then((response) => {
+        setTeamMates(response.data.data.teammates);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const onClickBtn = () => {
+    if (name === '') alert('할일 이름 입력은 필수입니다.');
+    else postTasksAPI();
+  };
+
+  useEffect(() => {
+    getTeamMateAPI();
+  }, []);
+
+  const onCheckedHandle = (checked: boolean, item: string) => {
+    if (checked) {
+      setCheckedList([...checkedList, item]);
+    } else if (!checked) {
+      setCheckedList(checkedList.filter((el) => el !== item));
+    }
+  };
+
+  const onRemoveHandle = (item: string) => {
+    setCheckedList(checkedList.filter((el) => el !== item));
+  };
+
   return (
     <Background>
       <ModifyTeampleContainer>
         <CloseBtn onClick={closeModal} />
-        <Title>팀플 수정</Title>
+        <Title>할일 추가</Title>
         <Tag1>할일</Tag1>
         <Input1
           value={name}
@@ -67,40 +149,40 @@ const AddTask = ({ setModal }: any) => {
         </DateBox2>
         <Tag3>담당자</Tag3>
         <ManagerContainer>
-          <Manager>김팀쁠</Manager>
-          <Manager>이팀쁠</Manager>
-          <Manager>박팀쁠</Manager>
+          {checkedList.map((item) => (
+            <Manager key={item}>
+              {item}
+              <SmallCloseBtn onClick={() => onRemoveHandle(item)}>
+                <GrClose />
+              </SmallCloseBtn>
+            </Manager>
+          ))}
         </ManagerContainer>
         <TeamMateContainer>
-          <AddTeamMate>팀원 추가</AddTeamMate>
+          <AddTeamMate>담당자 추가</AddTeamMate>
           <TeamMateBox>
-            <TeamMate>
-              <Profile />
-              <TextInfo>
-                <Name>정팀쁠</Name>
-                <School>홍익대학교 시각디자인과</School>
-              </TextInfo>
-              <CheckBox type="checkbox" />
-            </TeamMate>
-            <TeamMate>
-              <Profile />
-              <TextInfo>
-                <Name>이팀쁠</Name>
-                <School>서강대학교 경영학과</School>
-              </TextInfo>
-              <CheckBox type="checkbox" />
-            </TeamMate>
-            <TeamMate>
-              <Profile />
-              <TextInfo>
-                <Name>정팀쁠</Name>
-                <School>홍익대학교 시각디자인과</School>
-              </TextInfo>
-              <CheckBox type="checkbox" />
-            </TeamMate>
+            {teamMates.map((teammate: any, index: number) => (
+              <TeamMate key={index}>
+                <Profile />
+                <TextInfo>
+                  <Name>{teammate.name}</Name>
+                  <School>
+                    {teammate.schoolName} {teammate.major}
+                  </School>
+                </TextInfo>
+                <CheckBox
+                  type="checkbox"
+                  value={teammate.name}
+                  onChange={(e) => {
+                    onCheckedHandle(e.target.checked, e.target.value);
+                  }}
+                  checked={checkedList.includes(teammate.name) ? true : false}
+                />
+              </TeamMate>
+            ))}
           </TeamMateBox>
         </TeamMateContainer>
-        <SaveButton>저장</SaveButton>
+        <SaveButton onClick={onClickBtn}>저장</SaveButton>
       </ModifyTeampleContainer>
     </Background>
   );
@@ -146,11 +228,12 @@ const Title = styled.div`
 
 const ManagerContainer = styled.div`
   position: absolute;
-  width: 512px;
+  width: 515px;
   height: 48px;
   left: 93px;
   top: 280px;
   display: flex;
+  flex-direction: row;
   overflow: auto;
 `;
 const TeamMateContainer = styled.div``;
@@ -332,6 +415,11 @@ const SaveButton = styled.button`
   font-weight: 400;
   font-size: 20px;
   line-height: 100%;
+`;
+
+const SmallCloseBtn = styled.button`
+  opacity: 0.4;
+  margin-left: 14px;
 `;
 
 export default AddTask;
