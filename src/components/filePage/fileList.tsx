@@ -129,6 +129,7 @@ const FileList = () => {
   const [files, setFiles] = useState([]);
   const [searchFile, setSearchFile] = useRecoilState(searchFileState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
+  const testtoken = process.env.REACT_APP_JWTTOKEN;
   const [teamid] = useRecoilState(teamidState);
   const token = localStorage.getItem('jwt_accessToken');
 
@@ -138,12 +139,13 @@ const FileList = () => {
         url: `/api/files`,
         baseURL: 'https://www.teampple.site/',
         method: 'get',
-        headers: {
-          Authorization: token,
-        },
         params: {
           teamId: teamid,
         },
+        headers : {
+          Authorization : testtoken
+        }
+        //파람스 부분 바꾸면 댐
       })
         .then((res) => {
           setFiles(res.data.data);

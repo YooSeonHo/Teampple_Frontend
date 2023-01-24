@@ -34,7 +34,7 @@ const Page7 = () =>{
       })
 
     return(
-        <Box data-aos="zoom-out">
+        <Box data-aos="fade-up">
             <Content>
                 <div>또, 이런 사람들에게 필요해요</div>
             </Content>

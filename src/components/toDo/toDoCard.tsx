@@ -5,6 +5,7 @@ import done from '../images/done icon.png';
 import { StyledToDoInfo } from 'interfaces';
 import AddTask from 'components/popup/AddTask';
 import { useRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
 import {
   zIndexState,
   feedbackState,
@@ -232,6 +233,7 @@ const ToDoCard = ({ todoList }: any) => {
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
+  
   const [sequenceNum, setSequenceNum] = useRecoilState(sequenceNumState);
   const showModal = () => {
     setModal(!modal);
@@ -271,19 +273,21 @@ const ToDoCard = ({ todoList }: any) => {
             </div>
             <div className="toDos">
               {todo.tasks.map((doo: any, index: number) => (
-                <Box key={index}>
-                  {doo.done === 'true' ? (
-                    <div className="doneIcon">
-                      <img src={done} />
+                <Link to='/teample-detail' key={index} style={{ textDecoration: 'none' }}>
+                  <Box>
+                    {doo.done === 'true' ? (
+                      <div className="doneIcon">
+                        <img src={done} />
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    <div className="doneText">{doo.name}</div>
+                    <div className="doneArr">
+                      <img src={arrow} />
                     </div>
-                  ) : (
-                    <></>
-                  )}
-                  <div className="doneText">{doo.name}</div>
-                  <div className="doneArr">
-                    <img src={arrow} />
-                  </div>
-                </Box>
+                  </Box>
+                </Link>
               ))}
             </div>
             <div

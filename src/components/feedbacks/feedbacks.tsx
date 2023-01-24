@@ -90,8 +90,9 @@ const Feed = styled.div`
 
 const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useState([]);
+  const token = process.env.REACT_APP_JWTTOKEN;
+    
   const [taskId, setTaskId] = useState<number>();
-  const token = localStorage.getItem('jwt_accessToken');
   
   const getFeedbackAPI = async () => {
     await axios({

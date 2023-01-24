@@ -31,8 +31,6 @@ const Router = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/file" element={<FilePage />} />
         {/* modals */}
-        <Route path="/teample-home/add-teample1" element={<AddTeample1 />} />
-        <Route path="/teample-home/add-teample2" element={<AddTeample2 />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

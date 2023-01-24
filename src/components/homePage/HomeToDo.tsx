@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
-  const token = localStorage.getItem('jwt_accessToken');
+  const token = process.env.REACT_APP_JWTTOKEN
+
 
   const getTodoAPI = async () => {
     await axios({
@@ -42,11 +44,13 @@ const HomeToDo = () => {
             </Left>
             <ToDoList>
               {team.stages.map((t: any, index: number) => (
-                <ToDo key={index}>
-                  {t.done === 'true' ? <Done src={done} /> : <></>}
-                  <ToDoText>{t.name}</ToDoText>
-                  <Arrow src={arrow} />
-                </ToDo>
+                <Link to='/teample-detail' key={index} style={{ textDecoration: 'none' }}>
+                  <ToDo>
+                    {t.done === 'true' ? <Done src={done} /> : <></>}
+                    <ToDoText>{t.name}</ToDoText>
+                    <Arrow src={arrow} />
+                  </ToDo>
+                </Link>
               ))}
             </ToDoList>
           </ToDoContainer>

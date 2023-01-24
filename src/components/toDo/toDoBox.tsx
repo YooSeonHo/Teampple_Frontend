@@ -40,9 +40,8 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 
 const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
+  const token = process.env.REACT_APP_JWTTOKEN
   const [teamid] = useRecoilState(teamidState);
-  const token = localStorage.getItem('jwt_accessToken');
-
   const getTodoAPI = async () => {
     await axios({
       url: `/api/teams/tasks`,

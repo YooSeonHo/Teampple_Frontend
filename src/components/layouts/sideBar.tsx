@@ -15,14 +15,19 @@ import prof6 from '../images/profile/proImageU6.png';
 import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
+// import tnames from '../../data/teamList.json';
 import {
-  teamidState,
   usernameState,
   userschoolState,
   usermajorState,
 } from 'state';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
+import { teamidState, AddTeamzIndexState, feedbackState, modal2State } from 'state';
+import { ModalContainer } from 'components/teampleHomePage/planManager';
+import AddTeample from 'components/popup/AddTeample1';
+import AddTeample2 from 'components/popup/AddTeample2';
+
 
 const SideBarBox = styled.div<{ userid: string }>`
   width: 240px;
@@ -176,10 +181,30 @@ const SideBar = () => {
   const [teamid, setTeamid] = useRecoilState(teamidState);
   const [actTeamList, setActTeamList] = useState([]);
   const [finTeamList, setFinTeamList] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [nextModal,setNextModal]= useState(false);
+
+  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
+  const [modal2, setModal2] = useRecoilState(modal2State);
+  const [zIndex,setZIndex] = useRecoilState(AddTeamzIndexState);
+
+
+  const showModal = () => {
+    setModal(!modal);
+    setIsOpen(false);
+    setModal2(false);
+    if (modal){
+      setZIndex(997);
+    }
+    else{
+      setZIndex(1000);
+    }
+  };
+
   const getTeamid = (team: any, e: React.MouseEvent<HTMLElement>) => {
     setTeamid(team.teamId);
   };
-  const token = localStorage.getItem('jwt_accessToken');
+  const token = process.env.REACT_APP_JWTTOKEN
 
   const getProfile = async () => {
     await axios({
@@ -241,7 +266,7 @@ const SideBar = () => {
   }, []);
 
   return (
-    <SideBarBox userid={userid}>
+    <SideBarBox userid={userid} style={{zIndex : zIndex}}>
       <div className="logo">
         <Link to="/" style={{ textDecoration: 'none' }}>
           <img src={logo} />
@@ -270,6 +295,7 @@ const SideBar = () => {
         <div className="boxText">팀플</div>
       </div>
 
+      <div style={{overflow : 'auto'}}>
       {actTeamList.map((team: any, index: number) => (
         <div
           key={index}
@@ -305,8 +331,9 @@ const SideBar = () => {
           </Link>
         </div>
       ))}
-      <div className="newBox" id="newTeample">
+      <div className="newBox" id="newTeample" onClick={showModal}>
         <div>+ 새 팀플</div>
+      </div>
       </div>
 
       <div className="btm">
@@ -325,6 +352,10 @@ const SideBar = () => {
           <div className="boxText">고객센터</div>
         </div>
       </div>
+      <ModalContainer>
+        {modal && <AddTeample setModal={setModal} setNextModal={setNextModal}/>}
+        {nextModal && <AddTeample2 setModal={setModal} setNextModal={setNextModal} />}
+      </ModalContainer>
     </SideBarBox>
   );
 };

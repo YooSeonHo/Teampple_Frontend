@@ -51,7 +51,7 @@ const Page3 = () =>{
       })
 
     return(
-        <Box data-aos="fade-down-right">
+        <Box data-aos="fade-up">
             <div className="content">걱정마세요!<br/> 이젠 <span>팀쁠</span>이 도와드려요!</div>
             <Background/>
         </Box>

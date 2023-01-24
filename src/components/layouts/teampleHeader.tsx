@@ -159,6 +159,7 @@ const TeampleHeader = () => {
   const [startDate, setStartDate] = useState();
   const [dueDate, setDueDate] = useState();
   const [deadDay, setDeadDay] = useState<any | null>(null);
+  const token = process.env.REACT_APP_JWTTOKEN
   const [teamid] = useRecoilState(teamidState);
 
   const showModal1 = () => {
@@ -176,17 +177,15 @@ const TeampleHeader = () => {
     setIsOpen(!isOpen);
   }
 
-  const token = localStorage.getItem('jwt_accessToken');
-
   const getTHeader = async () => {
     await axios({
       method: 'get',
       baseURL: 'https://www.teampple.site',
       url: '/api/teams',
-      headers: {
-        Authorization: token,
-      },
       params: { teamId: teamid },
+      headers : {
+        Authorization: token,
+      }
     }).then((res) => {
       setName(res.data.data.name);
       setGoal(res.data.data.goal);

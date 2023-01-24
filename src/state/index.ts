@@ -1,4 +1,5 @@
 // import { detailInfo } from 'interfaces';
+import { makeTeampleInfo, stageInfo } from 'interfaces';
 import { atom } from 'recoil';
 import { v1 } from 'uuid';
 // key duplicate 방지를 위한 라이브러리 설치
@@ -49,6 +50,11 @@ export const zIndexState = atom<number>({
   default: 997,
 });
 
+export const AddTeamzIndexState = atom<number>({
+  key: `zIndex/${v1()}`,
+  default: 997,
+});
+
 export const modal2State = atom<boolean>({
   key: `modal2/${v1()}`,
   default: false,
@@ -79,6 +85,34 @@ export const jwtRefreshTokenState = atom<string>({
   default: '',
 });
 
+export const makeTeampleState = atom<makeTeampleInfo>({
+  key : 'makeTeample',
+  default : {
+    dueDate: new Date,
+    goal: '',
+    name: '',
+    stages: [
+      {
+        name: '',
+        sequenceNum: 0,
+        dueDate: new Date,
+        startDate: new Date,
+      }
+    ],
+    startDate: new Date,
+  }  
+});
+
+export const stageState = atom<stageInfo[]>({
+  key : 'stage',
+  default :
+  [{
+    dueDate: new Date,
+    name: '',
+    sequenceNum: 0,
+    startDate: new Date,
+  }]
+})
 export const sequenceNumState = atom<number>({
   key: `sequencenum/${v1()}`,
   default: 1,

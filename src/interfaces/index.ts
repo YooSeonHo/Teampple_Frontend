@@ -72,3 +72,23 @@ export interface detailInfo{
   startDate : string;
   taskName : string;
 }
+
+export interface ModalProps{
+  setModal : any;
+  setNextModal : any;
+}
+
+export interface makeTeampleInfo{
+  goal: string;
+  name : string;
+  stages : stageInfo[];
+  dueDate : Date | string;
+  startDate : Date | string;
+}
+
+export interface stageInfo{
+  name: string
+  sequenceNum: number;
+  dueDate: Date | string;
+  startDate: Date | string;
+}

@@ -16,7 +16,7 @@ const FileInfo = () => {
   const [count, setCount] = useState(0);
   let fsize = 0;
   const [teamid] = useRecoilState(teamidState);
-  const token = localStorage.getItem('jwt_accessToken');
+  const token = process.env.REACT_APP_JWTTKOEN;
 
   useEffect(() => {
     const getFiles = async () => {

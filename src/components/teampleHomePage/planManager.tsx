@@ -21,7 +21,7 @@ const PlanManager = () => {
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
   const [teamid, ] = useRecoilState(teamidState);
-  const token = localStorage.getItem('jwt_accessToken');
+  const token = process.env.REACT_APP_JWTTKOEN;
 
   const getPlanAPI = async () => {
     await axios({
@@ -190,7 +190,7 @@ const ManagerBox = styled.div`
 scroll 투명하게 해야댈듯? */
 `;
 
-const ModalContainer = styled.div`
+export const ModalContainer = styled.div`
   position: fixed;
   margin: 0 auto;
 `;

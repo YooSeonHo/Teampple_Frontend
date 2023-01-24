@@ -7,98 +7,129 @@ import { IoCalendarNumberOutline } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   nameState,
   aimState,
   startDateState,
   endDateState,
 } from 'state/AddTeample/atom';
+import { AddTeamzIndexState,makeTeampleState } from 'state';
+import { Background } from './AddSchedule';
+import { ModalProps } from 'interfaces';
+import { makeTeampleInfo } from 'interfaces';
+import moment from 'moment';
 
-const AddTeample = () => {
+const AddTeample = ({setModal,setNextModal} : ModalProps) => {
   const [startDate, setStartDate] = useRecoilState<Date>(startDateState);
   const [endDate, setEndDate] = useRecoilState<Date>(endDateState);
   const [name, setName] = useRecoilState(nameState);
   const [aim, setAim] = useRecoilState(aimState);
+  const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
+  const [makeTeample,setMakeTeample] = useRecoilState(makeTeampleState);
+  const reset = useResetRecoilState(makeTeampleState);
+  const resetName = useResetRecoilState(nameState);
+  const resetAim = useResetRecoilState(aimState);
+  const resetStart = useResetRecoilState(startDateState);
+  const resetDue = useResetRecoilState(endDateState);
+
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
-    console.log(name);
   };
   const onChangeAim = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAim(e.target.value);
-    console.log(aim);
   };
-  const navigate = useNavigate();
+  
   const onClickNext = (e: React.MouseEvent<HTMLElement>) => {
     if (name === '') alert('이름을 입력하세요.');
     else if (aim === '') alert('목표를 입력하세요.');
     else {
-      navigate('/teample-home/add-teample2');
-      console.log(name, aim, startDate, endDate);
+      setNextModal(true);
+      setModal(false);
+      setMakeTeample((prev)=>({
+        ...prev,
+        name : name,
+        goal : aim,
+        startDate : moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+        dueDate : moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+        // startDate : startDate,
+      }));
     }
   };
 
+  const closeModal = () => {
+    reset();
+    resetAim();
+    resetDue();
+    resetName();
+    resetStart();
+    setModal(false);
+    setZIndex(997);
+  };
+
   return (
-    <ModifyTeampleContainer>
-      <CloseBtn />
-      <Title>팀플 정보</Title>
-      <InputContainer>
-        <NameContainer>
-          <Tag1>이름</Tag1>
-          <Input1
-            value={name}
-            onChange={onChangeName}
-            maxLength={12}
-            placeholder="ex. 경영 전략"
-            autoFocus
-          />
-          <TextLength1>
-            ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
-          </TextLength1>
-        </NameContainer>
-        <AimContainer>
-          <Tag2>목표</Tag2>
-          <Input2
-            value={aim}
-            onChange={onChangeAim}
-            maxLength={12}
-            placeholder="ex. 팀플 가이드 서비스 개발"
-          />
-          <TextLength2>
-            ({aim.replace(/<br\s*\/?>/gm, '\n').length}/12)
-          </TextLength2>
-        </AimContainer>
-        <DateContainer>
-          <Tag3>일정</Tag3>
-          <DateBox1>
-            <StyledDatePicker
-              locale={ko}
-              dateFormat="yyyy.MM.dd"
-              selected={startDate}
-              closeOnScroll={true}
-              onChange={(date: Date) => setStartDate(date)}
+    <Background>
+      <ModifyTeampleContainer  style={{ zIndex: zIndex }}>
+        <CloseBtn  onClick={closeModal}/>
+        <Title>팀플 정보</Title>
+        <InputContainer>
+          <NameContainer>
+            <Tag1>이름</Tag1>
+            <Input1
+              value={name}
+              onChange={onChangeName}
+              maxLength={12}
+              placeholder="ex. 경영 전략"
+              autoFocus
             />
-            <IoCalendarNumberOutline
-              style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+            <TextLength1>
+              ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
+            </TextLength1>
+          </NameContainer>
+          <AimContainer>
+            <Tag2>목표</Tag2>
+            <Input2
+              value={aim}
+              onChange={onChangeAim}
+              maxLength={12}
+              placeholder="ex. 팀플 가이드 서비스 개발"
             />
-          </DateBox1>
-          <Dash />
-          <DateBox2>
-            <StyledDatePicker
-              locale={ko}
-              dateFormat="yyyy.MM.dd"
-              selected={endDate}
-              closeOnScroll={true}
-              onChange={(date: Date) => setEndDate(date)}
-            />
-            <IoCalendarNumberOutline
-              style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
-            />
-          </DateBox2>
-        </DateContainer>
-      </InputContainer>
-      <NextButton onClick={onClickNext}>다음</NextButton>
-    </ModifyTeampleContainer>
+            <TextLength2>
+              ({aim.replace(/<br\s*\/?>/gm, '\n').length}/12)
+            </TextLength2>
+          </AimContainer>
+          <DateContainer>
+            <Tag3>일정</Tag3>
+            <DateBox1>
+              <StyledDatePicker
+                locale={ko}
+                dateFormat="yyyy.MM.dd"
+                selected={startDate}
+                closeOnScroll={true}
+                onChange={(date: Date) => setStartDate(date)}
+              />
+              <IoCalendarNumberOutline
+                style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+              />
+            </DateBox1>
+            <Dash />
+            <DateBox2>
+              <StyledDatePicker
+                locale={ko}
+                dateFormat="yyyy.MM.dd"
+                selected={endDate}
+                closeOnScroll={true}
+                onChange={(date: Date) => setEndDate(date)}
+              />
+              <IoCalendarNumberOutline
+                style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+              />
+            </DateBox2>
+          </DateContainer>
+        </InputContainer>
+        <NextButton onClick={onClickNext}>다음</NextButton>
+      </ModifyTeampleContainer>
+    </Background>
   );
 };
 
@@ -107,8 +138,12 @@ const ModifyTeampleContainer = styled.div`
   height: 640px;
   background: #ffffff;
   border-radius: 16px;
-  position: relative;
+  z-index: 999;
+  position: fixed;
+  top: 220px;
+  left: 640px;
 `;
+
 
 const CloseBtn = styled(GrClose)`
   position: absolute;
