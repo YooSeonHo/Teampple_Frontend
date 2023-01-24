@@ -26,8 +26,6 @@ const HomePage = () => {
       </SummaryHomeContainer>
       {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
       <TodoContainer>
-        {/* <div className="text">할 일</div> */}
-        {/* <ToDoBox pathname={window.location.pathname} /> */}
         <HomeToDo />
       </TodoContainer>
       <MiniTemplateContainer>
@@ -64,7 +62,7 @@ const TodoContainer = styled.div`
   height: 670px;
   left: 240px;
   top: 368px;
-
+  overflow: hidden;
   .text {
     margin-top: 48px;
     color: #383838;

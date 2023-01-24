@@ -46,8 +46,11 @@ const Page8 = () => {
     });
   });
   const onClickBtn = () => {
-    //클릭시 화면 상단으로 전환하기 위한 .. 대책
-    window.location.replace('/home');
+    {
+      localStorage.getItem('jwt_accessToken')
+        ? window.location.replace('/home')
+        : window.location.replace('/login');
+    }
   };
   return (
     <Background data-aos="fade-down">

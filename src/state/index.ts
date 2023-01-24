@@ -55,6 +55,11 @@ export const AddTeamzIndexState = atom<number>({
   default: 997,
 });
 
+export const AddToDozIndexState = atom<number>({
+  key: `zIndex/${v1()}`,
+  default: 997,
+});
+
 export const modal2State = atom<boolean>({
   key: `modal2/${v1()}`,
   default: false,

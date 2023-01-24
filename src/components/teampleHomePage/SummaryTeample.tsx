@@ -29,8 +29,7 @@ const SummaryTeample = () => {
   const [teamid] = useRecoilState(teamidState);
   let s1 = 0;
   let s2 = 0;
-  const token = process.env.REACT_APP_JWTTKOEN;
-
+  const token = localStorage.getItem('jwt_accessToken');
 
   const changeStatus = () => {
     if (currentPercent >= 1 && currentPercent < 25) {

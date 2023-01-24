@@ -24,7 +24,7 @@ import {
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { teamidState, AddTeamzIndexState, feedbackState, modal2State } from 'state';
-import { ModalContainer } from 'components/teampleHomePage/planManager';
+import { ModalContainer }  from 'components/teampleHomePage/planManager';
 import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
 
@@ -183,7 +183,7 @@ const SideBar = () => {
   const [finTeamList, setFinTeamList] = useState([]);
   const [modal, setModal] = useState(false);
   const [nextModal,setNextModal]= useState(false);
-
+  const token = localStorage.getItem('jwt_accessToken');
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [zIndex,setZIndex] = useRecoilState(AddTeamzIndexState);
@@ -204,7 +204,7 @@ const SideBar = () => {
   const getTeamid = (team: any, e: React.MouseEvent<HTMLElement>) => {
     setTeamid(team.teamId);
   };
-  const token = process.env.REACT_APP_JWTTOKEN
+  
 
   const getProfile = async () => {
     await axios({

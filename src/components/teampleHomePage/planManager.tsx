@@ -21,7 +21,7 @@ const PlanManager = () => {
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
   const [teamid, ] = useRecoilState(teamidState);
-  const token = process.env.REACT_APP_JWTTKOEN;
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getPlanAPI = async () => {
     await axios({

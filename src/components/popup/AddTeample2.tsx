@@ -43,6 +43,7 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   const resetStart = useResetRecoilState(startDateState);
   const resetDue = useResetRecoilState(endDateState);
   const resetStages = useResetRecoilState(stageState);
+  const token = localStorage.getItem('jwt_accessToken');
 
   const postTeample = async () => {
     await axios({
@@ -50,7 +51,7 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
       baseURL :  'https://www.teampple.site',
       method : 'post',
       headers :{
-        Authorization : `${process.env.REACT_APP_JWTTOKEN}`
+        Authorization : token
       },
       data : makeTeample,
     }).then(()=>{
