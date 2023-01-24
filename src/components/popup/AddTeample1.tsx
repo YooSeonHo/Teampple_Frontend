@@ -7,7 +7,7 @@ import { IoCalendarNumberOutline } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   nameState,
   aimState,
@@ -18,6 +18,7 @@ import { AddTeamzIndexState,makeTeampleState } from 'state';
 import { Background } from './AddSchedule';
 import { ModalProps } from 'interfaces';
 import { makeTeampleInfo } from 'interfaces';
+import moment from 'moment';
 
 const AddTeample = ({setModal,setNextModal} : ModalProps) => {
   const [startDate, setStartDate] = useRecoilState<Date>(startDateState);
@@ -26,6 +27,11 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
   const [aim, setAim] = useRecoilState(aimState);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
   const [makeTeample,setMakeTeample] = useRecoilState(makeTeampleState);
+  const reset = useResetRecoilState(makeTeampleState);
+  const resetName = useResetRecoilState(nameState);
+  const resetAim = useResetRecoilState(aimState);
+  const resetStart = useResetRecoilState(startDateState);
+  const resetDue = useResetRecoilState(endDateState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -47,14 +53,19 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
         ...prev,
         name : name,
         goal : aim,
-        startDate : startDate,
-        dueDate : endDate
+        startDate : moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+        dueDate : moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+        // startDate : startDate,
       }));
-      console.log(makeTeample);
     }
   };
 
   const closeModal = () => {
+    reset();
+    resetAim();
+    resetDue();
+    resetName();
+    resetStart();
     setModal(false);
     setZIndex(997);
   };

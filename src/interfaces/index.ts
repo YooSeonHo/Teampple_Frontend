@@ -79,16 +79,16 @@ export interface ModalProps{
 }
 
 export interface makeTeampleInfo{
-  dueDate : Date;
   goal: string;
   name : string;
   stages : stageInfo[];
-  startDate : Date;
+  dueDate : Date | string;
+  startDate : Date | string;
 }
 
 export interface stageInfo{
-  dueDate: Date;
   name: string
   sequenceNum: number;
-  startDate: Date;
+  dueDate: Date | string;
+  startDate: Date | string;
 }

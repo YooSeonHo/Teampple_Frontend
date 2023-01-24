@@ -14,6 +14,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { stageInfo } from 'interfaces';
 import { stageState } from 'state';
+import moment from 'moment';
 
 const AddDiv = (props: any) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
@@ -25,6 +26,11 @@ const AddDiv = (props: any) => {
 
   const onClickDel = (e: any) => { //수정 필요 에러
     e.preventDefault();
+
+    if (stages.length <= 1) {
+      alert('1단계는 필수입니다.')
+    }
+    else {
     const n = parseInt(e.target.parentElement.id);
     // const counter = countArr.slice(1)[0];
     // console.log(counter)
@@ -35,8 +41,8 @@ const AddDiv = (props: any) => {
     }).map((st,index)=>(
       {...st, sequenceNum : index}
     ));
-    console.log(del);
     setStages(del);
+    }
   };
 
 
@@ -111,7 +117,7 @@ const AddDiv = (props: any) => {
                     <StyledDatePicker
                       locale={ko} //한글
                       dateFormat="yyyy.MM.dd"
-                      selected={i.startDate}
+                      selected={new Date(i.startDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                       onChange={(date: Date) => {
                         const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, startDate : date} : s)
@@ -131,10 +137,11 @@ const AddDiv = (props: any) => {
                     <StyledDatePicker
                       locale={ko} //한글
                       dateFormat="yyyy.MM.dd"
-                      selected={i.dueDate}
+                      selected={new Date(i.dueDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                       onChange={(date: Date) => {
-                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, dueDate : date} : s)
+                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ?{...s, dueDate : date} : s)
+                        //  {...s, dueDate : moment(date, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'} : s)
                         setStages(temp);
                       }}
                     />

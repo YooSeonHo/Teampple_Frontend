@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   stepState,
   testState,
@@ -16,7 +16,9 @@ import AddDiv from './AddTeample/AddDiv'; //단계 추가하기 버튼 클릭시
 import { Background } from './AddSchedule';
 import { ModalProps } from 'interfaces';
 import { stageInfo } from 'interfaces';
-import { stageState } from 'state';
+import { stageState,makeTeampleState } from 'state';
+import axios from 'axios';
+import moment from 'moment';
 
 const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
@@ -33,22 +35,60 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   const [name] = useRecoilState(nameState);
   const [aim] = useRecoilState(aimState);
   const [stages,setStages] = useRecoilState<stageInfo[]>(stageState);
+  const [makeTeample,setMakeTeample] = useRecoilState(makeTeampleState);
+  const [temp,setTemp] = useState<any>([]);
+  const reset = useResetRecoilState(makeTeampleState);
+  const resetName = useResetRecoilState(nameState);
+  const resetAim = useResetRecoilState(aimState);
+  const resetStart = useResetRecoilState(startDateState);
+  const resetDue = useResetRecoilState(endDateState);
+  const resetStages = useResetRecoilState(stageState);
+
+  const postTeample = async () => {
+    await axios({
+      url : '/api/teams',
+      baseURL :  'https://www.teampple.site',
+      method : 'post',
+      headers :{
+        Authorization : `${process.env.REACT_APP_JWTTOKEN}`
+      },
+      data : makeTeample,
+    }).then(()=>{
+      alert('팀플 생성이 완료되었습니다.');
+      setModal(false);
+      setNextModal(false);
+      // setMakeTeample();
+    }).catch((e)=>{
+      console.log(e);
+    })
+  }
 
   const onClickPrev = (e: React.MouseEvent<HTMLElement>) => {
     setModal(true);
     setNextModal(false);
   };
+  
+    
+    
+    const onClickMake = async (event: React.MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+      
+      setTemp(stages.map((s)=>(
+        {...s, 
+          startDate : moment(s.startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+          dueDate : moment(s.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'
+        })))
 
-  const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
-    // if (stepName === '') alert('1단계는 필수 항목입니다.');
-    // else {
-    event.preventDefault();
-    console.log()
-    console.log(name, aim, startDate, endDate, stepTest);
-    alert('팀플 만들기 완료');
+        await postTeample();
+      };
+      
+      useEffect(()=>{
+        setMakeTeample((prev)=>({
+          ...prev,
+          stages : temp
+        }))
+      },[temp])
 
-    // }
-  };
 
   const [countList, setCountList] = useState([0]);
 
@@ -68,10 +108,15 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
     };
 
     setStages([...stages,newStage]);
-    console.log(stages);
   };
 
   const closeModal = () => {
+    reset();
+    resetAim();
+    resetDue();
+    resetName();
+    resetStart();
+    resetStages();
     setNextModal(false);
   };
 
