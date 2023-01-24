@@ -364,7 +364,7 @@ const DetailContainer = styled.div`
 `;
 
 const DetailBox = () => {
-  const token = process.env.REACT_APP_JWTTOKEN;
+  const token = localStorage.getItem('jwt_accessToken');
 
   const [detail, setDetail] = useState<detailInfo | undefined>();
   const [file, setFile] = useState<File>();

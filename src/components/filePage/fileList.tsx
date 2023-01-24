@@ -129,7 +129,6 @@ const FileList = () => {
   const [files, setFiles] = useState([]);
   const [searchFile, setSearchFile] = useRecoilState(searchFileState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
-  const testtoken = process.env.REACT_APP_JWTTOKEN;
   const [teamid] = useRecoilState(teamidState);
   const token = localStorage.getItem('jwt_accessToken');
 
@@ -143,7 +142,7 @@ const FileList = () => {
           teamId: teamid,
         },
         headers : {
-          Authorization : testtoken
+          Authorization : token
         }
         //파람스 부분 바꾸면 댐
       })

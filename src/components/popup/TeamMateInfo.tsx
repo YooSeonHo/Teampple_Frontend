@@ -10,7 +10,7 @@ import { teamMateNumState, modal2State, teamidState } from 'state';
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
   const [modal2, setModal2] = useRecoilState(modal2State);
-  const token = process.env.REACT_APP_JWTTOKEN;
+  const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
 
   const getTeamMateAPI = async () => {

@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
-  const token = process.env.REACT_APP_JWTTOKEN
-
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getTodoAPI = async () => {
     await axios({
@@ -43,14 +42,12 @@ const HomeToDo = () => {
               <LeftNum>{team.totalStage - team.achievement}</LeftNum>
             </Left>
             <ToDoList>
-              {team.stages.map((t: any, index: number) => (
-                <Link to='/teample-detail' key={index} style={{ textDecoration: 'none' }}>
-                  <ToDo>
-                    {t.done === 'true' ? <Done src={done} /> : <></>}
-                    <ToDoText>{t.name}</ToDoText>
-                    <Arrow src={arrow} />
-                  </ToDo>
-                </Link>
+              {team.tasks.map((t: any, index: number) => (
+                <ToDo key={index}>
+                  {t.done === 'true' ? <Done src={done} /> : <></>}
+                  <ToDoText>{t.name}</ToDoText>
+                  <Arrow src={arrow} />
+                </ToDo>
               ))}
             </ToDoList>
           </ToDoContainer>

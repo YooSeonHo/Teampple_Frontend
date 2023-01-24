@@ -36,7 +36,7 @@ const AddSchedule = ({ setModal }: any) => {
     setZIndex(997);
   };
 
-  const token = process.env.REACT_APP_JWTTKOEN;
+  const token = localStorage.getItem('jwt_accessToken');
 
   const postSchedulesAPI = async () => {
     await axios({

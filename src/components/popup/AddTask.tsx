@@ -18,7 +18,7 @@ const AddTask = ({ setModal }: any) => {
   const [endDate, setEndDate] = useState<Date>(today);
   const [name, setName] = useState('');
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
-  const token = process.env.REACT_APP_JWTTKOEN;
+  const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
   const [teamMates, setTeamMates] = useState([]);
   const [checkedList, setCheckedList] = useState<string[]>([]);
