@@ -392,13 +392,12 @@ const DetailBox = () => {
     await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
-        alert('파일 등록이 완료되었습니다.');
-        //후에 이 부분 지우고 post만 남겨두면 됨.
+      }).then(()=>{
+        postFile();
       })
       .catch((e: any) => {
         console.log(e);
       });
-    // postFile();
   };
 
   const onReset = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -417,8 +416,8 @@ const DetailBox = () => {
         url: fileLoc,
       },
       params: {
-        taskId: 1,
-        teamId: teamid,
+        taskId: 2,
+        teamId: 1,
       },
       headers: {
         Authorization: token,
@@ -426,6 +425,7 @@ const DetailBox = () => {
     })
       .then(() => {
         alert('파일 등록이 완료되었습니다.');
+        location.reload();
       })
       .catch((e) => {
         console.log(e);
@@ -479,7 +479,7 @@ const DetailBox = () => {
         taskId: 2,
       },
       data : {comment : addFeed}
-    }).then((res)=>{
+    }).then(()=>{
       location.reload();
     }).catch((e) => {
       console.log(e);
@@ -593,7 +593,7 @@ const DetailBox = () => {
                       </div>
                       {/* <div className="uploadDate">2022.11.25 12:30</div> */}
                       <div className="fileSize">
-                        {Math.round(file.size / 1024)}MB
+                        {(file.size / (1024 * 1024)).toFixed(1)}MB
                       </div>
                     </div>
                   </div>

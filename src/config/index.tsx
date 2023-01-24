@@ -4,5 +4,5 @@ export const config = {
     accessKeyId : process.env.REACT_APP_S3_ACCESSKEY as string,
     secretAccessKey : process.env.REACT_APP_S3_SECRETKEY as string,
     bucketName : process.env.REACT_APP_S3_BUCKETNAME as string,
-    dirName : 'test',
+    dirName : 'detailTest',
 }
