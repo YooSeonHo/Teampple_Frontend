@@ -2,11 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import InfoInput from 'components/moreInfoPage/InfoInput';
 import Logo from '../components/images/Logo_login.png';
+import { useNavigate } from 'react-router-dom';
 
 const MoreInfoPage = () => {
+  const navigate = useNavigate();
+
+  const naviLogin = () => {
+    navigate('/login');
+  };
+
   return (
     <MoreInfoPageContainer>
-      <LogoImg src={Logo}></LogoImg>
+      <LogoImg src={Logo} onClick={naviLogin} />
       <InputBox>
         <InfoInput />
       </InputBox>
@@ -29,6 +36,9 @@ const LogoImg = styled.img`
   height: 67px;
   position: absolute;
   top: 219px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const InputBox = styled.div`

@@ -5,18 +5,23 @@ import { FiLink2 } from 'react-icons/fi';
 import axios from 'axios';
 import { ITeamMate } from '../../interfaces';
 import { useRecoilState } from 'recoil';
-import { teamMateNumState, modal2State } from 'state';
+import { teamMateNumState, modal2State, teamidState } from 'state';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
   const [modal2, setModal2] = useRecoilState(modal2State);
+  const [teamid] = useRecoilState(teamidState);
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
-      params: { teamId: 1 },
+      headers: {
+        Authorization: token,
+      },
+      params: { teamId: teamid },
     })
       .then((response) => {
         setTeamMates(response.data.data.teammates);
@@ -31,7 +36,10 @@ const TeamMateInfo = () => {
       url: '/api/invitations',
       baseURL: 'https://www.teampple.site',
       method: 'get',
-      params: { teamId: 1 }, //바꾸기 ㅋ
+      headers: {
+        Authorization: token,
+      },
+      params: { teamId: teamid },
     })
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {
@@ -46,7 +54,7 @@ const TeamMateInfo = () => {
 
   useEffect(() => {
     getTeamMateAPI();
-  }, []);
+  }, [teamid]);
 
   const onCopy = async () => {
     await getLink();
@@ -56,16 +64,15 @@ const TeamMateInfo = () => {
     <TeamMateInfoContainer>
       <Title>팀메이트 정보</Title>
       <TeamMateBox>
-        {/* 나 */}
-        <TeamMate>
+        {/* <TeamMate>
           <Profile />
           <TextInfo>
-            <Name>정팀쁠</Name>
-            <School>홍익대학교 시각디자인과</School>
+            <Name>{name}</Name>
+            <School>{school} {major}</School>
           </TextInfo>
           <Me>(나)</Me>
-        </TeamMate>
-        {/* 다른 사람 */}
+        </TeamMate> */}
+        <Me>(나)</Me>
         {teamMates &&
           teamMates.map((teamMate: ITeamMate) => (
             <TeamMate key={teamMate.name}>
@@ -148,9 +155,10 @@ const School = styled.div`
 const Me = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 40px;
   font-size: 14px;
   color: #487aff;
+  position: absolute;
+  right: 20px;
 `;
 
 const LinkBtn = styled.div`

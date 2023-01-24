@@ -169,11 +169,10 @@ const EditProfile = () => {
   const onClick = () => {
     alert('프로필 수정이 완료되었습니다.');
     navigate('/home');
-    //임시!
+    //임시!~
   };
 
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDI0MzE3Niwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDY3NzZ9.sV_R1JI0P09i6-z3pRz5_nmmmsuUI3UJOXwWI7BnTwU';
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getProfile = async () => {
     await axios({
@@ -181,7 +180,7 @@ const EditProfile = () => {
       url: 'api/users/userprofiles',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then((res) => {
@@ -205,7 +204,8 @@ const EditProfile = () => {
   return (
     <EditBox>
       <div className="profileImg">
-        <img src={require(`../images/profile/` + `${profimg}` + `.png`)} />
+        {/* <img src={require(`../images/profile/` + `${profimg}` + `.png`)} /> */}
+        <img src={require(`../images/profile/proImageU1.png`)} />
       </div>
       <div className="profileInfo">
         <div className="profileName">{name}</div>

@@ -18,10 +18,8 @@ const InfoInput = () => {
   const [idToken] = useRecoilState(idTokenState);
   const [kakaoAccessToken] = useRecoilState(kakaoAccessTokenState);
   const [kakaoRefreshToken] = useRecoilState(kakaoRefreshTokenState);
-  const [, setjwtAccessToken] =
-    useRecoilState(jwtAccessTokenState);
-  const [, setjwtRefreshToken] =
-    useRecoilState(jwtRefreshTokenState);
+  const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
+  const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
 
   const navigate = useNavigate();
 
@@ -36,9 +34,10 @@ const InfoInput = () => {
   };
 
   const postAuthInfoAPI = async () => {
+    // 3-2. 회원가입 (백한테 카카오 토큰 + 추가 정보 넘겨주기)
     await axios({
       url: `/api/auth/info`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: 'https://www.teampple.site/',
       method: 'post',
       data: {
         idToken: idToken,
@@ -56,6 +55,7 @@ const InfoInput = () => {
         setjwtRefreshToken(response.data.jwtRefreshToken);
         localStorage.setItem('jwt_accessToken', response.data.jwtAccessToken);
         localStorage.setItem('jwt_refreshToken', response.data.jwtRefreshToken);
+        alert('회원가입 성공 (홈으로 이동합니다)');
         navigate('/home');
       })
       .catch(function (error) {

@@ -8,21 +8,31 @@ import {
   idTokenState,
   kakaoAccessTokenState,
   kakaoRefreshTokenState,
+  jwtAccessTokenState,
+  jwtRefreshTokenState,
 } from 'state';
+import axios from 'axios';
 
 const LoginPage = () => {
   // 초대받았다면 팀 이름 출력
   const [teamname, setTeamname] = useState('경영전략');
   const [invited, setInvited] = useState(false);
   const navigate = useNavigate();
-  const [, setIdToken] = useRecoilState(idTokenState);
-  const [, setKakaoAccessToken] = useRecoilState(kakaoAccessTokenState);
-  const [, setKakaoRefreshToken] = useRecoilState(kakaoRefreshTokenState);
+  const [idToken, setIdToken] = useRecoilState(idTokenState);
+  const [kakaoAccessToken, setKakaoAccessToken] = useRecoilState(
+    kakaoAccessTokenState,
+  );
+  const [kakaoRefreshToken, setKakaoRefreshToken] = useRecoilState(
+    kakaoRefreshTokenState,
+  );
+  const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
+  const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
 
   const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458';
   const REDIRECT_URI = 'http://localhost:3000/login';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const handleLogin = () => {
+    // 1. 인가 코드 받기
     window.location.href = KAKAO_AUTH_URL;
   };
 
@@ -30,6 +40,7 @@ const LoginPage = () => {
   const KAKAO_CODE = location.search.split('=')[1];
 
   const getKakaoToken = () => {
+    // 2. 카카오에서 토큰 받아오기
     fetch(`https://kauth.kakao.com/oauth/token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -39,19 +50,91 @@ const LoginPage = () => {
       .then((data) => {
         console.log(data);
         setIdToken(data.id_token);
-        setKakaoAccessToken(data.acess_token);
+        setKakaoAccessToken(data.access_token);
         setKakaoRefreshToken(data.refresh_token);
+        getKakaoInfo();
+      })
+      .catch(() => {
+        alert('다시 시도하세요');
+      });
+  };
+
+  const getKakaoInfo = () => {
+    // 3.기존 회원인지 아닌지 확인 -> 기존 회원이면 3-1 / 아니면 3-2
+    fetch(`https://kapi.kakao.com/v2/user/me`, {
+      method: 'GET',
+      headers: {
+        //테스트용
+        Authorization: `Bearer HbHbfub3Y5WkpxHuuHTVAEP0nmtoeItVAQq1hRRmCj1zmwAAAYXiPqjW'`,
+      },
+      // headers: {
+      //   Authorization: `Bearer ${kakaoAccessToken}`,
+      // },
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        alert('회원 확인 성공');
+        postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
+      })
+      .catch(() => {
+        // 그냥 서버 에러랑 회원이 아닌 거랑 구분해줘야함 ㅜ
+        // 근데 자꾸 401 targetID가 존재하지 않는다는 이상한 에러 뜸
         navigate('/moreinfo');
       });
   };
+
+  const postAuthLoginAPI = async () => {
+    // 3-1. 로그인 (백한테 카카오 토큰 넘겨주기)
+    await axios({
+      url: `/api/auth/login`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      data: {
+        // idToken: idToken,
+        // oauthAccessToken: kakaoAccessToken,
+        // oauthRefreshToken: kakaoRefreshToken,
+
+        // 테스트용
+        idToken:
+          'eyJraWQiOiI5ZjI1MmRhZGQ1ZjIzM2Y5M2QyZmE1MjhkMTJmZW…lnXtFDBTwQr8toha2LVsU8gjd1DE-SB7Kbb4a-NQ5SfsGSzkA',
+        oauthAccessToken: kakaoAccessToken,
+        oauthRefreshToken:
+          '4SWKUqzcosIvdimwkupQPJ0zWZsvL7VQx9u9cROkCj1zmwAAAYXiPqjV',
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        setjwtAccessToken(response.data.data.jwtAccessToken);
+        setjwtRefreshToken(response.data.data.jwtRefreshToken);
+        localStorage.setItem(
+          'jwt_accessToken',
+          response.data.data.jwtAccessToken,
+        );
+        localStorage.setItem(
+          'jwt_refreshToken',
+          response.data.data.jwtRefreshToken,
+        );
+        alert('카카오 로그인 성공 (홈으로 이동합니다)');
+        navigate('/home');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     if (!location.search) return;
     getKakaoToken();
   }, []);
 
+  const naviOnBoard = () => {
+    navigate('/');
+  };
+
   return (
     <LoginPageContainer>
-      <LogoImg src={Logo}></LogoImg>
+      <LogoImg src={Logo} onClick={naviOnBoard} />
       <Desc>서로가 모여 플러스가 되는 팀쁠</Desc>
       {invited ? (
         <TeamNameContainer>
@@ -79,6 +162,7 @@ const LoginPageContainer = styled.div`
   background-color: #f4f8ff;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   position: relative;
 `;
@@ -88,6 +172,9 @@ const LogoImg = styled.img`
   height: 67px;
   position: absolute;
   top: 256px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Desc = styled.div`

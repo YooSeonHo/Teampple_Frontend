@@ -15,8 +15,12 @@ import prof6 from '../images/profile/proImageU6.png';
 import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
-// import tnames from '../../data/teamList.json';
-import { teamidState } from 'state';
+import {
+  teamidState,
+  usernameState,
+  userschoolState,
+  usermajorState,
+} from 'state';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 
@@ -166,14 +170,35 @@ const SideBarBox = styled.div<{ userid: string }>`
 
 const SideBar = () => {
   const [userid, setUserid] = useState(prof1);
+  const [name, setName] = useRecoilState(usernameState);
+  const [school, setSchool] = useRecoilState(userschoolState);
+  const [major, setMajor] = useRecoilState(usermajorState);
   const [teamid, setTeamid] = useRecoilState(teamidState);
   const [actTeamList, setActTeamList] = useState([]);
   const [finTeamList, setFinTeamList] = useState([]);
   const getTeamid = (team: any, e: React.MouseEvent<HTMLElement>) => {
     setTeamid(team.teamId);
   };
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
+  const token = localStorage.getItem('jwt_accessToken');
+
+  const getProfile = async () => {
+    await axios({
+      baseURL: 'https://www.teampple.site/',
+      url: 'api/users/userprofiles',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setName(res.data.data.name);
+        setSchool(res.data.data.schoolName);
+        setMajor(res.data.data.major);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const getActiveTeamsAPI = async () => {
     await axios({
@@ -181,7 +206,7 @@ const SideBar = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
       params: { active: 1 },
     })
@@ -198,7 +223,7 @@ const SideBar = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
       params: { active: 0 },
     })
@@ -210,6 +235,7 @@ const SideBar = () => {
       });
   };
   useEffect(() => {
+    getProfile();
     getActiveTeamsAPI();
     getFinishedTeamsAPI();
   }, []);
@@ -224,7 +250,7 @@ const SideBar = () => {
       <Link to="/profile" style={{ textDecoration: 'none' }}>
         <div className="user">
           <div id="userImage"></div>
-          <a id="userName">김팀쁠</a>
+          <a id="userName">{name}</a>
         </div>
       </Link>
 
@@ -262,7 +288,7 @@ const SideBar = () => {
         </div>
       ))}
       {/* 끝난 팀플 css 수정 필요 */}
-      {finTeamList.map((team: any, index: number) => ( 
+      {finTeamList.map((team: any, index: number) => (
         <div
           key={index}
           onClick={(e) => {

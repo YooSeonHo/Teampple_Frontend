@@ -5,13 +5,21 @@ import group from '../images/Group 697.png';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
 import { useRecoilState } from 'recoil';
-import { feedbackState, modal2State, teamMateNumState } from 'state';
+import {
+  feedbackState,
+  modal2State,
+  teamMateNumState,
+  teamidState,
+} from 'state';
 import axios from 'axios';
 
 const HeaderBox = styled.div`
   width: 1680px;
   height: 72px;
   background-color: #ffffff;
+  border-bottom: solid;
+  border-width: 3px;
+  border-color: #edeff6;
   display: flex;
   font-weight: 600;
   font-size: 24px;
@@ -151,6 +159,7 @@ const TeampleHeader = () => {
   const [startDate, setStartDate] = useState();
   const [dueDate, setDueDate] = useState();
   const [deadDay, setDeadDay] = useState<any | null>(null);
+  const [teamid] = useRecoilState(teamidState);
 
   const showModal1 = () => {
     setModal1(!modal1);
@@ -167,14 +176,18 @@ const TeampleHeader = () => {
     setIsOpen(!isOpen);
   }
 
+  const token = localStorage.getItem('jwt_accessToken');
+
   const getTHeader = async () => {
     await axios({
       method: 'get',
       baseURL: 'https://www.teampple.site',
       url: '/api/teams',
-      params: { teamId: 1 },
+      headers: {
+        Authorization: token,
+      },
+      params: { teamId: teamid },
     }).then((res) => {
-      console.log(res.data.data);
       setName(res.data.data.name);
       setGoal(res.data.data.goal);
       setTeamMatesNum(res.data.data.teammatesNum);
@@ -186,7 +199,7 @@ const TeampleHeader = () => {
 
   useEffect(()=>{
     getTHeader();
-  }, [])
+  }, [teamid])
   
   const getDeadDay = (dueDate: Date) => {
     const setDate = new Date(dueDate);

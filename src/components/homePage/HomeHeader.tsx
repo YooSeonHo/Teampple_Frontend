@@ -33,6 +33,9 @@ const HomeHeaderContainer = styled.div`
   position: relative;
   width: 1680px;
   height: 72px;
+  border-bottom: solid;
+  border-width: 3px;
+  border-color: #edeff6;
 `;
 const HomeTitle = styled.div`
   position: absolute;

@@ -6,6 +6,8 @@ import progress2 from '../images/progressbar/LoadingIcon_Turtle.png';
 import progress3 from '../images/progressbar/LoadingIcon_Boat.png';
 import progress4 from '../images/progressbar/LoadingIcon_lightening.png';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { teamidState } from 'state';
 
 const SummaryTeample = () => {
   const now = new Date();
@@ -24,9 +26,11 @@ const SummaryTeample = () => {
   );
   const [icon, setIcon] = useState(progress1);
   const [text, setText] = useState('');
-  const [taskList, setTaskList] = useState([]);
+  const [teamid] = useRecoilState(teamidState);
   let s1 = 0;
   let s2 = 0;
+  const token = localStorage.getItem('jwt_accessToken');
+
 
   const changeStatus = () => {
     if (currentPercent >= 1 && currentPercent < 25) {
@@ -43,7 +47,7 @@ const SummaryTeample = () => {
       setText('손발척척 빠른 진행 !');
     } else if (currentPercent === 0) {
       setIcon(progress0);
-      setText('팀쁠은 당신을 기다리는 중!');
+      setText('많이 속도를 내야해요');
     }
   };
 
@@ -52,21 +56,18 @@ const SummaryTeample = () => {
   }, [currentPercent]);
 
   const getTaskAPI = async () => {
-    const testtoken =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDI0MzE3Niwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDY3NzZ9.sV_R1JI0P09i6-z3pRz5_nmmmsuUI3UJOXwWI7BnTwU';
 
     await axios({
       url: `/api/teams/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
-      params: { teamId: 1 },
+      params: { teamId: teamid },
     })
       .then((response) => {
         console.log(response.data.data);
-        setTaskList(response.data.data);
         const achievementAcum = response.data.data.map((t: any) =>
           setDoneNum((s1 += parseInt(t.achievement))),
         );
@@ -81,7 +82,7 @@ const SummaryTeample = () => {
 
   useEffect(() => {
     getTaskAPI();
-  }, []);
+  }, [teamid]);
 
   return (
     <SummaryContainer>

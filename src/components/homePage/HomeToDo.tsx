@@ -6,8 +6,7 @@ import axios from 'axios';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzMDU5Nywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyMzQxOTd9.Va1xDQdX8I4zY2VxakwxisZ_fR0pkJJj2-K-8rZfnmM';
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getTodoAPI = async () => {
     await axios({
@@ -15,7 +14,7 @@ const HomeToDo = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then((response) => {
@@ -39,8 +38,7 @@ const HomeToDo = () => {
             <ToDoTitle>{team.name}</ToDoTitle>
             <Left>
               <LeftText>남은 일</LeftText>
-              {/* achievement 나오면 고쳐야함 */}
-              <LeftNum>{team.stages.length}</LeftNum>
+              <LeftNum>{team.totalStage - team.achievement}</LeftNum>
             </Left>
             <ToDoList>
               {team.stages.map((t: any, index: number) => (

@@ -4,8 +4,18 @@ import { v1 } from 'uuid';
 // key duplicate 방지를 위한 라이브러리 설치
 // npm i --save-dev @types/uuid
 
-export const userState = atom<string>({
-  key: `user/${v1()}`,
+export const usernameState = atom<string>({
+  key: `username/${v1()}`,
+  default: '',
+});
+
+export const userschoolState = atom<string>({
+  key: `userschool/${v1()}`,
+  default: '',
+});
+
+export const usermajorState = atom<string>({
+  key: `usermajor/${v1()}`,
   default: '',
 });
 
@@ -67,4 +77,9 @@ export const jwtAccessTokenState = atom<string>({
 export const jwtRefreshTokenState = atom<string>({
   key: `jwtrefreshtoken/${v1()}`,
   default: '',
+});
+
+export const sequenceNumState = atom<number>({
+  key: `sequencenum/${v1()}`,
+  default: 1,
 });
