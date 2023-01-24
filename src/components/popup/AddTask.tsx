@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
-import { zIndexState, teamidState } from 'state';
+import { zIndexState, teamidState, sequenceNumState } from 'state';
 import moment from 'moment';
 import axios from 'axios';
 //+버튼 만들지 말고 그냥 담당자 리스트에서 체크하면 추가, 체크 없애면 삭제
@@ -22,6 +22,7 @@ const AddTask = ({ setModal }: any) => {
   const [teamid] = useRecoilState(teamidState);
   const [teamMates, setTeamMates] = useState([]);
   const [checkedList, setCheckedList] = useState<string[]>([]);
+  const [sequenceNum, setSequenceNum] = useRecoilState(sequenceNumState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -53,7 +54,7 @@ const AddTask = ({ setModal }: any) => {
           '00:00:00'
         ).toString(),
       },
-      params: { stageId: 1 }, //바꿔야함
+      params: { stageId: sequenceNum },
     })
       .then((response) => {
         console.log(response);
@@ -91,8 +92,7 @@ const AddTask = ({ setModal }: any) => {
 
   useEffect(() => {
     getTeamMateAPI();
-    console.log(checkedList);
-  }, [checkedList]);
+  }, []);
 
   const onCheckedHandle = (checked: boolean, item: string) => {
     if (checked) {

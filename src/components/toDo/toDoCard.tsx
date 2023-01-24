@@ -5,7 +5,12 @@ import done from '../images/done icon.png';
 import { StyledToDoInfo } from 'interfaces';
 import AddTask from 'components/popup/AddTask';
 import { useRecoilState } from 'recoil';
-import { zIndexState, feedbackState, modal2State } from 'state';
+import {
+  zIndexState,
+  feedbackState,
+  modal2State,
+  sequenceNumState,
+} from 'state';
 
 const CardBox = styled.div<StyledToDoInfo>`
   width: 372px;
@@ -227,15 +232,22 @@ const ToDoCard = ({ todoList }: any) => {
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
+  const [sequenceNum, setSequenceNum] = useRecoilState(sequenceNumState);
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);
     setModal2(false);
     setZIndex(999);
   };
+
+  const onClickedStage = (stage: any) => {
+    console.log(Number(stage.id));
+    setSequenceNum(Number(stage.id));
+  };
+
   return (
     <>
-      {todoList.map((todo: any, index:number) => (
+      {todoList.map((todo: any, index: number) => (
         <CardBox
           pathname={window.location.pathname}
           key={index}
@@ -274,7 +286,14 @@ const ToDoCard = ({ todoList }: any) => {
                 </Box>
               ))}
             </div>
-            <div className="addBox" onClick={showModal}>
+            <div
+              className="addBox"
+              onClick={(e) => {
+                onClickedStage(e.target);
+                showModal();
+              }}
+              id={todo.sequenceNum}
+            >
               <div className="addText">+ 할 일 추가하기</div>
             </div>
             <ModalContainer>
