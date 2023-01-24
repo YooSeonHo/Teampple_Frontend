@@ -159,7 +159,7 @@ const TeampleHeader = () => {
   const [startDate, setStartDate] = useState();
   const [dueDate, setDueDate] = useState();
   const [deadDay, setDeadDay] = useState<any | null>(null);
-  const token = process.env.REACT_APP_JWTTOKEN
+  const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
 
   const showModal1 = () => {

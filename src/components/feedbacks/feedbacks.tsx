@@ -90,7 +90,8 @@ const Feed = styled.div`
 
 const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useState([]);
-  const token = process.env.REACT_APP_JWTTOKEN;
+  const token = localStorage.getItem('jwt_accessToken');
+  
     
   const [taskId, setTaskId] = useState<number>();
   
