@@ -36,6 +36,9 @@ const TeamMateInfo = () => {
       url: '/api/invitations',
       baseURL: 'https://www.teampple.site',
       method: 'get',
+      headers: {
+        Authorization: token,
+      },
       params: { teamId: teamid },
     })
       .then((res) => {
@@ -61,16 +64,15 @@ const TeamMateInfo = () => {
     <TeamMateInfoContainer>
       <Title>팀메이트 정보</Title>
       <TeamMateBox>
-        {/* 나 */}
-        <TeamMate>
+        {/* <TeamMate>
           <Profile />
           <TextInfo>
-            <Name>정팀쁠</Name>
-            <School>홍익대학교 시각디자인과</School>
+            <Name>{name}</Name>
+            <School>{school} {major}</School>
           </TextInfo>
           <Me>(나)</Me>
-        </TeamMate>
-        {/* 다른 사람 */}
+        </TeamMate> */}
+        <Me>(나)</Me>
         {teamMates &&
           teamMates.map((teamMate: ITeamMate) => (
             <TeamMate key={teamMate.name}>
@@ -153,9 +155,10 @@ const School = styled.div`
 const Me = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 40px;
   font-size: 14px;
   color: #487aff;
+  position: absolute;
+  right: 20px;
 `;
 
 const LinkBtn = styled.div`

@@ -16,7 +16,12 @@ import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
 // import tnames from '../../data/teamList.json';
-import { teamidState, usernameState } from 'state';
+import {
+  teamidState,
+  usernameState,
+  userschoolState,
+  usermajorState,
+} from 'state';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 
@@ -167,6 +172,8 @@ const SideBarBox = styled.div<{ userid: string }>`
 const SideBar = () => {
   const [userid, setUserid] = useState(prof1);
   const [name, setName] = useRecoilState(usernameState);
+  const [school, setSchool] = useRecoilState(userschoolState);
+  const [major, setMajor] = useRecoilState(usermajorState);
   const [teamid, setTeamid] = useRecoilState(teamidState);
   const [actTeamList, setActTeamList] = useState([]);
   const [finTeamList, setFinTeamList] = useState([]);
@@ -186,12 +193,14 @@ const SideBar = () => {
     })
       .then((res) => {
         setName(res.data.data.name);
+        setSchool(res.data.data.schoolName);
+        setMajor(res.data.data.major);
       })
       .catch((e) => {
         console.log(e);
       });
   };
-  
+
   const getActiveTeamsAPI = async () => {
     await axios({
       url: `/api/users/teams`,
@@ -280,7 +289,7 @@ const SideBar = () => {
         </div>
       ))}
       {/* 끝난 팀플 css 수정 필요 */}
-      {finTeamList.map((team: any, index: number) => ( 
+      {finTeamList.map((team: any, index: number) => (
         <div
           key={index}
           onClick={(e) => {

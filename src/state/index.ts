@@ -9,6 +9,16 @@ export const usernameState = atom<string>({
   default: '',
 });
 
+export const userschoolState = atom<string>({
+  key: `userschool/${v1()}`,
+  default: '',
+});
+
+export const usermajorState = atom<string>({
+  key: `usermajor/${v1()}`,
+  default: '',
+});
+
 export const teamidState = atom<number>({
   key: `teamid/${v1()}`,
   default: 1,
