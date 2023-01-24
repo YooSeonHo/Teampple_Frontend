@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import SummaryTeample from 'components/teampleHomePage/SummaryTeample';
 import FileInfo from 'components/teampleHomePage/FileInfo';
 import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/layout';
+import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { teamidState } from 'state';
 
 const ContentBox = styled.div`
   display: flex;
@@ -29,6 +32,11 @@ const AllBox = styled.div`
 `;
 
 const TeampleHomePage = () => {
+  const [teamid, setTeamid] = useRecoilState(teamidState);
+  const params = useParams();
+  useEffect(() => {
+    setTeamid(Number(params.teamid));
+  },[])
   return (
     <Layout>
       <AllBox>

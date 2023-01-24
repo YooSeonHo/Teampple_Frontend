@@ -15,7 +15,6 @@ import prof6 from '../images/profile/proImageU6.png';
 import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
-// import tnames from '../../data/teamList.json';
 import {
   teamidState,
   usernameState,

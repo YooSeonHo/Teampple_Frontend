@@ -34,16 +34,14 @@ const AddTask = ({ setModal }: any) => {
       baseURL: 'https://www.teampple.site',
       method: 'post',
       headers: {
-        Authorization: token,
+        Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDU0NDg4MSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ1NDg0ODF9.SH8lcLZeULDwNYVMQm0j_XaUUth54DlCEJQBgzKX1co'
+        // Authorization: token //권한 없다고 뜸
       },
       data: {
+        dueDate: '2023-01-01T11:22:33',
         name: name,
-        // startDate: (
-        //   moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-        //   'T' +
-        //   time +
-        //   ':00'
-        // ).toString(),
+        operators: [],
+        startDate: '2023-01-01T11:22:33',
       },
       params: { stageId: 1 },
     })
@@ -53,6 +51,11 @@ const AddTask = ({ setModal }: any) => {
       .catch(function (error) {
         console.log(error);
       });
+  };
+  
+  const onClickBtn = () => {
+    if (name === '') alert('할일 이름 입력은 필수입니다.');
+    else postTasksAPI();
   };
 
   return (
@@ -131,7 +134,7 @@ const AddTask = ({ setModal }: any) => {
             </TeamMate>
           </TeamMateBox>
         </TeamMateContainer>
-        <SaveButton>저장</SaveButton>
+        <SaveButton onClick={onClickBtn}>저장</SaveButton>
       </ModifyTeampleContainer>
     </Background>
   );

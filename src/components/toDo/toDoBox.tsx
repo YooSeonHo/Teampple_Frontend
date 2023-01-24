@@ -49,6 +49,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
+        // Authorization: token,
         Authorization: token,
       },
       params: { teamId: teamid },
