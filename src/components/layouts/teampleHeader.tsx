@@ -176,8 +176,7 @@ const TeampleHeader = () => {
     setIsOpen(!isOpen);
   }
 
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2MzIzNCwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjY4MzR9.E2omeLTLlDZ3mcVA7E6FVzq97BXn3Km2H2xwFiC7Cr0';
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getTHeader = async () => {
     await axios({
@@ -185,7 +184,7 @@ const TeampleHeader = () => {
       baseURL: 'https://www.teampple.site',
       url: '/api/teams',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
       params: { teamId: teamid },
     }).then((res) => {

@@ -41,8 +41,7 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
   const [teamid] = useRecoilState(teamidState);
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ5MDMzMywic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0OTM5MzN9.sOYSw3d4vtKDUF1l8QhiUy0jMuSly2M4wIVSr9HqVwI';
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getTodoAPI = async () => {
     await axios({
@@ -50,7 +49,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
       params: { teamId: teamid },
     })

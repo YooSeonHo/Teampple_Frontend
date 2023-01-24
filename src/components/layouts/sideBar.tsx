@@ -230,7 +230,7 @@ const SideBar = () => {
     getProfile();
     getActiveTeamsAPI();
     getFinishedTeamsAPI();
-  }, [actTeamList, finTeamList]);
+  }, []);
 
   return (
     <SideBarBox userid={userid}>

@@ -364,8 +364,7 @@ const DetailContainer = styled.div`
 `;
 
 const DetailBox = () => {
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDIzODQ5NSwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQyNDIwOTV9.pY40z0oK3XdCKI3ynDDlAuVD8LQn9xVPnaSWP0jLvzA';
+  const token = localStorage.getItem('jwt_accessToken');
 
   const [detail, setDetail] = useState<detailInfo | undefined>();
   const [file, setFile] = useState<File>();
@@ -420,7 +419,7 @@ const DetailBox = () => {
         teamId: teamid,
       },
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then(() => {
@@ -440,7 +439,7 @@ const DetailBox = () => {
         taskId: 1,
       },
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
     })
       .then((res) => {

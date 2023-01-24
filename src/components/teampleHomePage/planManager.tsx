@@ -21,9 +21,7 @@ const PlanManager = () => {
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
   const [teamid, ] = useRecoilState(teamidState);
-
-  const testtoken =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2NzUzMiwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NzExMzJ9.4AOVo1l2b6fotF9TiELTMoKbLI6-AZ_aFA51tnJc-RI';
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getPlanAPI = async () => {
     await axios({
@@ -31,7 +29,7 @@ const PlanManager = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
       params: { teamId: teamid },
     })

@@ -29,6 +29,8 @@ const SummaryTeample = () => {
   const [teamid] = useRecoilState(teamidState);
   let s1 = 0;
   let s2 = 0;
+  const token = localStorage.getItem('jwt_accessToken');
+
 
   const changeStatus = () => {
     if (currentPercent >= 1 && currentPercent < 25) {
@@ -54,15 +56,13 @@ const SummaryTeample = () => {
   }, [currentPercent]);
 
   const getTaskAPI = async () => {
-    const testtoken =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWFtcHBsZSIsImlhdCI6MTY3NDQ2MzIzNCwic3ViIjoia2FrYW9VMiIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NzQ0NjY4MzR9.E2omeLTLlDZ3mcVA7E6FVzq97BXn3Km2H2xwFiC7Cr0';
 
     await axios({
       url: `/api/teams/tasks`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
       headers: {
-        Authorization: testtoken,
+        Authorization: token,
       },
       params: { teamId: teamid },
     })

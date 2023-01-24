@@ -74,12 +74,13 @@ const LoginPage = () => {
       .then((res) => res.json())
       .then((response) => {
         console.log(response);
-        alert('확인 성공');
+        alert('회원 확인 성공');
         postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
       })
       .catch(() => {
+        // 그냥 서버 에러랑 회원이 아닌 거랑 구분해줘야함 ㅜ
+        // 근데 자꾸 401 targetID가 존재하지 않는다는 이상한 에러 뜸
         navigate('/moreinfo');
-        alert('다시 시도하세요');
       });
   };
 
