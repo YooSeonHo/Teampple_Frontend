@@ -64,6 +64,7 @@ const HomeToDoContainer = styled.div`
   position: relative;
   width: 1680px;
   height: 660px;
+  overflow: auto;
 `;
 const Title = styled.div`
   position: absolute;
@@ -79,7 +80,6 @@ const ToDosContainer = styled.div`
   left: 54px;
   width: 1680px;
   height: 480px;
-  overflow: auto;
   display: flex;
 `;
 const ToDoContainer = styled.div`
@@ -89,6 +89,7 @@ const ToDoContainer = styled.div`
   border-radius: 16px;
   margin-right: 28px;
   position: relative;
+  flex-shrink: 0;
 `;
 const ToDoTitle = styled.div`
   position: absolute;

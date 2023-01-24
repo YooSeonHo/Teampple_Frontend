@@ -78,9 +78,7 @@ const LoginPage = () => {
         postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
       })
       .catch(() => {
-        // 그냥 서버 에러랑 회원이 아닌 거랑 구분해줘야함 ㅜ
-        // 근데 자꾸 401 targetID가 존재하지 않는다는 이상한 에러 뜸
-        navigate('/moreinfo');
+        navigate('/moreinfo'); // 그냥 서버 에러랑 회원이 아닌 거랑 구분해줘
       });
   };
 
