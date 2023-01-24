@@ -14,6 +14,7 @@ import S3 from 'react-aws-s3-typescript';
 import { config } from 'config';
 import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
+import useDidMountEffect from 'components/hooks/useDidMountEffect';
 
 const DetailContainer = styled.div`
   width: 1000px;
@@ -206,6 +207,9 @@ const DetailContainer = styled.div`
     line-height: 100%;
     text-align: center;
     color: #707070;
+    text-overflow: ellipsis;  
+	  overflow : hidden;
+    white-space : nowrap;
   }
 
   .icons {
@@ -392,8 +396,6 @@ const DetailBox = () => {
     await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
-      }).then(()=>{
-        postFile();
       })
       .catch((e: any) => {
         console.log(e);
@@ -490,6 +492,10 @@ const DetailBox = () => {
     getUser();
     getDetail();
   }, []);
+
+  useDidMountEffect(()=>{
+    postFile();
+  },[file])
 
   const onChangeFeed = (e : React.ChangeEvent<HTMLInputElement>) =>{
     setAddFeed(e.target.value);
