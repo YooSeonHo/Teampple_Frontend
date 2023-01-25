@@ -27,7 +27,7 @@ const Router = () => {
         <Route path="/moreinfo" element={<MoreInfoPage />} />
         <Route path="/home/init" element={<InitialHomePage />} />
         <Route path="/teample-home/:teamid" element={<TeampleHomePage />} />
-        <Route path="/teample-detail" element={<TeampleDetailPage />} />
+        <Route path="/teample-detail/:taskId" element={<TeampleDetailPage />} />
         <Route path="/template" element={<TemplatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/file" element={<FilePage />} />

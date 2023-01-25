@@ -90,7 +90,9 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
     },[temp])
 
     useDidMountEffect(async ()=>{
-      await postTeample();
+      if (makeTeample.stages.length !== 0){
+        await postTeample();
+      }
     },[makeTeample])
 
 

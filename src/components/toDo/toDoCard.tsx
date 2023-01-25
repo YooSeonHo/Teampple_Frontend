@@ -12,6 +12,7 @@ import {
   modal2State,
   AddToDozIndexState,
   stageIdState,
+  taskIdState,
 } from 'state';
 
 const CardBox = styled.div<StyledToDoInfo>`
@@ -177,7 +178,7 @@ const ToDoBox = styled.div`
   }
 `;
 
-const Box = styled.div`
+const Box = styled.div<any>`
   width: 332px;
   height: 72px;
   background-color: #ffffff;
@@ -237,6 +238,8 @@ const ToDoCard = ({ todoList }: any) => {
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [toDoZindex,setToDoZindex] = useRecoilState(AddToDozIndexState);
   const [stageId, setStageId] = useRecoilState(stageIdState);
+  const [taskId,setTaskId] = useRecoilState(taskIdState);
+
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);
@@ -248,6 +251,10 @@ const ToDoCard = ({ todoList }: any) => {
     console.log(Number(stage.id));
     setStageId(Number(stage.id));
   };
+
+  const onClick = (e : any) =>{
+    setTaskId(e.target.id)
+  }
 
   return (
     <>
@@ -276,11 +283,11 @@ const ToDoCard = ({ todoList }: any) => {
             <div className="toDos">
               {todo.tasks.map((doo: any, index: number) => (
                 <Link
-                  to="/teample-detail"
-                  key={index}
-                  style={{ textDecoration: 'none' }}
+                to={`/teample-detail/${doo.taskId}`}
+                key={index}
+                style={{ textDecoration: 'none' }}
                 >
-                  <Box>
+                  <Box onClick={onClick} id={doo.taskId}>
                     {doo.done === 'true' ? (
                       <div className="doneIcon">
                         <img src={done} />

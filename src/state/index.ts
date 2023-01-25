@@ -127,3 +127,8 @@ export const stageIdState = atom<number>({
   key: `stagenum/${v1()}`,
   default: 1,
 });
+
+export const taskIdState = atom<number>({
+  key : `taskId/${v1()}`,
+  default: 1
+})
