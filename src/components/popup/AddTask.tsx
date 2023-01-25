@@ -8,10 +8,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
-import { zIndexState, teamidState, sequenceNumState, AddToDozIndexState } from 'state';
+import { zIndexState, teamidState, stageIdState, AddToDozIndexState } from 'state';
 import moment from 'moment';
 import axios from 'axios';
-//+버튼 만들지 말고 그냥 담당자 리스트에서 체크하면 추가, 체크 없애면 삭제
+
 const AddTask = ({ setModal }: any) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
@@ -19,10 +19,10 @@ const AddTask = ({ setModal }: any) => {
   const [name, setName] = useState('');
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const token = localStorage.getItem('jwt_accessToken');
-  const [teamid] = useRecoilState(teamidState);
+  const [teamid, setTeamid] = useRecoilState(teamidState);
   const [teamMates, setTeamMates] = useState([]);
   const [checkedList, setCheckedList] = useState<string[]>([]);
-  const [sequenceNum, setSequenceNum] = useRecoilState(sequenceNumState);
+  const [stageId, setStageId] = useRecoilState(stageIdState);
   const [toDoZindex,setToDoZindex] = useRecoilState(AddToDozIndexState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,26 +47,26 @@ const AddTask = ({ setModal }: any) => {
           moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
           'T' +
           '00:00:00'
-          ).toString(),
-          name: name,
-          operators: checkedList, // api 고치면 실행될 듯
-          startDate: (
-            moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-            'T' +
-            '00:00:00'
-            ).toString(),
-          },
-          params: { stageId: sequenceNum },
-        })
-        .then((response) => {
-          console.log(response);
-          alert('새로운 할일 추가 성공!');
-          //api 수정되어 param에 teamId 추가되면 주석해제
-          // window.location.replace('/teample-home/${teamId}');
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        ).toString(),
+        name: name,
+        operators: checkedList, // api 고치면 실행될 듯
+        startDate: (
+          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          '00:00:00'
+        ).toString(),
+      },
+      params: { stageId: stageId },
+    })
+      .then((response) => {
+        console.log(response);
+        alert('새로운 할일 추가 성공!');
+        // location.reload();
+        window.location.replace('/teample-home/${teamId}');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const getTeamMateAPI = async () => {

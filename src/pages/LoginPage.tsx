@@ -50,8 +50,14 @@ const LoginPage = () => {
         setKakaoAccessToken(data.access_token);
         setKakaoRefreshToken(data.refresh_token);
         // getKakaoInfo();
+<<<<<<< HEAD
         navigate('/moreinfo');
         // postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
+=======
+        // navigate('/moreinfo');
+        // postAuthLoginAPI();
+        navigate('/ing');
+>>>>>>> 50fc18b3611553444ed2ac7ff2975e7214f3d789
       })
       .catch(() => {
         alert('다시 시도하세요');
@@ -90,11 +96,9 @@ const LoginPage = () => {
         oauthAccessToken: kakaoAccessToken,
         oauthRefreshToken: kakaoRefreshToken,
         // 테스트용
-        // idToken:
-        //   'eyJraWQiOiI5ZjI1MmRhZGQ1ZjIzM2Y5M2QyZmE1MjhkMTJmZW…lnXtFDBTwQr8toha2LVsU8gjd1DE-SB7Kbb4a-NQ5SfsGSzkA',
-        // oauthAccessToken: kakaoAccessToken,
-        // oauthRefreshToken:
-        //   '4SWKUqzcosIvdimwkupQPJ0zWZsvL7VQx9u9cROkCj1zmwAAAYXiPqjV',
+        // idToken: 'kakaoU2',
+        // oauthAccessToken: 'string',
+        // oauthRefreshToken: 'string',
       },
     })
       .then((response) => {

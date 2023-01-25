@@ -62,8 +62,7 @@ const AddSchedule = ({ setModal }: any) => {
       .then((response) => {
         console.log(response);
         alert('새로운 일정 추가 성공!');
-        // modal이어서 navigate 불가능하니까 성공하면 `/teample-home/${teamId}`이 화면 새로고침되게
-        window.location.replace('/teample-home/${teamId}');
+        location.reload();
       })
       .catch((error) => {
         console.log(error);

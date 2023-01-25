@@ -6,11 +6,10 @@ import { AiOutlineLine } from 'react-icons/ai';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-// installation
-// npm install react-datepicker
-
-// 언어 한글 설정
-// npm install @types/react-datepicker --save-dev
+import axios from 'axios';
+import moment from 'moment';
+import { useRecoilState } from 'recoil';
+import { teamidState } from 'state';
 
 const ModifyTeample = ({ setModal1 }: any) => {
   const today = new window.Date();
@@ -18,7 +17,13 @@ const ModifyTeample = ({ setModal1 }: any) => {
   const [endDate, setEndDate] = useState<Date>(today);
   const [name, setName] = useState('');
   const [aim, setAim] = useState('');
+<<<<<<< HEAD
   
+=======
+  const [teamid] = useRecoilState(teamidState);
+  const token = localStorage.getItem('jwt_accessToken');
+
+>>>>>>> 50fc18b3611553444ed2ac7ff2975e7214f3d789
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -28,6 +33,49 @@ const ModifyTeample = ({ setModal1 }: any) => {
 
   const closeModal = () => {
     setModal1(false);
+  };
+
+  const postSchedulesAPI = async () => {
+    await axios({
+      url: `/api/teams`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'put',
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        dueDate: (
+          moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          '00:00:00'
+        ).toString(),
+        startDate: (
+          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          '00:00:00'
+        ).toString(),
+        name: name,
+        goal: aim,
+      },
+      params: {
+        teamId: teamid,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        alert('팀플 수정 성공');
+        location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('다시 시도하세요.');
+      });
+  };
+
+  const onClickBtn = () => {
+    if (name === '') alert('팀플 이름 입력은 필수입니다.');
+    if (aim === '') alert('목표 입력은 필수입니다.');
+    else postSchedulesAPI();
   };
 
   return (
@@ -79,7 +127,7 @@ const ModifyTeample = ({ setModal1 }: any) => {
             </DateBox2>
           </DateContainer>
         </InputContainer>
-        <SaveButton>저장</SaveButton>
+        <SaveButton onClick={onClickBtn}>저장</SaveButton>
       </ModifyTeampleContainer>
     </Background>
   );
