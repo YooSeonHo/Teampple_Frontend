@@ -166,12 +166,6 @@ const EditProfile = () => {
     setGrade(e.target.value);
   };
 
-  const onClick = () => {
-    alert('프로필 수정이 완료되었습니다.');
-    navigate('/home');
-    //임시!~
-  };
-
   const token = localStorage.getItem('jwt_accessToken');
 
   const getProfile = async () => {
@@ -194,6 +188,29 @@ const EditProfile = () => {
       })
       .catch((e) => {
         console.log(e);
+      });
+  };
+
+  const putProfileAPI = async () => {
+    await axios({
+      url: `api/users/userprofiles`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'put',
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        entranceYear: grade,
+        major: major,
+        schoolName: school,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        alert('프로필 수정이 완료되었습니다.');
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   };
 
@@ -228,7 +245,7 @@ const EditProfile = () => {
           <input className="grade" value={grade} onChange={onGrade}></input>
         </div>
       </div>
-      <div className="editBtn" onClick={onClick}>
+      <div className="editBtn" onClick={putProfileAPI}>
         <img src={editBtn} />
       </div>
       <div className="extraText">
