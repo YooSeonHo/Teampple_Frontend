@@ -20,9 +20,9 @@ const SummaryTeample = () => {
   const [doneNum, setDoneNum] = useState(0);
   const [allNum, setAllNum] = useState(0);
   const [currentPercent, setCurrentPercent] = useState<number>(
-    isNaN(Math.round((doneNum / allNum) * 100))
+    isNaN(Math.round(Number(doneNum / allNum) * 100))
       ? 0
-      : Math.round((doneNum / allNum) * 100),
+      : Math.round(Number(doneNum / allNum) * 100),
   );
   const [icon, setIcon] = useState(progress1);
   const [text, setText] = useState('');

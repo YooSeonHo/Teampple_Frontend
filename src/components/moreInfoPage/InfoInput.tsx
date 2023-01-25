@@ -41,21 +41,13 @@ const InfoInput = () => {
       method: 'post',
       data: {
         // idToken: idToken,
-        idToken: 'kakaoU17233456',
+        idToken: 'kakaoU17233456', //test
         oauthAccessToken: kakaoAccessToken,
         oauthRefreshToken: kakaoRefreshToken,
         name: name,
         schoolName: school,
         major: major,
         profileImage: 'proImageU100', //아직 설정 안 함
-
-        // idToken: 'kakaoU17233456',
-        // major: 'majorU100',
-        // name: 'U100',
-        // oauthAccessToken: 'string',
-        // oauthRefreshToken: 'string',
-        // profileImage: 'proImageU100',
-        // schoolName: 'schoolU100',
       },
     })
       .then((response) => {
