@@ -11,6 +11,7 @@ import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
 import HomeSummaryBg from '../images/HomeSummaryBg.png';
 import axios from 'axios';
+import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -34,7 +35,6 @@ const SummaryHome = () => {
   const token = localStorage.getItem('jwt_accessToken');
 
   const getTaskAPI = async () => {
-    
     await axios({
       url: `/api/users/tasks`,
       baseURL: 'https://www.teampple.site',
@@ -63,6 +63,8 @@ const SummaryHome = () => {
   }, [doneNum, allNum]);
 
   return (
+    <>
+    {allNum === 0 ? <NotSummaryTeample/>:
     <SummaryContainer>
       <DateContainer>
         {year}년 {month}월 {date}일 ({week})
@@ -102,7 +104,8 @@ const SummaryHome = () => {
           </li>
         </ul>
       </BarContainer>
-    </SummaryContainer>
+    </SummaryContainer>}
+    </>
   );
 };
 

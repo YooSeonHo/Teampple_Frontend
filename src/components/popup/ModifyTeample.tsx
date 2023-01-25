@@ -18,6 +18,7 @@ const ModifyTeample = ({ setModal1 }: any) => {
   const [endDate, setEndDate] = useState<Date>(today);
   const [name, setName] = useState('');
   const [aim, setAim] = useState('');
+  
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
