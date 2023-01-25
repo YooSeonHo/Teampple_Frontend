@@ -27,6 +27,7 @@ const LoginPage = () => {
   );
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
+  const [,,code] = window.location.pathname.split('/');
 
   const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458';
   const REDIRECT_URI = 'http://localhost:3000/login';
@@ -120,11 +121,33 @@ const LoginPage = () => {
         console.log(error);
       });
   };
+  const token = localStorage.getItem('jwt_accessToken');
+  const getTeamName = async () =>{
+    await axios({
+      url: `/api/invitations/validation`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'get',
+      params : {
+        code : code
+      },
+    }).then((res)=>{
+      if (res.data.data.valid){
+        setTeamname(res.data.data.teamName);
+        setInvited(true);
+      }
+    })
+  }
 
   useEffect(() => {
     if (!location.search) return;
     getKakaoToken();
   }, []);
+  
+  useEffect(()=>{
+    if(code){
+      getTeamName();
+    }
+  },[])
 
   const naviOnBoard = () => {
     navigate('/');
