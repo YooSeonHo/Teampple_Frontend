@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 
 import editBtn from '../images/Frame 299.png';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const EditBox = styled.div`
@@ -76,7 +75,8 @@ const EditBox = styled.div`
 
   .schoolInfo {
     margin-top: 56px;
-    margin-left: 100px;
+    display: flex;
+    justify-content: center;
   }
 
   .infoBox {
@@ -101,8 +101,8 @@ const EditBox = styled.div`
 
   .schoolInfoLine2 {
     display: flex;
+    justify-content: center;
     margin-top: 24px;
-    margin-left: 100px;
   }
 
   .school,
@@ -149,21 +149,16 @@ const EditBox = styled.div`
 const EditProfile = () => {
   const [school, setSchool] = useState('');
   const [major, setMajor] = useState('');
-  const [grade, setGrade] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [profimg, setProfimg] = useState('proImageU1');
 
-  const navigate = useNavigate();
 
   const onSchool = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSchool(e.target.value);
   };
   const onMajor = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMajor(e.target.value);
-  };
-  const onGrade = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGrade(e.target.value);
   };
 
   const token = localStorage.getItem('jwt_accessToken');
@@ -182,7 +177,6 @@ const EditProfile = () => {
         setEmail(res.data.data.email);
         setSchool(res.data.data.schoolName);
         setSchool(res.data.data.schoolName);
-        setGrade(res.data.data.entranceYear);
         setMajor(res.data.data.major);
         setProfimg(res.data.data.profileImage);
       })
@@ -200,7 +194,6 @@ const EditProfile = () => {
         Authorization: token,
       },
       data: {
-        entranceYear: grade,
         major: major,
         schoolName: school,
       },
@@ -239,10 +232,6 @@ const EditProfile = () => {
         <div className="infoBox">
           <div className="infoText">전공</div>
           <input className="major" value={major} onChange={onMajor}></input>
-        </div>
-        <div className="infoBox">
-          <div className="infoText">학번</div>
-          <input className="grade" value={grade} onChange={onGrade}></input>
         </div>
       </div>
       <div className="editBtn" onClick={putProfileAPI}>

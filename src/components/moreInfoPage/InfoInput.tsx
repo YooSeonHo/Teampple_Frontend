@@ -41,27 +41,35 @@ const InfoInput = () => {
       method: 'post',
       data: {
         // idToken: idToken,
-        // oauthAccessToken: kakaoAccessToken,
-        // oauthRefreshToken: kakaoRefreshToken,
-        // name: name,
-        // schoolName: school,
-        // major: major,
-        // profileImage: 'proImageU100', //아직 설정 안 함
-        idToken: 'kakaoU100',
-        major: 'majorU100',
-        name: 'U100',
-        oauthAccessToken: 'string',
-        oauthRefreshToken: 'string',
-        profileImage: 'proImageU100',
-        schoolName: 'schoolU100',
+        idToken: 'kakaoU17233456',
+        oauthAccessToken: kakaoAccessToken,
+        oauthRefreshToken: kakaoRefreshToken,
+        name: name,
+        schoolName: school,
+        major: major,
+        profileImage: 'proImageU100', //아직 설정 안 함
+
+        // idToken: 'kakaoU17233456',
+        // major: 'majorU100',
+        // name: 'U100',
+        // oauthAccessToken: 'string',
+        // oauthRefreshToken: 'string',
+        // profileImage: 'proImageU100',
+        // schoolName: 'schoolU100',
       },
     })
       .then((response) => {
         console.log(response);
-        setjwtAccessToken(response.data.jwtAccessToken);
-        setjwtRefreshToken(response.data.jwtRefreshToken);
-        localStorage.setItem('jwt_accessToken', response.data.jwtAccessToken);
-        localStorage.setItem('jwt_refreshToken', response.data.jwtRefreshToken);
+        setjwtAccessToken(response.data.data.jwtAccessToken);
+        setjwtRefreshToken(response.data.data.jwtRefreshToken);
+        localStorage.setItem(
+          'jwt_accessToken',
+          response.data.data.jwtAccessToken,
+        );
+        localStorage.setItem(
+          'jwt_refreshToken',
+          response.data.data.jwtRefreshToken,
+        );
         alert('회원가입 성공 (홈으로 이동합니다)');
         navigate('/home');
       })
