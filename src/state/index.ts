@@ -122,3 +122,8 @@ export const sequenceNumState = atom<number>({
   key: `sequencenum/${v1()}`,
   default: 1,
 });
+
+export const stageIdState = atom<number>({
+  key: `stagenum/${v1()}`,
+  default: 1,
+});

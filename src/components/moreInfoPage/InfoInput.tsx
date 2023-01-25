@@ -40,7 +40,8 @@ const InfoInput = () => {
       baseURL: 'https://www.teampple.site/',
       method: 'post',
       data: {
-        idToken: idToken,
+        // idToken: idToken,
+        idToken: 'kakaoU17233456', //test
         oauthAccessToken: kakaoAccessToken,
         oauthRefreshToken: kakaoRefreshToken,
         name: name,
@@ -51,10 +52,16 @@ const InfoInput = () => {
     })
       .then((response) => {
         console.log(response);
-        setjwtAccessToken(response.data.jwtAccessToken);
-        setjwtRefreshToken(response.data.jwtRefreshToken);
-        localStorage.setItem('jwt_accessToken', response.data.jwtAccessToken);
-        localStorage.setItem('jwt_refreshToken', response.data.jwtRefreshToken);
+        setjwtAccessToken(response.data.data.jwtAccessToken);
+        setjwtRefreshToken(response.data.data.jwtRefreshToken);
+        localStorage.setItem(
+          'jwt_accessToken',
+          response.data.data.jwtAccessToken,
+        );
+        localStorage.setItem(
+          'jwt_refreshToken',
+          response.data.data.jwtRefreshToken,
+        );
         alert('회원가입 성공 (홈으로 이동합니다)');
         navigate('/home');
       })

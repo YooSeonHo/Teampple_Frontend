@@ -13,6 +13,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import AddTeample1 from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
 import InitialHomePage from './pages/InitialHomePage';
+import Ing from 'pages/Ing';
 
 const Router = () => {
   return (
@@ -30,6 +31,7 @@ const Router = () => {
         <Route path="/template" element={<TemplatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/file" element={<FilePage />} />
+        <Route path="/ing" element={<Ing />} />
         {/* modals */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

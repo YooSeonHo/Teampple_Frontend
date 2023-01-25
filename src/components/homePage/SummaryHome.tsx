@@ -24,9 +24,9 @@ const SummaryHome = () => {
   const [doneNum, setDoneNum] = useState<number>(0);
   const [allNum, setAllNum] = useState<number>(0);
   const [remainPercent, setRemainPercent] = useState<number>(
-    isNaN(Math.round((doneNum / allNum) * 100))
+    isNaN(Math.round(Number(doneNum / allNum) * 100))
       ? 0
-      : Math.round((doneNum / allNum) * 100),
+      : Math.round(Number(doneNum / allNum) * 100),
   );
   const [userid, setUserid] = useState(prof1);
   let s1 = 0;
