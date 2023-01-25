@@ -50,14 +50,9 @@ const LoginPage = () => {
         setKakaoAccessToken(data.access_token);
         setKakaoRefreshToken(data.refresh_token);
         // getKakaoInfo();
-<<<<<<< HEAD
-        navigate('/moreinfo');
-        // postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
-=======
         // navigate('/moreinfo');
         // postAuthLoginAPI();
         navigate('/ing');
->>>>>>> 50fc18b3611553444ed2ac7ff2975e7214f3d789
       })
       .catch(() => {
         alert('다시 시도하세요');

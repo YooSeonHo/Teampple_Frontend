@@ -265,7 +265,7 @@ const ToDoCard = ({ todoList }: any) => {
               </div>
             </div>
             <div className="headerText">
-              <div className="name">{todo.taskname}</div>
+              <div className="name">{todo.stageName}</div>
               <div className="left">
                 <a className="leftText">남은 일</a>
                 <div className="leftNumBox">

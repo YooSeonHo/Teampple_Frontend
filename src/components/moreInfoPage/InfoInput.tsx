@@ -37,29 +37,6 @@ const InfoInput = () => {
       method: 'post',
       data: {
         // idToken: idToken,
-<<<<<<< HEAD
-        // oauthAccessToken: kakaoAccessToken,
-        // oauthRefreshToken: kakaoRefreshToken,
-        // name: name,
-        // schoolName: school,
-        // major: major,
-        // profileImage: 'proImageU100', //아직 설정 안 함
-        idToken: 'kakaoU10022412412124121',
-        major: 'majorU100',
-        name: 'U100',
-        oauthAccessToken: 'string',
-        oauthRefreshToken: 'string',
-        profileImage: 'proImageU100',
-        schoolName: 'schoolU100',
-      },
-    })
-      .then((response) => {
-        console.log(response.data.data);
-        setjwtAccessToken(response.data.data.jwtAccessToken);
-        setjwtRefreshToken(response.data.data.jwtRefreshToken);
-        localStorage.setItem('jwt_accessToken', response.data.data.jwtAccessToken);
-        localStorage.setItem('jwt_refreshToken', response.data.data.jwtRefreshToken);
-=======
         idToken: 'kakaoU17233456', //test
         oauthAccessToken: kakaoAccessToken,
         oauthRefreshToken: kakaoRefreshToken,
@@ -81,7 +58,6 @@ const InfoInput = () => {
           'jwt_refreshToken',
           response.data.data.jwtRefreshToken,
         );
->>>>>>> 50fc18b3611553444ed2ac7ff2975e7214f3d789
         alert('회원가입 성공 (홈으로 이동합니다)');
         navigate('/home');
       })

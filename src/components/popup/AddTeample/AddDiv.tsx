@@ -39,7 +39,7 @@ const AddDiv = (props: any) => {
     const del = stages.filter((st)=>{
       return st.sequenceNum !== n;
     }).map((st,index)=>(
-      {...st, sequenceNum : index}
+      {...st, sequenceNum : index+1}
     ));
     setStages(del);
     }
@@ -96,7 +96,7 @@ const AddDiv = (props: any) => {
               <StepContainer key={i.sequenceNum} id={i.sequenceNum.toString()}>
                 <NameContainer>
                   <TagContainer>
-                    <Tag>{i.sequenceNum + 1}단계</Tag>
+                    <Tag>{i.sequenceNum}단계</Tag>
                     {/* <SubTag>(필수)</SubTag> */}
                   </TagContainer>
                   <InputBox>

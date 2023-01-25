@@ -99,7 +99,7 @@ export const makeTeampleState = atom<makeTeampleInfo>({
     stages: [
       {
         name: '',
-        sequenceNum: 0,
+        sequenceNum: 1,
         dueDate: new Date,
         startDate: new Date,
       }
@@ -114,7 +114,7 @@ export const stageState = atom<stageInfo[]>({
   [{
     dueDate: new Date,
     name: '',
-    sequenceNum: 0,
+    sequenceNum: 1,
     startDate: new Date,
   }]
 })

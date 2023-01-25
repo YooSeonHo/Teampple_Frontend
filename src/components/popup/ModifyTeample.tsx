@@ -17,13 +17,9 @@ const ModifyTeample = ({ setModal1 }: any) => {
   const [endDate, setEndDate] = useState<Date>(today);
   const [name, setName] = useState('');
   const [aim, setAim] = useState('');
-<<<<<<< HEAD
-  
-=======
   const [teamid] = useRecoilState(teamidState);
   const token = localStorage.getItem('jwt_accessToken');
 
->>>>>>> 50fc18b3611553444ed2ac7ff2975e7214f3d789
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
