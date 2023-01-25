@@ -27,6 +27,7 @@ const LoginPage = () => {
   );
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
+  const [,,code] = window.location.pathname.split('/');
 
   const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458';
   const REDIRECT_URI = 'http://localhost:3000/login';
@@ -63,13 +64,13 @@ const LoginPage = () => {
     // 3.기존 회원인지 아닌지 확인 -> 기존 회원이면 3-1 / 아니면 3-2
     fetch(`https://kapi.kakao.com/v2/user/me`, {
       method: 'GET',
-      headers: {
-        //테스트용
-        Authorization: `Bearer HbHbfub3Y5WkpxHuuHTVAEP0nmtoeItVAQq1hRRmCj1zmwAAAYXiPqjW'`,
-      },
       // headers: {
-      //   Authorization: `Bearer ${kakaoAccessToken}`,
+      //   //테스트용
+      //   Authorization: `Bearer HbHbfub3Y5WkpxHuuHTVAEP0nmtoeItVAQq1hRRmCj1zmwAAAYXiPqjW'`,
       // },
+      headers: {
+        Authorization: `Bearer ${kakaoAccessToken}`,
+      },
     })
       .then((res) => res.json())
       .then((response) => {
@@ -89,16 +90,16 @@ const LoginPage = () => {
       baseURL: 'https://www.teampple.site/',
       method: 'post',
       data: {
-        // idToken: idToken,
-        // oauthAccessToken: kakaoAccessToken,
-        // oauthRefreshToken: kakaoRefreshToken,
+        idToken: idToken,
+        oauthAccessToken: kakaoAccessToken,
+        oauthRefreshToken: kakaoRefreshToken,
 
         // 테스트용
-        idToken:
-          'eyJraWQiOiI5ZjI1MmRhZGQ1ZjIzM2Y5M2QyZmE1MjhkMTJmZW…lnXtFDBTwQr8toha2LVsU8gjd1DE-SB7Kbb4a-NQ5SfsGSzkA',
-        oauthAccessToken: kakaoAccessToken,
-        oauthRefreshToken:
-          '4SWKUqzcosIvdimwkupQPJ0zWZsvL7VQx9u9cROkCj1zmwAAAYXiPqjV',
+        // idToken:
+        //   'eyJraWQiOiI5ZjI1MmRhZGQ1ZjIzM2Y5M2QyZmE1MjhkMTJmZW…lnXtFDBTwQr8toha2LVsU8gjd1DE-SB7Kbb4a-NQ5SfsGSzkA',
+        // oauthAccessToken: kakaoAccessToken,
+        // oauthRefreshToken:
+        //   '4SWKUqzcosIvdimwkupQPJ0zWZsvL7VQx9u9cROkCj1zmwAAAYXiPqjV',
       },
     })
       .then((response) => {
@@ -120,11 +121,33 @@ const LoginPage = () => {
         console.log(error);
       });
   };
+  const token = localStorage.getItem('jwt_accessToken');
+  const getTeamName = async () =>{
+    await axios({
+      url: `/api/invitations/validation`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'get',
+      params : {
+        code : code
+      },
+    }).then((res)=>{
+      if (res.data.data.valid){
+        setTeamname(res.data.data.teamName);
+        setInvited(true);
+      }
+    })
+  }
 
   useEffect(() => {
     if (!location.search) return;
     getKakaoToken();
   }, []);
+  
+  useEffect(()=>{
+    if(code){
+      getTeamName();
+    }
+  },[])
 
   const naviOnBoard = () => {
     navigate('/');

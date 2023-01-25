@@ -34,7 +34,7 @@ const HomeToDo = () => {
     <HomeToDoContainer>
       <Title>할 일</Title>
       <ToDosContainer>
-        {teams.map((team: any, index: number) => (
+        {teams && teams.map((team: any, index: number) => (
           <ToDoContainer key={index}>
             <ToDoTitle>{team.name}</ToDoTitle>
             <Left>

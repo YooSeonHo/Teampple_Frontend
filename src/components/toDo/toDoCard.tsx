@@ -11,6 +11,7 @@ import {
   feedbackState,
   modal2State,
   sequenceNumState,
+  AddToDozIndexState,
 } from 'state';
 
 const CardBox = styled.div<StyledToDoInfo>`
@@ -234,13 +235,14 @@ const ToDoCard = ({ todoList }: any) => {
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
+  const [toDoZindex,setToDoZindex] = useRecoilState(AddToDozIndexState);
   
   const [sequenceNum, setSequenceNum] = useRecoilState(sequenceNumState);
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);
     setModal2(false);
-    setZIndex(999);
+    setToDoZindex(999);
   };
 
   const onClickedStage = (stage: any) => {
@@ -254,7 +256,7 @@ const ToDoCard = ({ todoList }: any) => {
         <CardBox
           pathname={window.location.pathname}
           key={index}
-          style={{ zIndex: zIndex }}
+          style={{ zIndex: toDoZindex }}
         >
           <>
             <div className="info">

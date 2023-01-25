@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
-import { zIndexState, teamidState, sequenceNumState } from 'state';
+import { zIndexState, teamidState, sequenceNumState, AddToDozIndexState } from 'state';
 import moment from 'moment';
 import axios from 'axios';
 //+버튼 만들지 말고 그냥 담당자 리스트에서 체크하면 추가, 체크 없애면 삭제
@@ -23,6 +23,7 @@ const AddTask = ({ setModal }: any) => {
   const [teamMates, setTeamMates] = useState([]);
   const [checkedList, setCheckedList] = useState<string[]>([]);
   const [sequenceNum, setSequenceNum] = useRecoilState(sequenceNumState);
+  const [toDoZindex,setToDoZindex] = useRecoilState(AddToDozIndexState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -30,8 +31,9 @@ const AddTask = ({ setModal }: any) => {
   const closeModal = () => {
     setModal(false);
     setZIndex(997);
+    setToDoZindex(997);
   };
-
+  
   const postTasksAPI = async () => {
     await axios({
       url: `/api/tasks`,
@@ -45,26 +47,26 @@ const AddTask = ({ setModal }: any) => {
           moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
           'T' +
           '00:00:00'
-        ).toString(),
-        name: name,
-        operators: checkedList, // api 고치면 실행될 듯
-        startDate: (
-          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-      },
-      params: { stageId: sequenceNum },
-    })
-      .then((response) => {
-        console.log(response);
-        alert('새로운 할일 추가 성공!');
-        //api 수정되어 param에 teamId 추가되면 주석해제
-        // window.location.replace('/teample-home/${teamId}');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+          ).toString(),
+          name: name,
+          operators: checkedList, // api 고치면 실행될 듯
+          startDate: (
+            moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+            'T' +
+            '00:00:00'
+            ).toString(),
+          },
+          params: { stageId: sequenceNum },
+        })
+        .then((response) => {
+          console.log(response);
+          alert('새로운 할일 추가 성공!');
+          //api 수정되어 param에 teamId 추가되면 주석해제
+          // window.location.replace('/teample-home/${teamId}');
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
   };
 
   const getTeamMateAPI = async () => {
@@ -77,23 +79,26 @@ const AddTask = ({ setModal }: any) => {
       },
       params: { teamId: teamid },
     })
-      .then((response) => {
-        setTeamMates(response.data.data.teammates);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .then((response) => {
+      setTeamMates(response.data.data.teammates);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   };
-
+  
   const onClickBtn = () => {
     if (name === '') alert('할일 이름 입력은 필수입니다.');
-    else postTasksAPI();
+    else {postTasksAPI();
+      setZIndex(997);
+      setToDoZindex(997);
+    }
   };
-
+  
   useEffect(() => {
     getTeamMateAPI();
   }, []);
-
+  
   const onCheckedHandle = (checked: boolean, item: string) => {
     if (checked) {
       setCheckedList([...checkedList, item]);
@@ -194,7 +199,7 @@ const Background = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.01);
 `;
 
 const ModifyTeampleContainer = styled.div`
