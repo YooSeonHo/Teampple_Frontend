@@ -92,16 +92,16 @@ const LoginPage = () => {
       baseURL: 'https://www.teampple.site/',
       method: 'post',
       data: {
-        // idToken: idToken,
-        // oauthAccessToken: kakaoAccessToken,
-        // oauthRefreshToken: kakaoRefreshToken,
+        idToken: idToken,
+        oauthAccessToken: kakaoAccessToken,
+        oauthRefreshToken: kakaoRefreshToken,
 
         // 테스트용
-        idToken:
-          'eyJraWQiOiI5ZjI1MmRhZGQ1ZjIzM2Y5M2QyZmE1MjhkMTJmZW…lnXtFDBTwQr8toha2LVsU8gjd1DE-SB7Kbb4a-NQ5SfsGSzkA',
-        oauthAccessToken: kakaoAccessToken,
-        oauthRefreshToken:
-          '4SWKUqzcosIvdimwkupQPJ0zWZsvL7VQx9u9cROkCj1zmwAAAYXiPqjV',
+        // idToken:
+        //   'eyJraWQiOiI5ZjI1MmRhZGQ1ZjIzM2Y5M2QyZmE1MjhkMTJmZW…lnXtFDBTwQr8toha2LVsU8gjd1DE-SB7Kbb4a-NQ5SfsGSzkA',
+        // oauthAccessToken: kakaoAccessToken,
+        // oauthRefreshToken:
+        //   '4SWKUqzcosIvdimwkupQPJ0zWZsvL7VQx9u9cROkCj1zmwAAAYXiPqjV',
       },
     })
       .then((response) => {

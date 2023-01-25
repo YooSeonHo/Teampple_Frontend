@@ -10,8 +10,8 @@ import {
   zIndexState,
   feedbackState,
   modal2State,
-  sequenceNumState,
   AddToDozIndexState,
+  stageIdState,
 } from 'state';
 
 const CardBox = styled.div<StyledToDoInfo>`
@@ -236,8 +236,7 @@ const ToDoCard = ({ todoList }: any) => {
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [toDoZindex,setToDoZindex] = useRecoilState(AddToDozIndexState);
-  
-  const [sequenceNum, setSequenceNum] = useRecoilState(sequenceNumState);
+  const [stageId, setStageId] = useRecoilState(stageIdState);
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);
@@ -247,7 +246,7 @@ const ToDoCard = ({ todoList }: any) => {
 
   const onClickedStage = (stage: any) => {
     console.log(Number(stage.id));
-    setSequenceNum(Number(stage.id));
+    setStageId(Number(stage.id));
   };
 
   return (
@@ -276,7 +275,11 @@ const ToDoCard = ({ todoList }: any) => {
             </div>
             <div className="toDos">
               {todo.tasks.map((doo: any, index: number) => (
-                <Link to='/teample-detail' key={index} style={{ textDecoration: 'none' }}>
+                <Link
+                  to="/teample-detail"
+                  key={index}
+                  style={{ textDecoration: 'none' }}
+                >
                   <Box>
                     {doo.done === 'true' ? (
                       <div className="doneIcon">
@@ -299,9 +302,11 @@ const ToDoCard = ({ todoList }: any) => {
                 onClickedStage(e.target);
                 showModal();
               }}
-              id={todo.sequenceNum}
+              id={todo.stageId}
             >
-              <div className="addText">+ 할 일 추가하기</div>
+              <div className="addText" id={todo.stageId}>
+                + 할 일 추가하기
+              </div>
             </div>
             <ModalContainer>
               {modal && <AddTask setModal={setModal} />}
