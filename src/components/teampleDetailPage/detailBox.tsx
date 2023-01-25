@@ -15,6 +15,7 @@ import { config } from 'config';
 import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
+import { useNavigate } from 'react-router-dom';
 
 const DetailContainer = styled.div`
   width: 1000px;
@@ -376,7 +377,8 @@ const DetailBox = () => {
   const fileInput = useRef<any>();
   const [teamid] = useRecoilState(teamidState);
   const [user,setUser] = useState<userInfo>();
-  const [addFeed,setAddFeed] = useState('');
+  const [addFeed, setAddFeed] = useState('');
+  const navigate = useNavigate();
 
   const onClick = () => {
     fileInput.current && fileInput.current.click();
@@ -506,7 +508,7 @@ const DetailBox = () => {
       {detail && (
         <DetailContainer>
           <div className="headerBtns">
-            <div className="back">
+            <div className="back" onClick={() => navigate(-1)}>
               <img src={vector} />
             </div>
             <div className="more">
@@ -610,11 +612,14 @@ const DetailBox = () => {
           <div className="btm">
             <div className="feedText">피드백</div>
             <div className="addFeed">
-            <div className="profileImg">
-                      {user && <img
-                        src={require('../images/profile/' +
-                        user.profileImage +
-                        '.png')}/>}
+              <div className="profileImg">
+                {user && (
+                  <img
+                    src={require('../images/profile/' +
+                      user.profileImage +
+                      '.png')}
+                  />
+                )}
               </div>
               <div className="inputBox">
                 <input

@@ -40,13 +40,20 @@ const InfoInput = () => {
       baseURL: 'https://www.teampple.site/',
       method: 'post',
       data: {
-        idToken: idToken,
-        oauthAccessToken: kakaoAccessToken,
-        oauthRefreshToken: kakaoRefreshToken,
-        name: name,
-        schoolName: school,
-        major: major,
-        profileImage: 'proImageU100', //아직 설정 안 함
+        // idToken: idToken,
+        // oauthAccessToken: kakaoAccessToken,
+        // oauthRefreshToken: kakaoRefreshToken,
+        // name: name,
+        // schoolName: school,
+        // major: major,
+        // profileImage: 'proImageU100', //아직 설정 안 함
+        idToken: 'kakaoU100',
+        major: 'majorU100',
+        name: 'U100',
+        oauthAccessToken: 'string',
+        oauthRefreshToken: 'string',
+        profileImage: 'proImageU100',
+        schoolName: 'schoolU100',
       },
     })
       .then((response) => {
