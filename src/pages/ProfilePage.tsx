@@ -1,12 +1,12 @@
 import React from 'react';
 import EditProfile from 'components/editProfile/editProfile';
-import Layout from 'components/layouts/layout';
+import ProfileLayout from 'components/layouts/profileLayout';
 
 const ProfilePage = () => {
   return (
-    <Layout>
+    <ProfileLayout>
       <EditProfile/>
-    </Layout>
+    </ProfileLayout>
   );
 };
 
