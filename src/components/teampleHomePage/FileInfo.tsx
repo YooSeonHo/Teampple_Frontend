@@ -53,7 +53,7 @@ const FileInfo = () => {
         <FileInfoBox>
           <Title>공유 파일함</Title>
           <FileNum>
-            <span style={{ fontSize: '24px' }}>{fileNum}</span>
+            <span style={{ fontSize: '1.25vw' }}>{fileNum}</span>
             <span style={{ color: '#707070' }}>&nbsp;파일</span>
           </FileNum>
           <FileSize>{Math.round(nowFileSize / 1024)}MB/5GB</FileSize>
@@ -74,53 +74,52 @@ const FileInfo = () => {
 };
 
 const FileInfoContainer = styled.div`
-  margin-top: 82px;
+  margin-top: 7.592vh;
 `;
 
 const FileInfoBox = styled.div`
-  width: 372px;
-  height: 136px;
+  width: 19.375vw;
+  height: 12.592vh;
   background: #fffce3;
   border-radius: 12px;
   position: relative;
 `;
 
 const Title = styled.div`
-  font-size: 24px;
-  line-height: 100%;
+  font-size: 1.25vw;
   position: absolute;
-  top: 24px;
-  left: 24px;
+  top: 2.2222vh;
+  left: 1.25vw;
 `;
 
 const FileNum = styled.div`
   position: absolute;
-  top: 24px;
-  right: 24px;
+  top: 2.2222vh;
+  left: 15.468vw;
 `;
 
 const FileSize = styled.div`
   color: #707070;
   position: absolute;
-  top: 90px;
-  right: 24px;
-  height: 16px;
+  top: 8.1041vh;
+  right: 1.25vw;
+  height: 1.481481vh;
 `;
 
 const BarContainer = styled.div`
   position: absolute;
-  top: 106px;
-  height: 10px;
+  top: 9.814815vh;
+  height: 0.925926vh;
   ul {
     position: relative;
     padding: 0;
     list-style: none;
-    width: 372px;
+    width: 19.375vw;
   }
 
   li {
     background-color: #fff8b7;
-    height: 16px;
+    height: 1.481481vh;
     border-radius: 46px;
   }
 `;
@@ -129,7 +128,7 @@ const Bar = styled.span<{ remainPercent: number }>`
   position: absolute;
   border-radius: 46px;
   background-color: #fce44c;
-  height: 16px;
+  height: 1.481481vh;
   width: ${(props) => props.remainPercent}%;
   -webkit-animation: file-progressbar 2s ease-out;
   animation: file-progressbar 2s ease-out;

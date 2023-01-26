@@ -13,7 +13,7 @@ import { detailInfo, userInfo } from 'interfaces';
 import S3 from 'react-aws-s3-typescript';
 import { config } from 'config';
 import { useRecoilState } from 'recoil';
-import { teamidState } from 'state';
+import { taskIdState, teamidState } from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { useNavigate } from 'react-router-dom';
 
@@ -378,6 +378,7 @@ const DetailBox = () => {
   const [teamid] = useRecoilState(teamidState);
   const [user,setUser] = useState<userInfo>();
   const [addFeed, setAddFeed] = useState('');
+  const [taskId,] = useRecoilState(taskIdState);
   const navigate = useNavigate();
 
   const onClick = () => {
@@ -420,8 +421,8 @@ const DetailBox = () => {
         url: fileLoc,
       },
       params: {
-        taskId: 2,
-        teamId: 1,
+        taskId: taskId,
+        teamId: teamid,
       },
       headers: {
         Authorization: token,
@@ -442,7 +443,7 @@ const DetailBox = () => {
       baseURL: 'https://www.teampple.site/',
       method: 'get',
       params: {
-        taskId: 2,
+        taskId: taskId,
       },
       headers: {
         Authorization: token,
@@ -480,7 +481,7 @@ const DetailBox = () => {
         Authorization: token,
       },
       params: {
-        taskId: 2,
+        taskId: taskId,
       },
       data : {comment : addFeed}
     }).then(()=>{

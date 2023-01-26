@@ -30,7 +30,8 @@ import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
 
 const SideBarBox = styled.div<{ userid: string }>`
-  width: 240px;
+  width: 12.5vw;
+  // width: 240px;
   height: 1080px;
   display: flex;
   flex-direction: column;

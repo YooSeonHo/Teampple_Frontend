@@ -12,36 +12,36 @@ import {
   modal2State,
   AddToDozIndexState,
   stageIdState,
+  taskIdState,
 } from 'state';
 
 const CardBox = styled.div<StyledToDoInfo>`
-  width: 372px;
-  height: 556px;
-  /* height: ${(props) => (props.pathname === '/home' ? '448px' : '556px')}; */
+  width: 19.375vw;
+  height: 51.481vh;
   background-color: #f4f8ff;
   /* border: 2px solid #487AFF; */
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  margin-right: 28px;
+  margin-right: 1.45833vw;
   position: relative;
   flex-shrink: 0;
   
   .toDos {
     overflow-x: hidden;
-    height: 324px;
+    height: 30vh;
   }
 
   .info {
     display: flex;
     justify-content: space-between;
-    margin-left: 24px;
-    margin-top: 24px;
-    margin-right: 24px;
+    margin-left: 1.25vw;
+    margin-top: 2.22222vh;
+    margin-right: 1.25vw;
   }
   .step {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #707070;
     /* color: #88A9FF; */
@@ -49,7 +49,7 @@ const CardBox = styled.div<StyledToDoInfo>`
 
   .when {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 0.83333vw;
     line-height: 100%;
     color: #707070;
     /* color: #88A9FF; */
@@ -59,21 +59,21 @@ const CardBox = styled.div<StyledToDoInfo>`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 26px;
+    margin-bottom: 2.407407vh;
   }
 
   .name {
-    margin-top: ${(props) => (props.pathname === '/home' ? '24px' : '16px')};
-    margin-left: 24px;
+    margin-top: ${(props) => (props.pathname === '/home' ? '2.22222vh' : '1.481481vh')};
+    margin-left: 1.25vw;
     font-weight: 600;
-    font-size: 22px;
+    font-size: 1.145833vw;
     line-height: 100%;
     color: #383838;
   }
 
   .left {
-    margin-right: 20px;
-    margin-top: ${(props) => (props.pathname === '/home' ? '20px' : '14px')};
+    margin-right: 1.041667vw;
+    margin-top: ${(props) => (props.pathname === '/home' ? '1.851852vh' : '1.296296vh')};
     display: flex;
   }
 
@@ -81,21 +81,21 @@ const CardBox = styled.div<StyledToDoInfo>`
     font-family: 'Pretendard';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 0.83333vw;
     color: #487aff;
-    margin-right: 8px;
+    margin-right: 0.416667vw;
     margin-top: auto;
     margin-bottom: auto;
   }
 
   .leftNumBox {
     background-color: #487aff;
-    width: 28px;
-    height: 28px;
+    width: 1.45833vw;
+    height: 2.592593vh;
     border-radius: 100px;
     color: white;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 0.833333vw;
     line-height: 100%;
     display: flex;
     justify-content: center;
@@ -112,16 +112,16 @@ const CardBox = styled.div<StyledToDoInfo>`
   }
 
   .addBox {
-    width: 332px;
-    height: 72px;
+    width: 17.291667vw;
+    height: 6.66666vh;
     background-color: #ffffff;
     border-radius: 12px;
     display: flex;
-    margin-left: 20px;
-    margin-bottom: 12px;
+    margin-left: 1.041667vw;
+    margin-bottom: 1.111vh;
     justify-content: center;
     position: absolute;
-    top: 464px;
+    top: 42.962963vh;
   }
 
   .addBox:hover {
@@ -130,7 +130,7 @@ const CardBox = styled.div<StyledToDoInfo>`
 
   .addText {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #487aff;
     margin-top: auto;
@@ -139,13 +139,13 @@ const CardBox = styled.div<StyledToDoInfo>`
 `;
 
 const ToDoBox = styled.div`
-  width: 332px;
-  height: 72px;
+  width: 17.291667vw;
+  height: 6.66666vh;
   background-color: #ffffff;
   border-radius: 12px;
   display: flex;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 1.041667vw;
+  margin-right: 1.041667vw;
   justify-content: space-between;
   margin-bottom: 12px;
 
@@ -156,7 +156,7 @@ const ToDoBox = styled.div`
 
   .toDoText {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1.041667vw;
     line-height: 100%;
     color: #505050;
     margin-left: 16px;
@@ -177,15 +177,15 @@ const ToDoBox = styled.div`
   }
 `;
 
-const Box = styled.div`
-  width: 332px;
-  height: 72px;
+const Box = styled.div<any>`
+  width: 17.291667vw;
+  height: 6.66666vh;
   background-color: #ffffff;
   border-radius: 12px;
   display: flex;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 12px;
+  margin-left: 1.041667vw;
+  margin-right: 1.041667vw;
+  margin-bottom: 1.1111vh;
 
   img {
     max-width: 100%;
@@ -193,32 +193,32 @@ const Box = styled.div`
   }
 
   .doneIcon {
-    width: 56px;
-    height: 34px;
-    margin-left: 12px;
-    margin-top: 21px;
+    width: 2.916667vw;
+    height: 3.148148vh;
+    margin-left: 0.625vw;
+    margin-top: 1.94444vh;
   }
 
   .doneText {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1.041667vw;
     line-height: 100%;
     color: #505050;
-    margin-left: 16px;
-    padding-top: 28px;
+    margin-left: 0.8333vw;
+    padding-top: 2.592593vh;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 180px;
+    max-width: 9.375vw;
   }
 
   .doneArr {
     color: #c0c0c0;
-    width: 32px;
-    height: 32px;
+    width: 1.6666vw;
+    height: 2.9629vh;
     margin-top: auto;
     margin-bottom: auto;
-    margin-right: 8px;
+    margin-right: 0.41666vw;
     margin-left: auto;
   }
   /* 
@@ -237,6 +237,8 @@ const ToDoCard = ({ todoList }: any) => {
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [toDoZindex,setToDoZindex] = useRecoilState(AddToDozIndexState);
   const [stageId, setStageId] = useRecoilState(stageIdState);
+  const [taskId,setTaskId] = useRecoilState(taskIdState);
+
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);
@@ -248,6 +250,10 @@ const ToDoCard = ({ todoList }: any) => {
     console.log(Number(stage.id));
     setStageId(Number(stage.id));
   };
+
+  const onClick = (e : any) =>{
+    setTaskId(e.target.id)
+  }
 
   return (
     <>
@@ -265,7 +271,7 @@ const ToDoCard = ({ todoList }: any) => {
               </div>
             </div>
             <div className="headerText">
-              <div className="name">{todo.taskname}</div>
+              <div className="name">{todo.stageName}</div>
               <div className="left">
                 <a className="leftText">남은 일</a>
                 <div className="leftNumBox">
@@ -276,11 +282,11 @@ const ToDoCard = ({ todoList }: any) => {
             <div className="toDos">
               {todo.tasks.map((doo: any, index: number) => (
                 <Link
-                  to="/teample-detail"
-                  key={index}
-                  style={{ textDecoration: 'none' }}
+                to={`/teample-detail/${doo.taskId}`}
+                key={index}
+                style={{ textDecoration: 'none' }}
                 >
-                  <Box>
+                  <Box onClick={onClick} id={doo.taskId}>
                     {doo.done === 'true' ? (
                       <div className="doneIcon">
                         <img src={done} />

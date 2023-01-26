@@ -8,7 +8,7 @@ import Feedbacks from 'components/feedbacks/feedbacks';
 
 
 const Container = styled.div`
-    margin-left : 240px;
+    margin-left : 12.5vw;
 `
 
 const LayoutBox = styled.div`

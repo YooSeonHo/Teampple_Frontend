@@ -5,13 +5,12 @@ import { Link } from 'react-router-dom';
 
 
 const HeaderBox = styled.div`
-    width: 100%;
-    height: 72px;
+    width: 100vw;
+    height: 7.5vh;
     background-color: #ffffff;
     display: flex;
     font-weight: 600;
-    font-size: 24px;
-    line-height: 72px;
+    font-size: 1.25vw;
     white-space: nowrap;
     position: relative;
     z-index: 998;
@@ -20,14 +19,14 @@ const HeaderBox = styled.div`
 
 const Logo = styled.div`
 
-    margin-left : 374px;
+    margin-left : 19.4vw;
     margin-top : auto;
     margin-bottom : auto;
     
     .logo{
         margin : auto;
-        height: 44px;
-        width: 154.48px;
+        height: 4vh;
+        width: 8vw;
         
     }
     img{
@@ -38,17 +37,17 @@ const Logo = styled.div`
     
     const Contents = styled.div`
     font-weight: 600;
-    font-size: 18px;
+    font-size: 0.9374vw;
     line-height: 140%;
     color: #383838;
-    margin-right : 392px;
+    margin-right : 19.4vw;
     margin-top : auto;
     margin-bottom : auto;
     display : flex;
 
     .aboutUs,
     .plan {
-        margin-right : 28px;
+        margin-right : 1.4vw;
     }
 
     .aboutUs:hover,

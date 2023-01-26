@@ -22,12 +22,12 @@ const AllBox = styled.div`
   position: relative;
 
   .text {
-    margin-top: 48px;
+    margin-top: 4.44444vh;
     color: #383838;
     font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    margin-left: 54px;
+    font-size: 1.25vw;
+    line-height: 2.685185vh;
+    margin-left: 2.8125vw;
   }
 `;
 
