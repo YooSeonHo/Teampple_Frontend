@@ -19,9 +19,9 @@ const TeamMateInfo = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       params: { teamId: teamid },
-      headers :{
+      headers: {
         Authorization: token,
-      }
+      },
     })
       .then((response) => {
         setTeamMates(response.data.data.teammates);
@@ -37,9 +37,9 @@ const TeamMateInfo = () => {
       baseURL: 'https://www.teampple.site',
       method: 'get',
       params: { teamId: teamid },
-      headers :{
+      headers: {
         Authorization: token,
-      } //바꾸기 ㅋ
+      }, //바꾸기 ㅋ
     })
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {

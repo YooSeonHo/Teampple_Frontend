@@ -55,11 +55,12 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
         Authorization : token
       },
       data : makeTeample,
-    }).then(()=>{
+    }).then((response)=>{
       alert('팀플 생성이 완료되었습니다.');
       setModal(false);
       setNextModal(false);
-      location.reload();
+      console.log(response)
+      // location.reload();
     }).catch((e)=>{
       console.log(e);
     })

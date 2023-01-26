@@ -55,12 +55,12 @@ const MiniTemplate = () => {
 const MiniTemplateContainer = styled.div`
   position: relative;
   margin-left: 54px;
-  width: 1680px;
+  width: 87.5vw;
 `;
 
 const Title = styled.div`
   font-weight: 500;
-  font-size: 28px;
+  font-size: 1.46vw;
   line-height: 100%;
   margin-bottom: 20px;
 `;
@@ -75,11 +75,11 @@ const TemplateBox = styled.div`
 
 const Template1 = styled.div`
   position: relative;
-  width: 472px;
+  width: 24.58vw;
   height: 268px;
   background: #fce44c;
   border-radius: 12px;
-  margin-right: 50px;
+  margin-right: 2.604vw;
   display: grid;
   grid-template-rows: 8fr 2fr;
 `;
@@ -96,6 +96,7 @@ const Img1 = styled.div`
   margin: auto;
 `;
 const Img2 = styled(Img1)`
+  width: 227.44px;
   background-image: url(${template2});
 `;
 
@@ -105,18 +106,16 @@ const Img3 = styled(Img1)`
 
 const Desc1 = styled.div`
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1.042vw;
   line-height: 100%;
   color: #707070;
   background: #fff8b7;
   border-radius: 0px 0px 12px 12px;
-  /* position: absolute;
-  top: 216px; */
-  width: 472px;
+  width: 24.58vw;
   height: 55px;
   display: flex;
   align-items: center;
-  padding: 24px;
+  padding: 1.25vw;
 `;
 
 const Desc2 = styled(Desc1)`
