@@ -27,8 +27,8 @@ const LoginPage = () => {
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
   const [,,code] = window.location.pathname.split('/');
-  const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458';
-  const REDIRECT_URI = 'http://localhost:3000/login';
+  const REST_API_KEY = '2eea6dfc666fe46a7926e5e613e46bde';
+  const REDIRECT_URI = 'http://teammple.com/login';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const handleLogin = () => {
     // 1. 인가 코드 받기
