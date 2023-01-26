@@ -139,8 +139,7 @@ const SideBarBox = styled.div<{ userid: string }>`
   }
 
   #icon {
-    width: 1.25vw;
-    height: 24px;
+    width: 24px;
     margin-left: 0.625vw;
   }
 
