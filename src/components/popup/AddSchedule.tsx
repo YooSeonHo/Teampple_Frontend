@@ -100,7 +100,7 @@ const AddSchedule = ({ setModal }: any) => {
                 onChange={onChangeDate}
               />
               <IoCalendarNumberOutline
-                style={{ width: '24px', height: '24px', color: '#a7a7a7' }}
+                style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
               />
             </DateBox>
             <Time
@@ -128,32 +128,32 @@ export const Background = styled.div`
 `;
 
 const AddScheduleContainer = styled.div`
-  width: 640px;
-  height: 640px;
+  width: 33.3333vw;
+  height: 59.259vh;
   background: #ffffff;
   border-radius: 16px;
   position: relative;
   z-index: 999;
   position: fixed;
-  top: 220px;
-  left: 640px;
+  top: 20.3703vh;
+  left: 33.3333vw;
 `;
 
 const CloseBtn = styled(GrClose)`
-  position: absolute;
-  top: 48px;
-  right: 32px;
-  cursor: pointer;
+position: absolute;
+top: 4.4444vh;
+right: 1.66666vw;
+cursor: pointer;
 `;
 
 const Title = styled.div`
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 100%;
-  text-align: center;
-  position: absolute;
-  top: 48px;
-  left: 276px;
+font-weight: 600;
+font-size: 1.25vw;
+line-height: 100%;
+text-align: center;
+position: absolute;
+top: 4.4444vh;
+left: 14.375vw;
 `;
 
 const InputContainer = styled.div``;
@@ -162,65 +162,71 @@ const NameContainer = styled.div``;
 const DateContainer = styled.div``;
 
 const Tag1 = styled.span`
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 100%;
-  color: #707070;
-  position: absolute;
-  top: 136px;
-  left: 32px;
+font-weight: 500;
+font-size: 0.9375vw;
+line-height: 100%;
+color: #707070;
+position: absolute;
+top: 12.592593vh;
+left: 1.66666vw;
 `;
 
 const Tag2 = styled(Tag1)`
-  top: 216px;
+  top: 20vh;
 `;
 
 const Input = styled.input`
-  width: 515px;
-  height: 48px;
-  border: none;
-  background-color: rgba(237, 239, 246, 0.5);
-  border-radius: 8px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  padding: 16px;
-  position: absolute;
-  top: 120px;
-  left: 93px;
-  color: #707070;
+width: 26.822817vw;
+height: 4.4444vh;
+border: none;
+background-color: rgba(237, 239, 246, 0.5);
+border-radius: 8px;
+font-weight: 400;
+line-height: 100%;
+font-size: 0.83333vw;
+padding-left: 0.8333vw;
+padding-right: 0.8333vw;
+padding-top: 1.481481vh;
+padding-bottom: 1.481481vh;
+position: absolute;
+top: 11.11111vh;
+left: 4.84375vw;
+color: #707070;
 `;
 
 const Time = styled(Input)`
   position: absolute;
-  width: 116px;
-  height: 48px;
-  left: 263px;
-  top: 200px;
+  width: 6.05166vw;
+  height: 4.44444vh;
+  left: 17.6979vw;
+  top: 18.518vh;
 `;
 
 const Clock = styled(CiAlarmOn)`
   position: absolute;
-  top: 212px;
-  left: 343px;
-  width: 24px;
-  height: 24px;
+  top: 19.62963vh;
+  left: 21.864583vw;
+  width: 1.25vw;
+  height: 2.2222vh;
   color: #a7a7a7;
 `;
 
 const DateBox = styled.div`
-  width: 158px;
-  height: 48px;
-  border: none;
-  background-color: rgba(237, 239, 246, 0.5);
-  border-radius: 8px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  padding: 16px;
+width: 12.5vw;
+height: 4.4444vh;
+border: none;
+background-color: rgba(237, 239, 246, 0.5);
+border-radius: 8px;
+font-weight: 400;
+font-size: 0.83333vw;
+padding-left: 0.8333vw;
+padding-right: 0.8333vw;
+padding-top: 1.481481vh;
+padding-bottom: 1.481481vh;
+line-height: 100%;
   position: absolute;
-  top: 200px;
-  left: 93px;
+  top: 18.518519vh;
+  left: 4.84375vw;
   display: flex;
   align-items: center;
   &:hover {
@@ -229,41 +235,44 @@ const DateBox = styled.div`
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-  width: 158px;
-  height: 48px;
-  border: none;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  padding: 16px;
-  background-color: transparent;
-  color: #707070;
-  position: absolute;
-  top: -30px;
-  left: -20px;
+width: 12.5vw;
+height: 4.4444vh;
+border: none;
+font-weight: 400;
+font-size: 0.8333vw;
+line-height: 100%;
+padding-left: 1.041667vw;
+padding-right: 1.041667vw;
+padding-top: 1.851852vh;
+padding-bottom: 1.851852vh;
+background-color: transparent;
+color: #707070;
+position: absolute;
+top: -2.777778vh;
+left: -1.041667vw;
 `;
 
 const TextLength = styled.span`
   position: absolute;
-  top: 138px;
-  right: 48px;
+  top: 12.77777vh;
+  right: 2.5vw;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 0.625vw;
   line-height: 100%;
   color: #c0c0c0;
 `;
 
 const SaveButton = styled.button`
   position: absolute;
-  width: 576px;
-  height: 56px;
-  left: 32px;
-  top: 552px;
+  width: 30vw;
+  height: 5.185185vh;
+  left: 1.66666vw;
+  top: 51.1111vh;
   background: #487aff;
   border-radius: 12px;
   color: #ffffff;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 1.041667vw;
   line-height: 100%;
 `;
 

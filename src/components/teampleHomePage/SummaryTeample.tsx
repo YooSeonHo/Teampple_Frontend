@@ -92,7 +92,7 @@ const SummaryTeample = () => {
         <RemainBox>
           <Text>{text}</Text>
           <Big>
-            <div style={{ marginTop: '18px' }}>
+            <div style={{ marginTop: '1.6666vh' }}>
               <span>팀플이</span>
               <span style={{ color: '#487AFF', fontWeight: '700' }}>
                 &nbsp;{currentPercent}%&nbsp;
@@ -124,16 +124,16 @@ const SummaryTeample = () => {
 };
 
 const SummaryContainer = styled.div`
-  width: 850px;
-  height: 228px;
+  width: 44.2708vw;
+  height: 21.111vh;
   position: relative;
 `;
 
 const DateContainer = styled.div`
   position: absolute;
-  left: 54px;
+  left: 2.8125vw;
   top: 36px;
-  font-size: 16px;
+  font-size: 0.8333vw;
   line-height: 100%;
 `;
 
@@ -141,46 +141,46 @@ const RemainContainer = styled.div``;
 
 const RemainBox = styled.div`
   position: absolute;
-  top: 74px;
-  left: 54px;
+  top: 6.851852vh;
+  left: 2.8125vw;
 `;
 
 const Big = styled.div`
-  font-size: 32px;
+  font-size: 1.6666vw;
   line-height: 100%;
   font-weight: 500;
 `;
 
 const Text = styled.span`
-  font-size: 18px;
+  font-size: 0.9375vw;
   font-weight: 400;
   color: #707070;
 `;
 
 const Percent = styled.div`
   position: absolute;
-  left: 705px;
-  top: 95px;
+  left: 36.71875vw;
+  top: 8.7962vh;
   line-height: 100%;
-  font-size: 18px;
+  font-size: 0.9375vw;
   letter-spacing: 4px;
   font-weight: 400;
 `;
 
 const BarContainer = styled.div`
   position: absolute;
-  top: 188px;
-  left: 54px;
+  top: 17.4074vh;
+  left: 2.8125vw;
   ul {
     position: relative;
     padding: 0;
     list-style: none;
-    width: 772px;
+    width: 40.20833vw;
   }
 
   li {
     background-color: #ececec;
-    height: 16px;
+    height: 1.481481vh;
     border-radius: 46px;
   }
 `;
@@ -189,7 +189,7 @@ const Bar = styled.span<{ currentPercent: number; icon: string }>`
   position: absolute;
   border-radius: 46px;
   background-color: #487aff;
-  height: 16px;
+  height: 1.481481vh;
   width: ${(props) => props.currentPercent}%;
   -webkit-animation: teample-progressbar 2s ease-out;
   animation: teample-progressbar 2s ease-out;
@@ -198,11 +198,11 @@ const Bar = styled.span<{ currentPercent: number; icon: string }>`
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     content: '';
-    width: 40px;
-    height: 40px;
+    width: 2.08333vw;
+    height: 3.7037vh;
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -0.92592vh;
+    right: -0.520833vw;
     border-radius: 54px;
     background-image: url(${(props) => props.icon});
     background-size: cover;

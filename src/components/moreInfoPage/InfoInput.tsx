@@ -10,7 +10,6 @@ import {
   jwtAccessTokenState,
   jwtRefreshTokenState,
 } from 'state';
-
 const InfoInput = () => {
   const [name, setName] = useState('');
   const [school, setSchool] = useState('');
@@ -20,9 +19,7 @@ const InfoInput = () => {
   const [kakaoRefreshToken] = useRecoilState(kakaoRefreshTokenState);
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
-
   const navigate = useNavigate();
-
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -32,7 +29,6 @@ const InfoInput = () => {
   const onChangeMajor = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMajor(e.target.value);
   };
-
   const postAuthInfoAPI = async () => {
     // 3-2. 회원가입 (백한테 카카오 토큰 + 추가 정보 넘겨주기)
     await axios({
@@ -69,7 +65,6 @@ const InfoInput = () => {
         console.log(error);
       });
   };
-
   return (
     <div>
       <InputContainer>
@@ -99,11 +94,10 @@ const InfoInput = () => {
     </div>
   );
 };
-
 const InputBox = styled.div`
   width: 372px;
   height: 54px;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border-radius: 8px;
   font-size: 20px;
   line-height: 100%;
@@ -113,7 +107,6 @@ const InputBox = styled.div`
   align-items: center;
   margin-bottom: 16px;
 `;
-
 const InputContainer = styled.div`
   margin-bottom: 40px;
 `;
@@ -122,27 +115,23 @@ const PlaceHolder = styled.span`
   color: #707070;
   font-size: 20px;
 `;
-
 const Input = styled.input`
   border: none;
   font-size: 20px;
   width: 270px;
 `;
-
 const Btn = styled.button`
   width: 372px;
   height: 54px;
-  background-color: #487aff;
+  background-color: #487AFF;
   border-radius: 8px;
   &:disabled {
-    background-color: #d4e4ff;
+    background-color: #D4E4FF;
   }
 `;
-
 const Text = styled.span`
   font-size: 20px;
   line-height: 100%;
-  color: #ffffff; ;
+  color: #FFFFFF; ;
 `;
-
 export default InfoInput;

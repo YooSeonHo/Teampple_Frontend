@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import NotToDoBox from 'components/teampleHomePage/nothing/NotToDoBox';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
@@ -30,6 +32,8 @@ const HomeToDo = () => {
   }, []);
 
   return (
+    <>
+    {teams.length === 0 ? <NotToDoBox/> :
     <HomeToDoContainer>
       <Title>할 일</Title>
       <ToDosContainer>
@@ -52,7 +56,8 @@ const HomeToDo = () => {
           </ToDoContainer>
         ))}
       </ToDosContainer>
-    </HomeToDoContainer>
+    </HomeToDoContainer>}
+    </>
   );
 };
 

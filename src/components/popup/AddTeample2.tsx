@@ -19,6 +19,7 @@ import { stageInfo } from 'interfaces';
 import { stageState,makeTeampleState } from 'state';
 import axios from 'axios';
 import moment from 'moment';
+import useDidMountEffect from 'components/hooks/useDidMountEffect';
 
 const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
@@ -72,24 +73,28 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   
     
     
-    const onClickMake = async (event: React.MouseEvent<HTMLElement>) => {
-      event.preventDefault();
+  const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
 
-      setTemp(stages.map((s)=>(
-        {...s, 
-          startDate : moment(s.startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
-          dueDate : moment(s.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'
-        })))
+    setTemp(stages.map((s)=>(
+      {...s, 
+        startDate : moment(s.startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+        dueDate : moment(s.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'
+      })))
+    };
+    
+    useEffect(()=>{
+      setMakeTeample((prev)=>({
+        ...prev,
+        stages : temp
+      }))
+    },[temp])
 
+    useDidMountEffect(async ()=>{
+      if (makeTeample.stages.length !== 0){
         await postTeample();
-      };
-      
-      useEffect(()=>{
-        setMakeTeample((prev)=>({
-          ...prev,
-          stages : temp
-        }))
-      },[temp])
+      }
+    },[makeTeample])
 
 
   const [countList, setCountList] = useState([0]);
@@ -105,7 +110,7 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
     const newStage = {
       dueDate : new Date(),
       name : "",
-      sequenceNum : stages.length,
+      sequenceNum : stages.length+1,
       startDate : new Date()
     };
 
