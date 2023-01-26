@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import prof1 from '../images/profile/prof1.png';
-import prof2 from '../images/profile/prof2.png';
-import prof3 from '../images/profile/prof3.png';
-import prof4 from '../images/profile/prof4.png';
-import prof5 from '../images/profile/prof5.png';
-import prof6 from '../images/profile/prof6.png';
-import prof7 from '../images/profile/prof7.png';
-import prof8 from '../images/profile/prof8.png';
-import prof9 from '../images/profile/prof9.png';
+import prof1 from '../images/profile/proImageU1.png';
+import prof2 from '../images/profile/proImageU2.png';
+import prof3 from '../images/profile/proImageU3.png';
+import prof4 from '../images/profile/proImageU4.png';
+import prof5 from '../images/profile/proImageU5.png';
+import prof6 from '../images/profile/proImageU6.png';
+import prof7 from '../images/profile/proImageU7.png';
+import prof8 from '../images/profile/proImageU8.png';
+import prof9 from '../images/profile/proImageU9.png';
+import HomeSummaryBg from '../images/HomeSummaryBg.png';
+import axios from 'axios';
+import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -18,12 +21,50 @@ const SummaryHome = () => {
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
   const week = weeks[now.getDay()];
 
-  const [username, setUsername] = useState('김팀쁠');
-  const [remainNum, setRemainNum] = useState(7);
-  const [remainPercent, setRemainPercent] = useState(30);
+  const [username, setUsername] = useState('');
+  const [doneNum, setDoneNum] = useState<number>(0);
+  const [allNum, setAllNum] = useState<number>(0);
+  const [remainPercent, setRemainPercent] = useState<number>(
+    isNaN(Math.round(Number(doneNum / allNum) * 100))
+      ? 0
+      : Math.round(Number(doneNum / allNum) * 100),
+  );
   const [userid, setUserid] = useState(prof1);
+  let s1 = 0;
+  let s2 = 0;
+  const token = localStorage.getItem('jwt_accessToken');
+
+  const getTaskAPI = async () => {
+    await axios({
+      url: `/api/users/tasks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        setUsername(response.data.data.username);
+        response.data.data.teams.map((t: any) =>
+          setDoneNum((s1 += parseInt(t.achievement))),
+        );
+        response.data.data.teams.map((t: any) =>
+          setAllNum((s2 += parseInt(t.totalStage))),
+        );
+        setRemainPercent((doneNum / allNum) * 100);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getTaskAPI();
+    console.log(localStorage.getItem('jwt_accessToken'));
+  }, [doneNum, allNum]);
 
   return (
+    <>
+    {allNum === 0 ? <NotSummaryTeample/>:
     <SummaryContainer>
       <DateContainer>
         {year}년 {month}월 {date}일 ({week})
@@ -38,7 +79,7 @@ const SummaryHome = () => {
             <div style={{ marginTop: '18px' }}>
               <span>할 일이</span>
               <span style={{ color: '#487AFF', fontWeight: '700' }}>
-                &nbsp;{remainNum}개&nbsp;
+                &nbsp;{allNum - doneNum}개&nbsp;
               </span>
               <span>
                 남았어요.
@@ -63,22 +104,26 @@ const SummaryHome = () => {
           </li>
         </ul>
       </BarContainer>
-    </SummaryContainer>
+    </SummaryContainer>}
+    </>
   );
 };
 
 const SummaryContainer = styled.div`
-  width: 1680px;
+  width: 87.5vw;
   height: 296px;
   position: relative;
-  background: #f9fafd;
+  background-color: #f9fafd;
+  background-image: url(${HomeSummaryBg});
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 
 const DateContainer = styled.div`
   position: absolute;
-  left: 54px;
+  left: 2.81vw;
   top: 36px;
-  font-size: 16px;
+  font-size: 0.83vw;
   line-height: 100%;
 `;
 
@@ -87,11 +132,11 @@ const RemainContainer = styled.div``;
 const RemainBox = styled.div`
   position: absolute;
   top: 74px;
-  left: 54px;
+  left: 2.81vw;
 `;
 
 const Big = styled.div`
-  font-size: 32px;
+  font-size: 1.67vw;
   line-height: 100%;
   font-weight: 500;
 `;
@@ -101,25 +146,25 @@ const Small = styled.div`
 `;
 
 const Text = styled.span`
-  font-size: 18px;
+  font-size: 0.9375vw;
   font-weight: 400;
 `;
 
 const Percent = styled.span`
   position: absolute;
-  left: 840px;
-  font-size: 24px;
+  left: 43.75vw;
+  font-size: 1.25vw;
 `;
 
 const BarContainer = styled.div`
   position: absolute;
   top: 230px;
-  left: 54px;
+  left: 4vw;
   ul {
     position: relative;
     padding: 0;
     list-style: none;
-    width: 888px;
+    width: 46.25vw;
   }
 
   li {
@@ -151,7 +196,7 @@ const Bar = styled.span<IBar>`
     height: 40px;
     position: absolute;
     top: -10px;
-    right: -10px;
+    right: -0.5208vw;
     border: 1.5px solid #487aff;
     border-radius: 54px;
     /* background-image: ${(props) => `url(${props.userid})`}; */

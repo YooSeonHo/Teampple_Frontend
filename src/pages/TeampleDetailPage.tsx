@@ -6,7 +6,7 @@ import DetailBox from 'components/teampleDetailPage/detailBox';
 
 
 const TeampleDetailPage = () => {
-  return(
+  return (
     <Layout>
         <DetailBox/>
     </Layout>

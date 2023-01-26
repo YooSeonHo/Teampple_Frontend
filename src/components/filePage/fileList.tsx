@@ -4,44 +4,42 @@ import arrow from '../images/ArrowLineRight2.png';
 import axios from 'axios';
 import { FileInfo } from 'interfaces';
 import { useRecoilState } from 'recoil';
-import { IsSearchState, searchFileState } from 'state';
+import { IsSearchState, searchFileState, teamidState } from 'state';
 
 const ListBox = styled.div`
-  width: 1172px;
-  height: 810px;
+  width: 61.042vw;
+  height: 75vh;
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
 
   .fileHeader {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #707070;
     display: flex;
-    margin-top: 20px;
-    height: 52px;
+    margin-top: 1.85185vh;
+    height: 4.8148vh;
   }
 
   .fileName {
-    width: 400px;
+    width: 20.833vw;
   }
 
   .fileLoc {
-    width: 200px;
+    width: 10.4167vw;
   }
 
   .fileOwner {
-    width: 200px;
+    width: 10.4167vw;
   }
 
   .fileSize {
-    width: 100px;
+    width: 5.2083vw;
   }
 
   .fileDate {
-    width: 200px;
+    width: 10.4167vw;
   }
 
   .fileList {
@@ -52,8 +50,8 @@ const ListBox = styled.div`
 
 const File = styled.div`
   display: flex;
-  width: 1172px;
-  height: 72px;
+  width: 61.042vw;
+  height: 6.6667vh;
 
   :hover {
     background-color: #eaf2ff;
@@ -61,24 +59,24 @@ const File = styled.div`
   }
 
   .name {
-    width: 376px;
+    width: 19.583vw;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #707070;
-    max-width: 376px;
+    max-width: 19.583vw;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 24px;
+    margin-left: 1.25vw;
   }
 
   .loc {
-    width: 200px;
+    width: 10.41667vw;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 0.8333vw;
     line-height: 100%;
     color: #a7a7a7;
-    max-width: 200px;
+    max-width: 10.41667vw;
     margin-top: auto;
     margin-bottom: auto;
   }
@@ -86,20 +84,20 @@ const File = styled.div`
   .owner,
   .date {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 0.8333vw;
     line-height: 100%;
     color: #a7a7a7;
-    width: 200px;
-    max-width: 200px;
+    width: 10.41667vw;
+    max-width: 10.41667vw;
     margin-top: auto;
     margin-bottom: auto;
   }
 
   .size {
-    width: 100px;
-    max-width: 100px;
+    width: 5.2083vw;
+    max-width: 5.2083vw;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 0.8333vw;
     line-height: 100%;
     color: #a7a7a7;
     margin-top: auto;
@@ -112,7 +110,7 @@ const File = styled.div`
     margin-top: auto;
     margin-bottom: auto;
     margin-left: auto;
-    margin-right: 29px;
+    margin-right: 1.51042vw;
   }
 
   .icon:hover {
@@ -125,10 +123,18 @@ const File = styled.div`
   }
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 87.5vw;
+`;
+
 const FileList = () => {
   const [files, setFiles] = useState([]);
   const [searchFile, setSearchFile] = useRecoilState(searchFileState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
+  const [teamid] = useRecoilState(teamidState);
+  const token = localStorage.getItem('jwt_accessToken');
 
   useEffect(() => {
     const getFiles = async () => {
@@ -137,8 +143,11 @@ const FileList = () => {
         baseURL: 'https://www.teampple.site/',
         method: 'get',
         params: {
-          teamId: 1,
+          teamId: teamid,
         },
+        headers : {
+          Authorization : token
+        }
         //파람스 부분 바꾸면 댐
       })
         .then((res) => {
@@ -153,64 +162,70 @@ const FileList = () => {
   }, []);
 
   return (
-    <ListBox>
-      <div className="fileHeader">
-        <div className="fileName">파일명</div>
-        <div className="fileLoc">파일 경로</div>
-        <div className="fileOwner">파일 업로더</div>
-        <div className="fileSize">크기</div>
-        <div className="fileDate">날짜</div>
-      </div>
-      <div className="fileList">
-        {files && isSearch
-          ? files
-              .filter((file: FileInfo) => {
-                return file.fileName
-                  .toLowerCase()
-                  .includes(searchFile.toLowerCase());
-              })
-              .map((file: FileInfo) => {
-                return (
-                  <File key={file.updatedAt}>
-                    <div className="name">{file.fileName}</div>
-                    <div className="loc">{file.url}</div>
-                    <div className="owner">{file.uploader}</div>
-                    <div className="size">{Math.round(file.size / 1024)}MB</div>
-                    <div className="date">
-                      {file.updatedAt
-                        .replace(/-/g, '.')
-                        .replace('T', ' ')
-                        .replace(/:[0-9]+$/, '')}
-                    </div>
-                    <div className="icon">
-                      <img src={arrow} />
-                    </div>
-                  </File>
-                );
-              })
-          : files &&
-            files.map(
-              (file: FileInfo) =>
-                file && (
-                  <File key={file.updatedAt}>
-                    <div className="name">{file.fileName}</div>
-                    <div className="loc">{file.url}</div>
-                    <div className="owner">{file.uploader}</div>
-                    <div className="size">{Math.round(file.size / 1024)}MB</div>
-                    <div className="date">
-                      {file.updatedAt
-                        .replace(/-/g, '.')
-                        .replace('T', ' ')
-                        .replace(/:[0-9]+$/, '')}
-                    </div>
-                    <div className="icon">
-                      <img src={arrow} />
-                    </div>
-                  </File>
-                ),
-            )}
-      </div>
-    </ListBox>
+    <Container>
+      <ListBox>
+        <div className="fileHeader">
+          <div className="fileName">파일명</div>
+          <div className="fileLoc">파일 경로</div>
+          <div className="fileOwner">파일 업로더</div>
+          <div className="fileSize">크기</div>
+          <div className="fileDate">날짜</div>
+        </div>
+        <div className="fileList">
+          {files && isSearch
+            ? files
+                .filter((file: FileInfo) => {
+                  return file.fileName
+                    .toLowerCase()
+                    .includes(searchFile.toLowerCase());
+                })
+                .map((file: FileInfo) => {
+                  return (
+                    <File key={file.updatedAt}>
+                      <div className="name">{file.fileName}</div>
+                      <div className="loc">{file.url}</div>
+                      <div className="owner">{file.uploader}</div>
+                      <div className="size">
+                        {Math.round(file.size / 1024)}MB
+                      </div>
+                      <div className="date">
+                        {file.updatedAt
+                          .replace(/-/g, '.')
+                          .replace('T', ' ')
+                          .replace(/:[0-9]+$/, '')}
+                      </div>
+                      <div className="icon">
+                        <img src={arrow} />
+                      </div>
+                    </File>
+                  );
+                })
+            : files &&
+              files.map(
+                (file: FileInfo) =>
+                  file && (
+                    <File key={file.updatedAt}>
+                      <div className="name">{file.fileName}</div>
+                      <div className="loc">{file.url}</div>
+                      <div className="owner">{file.uploader}</div>
+                      <div className="size">
+                        {Math.round(file.size / 1024)}MB
+                      </div>
+                      <div className="date">
+                        {file.updatedAt
+                          .replace(/-/g, '.')
+                          .replace('T', ' ')
+                          .replace(/:[0-9]+$/, '')}
+                      </div>
+                      <div className="icon">
+                        <img src={arrow} />
+                      </div>
+                    </File>
+                  ),
+              )}
+        </div>
+      </ListBox>
+    </Container>
   );
 };
 

@@ -1,226 +1,248 @@
-import styled from "styled-components";
-import React, { useEffect, useState } from "react";
-import prof1 from '../images/profile/prof1.png';
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+
 import editBtn from '../images/Frame 299.png';
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from 'axios';
 
 const EditBox = styled.div`
-    width: 972px;
-    height: 688px;
-    border: 2px solid #D5DBEE;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 44px;
-    margin-left :auto;
-    margin-right : auto;
+  width: 50.625vw;
+  height: 63.7vh;
+  border: 2px solid #d5dbee;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 4.074vh;
+  margin-left: auto;
+  margin-right: auto;
 
-.profileImg{
-    width: 220px;
-    height: 220px;
+  .profileImg {
+    width: 11.458vw;
+    height: 20.37vh;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 36px;
-}
+    margin-top: 3.33vh;
+  }
 
-img{
+  img {
     max-width: 100%;
     max-height: 100%;
-}
+  }
 
-input{
-    background-color:transparent;
+  input {
+    background-color: transparent;
     border: none;
     flex-wrap: nowrap;
-}
+  }
 
-input:focus{
+  input:focus {
     outline: none;
-}
+  }
 
-.profileInfo{
+  .profileInfo {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 24px;
-}
+    margin-top: 2.22vh;
+  }
 
-.profileName{
+  .profileName {
     font-weight: 700;
-    font-size: 28px;
+    font-size: 1.468vw;
     line-height: 100%;
     text-align: center;
-}
+  }
 
-.profileEmail{
+  .profileEmail {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     text-align: center;
     color: #383838;
-    margin-top: 20px;
-}
+    margin-top: 1.85185vh;
+  }
 
-.logout{
+  .logout {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 0.8333vw;
     line-height: 100%;
     text-align: center;
-    color: #487AFF;
-    margin-top: 21px;
-}
+    color: #487aff;
+    margin-top: 1.944vh;
+  }
 
-.logout:hover{
-    cursor : grab;
-}
+  .logout:hover {
+    cursor: grab;
+  }
 
-.schoolInfo{
-    margin-top: 56px;
-    margin-left: 100px;
-}
+  .schoolInfo {
+    margin-top: 5.1852vh;
+    display: flex;
+    justify-content: center;
+  }
 
-.infoBox{
-    width: 372px;
-    height: 50px;
+  .infoBox {
+    width: 19.375vw;
+    height: 4.62963vh;
     background-color: rgba(237, 239, 246, 0.5);
     border-radius: 12px;
     display: flex;
-    margin-right: 28px;
-}
+    margin-right: 1.4583vw;
+  }
 
-.infoText{
+  .infoText {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #707070;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 16px;
-    margin-right: 28px;
-}
+    margin-left: 0.8333vw;
+    margin-right: 2.5925vh;
+  }
 
-.schoolInfoLine2{
+  .schoolInfoLine2 {
     display: flex;
-    margin-top: 24px;
-    margin-left: 100px;
-}
+    justify-content: center;
+    margin-top: 2.22222vh;
+  }
 
-.school, .major, .grade{
+  .school,
+  .major,
+  .grade {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #383838;
     margin-top: auto;
     margin-bottom: auto;
-}
+  }
 
-.editBtn{
-    width: 114px;
-    height: 40px;
-    margin-top: 41px;
+  .editBtn {
+    width: 5.9375vw;
+    height: 3.704vh;
+    margin-top: 3.7963vh;
     margin-left: auto;
     margin-right: auto;
-}
+  }
 
-.editBtn:hover{
+  .editBtn:hover {
     cursor: grab;
-}
+  }
 
-.extraText{
+  .extraText {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1.042vw;
     line-height: 100%;
     color: #383838;
-    margin-top : 88px;
+    margin-top: 12.04vh;
 
-    .myPlan{
-        margin-bottom : 28px;
+    .myPlan {
+      margin-bottom: 2.5926vh;
     }
 
     .myPlan:hover,
-    .delete:hover{
-        cursor : grab;
+    .delete:hover {
+      cursor: grab;
     }
-}
+  }
 `;
 
-const EditProfile = ()=>{
-    const [school,setSchool] = useState("홍익대학교");
-    const [major,setMajor] = useState("컴퓨터공학과");
-    const [grade,setGrade] = useState("17");
-    const [profile,setProfile] = useState([]); 
-    const navigate = useNavigate();
+const EditProfile = () => {
+  const [school, setSchool] = useState('');
+  const [major, setMajor] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [profimg, setProfimg] = useState('proImageU1');
 
-    const onSchool = (e : React.ChangeEvent<HTMLInputElement>) =>{
-        setSchool(e.target.value)
-    }
-    const onMajor = (e : React.ChangeEvent<HTMLInputElement>) =>{
-        setMajor(e.target.value)
-    }
-    const onGrade = (e : React.ChangeEvent<HTMLInputElement>) =>{
-        setGrade(e.target.value)
-    }
 
-    const onClick = () =>{
-        alert("프로필 수정이 완료되었습니다.")
-        navigate('/home')
-        //임시!
-    }
+  const onSchool = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSchool(e.target.value);
+  };
+  const onMajor = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMajor(e.target.value);
+  };
 
-    const getProfile = async () =>{
-        await axios({
-            baseURL: 'https://www.teampple.site/',
-            url : 'api/users/userprofiles',
-            method: 'get',
-            //리프레쉬 토큰이 있어야댐.. -> 이후에 만들어둔 스테이트들 모두 프로필의 키값으로 대체하면 댈듯
-        })
-        .then((res)=>{
-            setProfile(res.data)
-        })
-        .catch((e)=>{
-            console.log(e);
-        })
-    }
+  const token = localStorage.getItem('jwt_accessToken');
 
-    useEffect(()=>{
-        getProfile();
-    },[])
+  const getProfile = async () => {
+    await axios({
+      baseURL: 'https://www.teampple.site/',
+      url: 'api/users/userprofiles',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setName(res.data.data.name);
+        setEmail(res.data.data.email);
+        setSchool(res.data.data.schoolName);
+        setSchool(res.data.data.schoolName);
+        setMajor(res.data.data.major);
+        setProfimg(res.data.data.profileImage);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    return(
-        <EditBox>
-        <div className="profileImg">
-            <img src={prof1}/>
+  const putProfileAPI = async () => {
+    await axios({
+      url: `api/users/userprofiles`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'put',
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        major: major,
+        schoolName: school,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        alert('프로필 수정이 완료되었습니다.');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  return (
+    <EditBox>
+      <div className="profileImg">
+        {/* <img src={require(`../images/profile/` + `${profimg}` + `.png`)} /> */}
+        <img src={require(`../images/profile/proImageU1.png`)} />
+      </div>
+      <div className="profileInfo">
+        <div className="profileName">{name}</div>
+        <div className="profileEmail">{email}</div>
+        <div className="logout">로그아웃</div>
+      </div>
+      <div className="schoolInfo">
+        <div className="infoBox">
+          <div className="infoText">학교</div>
+          <input className="school" value={school} onChange={onSchool}></input>
         </div>
-        <div className="profileInfo">
-            <div className="profileName">김팀쁠</div>
-            <div className="profileEmail">teampple2022@naver.com</div>
-            <div className="logout">로그아웃</div>
+      </div>
+      <div className="schoolInfoLine2">
+        <div className="infoBox">
+          <div className="infoText">전공</div>
+          <input className="major" value={major} onChange={onMajor}></input>
         </div>
-        <div className="schoolInfo">
-            <div className="infoBox">
-                <div className="infoText">학교</div>
-                <input className="school" value={school} onChange={onSchool}></input>
-            </div>
-        </div>
-        <div className="schoolInfoLine2">
-            <div className="infoBox">
-                <div className="infoText">전공</div>
-                <input className="major" value={major} onChange={onMajor}></input>
-            </div>
-            <div className="infoBox">
-                <div className="infoText">학번</div>
-                <input className="grade" value={grade} onChange={onGrade}></input>
-            </div>
-        </div>
-        <div className="editBtn" onClick={onClick}>
-            <img src={editBtn}/>
-        </div>
-        <div className="extraText">
-            <div className="myPlan">나의 구독 플랜</div>
-            <div className="delete">탈퇴하기</div>
-        </div>
+      </div>
+      <div className="editBtn" onClick={putProfileAPI}>
+        <img src={editBtn} />
+      </div>
+      <div className="extraText">
+        <div className="myPlan">나의 구독 플랜</div>
+        <div className="delete">탈퇴하기</div>
+      </div>
     </EditBox>
-    );
-}
+  );
+};
 
 export default EditProfile;

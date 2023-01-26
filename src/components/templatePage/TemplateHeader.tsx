@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
+import templateHeader from '../images/TemplateHeader.png'
 
 const TemplateHeader = () => {
   return (
@@ -21,6 +22,7 @@ const TemplateHeaderContainer = styled.div`
   width: 100vw;
   height: 200px;
   background: #f9fafd;
+  background-image: url('${templateHeader}');
   position: relative;
 `;
 

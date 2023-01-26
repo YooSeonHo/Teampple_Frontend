@@ -1,222 +1,151 @@
-import React from "react";
-import styled from "styled-components";
-import profile1 from '../images/profile/prof1.png';
-import { StyledFeedInfo } from "interfaces";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import profile1 from '../images/profile/proImageU1.png';
+import { StyledFeedInfo } from 'interfaces';
+import axios from 'axios';
+import moment from 'moment';
 
 const FeedBox = styled.div<StyledFeedInfo>`
-border: 1px solid #DEDEDE;
-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
-background-color : white;
-border-radius: 12px;
-width: 372px;
-height: 471px;
-display: flex;
-flex-direction: column;
+  border: 1px solid #dedede;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  border-radius: 12px;
+  width: 19.375vw;
+  height: 43.6111vh;
+  display: flex;
+  flex-direction: column;
 
-left : 0;
-right: 0;
-position : absolute;
-margin-right : 54px;
-margin-top: ${(props) => props.pathname === '/home'? '84px' : '12px' };
-margin-left : auto;
-z-index : 1001;
+  left: 0vw;
+  right: 0vw;
+  position: absolute;
+  margin-right: 2.8125vw;
+  margin-top: ${(props) => (props.pathname === '/home' ? '8.777777vh' : '0.1111111vh')};
+  margin-left: auto;
+  z-index: 1001;
 
-.feedText{
+  .feedText {
     font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 0.729167vw;
+    line-height: 1.574074vh;
     color: #383838;
-    margin-top: 24px;
-    margin-left: 20px;
-}
+    margin-top: 2.2222vh;
+    margin-left: 1.041667vw;
+  }
 
-.feedList{
+  .feedList {
     display: flex;
-    margin-top: 12px;
+    margin-top: 1.111vh;
     display: flex;
     flex-direction: column;
     overflow: auto;
-}
+  }
 
-
-img{
+  img {
     max-width: 100%;
     max-height: 100%;
-}
+  }
 `;
 
 const Feed = styled.div`
-    width: 330px;
-    height: 64px;
-    margin-left: 20px;
-    display: flex;
+  width: 17.1875vw;
+  height: 5.925926vh;
+  margin-left: 1.041667vw;
+  display: flex;
 
-.icon{
-    width: 40px;
-    height: 40px;
-    margin-right: 16px;
-    margin-bottom: 12px;
-}
+  .icon {
+    width: 2.083333vw;
+    height: 3.7043704vh;
+    margin-right: 0.83333vw;
+    margin-bottom: 1.1111vh;
+  }
 
-.feedContent{
+  .feedContent {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.7291vw;
     line-height: 160%;
     color: #383838;
-    text-overflow: ellipsis;  
-	overflow : hidden;
+    text-overflow: ellipsis;
+    overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    max-width: 250px;
-    max-height: 40px;
+    max-width: 13.020833vw;
+    max-height: 3.7043704vh;
     white-space: normal;
-}
+  }
 
-
-img{
+  img {
     max-width: 100%;
     max-height: 100%;
-}
+  }
 
+  .feedAt {
+    font-size: 0.625vw;
+    line-height: 100%;
+    color: #a7a7a7;
+    margin-top: 1.851852vh;
+    margin-left: 2.083333vw;
+  }
 `;
 
-const Feedbacks = ({pathname} : {pathname : string}) => {
-    return(
-        <FeedBox pathname={pathname}>
-            <div className="feedText">피드백</div>
-            <div className="feedList">
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-                <Feed>
-                    <div className="icon">
-                        <img src={profile1}/>
-                    </div>
-                    <div className="feedContent">
-                        [경영 전략] 세부 할 일에 적힌 피드백 입니다. 안녕하세요 저는 유선호입니다 안녕하세요 반갑습니다 방가방가
-                    </div>
-                </Feed>
-            </div>
-    </FeedBox>
-    )
-}
+const Feedbacks = ({ pathname }: { pathname: string }) => {
+  const [fbList, setFbList] = useState([]);
+  const token = localStorage.getItem('jwt_accessToken');
+  
+    
+  const [taskId, setTaskId] = useState<number>();
+  
+  const getFeedbackAPI = async () => {
+    await axios({
+      url: `/api/users/feedbacks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        setFbList(response.data.data.feedbacks);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getFeedbackAPI();
+  }, []);
 
-export default Feedbacks 
+  const getTaskId = (fb: any, e: React.MouseEvent<HTMLElement>) => {
+    setTaskId(fb.taskId); //이 task id 가지고 맞는 할일에 라우팅
+  };
+
+  return (
+    <FeedBox pathname={pathname}>
+      <div className="feedText">피드백</div>
+      <div className="feedList">
+        {fbList.map((fb: any, index: number) => (
+          <Feed
+            key={index}
+            onClick={(e) => {
+              getTaskId(fb, e);
+            }}
+          >
+            <div className="icon">
+              <img src={profile1} />
+            </div>
+            <div className="feedContent">
+              [{fb.teamName}]
+              <br />
+              {fb.taskName}에 적힌 피드백입니다.
+            </div>
+            <div className="feedAt">
+              {moment(fb.modifiedAt).format('MM-DD  HH:mm')}
+            </div>
+          </Feed>
+        ))}
+      </div>
+    </FeedBox>
+  );
+};
+
+export default Feedbacks;

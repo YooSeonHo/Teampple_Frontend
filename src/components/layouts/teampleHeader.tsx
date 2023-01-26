@@ -5,51 +5,62 @@ import group from '../images/Group 697.png';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
 import { useRecoilState } from 'recoil';
-import { feedbackState, modal2State, teamMateNumState } from 'state';
+import {
+  feedbackState,
+  modal2State,
+  teamMateNumState,
+  teamidState,
+} from 'state';
 import axios from 'axios';
 
 const HeaderBox = styled.div`
-  width: 1680px;
-  height: 72px;
+  width: 87.5vw;
+  height: 6.6666vh;
   background-color: #ffffff;
+  border-bottom: solid;
+  border-width: 3px;
+  border-color: #edeff6;
   display: flex;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 72px;
+  line-height: 6.66666vh;
   white-space: nowrap;
   position: relative;
   z-index: 998;
 
   #main {
-    margin-left: 54px;
-    width: 250px;
-    height: 24px;
-    max-width: 250px;
+    margin-left: 2.8125vw;
+    width: 13.0208vw;
+    height: 2.22222vh;
+    max-width: 13.0208vw;
+    font-weight: 600;
+    font-size: 1.25vw;
+    
   }
 
   #sub {
-    margin-left: 24px;
-    width: 260px;
-    height: 20px;
+    margin-left: 1.25vw;
+    width: 13.5416vw;
+    height: 1.851852vh;
+    font-weight: 500;
+    font-size: 1.041667vw;
   }
 
   #dDayBox {
     display: flex;
     padding: 0px;
     gap: 8px;
-    width: 58px;
-    height: 26px;
+    width: 3.020833vw;
+    height: 2.407504vh;
     background: #ffffff;
     border: 1px solid #88a9ff;
     border-radius: 8px;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 139px;
+    margin-left: 7.239583vw;
   }
 
   #dDay {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 0.625vw;
     line-height: 100%;
     color: #487aff;
     flex-grow: 0;
@@ -57,48 +68,51 @@ const HeaderBox = styled.div`
   }
 
   #date {
-    margin-left: 8px;
-    width: 260px;
-    height: 20px;
-    font-size: 18px;
+    margin-left: 0.416667vw;
+    width: 13.541667vw;
+    height: 1.851852vh;
+    font-weight: 400;
+    font-size: 0.9375vw;
     color: #707070;
   }
 
   .editBox {
     position: absolute;
-    width: 69px;
-    height: 28px;
-    left: 1054px;
-    top: 22px;
+    width: 3.593vw;
+    height: 2.592593vh;
+    left: 54.8958vw;
+    top: 2.037vh;
     background: #ffffff;
     border: 1px solid #d5dbee;
     border-radius: 8px;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 0.625vw;
     line-height: 100%;
     color: #707070;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5px 10px;
   }
 
   img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
   }
 
   #teamList {
-    margin-left: 193px;
+    margin-left: 10.052vw;
     /* 만약 팀장이어서 팀플 수정 버튼 있으면 마진 61  없으면 193*/
-    width: 72px;
-    height: 40px;
-    margin-top: 16px;
+    width: 3.75vw;
+    height: 3.7037vh;
+    margin-top: auto;
     margin-bottom: auto;
     background-image: url(${group});
-    background-size: 72px 40px;
+    background-size: 3.75vw 3.7037vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
     &:hover{
       cursor: pointer;
     }
@@ -106,17 +120,17 @@ const HeaderBox = styled.div`
 
   #teamNum {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 100%;
     text-align: center;
     color: #a7a7a7;
     margin-left: auto;
-    margin-right: 13px;
+    margin-right: 0.677083vw;
   }
 
   .iconBox {
     margin-left: auto;
-    margin-right: 54px;
+    margin-right: 2.8125vw;
   }
 
   .iconBox:hover{
@@ -124,9 +138,9 @@ const HeaderBox = styled.div`
   }
 
   #feedback {
-    width: 32px;
-    height: 32px;
-    margin-top: 20px;
+    width: 1.6666vw;
+    height: 2.962vh;
+    margin-top: 1.8518vh;
   }
 `;
 
@@ -137,8 +151,8 @@ const ModalContainer1 = styled.div`
 
 const ModalContainer2 = styled.div`
   position: absolute;
-  top: 67px;
-  right: 360px;
+  top: 6.2037vh;
+  right: 19.33333vw;
 `;
 
 const TeampleHeader = () => {
@@ -151,6 +165,8 @@ const TeampleHeader = () => {
   const [startDate, setStartDate] = useState();
   const [dueDate, setDueDate] = useState();
   const [deadDay, setDeadDay] = useState<any | null>(null);
+  const token = localStorage.getItem('jwt_accessToken');
+  const [teamid] = useRecoilState(teamidState);
 
   const showModal1 = () => {
     setModal1(!modal1);
@@ -172,9 +188,11 @@ const TeampleHeader = () => {
       method: 'get',
       baseURL: 'https://www.teampple.site',
       url: '/api/teams',
-      params: { teamId: 1 },
+      params: { teamId: teamid },
+      headers : {
+        Authorization: token,
+      }
     }).then((res) => {
-      console.log(res.data.data);
       setName(res.data.data.name);
       setGoal(res.data.data.goal);
       setTeamMatesNum(res.data.data.teammatesNum);
@@ -186,7 +204,7 @@ const TeampleHeader = () => {
 
   useEffect(()=>{
     getTHeader();
-  }, [])
+  }, [teamid])
   
   const getDeadDay = (dueDate: Date) => {
     const setDate = new Date(dueDate);

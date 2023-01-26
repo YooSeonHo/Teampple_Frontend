@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
 import { useRecoilState } from 'recoil';
-import { zIndexState,feedbackState,modal2State } from 'state';
+import { zIndexState, feedbackState, modal2State, teamidState } from 'state';
 import axios from 'axios';
 import { IPlan } from '../../interfaces';
 
 const PlanManager = () => {
   const [modal, setModal] = useState(false);
-  const [zIndex,setZIndex] = useRecoilState(zIndexState);
-  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+  const [zIndex, setZIndex] = useRecoilState(zIndexState);
+  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const showModal = () => {
     setModal(!modal);
@@ -20,14 +20,18 @@ const PlanManager = () => {
   const [plans, setPlans] = useState([]);
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
-  const now = new Date();
+  const [teamid, ] = useRecoilState(teamidState);
+  const token = localStorage.getItem('jwt_accessToken');
 
   const getPlanAPI = async () => {
     await axios({
       url: `/api/teams/schedules`,
       baseURL: 'https://www.teampple.site',
       method: 'get',
-      params: { teamId: 1 },
+      headers: {
+        Authorization: token,
+      },
+      params: { teamId: teamid },
     })
       .then((response) => {
         setPlans(response.data.data.schedules);
@@ -41,8 +45,8 @@ const PlanManager = () => {
 
   useEffect(() => {
     getPlanAPI();
-    console.log();
-  }, []);
+    console.log(teamid);
+  }, [teamid]);
 
   const getDeadDay = (dueDate: Date) => {
     const setDate = new Date(dueDate);
@@ -61,7 +65,7 @@ const PlanManager = () => {
   };
 
   return (
-    <ManagerBox style={{zIndex : zIndex}}>
+    <ManagerBox style={{ zIndex: zIndex }}>
       <div className="dDayHeader">
         <div className="text">일정 관리자</div>
         <div className="headerBox">
@@ -97,73 +101,76 @@ const PlanManager = () => {
 };
 
 const ManagerBox = styled.div`
-  width: 326px;
-  height: 1008px;
+  width: 16.9791vw;
+  height: 93.3333vh;
   background-color: #ffffff;
+  border-left: solid;
+  border-width: 3px;
+  border-color: #edeff6;
   display: flex;
   flex-direction: column;
   position: relative;
 
   .dDayHeader {
-    width: 324px;
-    height: 238px;
+    width: 16.875vw;
+    height: 22.037vh;
   }
 
   .text {
     font-weight: 500;
-    font-size: 24px;
+    font-size: 1.25vw;
     line-height: 100%;
     color: #383838;
-    margin-left: 24px;
-    margin-top: 36px;
-    margin-bottom: 32px;
+    margin-left: 1.25vw;
+    margin-top: 3.33333vh;
+    margin-bottom: 2.9629vh;
   }
 
   .headerBox {
     background: #f4f8ff;
     border-radius: 12px;
-    width: 284px;
-    height: 114px;
-    margin-left: 20px;
+    width: 14.79166vw;
+    height: 10.5555vh;
+    margin-left: 1.041667vw;
     display: flex;
     flex-direction: column;
   }
 
   .headerText {
     font-weight: 400;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #707070;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 28px;
+    margin-top: 2.592593vh;
   }
 
   .headerdDay {
     font-weight: 700;
-    font-size: 24px;
+    font-size: 1.25vw;
     line-height: 100%;
     color: #487aff;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 18px;
+    margin-top: 1.66666vh;
   }
 
   .contentBox {
-    margin-top: 32px;
+    margin-top: 2.9629vh;
     overflow: auto;
   }
 
   .addSch {
-    width: 284px;
-    height: 56px;
+    width: 14.791vw;
+    height: 5.185vh;
     background: #f4f8ff;
     border-radius: 12px;
     display: flex;
-    margin-left: 20px;
+    margin-left: 1.041667vw;
     justify-content: center;
     margin-top: auto;
-    margin-bottom: 20px;
+    margin-bottom: 1.85185vh;
   }
 
   .addSch:hover {
@@ -172,7 +179,7 @@ const ManagerBox = styled.div`
 
   .addText {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #487aff;
     margin-top: auto;
@@ -183,7 +190,7 @@ const ManagerBox = styled.div`
 scroll 투명하게 해야댈듯? */
 `;
 
-const ModalContainer = styled.div`
+export const ModalContainer = styled.div`
   position: fixed;
   margin: 0 auto;
 `;
@@ -191,30 +198,32 @@ const ModalContainer = styled.div`
 const Content = styled.div`
   background: #f4f8ff;
   border-radius: 12px;
-  width: 284px;
-  height: 64px;
-  margin-left: 20px;
+  width: 14.7916vw;
+  height: 5.92592vh;
+  margin-left: 1.04166vw;
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: 0.7407vh;
 
   .contentdDay {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 0.83333vw;
     line-height: 100%;
     color: #707070;
-    margin: 24px;
-    margin-right: 28px;
+    margin-top: 2.2222vh;
+    margin-bottom: 2.2222vh;
+    margin-left: 1.25vw;
+    margin-right: 1.4583vw;
   }
 
   .contentInfo {
     display: flex;
     flex-direction: column;
-    margin-top: 14px;
+    margin-top: 1.2962vh;
   }
 
   .contentName {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 0.8333vw;
     line-height: 100%;
     color: #707070;
     margin-bottom: 8px;
@@ -222,7 +231,7 @@ const Content = styled.div`
 
   .when {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.625vw;
     line-height: 100%;
     color: #a7a7a7;
   }

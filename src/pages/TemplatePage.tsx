@@ -1,12 +1,15 @@
 import React from 'react';
 import TemplateHeader from 'components/templatePage/TemplateHeader';
 import TemplateList from 'components/templatePage/TemplateList';
+import TemplateLayout from 'components/layouts/templateLayout';
 
 const TemplatePage = () => {
   return (
     <div>
-      <TemplateHeader />
-      <TemplateList />
+      <TemplateLayout>
+        <TemplateHeader />
+        <TemplateList />
+      </TemplateLayout>
     </div>
   );
 };

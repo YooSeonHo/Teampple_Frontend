@@ -61,7 +61,7 @@ const Page4 = () =>{
       })
 
     return(
-        <Box data-aos="zoom-out">
+        <Box data-aos="fade-up">
             <Contents>
                 <div className="top">처음이지만 체계적으로!</div>
                 <div className="mid">팀플을 어떻게 체계적으로 진행해야할지 막막하셨나요?<br/>

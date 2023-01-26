@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
-import { GrClose } from 'react-icons/gr';
+
 import { AiOutlineLine } from 'react-icons/ai';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
@@ -10,37 +10,41 @@ import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
 import {
   stepState,
-  testState,
-  nameState,
-  aimState,
-  startDateState,
-  endDateState,
 } from 'state/AddTeample/atom';
 import { useForm } from 'react-hook-form';
+import { stageInfo } from 'interfaces';
+import { stageState } from 'state';
+import moment from 'moment';
 
 const AddDiv = (props: any) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
   const [step, setStep] = useRecoilState(stepState);
-  const [stepTest, setStepTest] = useRecoilState(testState);
-  // 하나씩 받아서 하나의 state로 묶어줄 예정?
-  const [stepName, setStepName] = useState('');
   const today = new window.Date();
   const [stepStartDate, setStepStartDate] = useState<Date>(today);
   const [stepEndDate, setStepEndDate] = useState<Date>(today);
+  const [stages,setStages] = useRecoilState<stageInfo[]>(stageState);
 
   const onClickDel = (e: any) => { //수정 필요 에러
     e.preventDefault();
-    const n = parseInt(e.target.name) + 1; //몇번째 단계
-    console.log(n);
-    const countArr = [...props.countList];
+
+    if (stages.length <= 1) {
+      alert('1단계는 필수입니다.')
+    }
+    else {
+    const n = parseInt(e.target.parentElement.id);
     // const counter = countArr.slice(1)[0];
     // console.log(counter)
-    countArr.pop(); // index 사용 X
-    console.log(countArr);
     // counter -= 1;
     // countArr[counter] = counter; // index 사용 시
-    props.setCountList(countArr);
+    const del = stages.filter((st)=>{
+      return st.sequenceNum !== n;
+    }).map((st,index)=>(
+      {...st, sequenceNum : index+1}
+    ));
+    setStages(del);
+    }
   };
+
 
   // enter키 누르면 submit 방지
   document.addEventListener(
@@ -72,38 +76,53 @@ const AddDiv = (props: any) => {
   //   // }
   // };
 
+  const onChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
+    // const temp = stages.filter((s)=>{
+    //   return s.sequenceNum === parseInt(e.target.id);
+    // }).map((s)=>{
+    //   return {...s, name : e.target.value};
+    // }
+    // )
+     const temp = stages.map((s)=> s.sequenceNum === parseInt(e.target.id) ? {...s, name : e.target.value} : s)
+     setStages(temp);
+  }
+
   return (
     <AddDivContainer>
       <form onSubmit={handleSubmit(Subb)}>
         <div>
-          {props.countList &&
-            props.countList.map((i: any) => (
-              <StepContainer key={i} id="step">
+          {stages &&
+            stages.map((i: stageInfo) => (
+              <StepContainer key={i.sequenceNum} id={i.sequenceNum.toString()}>
                 <NameContainer>
                   <TagContainer>
-                    <Tag>{i + 1}단계</Tag>
+                    <Tag>{i.sequenceNum}단계</Tag>
                     {/* <SubTag>(필수)</SubTag> */}
                   </TagContainer>
                   <InputBox>
                     <Input
-                      {...register(`stepName ${i}`)}
-                      onChange={(e) => setStep(e.target.value)}
+                      onChange={onChange}
                       maxLength={9}
                       placeholder="ex. 자료 조사"
+                      value={i.name}
+                      id={i.sequenceNum.toString()}
                     />
-                    {/* <TextLength>
-                    ({stepName.replace(/<br\s*\/?>/gm, '\n').length}/9)
-                  </TextLength> */}
+                    <TextLength>
+                    ({i.name.replace(/<br\s*\/?>/gm, '\n').length}/9)
+                  </TextLength>
                   </InputBox>
                 </NameContainer>
-                <DateContainer>
+                <DateContainer id={i.sequenceNum.toString()}>
                   <DateBox1>
                     <StyledDatePicker
                       locale={ko} //한글
                       dateFormat="yyyy.MM.dd"
-                      selected={stepStartDate}
+                      selected={new Date(i.startDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                      onChange={(date: Date) => setStepStartDate(date)}
+                      onChange={(date: Date) => {
+                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, startDate : date} : s)
+                        setStages(temp);
+                      }}
                     />
                     <IoCalendarNumberOutline
                       style={{
@@ -118,9 +137,13 @@ const AddDiv = (props: any) => {
                     <StyledDatePicker
                       locale={ko} //한글
                       dateFormat="yyyy.MM.dd"
-                      selected={stepEndDate}
+                      selected={new Date(i.dueDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                      onChange={(date: Date) => setStepEndDate(date)}
+                      onChange={(date: Date) => {
+                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ?{...s, dueDate : date} : s)
+                        //  {...s, dueDate : moment(date, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'} : s)
+                        setStages(temp);
+                      }}
                     />
                     <IoCalendarNumberOutline
                       style={{
@@ -130,7 +153,7 @@ const AddDiv = (props: any) => {
                       }}
                     />
                   </DateBox2>
-                  <DelBtn name={i} onClick={onClickDel}>
+                  <DelBtn name={i.name} onClick={onClickDel}>
                     삭제
                   </DelBtn>
                 </DateContainer>
@@ -138,9 +161,9 @@ const AddDiv = (props: any) => {
             ))}
         </div>
         {/* <button type="submit">전송</button> */}
-        <MakeButton type="submit">
+        {/* <MakeButton type="submit">
           팀플 만들기
-        </MakeButton>
+        </MakeButton> */}
       </form>
     </AddDivContainer>
   );
@@ -148,6 +171,7 @@ const AddDiv = (props: any) => {
 
 const AddDivContainer = styled.div`
 position: relative;
+overflow : hidden;
 `
 
 const StepContainer = styled.div`

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   stepState,
   testState,
@@ -13,8 +13,15 @@ import {
   endDateState,
 } from 'state/AddTeample/atom';
 import AddDiv from './AddTeample/AddDiv'; //단계 추가하기 버튼 클릭시 Add 컴포넌트 추가
+import { Background } from './AddSchedule';
+import { ModalProps } from 'interfaces';
+import { stageInfo } from 'interfaces';
+import { stageState,makeTeampleState } from 'state';
+import axios from 'axios';
+import moment from 'moment';
+import useDidMountEffect from 'components/hooks/useDidMountEffect';
 
-const AddTeample2 = () => {
+const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
   // 일단 setState를 sting으로 두고 테스트
   const [stepTest, setStepTest] = useRecoilState(testState);
@@ -28,24 +35,70 @@ const AddTeample2 = () => {
   const [endDate] = useRecoilState<Date>(endDateState);
   const [name] = useRecoilState(nameState);
   const [aim] = useRecoilState(aimState);
+  const [stages,setStages] = useRecoilState<stageInfo[]>(stageState);
+  const [makeTeample,setMakeTeample] = useRecoilState(makeTeampleState);
+  const [temp,setTemp] = useState<any>([]);
+  const reset = useResetRecoilState(makeTeampleState);
+  const resetName = useResetRecoilState(nameState);
+  const resetAim = useResetRecoilState(aimState);
+  const resetStart = useResetRecoilState(startDateState);
+  const resetDue = useResetRecoilState(endDateState);
+  const resetStages = useResetRecoilState(stageState);
+  const token = localStorage.getItem('jwt_accessToken');
 
-  const navigate = useNavigate();
+  const postTeample = async () => {
+    await axios({
+      url : '/api/teams',
+      baseURL :  'https://www.teampple.site',
+      method : 'post',
+      headers :{
+        Authorization : token
+      },
+      data : makeTeample,
+    }).then((response)=>{
+      alert('팀플 생성이 완료되었습니다.');
+      setModal(false);
+      setNextModal(false);
+      console.log(response)
+      // location.reload();
+    }).catch((e)=>{
+      console.log(e);
+    })
+  }
+
   const onClickPrev = (e: React.MouseEvent<HTMLElement>) => {
-    navigate('/teample-home/add-teample1');
+    setModal(true);
+    setNextModal(false);
   };
-
+  
+    
+    
   const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
-    // if (stepName === '') alert('1단계는 필수 항목입니다.');
-    // else {
     event.preventDefault();
-    console.log()
-    console.log(name, aim, startDate, endDate, stepTest);
-    alert('팀플 만들기 완료');
 
-    // }
-  };
+    setTemp(stages.map((s)=>(
+      {...s, 
+        startDate : moment(s.startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+        dueDate : moment(s.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'
+      })))
+    };
+    
+    useEffect(()=>{
+      setMakeTeample((prev)=>({
+        ...prev,
+        stages : temp
+      }))
+    },[temp])
+
+    useDidMountEffect(async ()=>{
+      if (makeTeample.stages.length !== 0){
+        await postTeample();
+      }
+    },[makeTeample])
+
 
   const [countList, setCountList] = useState([0]);
+
   const onClickAdd = () => {
     const countArr = [...countList];
     let counter = countArr.slice(-1)[0];
@@ -53,24 +106,44 @@ const AddTeample2 = () => {
     // countArr.push(counter); // index 사용 X
     countArr[counter] = counter; // index 사용 시
     setCountList(countArr);
-    console.log(countArr);
+
+    const newStage = {
+      dueDate : new Date(),
+      name : "",
+      sequenceNum : stages.length+1,
+      startDate : new Date()
+    };
+
+    setStages([...stages,newStage]);
+  };
+
+  const closeModal = () => {
+    reset();
+    resetAim();
+    resetDue();
+    resetName();
+    resetStart();
+    resetStages();
+    setNextModal(false);
   };
 
   return (
-    <ModifyTeampleContainer>
-      <CloseBtn />
-      <Title>팀플 단계</Title>
-      <Desc>단계를 설정하면 전략적으로 프로젝트를 진행시킬 수 있어요.</Desc>
-        <InputContainer>
-          {/* 컴포넌트 추가 */}
-          <AddDiv countList={countList} setCountList={setCountList} />
-          <AddStepButton onClick={onClickAdd}>+ 단계 추가하기</AddStepButton>
-        </InputContainer>
-        <PrevButton onClick={onClickPrev}>이전</PrevButton>
-        {/* <MakeButton onClick={onClickMake}>
-          팀플 만들기
-        </MakeButton> */}
-    </ModifyTeampleContainer>
+    <Background>
+      <ModifyTeampleContainer>
+        <CloseBtn onClick={closeModal}/>
+        <Title>팀플 단계</Title>
+        <Desc>단계를 설정하면 전략적으로 프로젝트를 진행시킬 수 있어요.</Desc>
+          <InputContainer>
+            {/* 컴포넌트 추가 */}
+            <AddDiv countList={countList} setCountList={setCountList} />
+            <AddStepButton onClick={onClickAdd}>+ 단계 추가하기</AddStepButton>
+          </InputContainer>
+          <PrevButton onClick={onClickPrev}>이전</PrevButton>
+          <MakeButton onClick={onClickMake}>
+            팀플 만들기
+          </MakeButton>
+      </ModifyTeampleContainer>
+    </Background>
   );
 };
 
@@ -80,6 +153,11 @@ const ModifyTeampleContainer = styled.div`
   background: #ffffff;
   border-radius: 16px;
   position: relative;
+  z-index: 999;
+  position: fixed;
+  top: 220px;
+  left: 640px;
+  
 `;
 
 const CloseBtn = styled(GrClose)`
