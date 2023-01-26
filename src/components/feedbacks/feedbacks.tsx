@@ -10,31 +10,31 @@ const FeedBox = styled.div<StyledFeedInfo>`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
   background-color: white;
   border-radius: 12px;
-  width: 372px;
-  height: 471px;
+  width: 19.375vw;
+  height: 43.6111vh;
   display: flex;
   flex-direction: column;
 
-  left: 0;
-  right: 0;
+  left: 0vw;
+  right: 0vw;
   position: absolute;
-  margin-right: 54px;
-  margin-top: ${(props) => (props.pathname === '/home' ? '84px' : '12px')};
+  margin-right: 2.8125vw;
+  margin-top: ${(props) => (props.pathname === '/home' ? '0.777777vh' : '0.1111111vh')};
   margin-left: auto;
   z-index: 1001;
 
   .feedText {
     font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 0.729167vw;
+    line-height: 1.574074vh;
     color: #383838;
-    margin-top: 24px;
-    margin-left: 20px;
+    margin-top: 2.2222vh;
+    margin-left: 1.041667vw;
   }
 
   .feedList {
     display: flex;
-    margin-top: 12px;
+    margin-top: 1.111vh;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -47,21 +47,21 @@ const FeedBox = styled.div<StyledFeedInfo>`
 `;
 
 const Feed = styled.div`
-  width: 330px;
-  height: 64px;
-  margin-left: 20px;
+  width: 17.1875vw;
+  height: 5.925926vh;
+  margin-left: 1.041667vw;
   display: flex;
 
   .icon {
-    width: 40px;
-    height: 40px;
-    margin-right: 16px;
-    margin-bottom: 12px;
+    width: 2.083333vw;
+    height: 3.7043704vh;
+    margin-right: 0.83333vw;
+    margin-bottom: 1.1111vh;
   }
 
   .feedContent {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.7291vw;
     line-height: 160%;
     color: #383838;
     text-overflow: ellipsis;
@@ -69,8 +69,8 @@ const Feed = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    max-width: 250px;
-    max-height: 40px;
+    max-width: 13.020833vw;
+    max-height: 3.7043704vh;
     white-space: normal;
   }
 
@@ -80,11 +80,11 @@ const Feed = styled.div`
   }
 
   .feedAt {
-    font-size: 12px;
+    font-size: 0.625vw;
     line-height: 100%;
     color: #a7a7a7;
-    margin-top: 20px;
-    margin-left: 40px;
+    margin-top: 1.851852vh;
+    margin-left: 2.083333vw;
   }
 `;
 

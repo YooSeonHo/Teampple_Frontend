@@ -2,21 +2,22 @@ import styled from "styled-components";
 import React from "react";
 
 const Box = styled.div`
-width: 100%;
-height: 88px;
+width: 100vw;
+height: 8.1vh;
 background-color : #F4F8FF;
 `;
 
 const Contents = styled.div`
-    font-weight: 400;
-    font-size: 24px;
+height : 8.1vh;
+font-weight: 400;
+    font-size: 1.25vw;
     color: #707070;
     display : flex;
     flex-direction : row;
     justify-content : space-between;
-    margin-left : 374px;
-    margin-right : 374px;
-    padding-top : 27px;
+    margin-left : 19.4vw;
+    margin-right : 19.4vw;
+    align-items : center;
 `;
 
 const OnBoardingFooter = () =>{

@@ -481,7 +481,7 @@ const DetailBox = () => {
         Authorization: token,
       },
       params: {
-        taskId: 2,
+        taskId: taskId,
       },
       data : {comment : addFeed}
     }).then(()=>{

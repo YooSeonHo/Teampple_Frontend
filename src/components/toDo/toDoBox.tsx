@@ -7,13 +7,13 @@ import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
-  width: ${(props) => (props.pathname === '/home' ? '1680px' : '1272px')};
-  height: ${(props) => (props.pathname === '/home' ? '448px' : '556px')};
+  width: ${(props) => (props.pathname === '/home' ? '87.5vw' : '66.25vw')};
+  height: ${(props) => (props.pathname === '/home' ? '41.481vh' : '51.4814vh')};
   display: flex;
   border-radius: 16px;
   overflow: overlay;
-  margin-left: 54px;
-  margin-top: 33px;
+  margin-left: 2.8125vw;
+  margin-top: 3.0555vh;
   background-color: white;
 
   justify-content: flex-start;
