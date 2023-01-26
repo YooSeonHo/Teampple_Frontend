@@ -36,8 +36,8 @@ const InfoInput = () => {
       baseURL: 'https://www.teampple.site/',
       method: 'post',
       data: {
-        // idToken: idToken,
-        idToken: 'kakaoU17233456', //test
+        idToken: idToken,
+        // idToken: 'kakaoU17233456', //test
         oauthAccessToken: kakaoAccessToken,
         oauthRefreshToken: kakaoRefreshToken,
         name: name,
