@@ -233,10 +233,10 @@ left: 14.375vw;
 
 const ManagerContainer = styled.div`
   position: absolute;
-  width: 515px;
-  height: 48px;
-  left: 93px;
-  top: 280px;
+  width: 26.8229vw;
+  height: 4.44444vh;
+  left: 4.84375vw;
+  top: 25.925926vh;
   display: flex;
   flex-direction: row;
   overflow: auto;
@@ -294,7 +294,7 @@ padding-top: 1.481481vh;
 padding-bottom: 1.481481vh;
 line-height: 100%;
 position: absolute;
-top: 25.925926vh;
+top: 18.925926vh;
 left: 4.84375vw;
 display: flex;
 align-items: center;
@@ -312,7 +312,7 @@ position: absolute;
 width: 0.83333vw;
 height: 0vh;
 left: 17.760417vw;
-top: 28.148148vh;
+top: 21.148148vh;
 border: 0.6px solid #383838;
 `;
 
