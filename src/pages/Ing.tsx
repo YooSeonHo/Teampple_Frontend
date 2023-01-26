@@ -27,14 +27,14 @@ const Ing = () => {
       baseURL: 'https://www.teampple.site/',
       method: 'post',
       data: {
-        idToken: idToken,
-        oauthAccessToken: kakaoAccessToken,
-        oauthRefreshToken: kakaoRefreshToken,
+        // idToken: idToken,
+        // oauthAccessToken: kakaoAccessToken,
+        // oauthRefreshToken: kakaoRefreshToken,
 
         // 테스트용
-        // idToken: 'kakaoU2',
-        // oauthAccessToken: 'string',
-        // oauthRefreshToken: 'string',
+        idToken: 'kakaoU2',
+        oauthAccessToken: 'string',
+        oauthRefreshToken: 'string',
       },
     })
       .then((response) => {

@@ -50,7 +50,7 @@ const HomeHeader = () => {
     <HomeHeaderContainer>
       <HomeTitle>홈</HomeTitle>
       <div className="iconBox" onClick={openFeed}>
-        {fbList.length === 0?  <MsgIcon/>:<img id="feedback" src={feedback}/>  }
+        {fbList.length === 0?  <img id="feedback" src={feedback}/> : <MsgIcon/> }
       </div>
     </HomeHeaderContainer>
   );

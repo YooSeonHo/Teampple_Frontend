@@ -20,7 +20,7 @@ const FeedBox = styled.div<StyledFeedInfo>`
   left: 0vw;
   right: 0vw;
   position: absolute;
-  margin-right: ${(props) => (props.pathname.split('/')[1] === 'teample-detail' ? '15.8125vw' : '2.8125vw'  )};
+  margin-right: 2.8125vw;
   margin-top: ${(props) => (props.pathname === '/home' ? '6.777777vh' : '0.1111111vh')};
   margin-left: auto;
   z-index: 1001;
