@@ -31,6 +31,7 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   // const [stepStartDate, setStepStartDate] = useState<Date>(today);
   // const [stepEndDate, setStepEndDate] = useState<Date>(today);
 
+  const navigate = useNavigate();
   const [startDate] = useRecoilState<Date>(startDateState);
   const [endDate] = useRecoilState<Date>(endDateState);
   const [name] = useRecoilState(nameState);
@@ -59,9 +60,10 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
       alert('팀플 생성이 완료되었습니다.');
       setModal(false);
       setNextModal(false);
-      console.log(response)
-      // location.reload();
-    }).catch((e)=>{
+      navigate('/home');
+      location.reload();
+    })
+    .catch((e)=>{
       console.log(e);
     })
   }

@@ -10,8 +10,19 @@ import {
   modal2State,
   teamMateNumState,
   teamidState,
+  fbListState,
 } from 'state';
 import axios from 'axios';
+import { AiFillMessage } from 'react-icons/ai';
+
+const MsgIcon = styled(AiFillMessage)`
+position: absolute;
+top: 1.851852vh;
+right: 2.81vw;
+color: #487aff;
+width: 1.67vw;
+height: 2.96293vh;
+`;
 
 const HeaderBox = styled.div`
   width: 87.5vw;
@@ -167,6 +178,7 @@ const TeampleHeader = () => {
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
+  const [fbList,setFbList] = useRecoilState(fbListState)
 
   const showModal1 = () => {
     setModal1(!modal1);
@@ -182,6 +194,28 @@ const TeampleHeader = () => {
   const openFeed = () =>{
     setIsOpen(!isOpen);
   }
+
+  const getFeedbackAPI = async () => {
+    await axios({
+      url: `/api/users/feedbacks`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        setFbList(response.data.data.feedbacks);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  
+  useEffect(() => {
+    getFeedbackAPI();
+  }, []);
+
 
   const getTHeader = async () => {
     await axios({
@@ -234,7 +268,7 @@ const TeampleHeader = () => {
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox" onClick={openFeed}>
-        <img id="feedback" src={feedback}/>
+        {fbList.length === 0? <img id="feedback" src={feedback}/> : <MsgIcon/>}
       </div>
       
     </HeaderBox>
