@@ -28,7 +28,7 @@ const LoginPage = () => {
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
   const [, , code] = window.location.pathname.split('/');
   const REST_API_KEY = 'efe60942fb73d266236ba244244c0899';
-  const REDIRECT_URI = 'http://www.teampple.com/login';
+  const REDIRECT_URI = 'https://www.teampple.com/login';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const handleLogin = () => {
     // 1. 인가 코드 받기
