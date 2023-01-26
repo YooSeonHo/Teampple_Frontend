@@ -66,7 +66,7 @@ const SideBarBox = styled.div<{ userid: string }>`
     font-family: 'Pretendard';
     font-style: normal;
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 0.9375vw;
     line-height: 22px;
     position: absolute;
     top: 21px;
@@ -88,7 +88,7 @@ const SideBarBox = styled.div<{ userid: string }>`
     color: #707070;
     margin-left: 1.04vw;
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 0.9375vw;
     line-height: 100%;
     margin-bottom: 8px;
     border-radius: 8px;
@@ -109,7 +109,7 @@ const SideBarBox = styled.div<{ userid: string }>`
     color: #707070;
     margin-left: 1.04vw;
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 0.9375vw;
     line-height: 100%;
     border-radius: 8px;
     width: 10.42vw;
@@ -155,7 +155,7 @@ const SideBarBox = styled.div<{ userid: string }>`
     color: #c0c0c0;
     line-height: 40px;
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 0.9375vw;
     line-height: 100%;
   }
   /* 조금 더 왼쪽으로 땡겨야 할 듯 */

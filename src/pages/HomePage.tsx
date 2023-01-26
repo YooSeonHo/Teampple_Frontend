@@ -67,7 +67,7 @@ const TodoContainer = styled.div`
     margin-top: 48px;
     color: #383838;
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.24vw;
     line-height: 29px;
     margin-left: 2.8125vw;
   }

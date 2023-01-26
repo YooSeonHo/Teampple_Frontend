@@ -4,10 +4,11 @@ import ProfileLayout from 'components/layouts/profileLayout';
 
 const ProfilePage = () => {
   return (
-    <ProfileLayout>
-      <EditProfile/>
-    </ProfileLayout>
+      <ProfileLayout>
+        <EditProfile />
+      </ProfileLayout>
   );
 };
+
 
 export default ProfilePage;

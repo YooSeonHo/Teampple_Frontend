@@ -60,7 +60,7 @@ const MiniTemplateContainer = styled.div`
 
 const Title = styled.div`
   font-weight: 500;
-  font-size: 1.75rem;
+  font-size: 1.46vw;
   line-height: 100%;
   margin-bottom: 20px;
 `;
@@ -106,7 +106,7 @@ const Img3 = styled(Img1)`
 
 const Desc1 = styled.div`
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.042vw;
   line-height: 100%;
   color: #707070;
   background: #fff8b7;

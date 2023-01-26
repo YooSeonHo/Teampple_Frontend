@@ -120,7 +120,7 @@ const DateContainer = styled.div`
   position: absolute;
   left: 2.81vw;
   top: 36px;
-  font-size: 1rem;
+  font-size: 0.83vw;
   line-height: 100%;
 `;
 
@@ -133,7 +133,7 @@ const RemainBox = styled.div`
 `;
 
 const Big = styled.div`
-  font-size: 2rem;
+  font-size: 1.67vw;
   line-height: 100%;
   font-weight: 500;
 `;
@@ -143,14 +143,14 @@ const Small = styled.div`
 `;
 
 const Text = styled.span`
-  font-size: 1.125rem;
+  font-size: 0.9375vw;
   font-weight: 400;
 `;
 
 const Percent = styled.span`
   position: absolute;
   left: 43.75vw;
-  font-size: 1.5rem;
+  font-size: 1.25vw;
 `;
 
 const BarContainer = styled.div`

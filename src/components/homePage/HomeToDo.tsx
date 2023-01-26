@@ -67,7 +67,7 @@ const Title = styled.div`
   top: 24px;
   left: 2.8125vw;
   font-weight: 500;
-  font-size: 1.75rem;
+  font-size: 1.457vw;
   line-height: 100%;
 `;
 const ToDosContainer = styled.div`
@@ -92,13 +92,13 @@ const ToDoTitle = styled.div`
   top: 24px;
   left: 1.25vw;
   font-weight: 600;
-  font-size: 1.375rem;
+  font-size: 1.145vw;
   line-height: 100%;
 `;
 const Left = styled.div``;
 const LeftText = styled.span`
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.833vw;
   line-height: 100%;
   color: #487aff;
   position: absolute;
@@ -115,7 +115,7 @@ const LeftNum = styled.span`
   background-color: #487aff;
   color: white;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.833vw;
   line-height: 100%;
   display: flex;
   justify-content: center;
@@ -143,7 +143,7 @@ const ToDo = styled.div`
 
 const ToDoText = styled.span`
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.042vw;
   line-height: 100%;
   color: #505050;
   margin-left: 0.83vw;

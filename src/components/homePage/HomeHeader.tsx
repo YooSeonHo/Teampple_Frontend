@@ -42,7 +42,7 @@ const HomeTitle = styled.div`
   top: 24px;
   left: 5.20vw;
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.25vw;
   line-height: 100%;
 `;
 
