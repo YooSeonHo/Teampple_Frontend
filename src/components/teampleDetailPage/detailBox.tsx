@@ -35,7 +35,7 @@ const DetailContainer = styled.div`
   .back {
     width: 1.667vw;
     height: 2.963vh;
-    margin-top: 1.4583vh;
+    margin-top: 1.7vh;
   }
 
   .more {
@@ -375,7 +375,7 @@ const DetailContainer = styled.div`
 `;
 
 const Container = styled.div`
-  width: 100vw;
+  width: 87.5vw;
   height: 100vh;
   display: flex;
   justify-content: center;
