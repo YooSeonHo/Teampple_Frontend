@@ -36,53 +36,53 @@ const HomePage = () => {
 };
 const HomePageContainer = styled.div`
   position: relative;
-  width: 1920px;
+  width: 100vw;
   height: 1602px;
   overflow: hidden;
 `;
 
 const SideBarContainer = styled.div`
   position: absolute;
-  width: 240px;
-  height: 1081px;
+  width: 12.5vw;
+  height: 1080px;
   left: 0px;
   top: 0px;
 `;
 
 const HeaderContainer = styled.div`
   position: absolute;
-  width: 1680px;
+  width: 87.5vw;
   height: 72px;
-  left: 240px;
+  left: 12.5vw;
   top: 0px;
 `;
 const TodoContainer = styled.div`
   position: absolute;
-  width: 1680px;
+  width: 87.5vw;
   height: 670px;
-  left: 240px;
+  left: 12.5vw;
   top: 368px;
   overflow: hidden;
   .text {
     margin-top: 48px;
     color: #383838;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 29px;
-    margin-left: 54px;
+    margin-left: 2.8125vw;
   }
 `;
 
 const SummaryHomeContainer = styled.div`
   position: absolute;
-  left: 240px;
+  left: 12.5vw;
   top: 72px;
 `;
 
 const MiniTemplateContainer = styled.div`
   position: absolute;
-  width: 1680px;
-  left: 240px;
+  width: 87.5vw;
+  left: 12.5vw;
   top: 1042px;
 `;
 

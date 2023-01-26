@@ -31,7 +31,7 @@ const HomeHeader = () => {
 
 const HomeHeaderContainer = styled.div`
   position: relative;
-  width: 1680px;
+  width: 87.5vw;
   height: 72px;
   border-bottom: solid;
   border-width: 3px;
@@ -40,18 +40,18 @@ const HomeHeaderContainer = styled.div`
 const HomeTitle = styled.div`
   position: absolute;
   top: 24px;
-  left: 54px;
+  left: 5.20vw;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 100%;
 `;
 
 const MsgIcon = styled(AiFillMessage)`
   position: absolute;
   top: 20px;
-  right: 54px;
+  right: 2.81vw;
   color: #487aff;
-  width: 32px;
+  width: 1.67vw;
   height: 32px;
 `;
 

@@ -107,18 +107,20 @@ const SummaryHome = () => {
 };
 
 const SummaryContainer = styled.div`
-  width: 1680px;
+  width: 87.5vw;
   height: 296px;
   position: relative;
+  background-color: #f9fafd;
   background-image: url(${HomeSummaryBg});
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 
 const DateContainer = styled.div`
   position: absolute;
-  left: 54px;
+  left: 2.81vw;
   top: 36px;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 100%;
 `;
 
@@ -127,11 +129,11 @@ const RemainContainer = styled.div``;
 const RemainBox = styled.div`
   position: absolute;
   top: 74px;
-  left: 54px;
+  left: 2.81vw;
 `;
 
 const Big = styled.div`
-  font-size: 32px;
+  font-size: 2rem;
   line-height: 100%;
   font-weight: 500;
 `;
@@ -141,25 +143,25 @@ const Small = styled.div`
 `;
 
 const Text = styled.span`
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 400;
 `;
 
 const Percent = styled.span`
   position: absolute;
-  left: 840px;
-  font-size: 24px;
+  left: 43.75vw;
+  font-size: 1.5rem;
 `;
 
 const BarContainer = styled.div`
   position: absolute;
   top: 230px;
-  left: 54px;
+  left: 4vw;
   ul {
     position: relative;
     padding: 0;
     list-style: none;
-    width: 888px;
+    width: 46.25vw;
   }
 
   li {
@@ -191,7 +193,7 @@ const Bar = styled.span<IBar>`
     height: 40px;
     position: absolute;
     top: -10px;
-    right: -10px;
+    right: -0.5208vw;
     border: 1.5px solid #487aff;
     border-radius: 54px;
     /* background-image: ${(props) => `url(${props.userid})`}; */
