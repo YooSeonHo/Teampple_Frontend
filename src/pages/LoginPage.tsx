@@ -26,9 +26,9 @@ const LoginPage = () => {
   );
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
-  const [,,code] = window.location.pathname.split('/');
-  const REST_API_KEY = '2eea6dfc666fe46a7926e5e613e46bde';
-  const REDIRECT_URI = 'http://teammple.com/login';
+  const [, , code] = window.location.pathname.split('/');
+  const REST_API_KEY = 'efe60942fb73d266236ba244244c0899';
+  const REDIRECT_URI = 'http://teampple.com/login';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const handleLogin = () => {
     // 1. 인가 코드 받기
@@ -116,30 +116,30 @@ const LoginPage = () => {
       });
   };
   const token = localStorage.getItem('jwt_accessToken');
-  const getTeamName = async () =>{
+  const getTeamName = async () => {
     await axios({
       url: `/api/invitations/validation`,
       baseURL: 'https://www.teampple.site/',
       method: 'get',
-      params : {
-        code : code
+      params: {
+        code: code,
       },
-    }).then((res)=>{
-      if (res.data.data.valid){
+    }).then((res) => {
+      if (res.data.data.valid) {
         setTeamname(res.data.data.teamName);
         setInvited(true);
       }
-    })
-  }
+    });
+  };
   useEffect(() => {
     if (!location.search) return;
     getKakaoToken();
   }, []);
-  useEffect(()=>{
-    if(code){
+  useEffect(() => {
+    if (code) {
       getTeamName();
     }
-  },[])
+  }, []);
   const naviOnBoard = () => {
     navigate('/');
   };
@@ -169,7 +169,7 @@ const LoginPage = () => {
 const LoginPageContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: #F4F8FF;
+  background-color: #f4f8ff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -201,7 +201,7 @@ const SubDesc = styled.div`
   font-weight: 500;
   font-size: 14px;
   line-height: 140%;
-  color: #C0C0C0;
+  color: #c0c0c0;
   position: absolute;
   top: 568px;
 `;
@@ -213,8 +213,7 @@ const TeamNameContainer = styled.div`
   line-height: 100%;
 `;
 const TeamName = styled.span`
-  color: #487AFF;
+  color: #487aff;
   font-weight: 700;
 `;
 export default LoginPage;
-
