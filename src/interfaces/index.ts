@@ -102,3 +102,16 @@ export interface userInfo{
   schoolName : string;
   subscribePlan : string;
   }
+
+export interface fbInfo {
+  checked: boolean,
+  modifiedAt: string,
+  taskId: number,
+  taskName: string,
+  teamId: number,
+  teamName: string
+}
+
+export interface fbListInfo {
+  feedbacks : fbInfo[]
+}

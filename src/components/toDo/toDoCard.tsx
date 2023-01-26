@@ -267,6 +267,7 @@ const ToDoCard = ({ todoList }: any) => {
             <div className="info">
               <div className="step">{todo.sequenceNum}단계</div>
               <div className="when">
+                
                 {todo.startDate}~{todo.dueDate}
               </div>
             </div>
