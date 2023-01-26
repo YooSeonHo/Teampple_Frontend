@@ -18,8 +18,8 @@ import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { useNavigate } from 'react-router-dom';
 
 const DetailContainer = styled.div`
-  width: 1000px;
-  height: 1008px;
+  width: 52.0833vw;
+  height: 93.333vh;
   display: flex;
   flex-direction: column;
   z-index: 1;
@@ -33,16 +33,16 @@ const DetailContainer = styled.div`
   }
 
   .back {
-    width: 32px;
-    height: 32px;
-    margin-top: 28px;
+    width: 1.667vw;
+    height: 2.963vh;
+    margin-top: 1.4583vh;
   }
 
   .more {
-    margin-top: 33px;
-    width: 5px;
-    height: 21px;
-    margin-right: 19px;
+    margin-top: 3.0556vh;
+    width: 0.26042vw;
+    height: 1.9444vh;
+    margin-right: 0.9896vw;
   }
 
   .more:hover,
@@ -57,9 +57,9 @@ const DetailContainer = styled.div`
 
   .toDoInfoBox {
     width: 100%;
-    height: 218px;
-    margin-top: 32px;
-    margin-bottom: 76px;
+    height: 20.1852vh;
+    margin-top: 2.963vh;
+    margin-bottom: 7.037vh;
   }
 
   .step {
@@ -67,8 +67,8 @@ const DetailContainer = styled.div`
   }
 
   .stepRound {
-    width: 51px;
-    height: 24px;
+    width: 2.65625vw;
+    height: 2.222vh;
     border: 1px solid #487aff;
     border-radius: 20px;
     display: flex;
@@ -76,7 +76,7 @@ const DetailContainer = styled.div`
 
   .stepText {
     font-weight: 500;
-    font-size: 12px;
+    font-size: 0.625vw;
     line-height: 100%;
     color: #487aff;
     margin: auto;
@@ -84,10 +84,10 @@ const DetailContainer = styled.div`
 
   .stepName {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #487aff;
-    margin-left: 8px;
+    margin-left: 0.41667vw;
     margin-top: auto;
     margin-bottom: auto;
   }
@@ -95,20 +95,20 @@ const DetailContainer = styled.div`
   .subName {
     display: flex;
     justify-content: space-between;
-    margin-top: 28px;
+    margin-top: 2.59259vh;
   }
 
   .taskName {
     font-weight: 600;
-    font-size: 28px;
+    font-size: 1.45833vw;
     line-height: 100%;
     color: #383838;
   }
 
   .finBtn {
-    width: 136px;
-    height: 36px;
-    margin-right: 20px;
+    width: 7.08333vw;
+    height: 3.333vh;
+    margin-right: 1.04167vw;
   }
 
   .finBtn:hover {
@@ -118,38 +118,38 @@ const DetailContainer = styled.div`
   .subInfo {
     display: flex;
     flex-direction: column;
-    margin-top: 37px;
+    margin-top: 3.425925vh;
   }
 
   .manager,
   .date,
   .state {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #707070;
-    margin-bottom: 25px;
+    margin-bottom: 2.31481vh;
   }
   .managerInput {
-    margin-left: 52px;
+    margin-left: 2.70833vw;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.041667vw;
   }
 
   .dateInput {
-    margin-left: 67px;
+    margin-left: 3.489583vw;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.04167vw;
   }
 
   .stateInput {
-    margin-left: 32px;
+    margin-left: 1.6667vw;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.04167vw;
   }
 
   .top {
-    margin-bottom: 71px;
+    margin-bottom: 6.574074vh;
   }
 
   .file {
@@ -159,17 +159,17 @@ const DetailContainer = styled.div`
 
   .fileText {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1.04167vw;
     line-height: 100%;
     color: #383838;
-    margin-left: 6px;
+    margin-left: 0.3125vw;
     margin-top: auto;
     margin-bottom: auto;
   }
 
   .addFile {
-    width: 100px;
-    height: 28px;
+    width: 5.75vw;
+    height: 3.2vh;
     margin-left: 24px;
     margin-top: auto;
     margin-bottom: auto;
@@ -180,49 +180,55 @@ const DetailContainer = styled.div`
   }
 
   .files {
-    margin-top: 20px;
+    margin-top: 1.85185vh;
     flex-wrap: nowrap;
     overflow: auto;
     display: flex;
   }
+  .uploadDate {
+    /* width: 91px;
+    height: 12px;
+    left: 614px;
+    top: 565px; */
+  }
 
   .fileCard {
-    width: 272px;
-    height: 92px;
+    width: 14.1667vw;
+    height: 8.5185vh;
     background: #ffffff;
     border-radius: 8px;
     border: 1px solid #d5dbee;
-    margin-right: 28px;
-    min-width: 272px;
+    margin-right: 1.45833vw;
+    min-width: 14.1667vw;
   }
 
   .fileName {
     display: flex;
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 1.85195vh;
+    margin-left: 1.041667vw;
   }
 
   .nameText {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 0.8333vw;
     line-height: 100%;
     text-align: center;
     color: #707070;
-    text-overflow: ellipsis;  
-	  overflow : hidden;
-    white-space : nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .icons {
     margin-left: auto;
-    margin-right: 40px;
-    width: 20px;
-    height: 20px;
+    margin-right: 2.08333vw;
+    width: 1.041667vw;
+    height: 1.85185vh;
     display: flex;
   }
 
   .download {
-    margin-right: 8px;
+    margin-right: 0.41667vw;
   }
 
   .download:hover,
@@ -232,48 +238,48 @@ const DetailContainer = styled.div`
 
   .fileInfo {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.625vw;
     line-height: 100%;
     color: #a7a7a7;
-    margin-left: 20px;
+    margin-left: 10.41667vw;
     display: flex;
-    margin-top: 20px;
+    margin-top: 1.85185vh;
   }
 
   .fileSize {
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 1.041667vw;
   }
 
   .mid {
-    margin-bottom: 72px;
+    margin-bottom: 6.6667vh;
   }
 
   .feedText {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1.041667vw;
     line-height: 100%;
     color: #383838;
-    margin-left: 6px;
+    margin-left: 0.3125vw;
   }
 
   .addFeed {
     display: flex;
-    margin-top: 24px;
+    margin-top: 2.222vh;
   }
 
   .profileImg {
-    width: 48px;
-    height: 48px;
-    margin-left: 12px;
+    width: 2.5vw;
+    height: 4.444vh;
+    margin-left: 0.625vw;
   }
 
   .feedInput {
-    width: 896px;
-    height: 48px;
+    width: 46.6667vw;
+    height: 4.444vh;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 16px;
+    margin-left: 0.8333vw;
     border: 0 solid black;
     border-bottom: 1px solid #d5dbee;
     padding: 0;
@@ -289,8 +295,8 @@ const DetailContainer = styled.div`
 
   .send {
     position: absolute;
-    top: 16px;
-    left: 889px;
+    top: 1.48149vh;
+    left: 46.3021vw;
     border: none;
     background-color: transparent;
     width: 24px;
@@ -305,14 +311,14 @@ const DetailContainer = styled.div`
   .feedbacks {
     display: flex;
     flex-direction: column;
-    margin-top: 36px;
+    margin-top: 3.333vh;
   }
 
   .feedBox {
-    width: 972px;
-    height: 79px;
+    width: 50.625vw;
+    height: 7.314814vh;
     display: flex;
-    margin-bottom: 16px;
+    margin-bottom: 1.48148vh;
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -325,32 +331,32 @@ const DetailContainer = styled.div`
 
   .feedInfo {
     display: flex;
-    margin-left: 16px;
+    margin-left: 0.83333vw;
     width: 100%;
   }
 
   .feedName {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #383838;
   }
 
   .feedDate {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.72917vw;
     line-height: 100%;
     color: #a7a7a7;
-    margin-left: 12px;
+    margin-left: 0.625vw;
     margin-top: auto;
     margin-bottom: auto;
   }
 
   .plusBtn {
-    width: 5px;
-    height: 21px;
+    width: 0.2604vw;
+    height: 1.944vh;
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 1.041667vw;
   }
 
   .plusBtn:hover {
@@ -359,13 +365,20 @@ const DetailContainer = styled.div`
 
   .feedContent {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 0.833vw;
     line-height: 100%;
     color: #383838;
-    margin-left: 16px;
-    margin-top: 12px;
+    margin-left: 0.8333vw;
+    margin-top: 1.111vh;
     max-width: 70%;
   }
+`;
+
+const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 `;
 
 const DetailBox = () => {
@@ -376,7 +389,7 @@ const DetailBox = () => {
   const [fileLoc, setFileLoc] = useState('');
   const fileInput = useRef<any>();
   const [teamid] = useRecoilState(teamidState);
-  const [user,setUser] = useState<userInfo>();
+  const [user, setUser] = useState<userInfo>();
   const [addFeed, setAddFeed] = useState('');
   const [taskId,] = useRecoilState(taskIdState);
   const navigate = useNavigate();
@@ -457,7 +470,7 @@ const DetailBox = () => {
       });
   };
 
-  const getUser = async () =>{
+  const getUser = async () => {
     await axios({
       url: '/api/users/userprofiles',
       baseURL: 'https://www.teampple.site/',
@@ -465,16 +478,18 @@ const DetailBox = () => {
       headers: {
         Authorization: token,
       },
-    }).then((res)=>{
-      setUser(res.data.data);
-    }).catch((e) => {
-      console.log(e);
-    });
-  }
+    })
+      .then((res) => {
+        setUser(res.data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-  const postFeedback = async () =>{
+  const postFeedback = async () => {
     await axios({
-      url : '/api/feedbacks',
+      url: '/api/feedbacks',
       baseURL: 'https://www.teampple.site/',
       method: 'post',
       headers: {
@@ -483,29 +498,31 @@ const DetailBox = () => {
       params: {
         taskId: taskId,
       },
-      data : {comment : addFeed}
-    }).then(()=>{
-      location.reload();
-    }).catch((e) => {
-      console.log(e);
-    });
-  }
+      data: { comment: addFeed },
+    })
+      .then(() => {
+        location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   useEffect(() => {
     getUser();
     getDetail();
   }, []);
 
-  useDidMountEffect(()=>{
+  useDidMountEffect(() => {
     postFile();
-  },[file])
+  }, [file]);
 
-  const onChangeFeed = (e : React.ChangeEvent<HTMLInputElement>) =>{
+  const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
-  }
+  };
 
   return (
-    <>
+    <Container>
       {detail && (
         <DetailContainer>
           <div className="headerBtns">
@@ -600,7 +617,6 @@ const DetailBox = () => {
                           .replace('T', ' ')
                           .replace(/:[0-9]+$/, '')}
                       </div>
-                      {/* <div className="uploadDate">2022.11.25 12:30</div> */}
                       <div className="fileSize">
                         {(file.size / (1024 * 1024)).toFixed(1)}MB
                       </div>
@@ -664,7 +680,7 @@ const DetailBox = () => {
           </div>
         </DetailContainer>
       )}
-    </>
+    </Container>
   );
 };
 

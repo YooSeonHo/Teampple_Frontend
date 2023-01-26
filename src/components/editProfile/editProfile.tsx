@@ -5,22 +5,22 @@ import editBtn from '../images/Frame 299.png';
 import axios from 'axios';
 
 const EditBox = styled.div`
-  width: 972px;
-  height: 688px;
+  width: 50.625vw;
+  height: 63.7vh;
   border: 2px solid #d5dbee;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  margin-top: 44px;
+  margin-top: 4.074vh;
   margin-left: auto;
   margin-right: auto;
 
   .profileImg {
-    width: 220px;
-    height: 220px;
+    width: 11.458vw;
+    height: 20.37vh;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 36px;
+    margin-top: 3.33vh;
   }
 
   img {
@@ -41,32 +41,32 @@ const EditBox = styled.div`
   .profileInfo {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 24px;
+    margin-top: 2.22vh;
   }
 
   .profileName {
     font-weight: 700;
-    font-size: 28px;
+    font-size: 1.468vw;
     line-height: 100%;
     text-align: center;
   }
 
   .profileEmail {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     text-align: center;
     color: #383838;
-    margin-top: 20px;
+    margin-top: 1.85185vh;
   }
 
   .logout {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 0.8333vw;
     line-height: 100%;
     text-align: center;
     color: #487aff;
-    margin-top: 21px;
+    margin-top: 1.944vh;
   }
 
   .logout:hover {
@@ -74,42 +74,42 @@ const EditBox = styled.div`
   }
 
   .schoolInfo {
-    margin-top: 56px;
+    margin-top: 5.1852vh;
     display: flex;
     justify-content: center;
   }
 
   .infoBox {
-    width: 372px;
-    height: 50px;
+    width: 19.375vw;
+    height: 4.62963vh;
     background-color: rgba(237, 239, 246, 0.5);
     border-radius: 12px;
     display: flex;
-    margin-right: 28px;
+    margin-right: 1.4583vw;
   }
 
   .infoText {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #707070;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 16px;
-    margin-right: 28px;
+    margin-left: 0.8333vw;
+    margin-right: 2.5925vh;
   }
 
   .schoolInfoLine2 {
     display: flex;
     justify-content: center;
-    margin-top: 24px;
+    margin-top: 2.22222vh;
   }
 
   .school,
   .major,
   .grade {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     color: #383838;
     margin-top: auto;
@@ -117,9 +117,9 @@ const EditBox = styled.div`
   }
 
   .editBtn {
-    width: 114px;
-    height: 40px;
-    margin-top: 41px;
+    width: 5.9375vw;
+    height: 3.704vh;
+    margin-top: 3.7963vh;
     margin-left: auto;
     margin-right: auto;
   }
@@ -130,13 +130,13 @@ const EditBox = styled.div`
 
   .extraText {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1.042vw;
     line-height: 100%;
     color: #383838;
-    margin-top: 130px;
+    margin-top: 12.04vh;
 
     .myPlan {
-      margin-bottom: 28px;
+      margin-bottom: 2.5926vh;
     }
 
     .myPlan:hover,

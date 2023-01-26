@@ -63,56 +63,56 @@ const HomeToDo = () => {
 
 const HomeToDoContainer = styled.div`
   position: relative;
-  width: 1680px;
-  height: 660px;
+  width: 87.5vw;
+  height: 550px;
   overflow: auto;
 `;
 const Title = styled.div`
   position: absolute;
   top: 24px;
-  left: 54px;
+  left: 2.8125vw;
   font-weight: 500;
-  font-size: 28px;
+  font-size: 1.457vw;
   line-height: 100%;
 `;
 const ToDosContainer = styled.div`
   position: absolute;
   top: 80px;
-  left: 54px;
-  width: 1680px;
+  left: 2.8125vw;
+  width: 87.5vw;
   height: 480px;
   display: flex;
 `;
 const ToDoContainer = styled.div`
-  width: 372px;
+  width: 19.375vw;
   height: 448px;
   background: #f4f8ff;
   border-radius: 16px;
-  margin-right: 28px;
+  margin-right: 1.4583vw;
   position: relative;
   flex-shrink: 0;
 `;
 const ToDoTitle = styled.div`
   position: absolute;
   top: 24px;
-  left: 24px;
+  left: 1.25vw;
   font-weight: 600;
-  font-size: 22px;
+  font-size: 1.145vw;
   line-height: 100%;
 `;
 const Left = styled.div``;
 const LeftText = styled.span`
   font-weight: 500;
-  font-size: 16px;
+  font-size: 0.833vw;
   line-height: 100%;
   color: #487aff;
   position: absolute;
-  right: 56px;
+  right: 3.072vw;
   top: 26px;
 `;
 const LeftNum = styled.span`
   position: absolute;
-  right: 20px;
+  right: 1.042vw;
   top: 20px;
   width: 28px;
   height: 28px;
@@ -120,7 +120,7 @@ const LeftNum = styled.span`
   background-color: #487aff;
   color: white;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 0.833vw;
   line-height: 100%;
   display: flex;
   justify-content: center;
@@ -130,13 +130,13 @@ const LeftNum = styled.span`
 const ToDoList = styled.div`
   position: absolute;
   top: 72px;
-  left: 20px;
-  width: 352px;
+  left: 1.041vw;
+  width: 18.33vw;
   height: 376px;
   overflow: auto;
 `;
 const ToDo = styled.div`
-  width: 332px;
+  width: 17.29vw;
   height: 72px;
   background: #ffffff;
   border-radius: 12px;
@@ -148,21 +148,21 @@ const ToDo = styled.div`
 
 const ToDoText = styled.span`
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1.042vw;
   line-height: 100%;
   color: #505050;
-  margin-left: 16px;
+  margin-left: 0.83vw;
 `;
 
 const Arrow = styled.img`
   position: absolute;
-  right: 18px;
+  right: 0.9375vw;
 `;
 
 const Done = styled.img`
-  width: 56px;
+  width: 2.92vw;
   height: 34px;
-  margin-left: 12px;
+  margin-left: 0.052vw;
 `;
 
 export default HomeToDo;

@@ -31,7 +31,6 @@ import AddTeample2 from 'components/popup/AddTeample2';
 
 const SideBarBox = styled.div<{ userid: string }>`
   width: 12.5vw;
-  // width: 240px;
   height: 1080px;
   display: flex;
   flex-direction: column;
@@ -40,9 +39,9 @@ const SideBarBox = styled.div<{ userid: string }>`
   position: fixed;
 
   .logo {
-    margin-left: 40px;
+    margin-left: 2.1vw;
     margin-top: 19px;
-    width: 135.47px;
+    width: 7.05vw;
     height: 38px;
   }
 
@@ -53,10 +52,8 @@ const SideBarBox = styled.div<{ userid: string }>`
 
   .user {
     display: flex;
-    /* margin-left: 36px; */
-    /* margin-bottom: 12px; */
     margin-top: 15px;
-    width: 240px;
+    width: 12.5vw;
     height: 64px;
     position: relative;
     color: #383838;
@@ -69,13 +66,11 @@ const SideBarBox = styled.div<{ userid: string }>`
     font-family: 'Pretendard';
     font-style: normal;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 22px;
-    /* margin-top: auto;
-    margin-bottom: auto; */
     position: absolute;
     top: 21px;
-    left: 88px;
+    left: 5.5vw;
   }
 
   #userImage {
@@ -84,23 +79,20 @@ const SideBarBox = styled.div<{ userid: string }>`
     background-image: url(${(props) => props.userid});
     background-size: cover;
     border-radius: 40px;
-    /* margin-right: 12px;
-    margin-top: auto;
-    margin-bottom: auto; */
     position: absolute;
     top: 12px;
-    left: 36px;
+    left: 1.875vw;
   }
 
   .box {
     color: #707070;
-    margin-left: 20px;
+    margin-left: 1.04vw;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     margin-bottom: 8px;
     border-radius: 8px;
-    width: 200px;
+    width: 10.42vw;
     height: 40px;
     display: flex;
     flex-direction: row;
@@ -115,12 +107,12 @@ const SideBarBox = styled.div<{ userid: string }>`
 
   .newBox {
     color: #707070;
-    margin-left: 20px;
+    margin-left: 1.04vw;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
     border-radius: 8px;
-    width: 200px;
+    width: 10.42vw;
     height: 40px;
     display: flex;
     justify-content: center;
@@ -134,7 +126,7 @@ const SideBarBox = styled.div<{ userid: string }>`
   }
 
   .boxText {
-    margin-left: 12px;
+    margin-left: 0.625vw;
     line-height: 40px;
     font-weight: 600;
     font-size: 18px;
@@ -142,14 +134,13 @@ const SideBarBox = styled.div<{ userid: string }>`
   }
 
   .subBoxText {
-    margin-left: 48px;
+    margin-left: 2.5vw;
     line-height: 40px;
   }
 
   #icon {
     width: 24px;
-    height: 24px;
-    margin-left: 12px;
+    margin-left: 0.625vw;
   }
 
   /* 호버 및 클릭시 아이콘 색깔 바뀌게  */
@@ -163,7 +154,7 @@ const SideBarBox = styled.div<{ userid: string }>`
     color: #c0c0c0;
     line-height: 40px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 0.9375vw;
     line-height: 100%;
   }
   /* 조금 더 왼쪽으로 땡겨야 할 듯 */

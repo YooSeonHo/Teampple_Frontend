@@ -61,8 +61,8 @@ const AddTask = ({ setModal }: any) => {
       .then((response) => {
         console.log(response);
         alert('새로운 할일 추가 성공!');
-        // location.reload();
-        window.location.replace('/teample-home/${teamId}');
+        location.reload();
+        // window.location.replace('/teample-home/${teamId}');
       })
       .catch(function (error) {
         console.log(error);
