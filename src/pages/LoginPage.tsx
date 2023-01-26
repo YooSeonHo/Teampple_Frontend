@@ -50,9 +50,9 @@ const LoginPage = () => {
         setKakaoAccessToken(data.access_token);
         setKakaoRefreshToken(data.refresh_token);
         // getKakaoInfo();
-        // navigate('/moreinfo');
+        navigate('/moreinfo');
         // postAuthLoginAPI();
-        navigate('/ing');
+        // navigate('/ing');
       })
       .catch(() => {
         alert('다시 시도하세요');

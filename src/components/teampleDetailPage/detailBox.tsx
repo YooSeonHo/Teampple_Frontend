@@ -7,7 +7,7 @@ import addFile from '../images/Frame 295.png';
 import download from '../images/DownloadSimple.png';
 import trash from '../images/Trash.png';
 import ellipse from '../images/Ellipse 1.png';
-import send from '../images/send.png';
+import Send from '../images/send.png';
 import axios from 'axios';
 import { detailInfo, userInfo } from 'interfaces';
 import S3 from 'react-aws-s3-typescript';
@@ -186,10 +186,10 @@ const DetailContainer = styled.div`
     display: flex;
   }
   .uploadDate {
-    /* width: 91px;
+    width: 91px;
     height: 12px;
     left: 614px;
-    top: 565px; */
+    top: 565px;
   }
 
   .fileCard {
@@ -241,7 +241,7 @@ const DetailContainer = styled.div`
     font-size: 0.625vw;
     line-height: 100%;
     color: #a7a7a7;
-    margin-left: 10.41667vw;
+    margin-left: 1.041667vw;
     display: flex;
     margin-top: 1.85185vh;
   }
@@ -295,13 +295,13 @@ const DetailContainer = styled.div`
 
   .send {
     position: absolute;
-    top: 1.48149vh;
-    left: 46.3021vw;
+    top: 1.2vh;
+    left: 45.7vw;
     border: none;
     background-color: transparent;
-    width: 24px;
-    height: 24px;
-    background-image: url(${send});
+    color: #A7A7A7;
+    width: 17px;
+    height: 17px;
   }
 
   .send:hover {
@@ -463,6 +463,7 @@ const DetailBox = () => {
       },
     })
       .then((res) => {
+        console.log(res.data)
         setDetail(res.data.data);
       })
       .catch((e) => {
@@ -645,7 +646,7 @@ const DetailBox = () => {
                   value={addFeed}
                   onChange={onChangeFeed}
                 />
-                <button className="send" onClick={postFeedback}></button>
+                <img src={Send} className="send" onClick={postFeedback}></img>
               </div>
             </div>
             {detail.feedbacks && (
