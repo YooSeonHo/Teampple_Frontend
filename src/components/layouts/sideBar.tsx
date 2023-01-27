@@ -103,6 +103,26 @@ const SideBarBox = styled.div<{ userid: string }>`
     color: #487aff;
     cursor: grab;
   }
+
+  .endBox {
+    color: #707070;
+    margin-left: 1.04vw;
+    font-weight: 600;
+    font-size: 0.9375vw;
+    line-height: 100%;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    width: 10.42vw;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .endBox:hover {
+    background-color: #ff5854;
+    color: white;
+    cursor: grab;
+  }
   /* 추가로 클릭 되면 box 색 바뀌게 설정 */
 
   .newBox {
@@ -319,7 +339,7 @@ const SideBar = () => {
               to={`/teample-home/${team.teamId}`}
               style={{ textDecoration: 'none', color: '#707070' }}
             >
-              <div className="box" id={team.teamId}>
+              <div className="endBox" id={team.teamId}>
                 <div className="subBoxText" id={team.teamId}>
                   {team.name}
                 </div>

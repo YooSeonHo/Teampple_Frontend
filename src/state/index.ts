@@ -1,5 +1,5 @@
 // import { detailInfo } from 'interfaces';
-import { makeTeampleInfo, stageInfo } from 'interfaces';
+import { fbInfo, fbListInfo, makeTeampleInfo, stageInfo } from 'interfaces';
 import { atom } from 'recoil';
 import { v1 } from 'uuid';
 // key duplicate 방지를 위한 라이브러리 설치
@@ -141,4 +141,15 @@ export const stageIdState = atom<number>({
 export const taskIdState = atom<number>({
   key : `taskId/${v1()}`,
   default: 1
+})
+
+export const fbListState = atom<fbInfo[]>({
+  key : `userfb`,
+  default : [
+  {checked: false,
+  modifiedAt: '',
+  taskId: 0,
+  taskName: '',
+  teamId: 0,
+  teamName: ''}]
 })

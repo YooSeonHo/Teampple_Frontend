@@ -168,7 +168,7 @@ const DetailContainer = styled.div`
   }
 
   .addFile {
-    width: 5.75vw;
+    width: 6.4vw;
     height: 3.2vh;
     margin-left: 24px;
     margin-top: auto;
@@ -443,7 +443,6 @@ const DetailBox = () => {
     })
       .then(() => {
         alert('파일 등록이 완료되었습니다.');
-        location.reload();
       })
       .catch((e) => {
         console.log(e);
@@ -489,24 +488,28 @@ const DetailBox = () => {
   };
 
   const postFeedback = async () => {
-    await axios({
-      url: '/api/feedbacks',
-      baseURL: 'https://www.teampple.site/',
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      params: {
-        taskId: taskId,
-      },
-      data: { comment: addFeed },
-    })
-      .then(() => {
-        location.reload();
+    if (addFeed.trim() === '') {
+      alert('댓글 내용을 입력해주세요.');
+    }
+    else{
+      await axios({
+        url: '/api/feedbacks',
+        baseURL: 'https://www.teampple.site/',
+        method: 'post',
+        headers: {
+          Authorization: token,
+        },
+        params: {
+          taskId: taskId,
+        },
+        data: { comment: addFeed },
+      }).then(()=>{
+        setAddFeed('');
       })
-      .catch((e) => {
-        console.log(e);
-      });
+        .catch((e) => {
+          console.log(e);
+        });
+      }
   };
 
   useEffect(() => {
@@ -517,6 +520,10 @@ const DetailBox = () => {
   useDidMountEffect(() => {
     postFile();
   }, [file]);
+
+  useEffect(()=>{
+    getDetail();
+  },[detail?.feedbacks, detail?.files])
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
@@ -551,7 +558,7 @@ const DetailBox = () => {
               <div className="subInfo">
                 <div className="manager">
                   담당자
-                  <span className="managerInput">{detail.operators}</span>
+                  <span className="managerInput">{detail.operators.map((op)=>`${op} `)}</span>
                 </div>
                 <div className="date">
                   기간
