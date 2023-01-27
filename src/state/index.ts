@@ -45,6 +45,16 @@ export const IsSearchState = atom<boolean>({
   default: false,
 });
 
+export const searchTemplateState = atom<string>({
+  key: `searchTemplate/${v1()}`,
+  default: '',
+});
+
+export const IsSearchTemplateState = atom<boolean>({
+  key: `isSearchTemplate/${v1()}`,
+  default: false,
+});
+
 export const zIndexState = atom<number>({
   key: `zIndex/${v1()}`,
   default: 997,
