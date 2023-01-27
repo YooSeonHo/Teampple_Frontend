@@ -27,8 +27,10 @@ const LoginPage = () => {
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
   const [, , code] = window.location.pathname.split('/');
-  const REST_API_KEY = 'efe60942fb73d266236ba244244c0899';
-  const REDIRECT_URI = 'https://teampple.com/login';
+  const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458'; // 로컬 버전
+  const REDIRECT_URI = 'http://localhost:3000/login'; // 로컬 버전
+  // const REST_API_KEY = 'efe60942fb73d266236ba244244c0899'; // 배포 버전 (배포할 때 이걸로!!!!)
+  // const REDIRECT_URI = 'https://teampple.com/login';  // 배포 버전 (배포할 때 이걸로!!!!)
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const handleLogin = () => {
     // 1. 인가 코드 받기
@@ -74,45 +76,7 @@ const LoginPage = () => {
       .then((response) => {
         console.log(response);
         alert('회원 확인 성공');
-        postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
-      })
-      .catch(() => {
-        navigate('/moreinfo'); // 그냥 서버 에러랑 회원이 아닌 거랑 구분해줘
-      });
-  };
-  const postAuthLoginAPI = async () => {
-    // 3-1. 로그인 (백한테 카카오 토큰 넘겨주기)
-    await axios({
-      url: `/api/auth/login`,
-      baseURL: 'https://www.teampple.site/',
-      method: 'post',
-      data: {
-        idToken: idToken,
-        oauthAccessToken: kakaoAccessToken,
-        oauthRefreshToken: kakaoRefreshToken,
-        // 테스트용
-        // idToken: 'kakaoU2',
-        // oauthAccessToken: 'string',
-        // oauthRefreshToken: 'string',
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        setjwtAccessToken(response.data.data.jwtAccessToken);
-        setjwtRefreshToken(response.data.data.jwtRefreshToken);
-        localStorage.setItem(
-          'jwt_accessToken',
-          response.data.data.jwtAccessToken,
-        );
-        localStorage.setItem(
-          'jwt_refreshToken',
-          response.data.data.jwtRefreshToken,
-        );
-        alert('카카오 로그인 성공 (홈으로 이동합니다)');
-        navigate('/home');
-      })
-      .catch(function (error) {
-        console.log(error);
+        // postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
       });
   };
   const token = localStorage.getItem('jwt_accessToken');
