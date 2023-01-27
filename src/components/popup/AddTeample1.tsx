@@ -14,19 +14,19 @@ import {
   startDateState,
   endDateState,
 } from 'state/AddTeample/atom';
-import { AddTeamzIndexState,makeTeampleState } from 'state';
+import { AddTeamzIndexState, makeTeampleState } from 'state';
 import { Background } from './AddSchedule';
 import { ModalProps } from 'interfaces';
 import { makeTeampleInfo } from 'interfaces';
 import moment from 'moment';
 
-const AddTeample = ({setModal,setNextModal} : ModalProps) => {
+const AddTeample = ({ setModal, setNextModal }: ModalProps) => {
   const [startDate, setStartDate] = useRecoilState<Date>(startDateState);
   const [endDate, setEndDate] = useRecoilState<Date>(endDateState);
   const [name, setName] = useRecoilState(nameState);
   const [aim, setAim] = useRecoilState(aimState);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
-  const [makeTeample,setMakeTeample] = useRecoilState(makeTeampleState);
+  const [makeTeample, setMakeTeample] = useRecoilState(makeTeampleState);
   const reset = useResetRecoilState(makeTeampleState);
   const resetName = useResetRecoilState(nameState);
   const resetAim = useResetRecoilState(aimState);
@@ -39,19 +39,21 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
   const onChangeAim = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAim(e.target.value);
   };
-  
+
   const onClickNext = (e: React.MouseEvent<HTMLElement>) => {
     if (name === '') alert('이름을 입력하세요.');
     else if (aim === '') alert('목표를 입력하세요.');
     else {
       setNextModal(true);
       setModal(false);
-      setMakeTeample((prev)=>({
+      setMakeTeample((prev) => ({
         ...prev,
-        name : name,
-        goal : aim,
-        startDate : moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
-        dueDate : moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+        name: name,
+        goal: aim,
+        startDate:
+          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
+        dueDate:
+          moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
         // startDate : startDate,
       }));
     }
@@ -69,8 +71,8 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
 
   return (
     <Background>
-      <ModifyTeampleContainer  style={{ zIndex: zIndex }}>
-        <CloseBtn  onClick={closeModal}/>
+      <ModifyTeampleContainer style={{ zIndex: zIndex }}>
+        <CloseBtn onClick={closeModal} />
         <Title>팀플 정보</Title>
         <InputContainer>
           <NameContainer>
@@ -134,32 +136,35 @@ const AddTeample = ({setModal,setNextModal} : ModalProps) => {
 };
 
 const ModifyTeampleContainer = styled.div`
-  width: 640px;
-  height: 640px;
+  /* width: 640px;
+  height: 640px; */
+  width: 33.33333vw;
+  height: 59.259vh;
   background: #ffffff;
   border-radius: 16px;
   z-index: 999;
   position: fixed;
-  top: 220px;
-  left: 640px;
+  top: 20.37037vh;
+  left: 33.33333vw;
+  /* top: 220px;
+  left: 640px; */
 `;
-
 
 const CloseBtn = styled(GrClose)`
   position: absolute;
-  top: 48px;
-  right: 32px;
+  top: 4.4444vh;
+  right: 1.66666vw;
   cursor: pointer;
 `;
 
 const Title = styled.div`
   font-weight: 600;
-  font-size: 24px;
+  font-size: 1.25vw;
   line-height: 100%;
   text-align: center;
   position: absolute;
-  top: 48px;
-  left: 276px;
+  top: 4.4444vh;
+  left: 14.375vw;
 `;
 
 const InputContainer = styled.div``;
@@ -169,55 +174,56 @@ const DateContainer = styled.div``;
 
 const Tag1 = styled.span`
   font-weight: 500;
-  font-size: 18px;
+  font-size: 0.9375vw;
   line-height: 100%;
   color: #707070;
   position: absolute;
-  top: 136px;
-  left: 32px;
+  top: 12.592593vh;
+  left: 1.66666vw;
 `;
 
 const Tag2 = styled(Tag1)`
-  top: 216px;
+  top: 20vh;
 `;
 
 const Tag3 = styled(Tag1)`
-  top: 296px;
+  top: 27.407407vh;
 `;
 
 const Input1 = styled.input`
-  width: 515px;
-  height: 48px;
+  width: 26.822817vw;
+  height: 4.4444vh;
   border: none;
   background-color: rgba(237, 239, 246, 0.5);
   border-radius: 8px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 0.83333vw;
+
   line-height: 100%;
-  padding: 16px;
+  padding: 0.8333vw;
   position: absolute;
-  top: 120px;
-  left: 93px;
+  top: 11.11111vh;
+  left: 4.84375vw;
   color: #707070;
 `;
 
 const Input2 = styled(Input1)`
-  top: 200px;
+  top: 18.518519vh;
 `;
 
 const DateBox1 = styled.div`
-  width: 240px;
-  height: 48px;
+  width: 12.5vw;
+  height: 4.4444vh;
   border: none;
   background-color: rgba(237, 239, 246, 0.5);
   border-radius: 8px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 0.83333vw;
   line-height: 100%;
-  padding: 16px;
+  padding: 0.8333vw;
   position: absolute;
-  top: 280px;
-  left: 93px;
+  top: 25.925926vh;
+  left: 4.84375vw;
   display: flex;
   align-items: center;
   &:hover {
@@ -226,58 +232,58 @@ const DateBox1 = styled.div`
 `;
 
 const DateBox2 = styled(DateBox1)`
-  left: 365px;
+  left: 19.010417vw;
 `;
 
 const Dash = styled(AiOutlineLine)`
   position: absolute;
-  width: 16px;
-  height: 0px;
-  left: 341px;
-  top: 304px;
+  width: 0.83333vw;
+  height: 0vh;
+  left: 17.760417vw;
+  top: 28.148148vh;
   border: 0.6px solid #383838;
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-  width: 240px;
-  height: 48px;
+  width: 12.5vw;
+  height: 4.4444vh;
   border: none;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 0.8333vw;
   line-height: 100%;
-  padding: 20px;
+  padding: 1.041667vw;
   background-color: transparent;
   color: #707070;
   position: absolute;
-  top: -30px;
-  left: -20px;
+  top: -2.777778vh;
+  left: -1.041667vw;
 `;
 
 const TextLength1 = styled.span`
   position: absolute;
-  top: 138px;
-  right: 48px;
+  top: 12.777778vh;
+  right: 2.5vw;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 0.625vw;
   line-height: 100%;
   color: #c0c0c0;
 `;
 
 const TextLength2 = styled(TextLength1)`
-  top: 218px;
+  top: 20.185185vh;
 `;
 
 const NextButton = styled.button`
   position: absolute;
-  width: 576px;
-  height: 56px;
-  left: 32px;
-  top: 552px;
+  width: 30vw;
+  height: 5.185185vh;
+  left: 1.66666vw;
+  top: 51.1111vh;
   background: #487aff;
-  border-radius: 12px;
+  border-radius: 0.625vw;
   color: #ffffff;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 1.041667vw;
   line-height: 100%;
 `;
 
