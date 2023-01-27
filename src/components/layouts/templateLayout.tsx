@@ -4,7 +4,7 @@ import SideBar from './sideBar';
 import TemplateHeader from './templateHeader';
 
 const Container = styled.div`
-  margin-left: 240px;
+  margin-left: 12.5vw;
 `;
 
 const LayoutBox = styled.div`

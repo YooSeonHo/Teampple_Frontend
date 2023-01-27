@@ -150,42 +150,40 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
 };
 
 const ModifyTeampleContainer = styled.div`
-  width: 640px;
-  height: 640px;
+  width: 33.33333vw;
+  height: 59.259vh;
   background: #ffffff;
   border-radius: 16px;
   position: relative;
   z-index: 999;
   position: fixed;
-  top: 220px;
-  left: 640px;
-  
+  top: 20.37037vh;
+  left: 33.33333vw;
 `;
 
 const CloseBtn = styled(GrClose)`
   position: absolute;
-  top: 48px;
-  right: 32px;
+  top: 4.4444vh;
+  right: 1.66666vw;
   cursor: pointer;
 `;
 
 const Title = styled.div`
   position: absolute;
-  top: 48px;
-  left: 276px;
+  top: 4.4444vh;
+  left: 14.375vw;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 1.25vw;
   line-height: 100%;
   text-align: center;
 `;
 
 const Desc = styled.div`
   position: absolute;
-  width: 328px;
-  height: 14px;
-  left: 156px;
-  top: 84px;
-  font-size: 14px;
+  height: 1.2962vh;
+  left: 8.125vw;
+  top: 7.7778vh;
+  font-size: 0.729vw;
   line-height: 100%;
   text-align: center;
   color: #a7a7a7;
@@ -193,17 +191,17 @@ const Desc = styled.div`
 
 const InputContainer = styled.div`
   position: absolute;
-  top: 120px;
-  width: 640px;
-  height: 390px;
+  top: 11.11vh;
+  width: 33.3333vw;
+  height: 36.11vh;
   overflow: auto;
 `;
 
 const AddStepButton = styled.button`
   position: absolute;
-  left: 42px;
-  width: 570px;
-  height: 56px;
+  left: 2.1875vw;
+  width: 29.6875vw;
+  height: 5.18519vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -212,28 +210,28 @@ const AddStepButton = styled.button`
   color: #5785ff;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 0.8333vw;
   line-height: 100%;
 `;
 
 const MakeButton = styled.button`
   position: absolute;
-  width: 277px;
-  height: 56px;
-  left: 331px;
-  top: 552px;
+  width: 14.4271vw;
+  height: 5.1852vh;
+  left: 17.2386vw;
+  top: 51.11vh;
   background: #487aff;
   border-radius: 12px;
   color: #ffffff;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 1.041667vw;
   line-height: 100%;
 `;
 
 const PrevButton = styled(MakeButton)`
   position: absolute;
-  left: 38px;
-  top: 552px;
+  left: 1.9791vw;
+  top: 51.11vh;
   background: #ececec;
   border-radius: 12px;
   color: #707070;
