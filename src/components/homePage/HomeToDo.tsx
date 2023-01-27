@@ -47,7 +47,7 @@ const HomeToDo = () => {
                   style={{ textDecoration: 'none' }}
                 >
                   <ToDoContainer>
-                    <ToDoTitle style={{ color: '#383838;' }}>
+                    <ToDoTitle style={{ color: '#383838' }}>
                       {team.name}
                     </ToDoTitle>
                     <Left>
