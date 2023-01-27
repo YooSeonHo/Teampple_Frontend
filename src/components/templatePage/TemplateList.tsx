@@ -1,8 +1,31 @@
 import React from 'react';
 import template1 from '../images/template1.png';
 import styled from 'styled-components';
-//피그마 터져서 나중에 추가
+import axios from 'axios';
+import { useEffect } from 'react';
+
 const TemplateList = () => {
+  const token = localStorage.getItem('jwt_accessToken');
+  const getPlanAPI = async () => {
+    await axios({
+      url: `/api/templates`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getPlanAPI();
+  }, []);
   return (
     <MiniTemplateContainer>
       <TemplateBoxContainer>

@@ -19,7 +19,7 @@ const FeedBox = styled.div<StyledFeedInfo>`
   right: 0vw;
   position: absolute;
   margin-right: 2.8125vw;
-  margin-top: ${(props) => (props.pathname === '/home' ? '0.777777vh' : '0.1111111vh')};
+  margin-top: ${(props) => (props.pathname === '/home' ? '10vh' : '0.1111111vh')};
   margin-left: auto;
   z-index: 1001;
 
@@ -61,7 +61,7 @@ const Feed = styled.div`
 
   .feedContent {
     font-weight: 500;
-    font-size: 0.7291vw;
+    font-size: 0.4vw;
     line-height: 160%;
     color: #383838;
     text-overflow: ellipsis;
