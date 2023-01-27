@@ -31,7 +31,7 @@ import AddTeample2 from 'components/popup/AddTeample2';
 
 const SideBarBox = styled.div<{ userid: string }>`
   width: 12.5vw;
-  height: 1080px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f4f8ff;
