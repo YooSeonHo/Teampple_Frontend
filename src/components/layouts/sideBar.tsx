@@ -186,11 +186,8 @@ const SideBarBox = styled.div<{ userid: string }>`
   }
 
   .profileImg {
-    width: 2.5vw;
-    height: 4.444vh;
-    background-image: url(${(props) => props.userid});
-    background-size: cover;
-    border-radius: 40px;
+    width: 2.8vw;
+    border-radius: 50%;
     position: absolute;
     top: 12px;
     left: 1.875vw;
