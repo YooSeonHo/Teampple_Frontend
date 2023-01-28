@@ -16,7 +16,7 @@ import prof7 from '../images/profile/proImageU7.png';
 import prof8 from '../images/profile/proImageU8.png';
 import prof9 from '../images/profile/proImageU9.png';
 // import tnames from '../../data/teamList.json';
-import { usernameState, userschoolState, usermajorState } from 'state';
+import { usernameState, userschoolState, usermajorState, profileImgState } from 'state';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import {
@@ -211,7 +211,7 @@ const SideBar = () => {
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
-  const [profileImg,setProfileImg] = useState('');
+  const [profileImg,setProfileImg] = useRecoilState(profileImgState);
 
   const showModal = () => {
     setModal(!modal);

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import editBtn from '../images/Frame 299.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { profileImgState } from 'state';
 
 const EditBox = styled.div`
   width: 50.625vw;
@@ -151,7 +153,7 @@ const EditProfile = () => {
   const [major, setMajor] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [profimg, setProfimg] = useState('');
+  const [profimg, setProfimg] = useRecoilState(profileImgState);
   const navigate = useNavigate();
 
   const onSchool = (e: React.ChangeEvent<HTMLInputElement>) => {

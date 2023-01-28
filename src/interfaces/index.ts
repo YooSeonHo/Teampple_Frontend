@@ -117,3 +117,7 @@ export interface fbInfo {
 export interface fbListInfo {
   feedbacks : fbInfo[]
 }
+
+export interface profileImg {
+  profileImg : string
+}

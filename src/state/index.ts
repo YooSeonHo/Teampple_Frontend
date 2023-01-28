@@ -157,3 +157,8 @@ export const fbListState = atom<fbInfo[]>({
   teamId: 0,
   teamName: ''}]
 })
+
+export const profileImgState = atom<string>({
+  key :'profileImg',
+  default : ''
+})
