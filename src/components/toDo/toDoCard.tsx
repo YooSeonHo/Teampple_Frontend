@@ -288,13 +288,12 @@ const ToDoCard = ({ todoList }: any) => {
                 style={{ textDecoration: 'none' }}
                 >
                   <Box onClick={onClick} id={doo.taskId}>
-                    {doo.done === 'true' ? (
+                    {doo.done === true ? (
                       <div className="doneIcon">
                         <img src={done} />
                       </div>
-                    ) : (
-                      <></>
-                    )}
+                    ) : <></>
+                    }
                     <div className="doneText">{doo.name}</div>
                     <div className="doneArr">
                       <img src={arrow} />

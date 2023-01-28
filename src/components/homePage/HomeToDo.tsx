@@ -58,6 +58,7 @@ const HomeToDo = () => {
                       >
                         <ToDo>
                           {t.done === 'true' ? <Done src={done} /> : <></>}
+
                           <ToDoText>{t.name}</ToDoText>
                           <Arrow src={arrow} />
                         </ToDo>
@@ -172,9 +173,9 @@ const Arrow = styled.img`
 `;
 
 const Done = styled.img`
-  width: 2.92vw;
-  height: 34px;
-  margin-left: 0.052vw;
+width: 2.916667vw;
+height: 3.148148vh;
+margin-left: 0.625vw;
 `;
 
 export default HomeToDo;

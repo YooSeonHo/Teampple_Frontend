@@ -95,7 +95,7 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useRecoilState(fbListState);
   const token = localStorage.getItem('jwt_accessToken');
   const [taskId, setTaskId] = useState<number>();
-
+  
   const getTaskId = (fb: any, e: React.MouseEvent<HTMLElement>) => {
     setTaskId(fb.taskId); //이 task id 가지고 맞는 할일에 라우팅
   };
