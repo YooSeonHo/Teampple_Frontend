@@ -446,7 +446,7 @@ const DetailBox = () => {
     })
       .then(() => {
         alert('파일 등록이 완료되었습니다.');
-        location.reload();
+        // location.reload();
       })
       .catch((e) => {
         console.log(e);
@@ -545,7 +545,6 @@ const DetailBox = () => {
   };
 
   const downloadFile = (url:any) => {
-
       fetch(url, { method: 'GET' })
         .then((res) => {
           return res.blob();
@@ -650,7 +649,6 @@ const DetailBox = () => {
                     <div className="fileName">
                       <div className="nameText">
                         {file.filename}
-                        {fileLoc}
                       </div>
                       <div className="icons">
                         <img
