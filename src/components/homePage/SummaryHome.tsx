@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import prof1 from '../images/profile/proImageU1.png';
-import prof2 from '../images/profile/proImageU2.png';
-import prof3 from '../images/profile/proImageU3.png';
-import prof4 from '../images/profile/proImageU4.png';
-import prof5 from '../images/profile/proImageU5.png';
-import prof6 from '../images/profile/proImageU6.png';
-import prof7 from '../images/profile/proImageU7.png';
-import prof8 from '../images/profile/proImageU8.png';
-import prof9 from '../images/profile/proImageU9.png';
+import proImageU1 from '../images/profile/proImageU1.png';
+import proImageU2 from '../images/profile/proImageU2.png';
+import proImageU3 from '../images/profile/proImageU3.png';
+import proImageU4 from '../images/profile/proImageU4.png';
+import proImageU5 from '../images/profile/proImageU5.png';
+import proImageU6 from '../images/profile/proImageU6.png';
+import proImageU7 from '../images/profile/proImageU7.png';
+import proImageU8 from '../images/profile/proImageU8.png';
+import proImageU9 from '../images/profile/proImageU9.png';
 import HomeSummaryBg from '../images/HomeSummaryBg.png';
 import axios from 'axios';
 import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';
@@ -29,11 +29,12 @@ const SummaryHome = () => {
   const [remainPercent, setRemainPercent] = useState<number>(
     Math.round(Number(doneNum / allNum) * 100),
   );
-  const [userid, setUserid] = useState(prof1);
+  // const [userid, setUserid] = useState(prof1);
   let s1 = 0;
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
   const [profileImg] = useRecoilState(profileImgState);
+  const [profileImage, setProfileImage] = useState(proImageU2);
 
   const getTaskAPI = async () => {
     await axios({
@@ -102,7 +103,7 @@ const SummaryHome = () => {
                 <Bar
                   className="css-progressbar"
                   remainPercent={remainPercent}
-                  userid={userid}
+                  profileImage={profileImage}
                 />
               </li>
             </ul>
@@ -180,7 +181,7 @@ const BarContainer = styled.div`
 
 interface IBar {
   remainPercent: number;
-  userid: string;
+  profileImage: string;
 }
 
 const Bar = styled.span<IBar>`
@@ -203,8 +204,7 @@ const Bar = styled.span<IBar>`
     right: -0.5208vw;
     border: 1.5px solid #487aff;
     border-radius: 54px;
-    /* background-image: ${(props) => `url(${props.userid})`}; */
-    background-image: url(${(props) => props.userid});
+    background-image: url(${(props) => props.profileImage});
     background-size: cover;
   }
 

@@ -29,11 +29,6 @@ const SummaryTeample = () => {
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
 
-  const nanTest = (doneNum: number, allNum: any) => {
-    if (isNaN(Math.round(Number(doneNum / allNum) * 100))) return 0;
-    return isNaN(Math.round(Number(doneNum / allNum) * 100));
-  };
-
   const changeStatus = () => {
     if (currentPercent >= 1 && currentPercent < 25) {
       setIcon(progress1);
