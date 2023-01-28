@@ -182,6 +182,18 @@ const SideBarBox = styled.div<{ userid: string }>`
   .btm {
     margin-top: auto;
     margin-bottom: 48px;
+    
+  }
+
+  .profileImg {
+    width: 2.5vw;
+    height: 4.444vh;
+    background-image: url(${(props) => props.userid});
+    background-size: cover;
+    border-radius: 40px;
+    position: absolute;
+    top: 12px;
+    left: 1.875vw;
   }
 `;
 
@@ -199,6 +211,7 @@ const SideBar = () => {
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
+  const [profileImg,setProfileImg] = useState('');
 
   const showModal = () => {
     setModal(!modal);
@@ -228,6 +241,7 @@ const SideBar = () => {
         setName(res.data.data.name);
         setSchool(res.data.data.schoolName);
         setMajor(res.data.data.major);
+        setProfileImg(res.data.data.profileImage)
       })
       .catch((e) => {
         console.log(e);
@@ -284,7 +298,14 @@ const SideBar = () => {
       </div>
       <Link to="/profile" style={{ textDecoration: 'none' }}>
         <div className="user">
-          <div id="userImage"></div>
+        <div className="profileImg">
+                {profileImg && 
+                  <img
+                    src={require('../images/profile/' +
+                      profileImg +
+                      '.png')}
+                  />}
+              </div>
           <a id="userName">{name}</a>
         </div>
       </Link>
