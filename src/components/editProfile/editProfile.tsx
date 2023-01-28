@@ -151,7 +151,7 @@ const EditProfile = () => {
   const [major, setMajor] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [profimg, setProfimg] = useState('proImageU1');
+  const [profimg, setProfimg] = useState('');
   const navigate = useNavigate();
 
   const onSchool = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -234,7 +234,12 @@ const EditProfile = () => {
     <EditBox>
       <div className="profileImg">
         {/* <img src={require(`../images/profile/` + `${profimg}` + `.png`)} /> */}
-        <img src={require(`../images/profile/proImageU1.png`)} />
+        {profimg && 
+                  <img
+                    src={require('../images/profile/' +
+                      profimg +
+                      '.png')}
+                  />}
       </div>
       <div className="profileInfo">
         <div className="profileName">{name}</div>
