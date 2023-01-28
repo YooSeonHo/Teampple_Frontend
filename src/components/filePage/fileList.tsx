@@ -152,6 +152,7 @@ const FileList = () => {
       })
         .then((res) => {
           setFiles(res.data.data);
+          console.log(res.data.data);
         })
         .catch((e) => {
           console.log(e);
