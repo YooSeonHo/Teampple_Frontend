@@ -524,7 +524,7 @@ const DetailBox = () => {
 
   useEffect(() => {
     getDetail();
-  }, [detail?.feedbacks, detail?.files]);
+  }, []);
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);

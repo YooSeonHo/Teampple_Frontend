@@ -149,7 +149,6 @@ const FileList = () => {
         headers: {
           Authorization: token,
         },
-        //파람스 부분 바꾸면 댐
       })
         .then((res) => {
           setFiles(res.data.data);
