@@ -335,16 +335,17 @@ const SideBar = () => {
               getTeamid(e.target);
             }}
           >
-            <Link
-              to={`/teample-home/${team.teamId}`}
-              style={{ textDecoration: 'none', color: '#707070' }}
+            <div
+              className="box"
+              id={team.teamId}
+              onClick={() =>
+                window.open(`/teample-home/${team.teamId}`, '_self')
+              }
             >
-              <div className="box" id={team.teamId}>
-                <div className="subBoxText" id={team.teamId}>
-                  {team.name}
-                </div>
+              <div className="subBoxText" id={team.teamId}>
+                {team.name}
               </div>
-            </Link>
+            </div>
           </div>
         ))}
         {/* 끝난 팀플 css 수정 필요 */}

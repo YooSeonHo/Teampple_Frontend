@@ -27,9 +27,7 @@ const SummaryHome = () => {
   const [doneNum, setDoneNum] = useState<number>(0);
   const [allNum, setAllNum] = useState<number>(0);
   const [remainPercent, setRemainPercent] = useState<number>(
-    isNaN(Math.round(Number(doneNum / allNum) * 100))
-      ? 0
-      : Math.round(Number(doneNum / allNum) * 100),
+    Math.round(Number(doneNum / allNum) * 100),
   );
   const [userid, setUserid] = useState(prof1);
   let s1 = 0;
@@ -54,7 +52,8 @@ const SummaryHome = () => {
         response.data.data.teams.map((t: any) =>
           setAllNum((s2 += parseInt(t.totalStage))),
         );
-        setRemainPercent((doneNum / allNum) * 100);
+        if (allNum === 0) setRemainPercent(0);
+        else setRemainPercent(Math.round(Number(doneNum / allNum) * 100));
       })
       .catch(function (error) {
         console.log(error);
@@ -62,52 +61,54 @@ const SummaryHome = () => {
   };
   useEffect(() => {
     getTaskAPI();
-    console.log(localStorage.getItem('jwt_accessToken'));
   }, [doneNum, allNum]);
 
   return (
     <>
-    {allNum === 0 ? <NotSummaryTeample/>:
-    <SummaryContainer>
-      <DateContainer>
-        {year}년 {month}월 {date}일 ({week})
-      </DateContainer>
-      <RemainContainer>
-        <RemainBox>
-          <Big>
-            <span>
-              {username}님의
-              <br />
-            </span>
-            <div style={{ marginTop: '18px' }}>
-              <span>할 일이</span>
-              <span style={{ color: '#487AFF', fontWeight: '700' }}>
-                &nbsp;{allNum - doneNum}개&nbsp;
-              </span>
-              <span>
-                남았어요.
-                <br />
-              </span>
-            </div>
-          </Big>
-          <Small>
-            <Text>남은 시간 힘내서 달려보아요</Text>
-            <Percent>{remainPercent}%</Percent>
-          </Small>
-        </RemainBox>
-      </RemainContainer>
-      <BarContainer>
-        <ul>
-          <li>
-            <Bar
-              className="css-progressbar"
-              remainPercent={remainPercent}
-              userid={userid}
-            />
-          </li>
-        </ul>
-      </BarContainer>
-    </SummaryContainer>}
+      {allNum === 0 ? (
+        <NotSummaryTeample />
+      ) : (
+        <SummaryContainer>
+          <DateContainer>
+            {year}년 {month}월 {date}일 ({week})
+          </DateContainer>
+          <RemainContainer>
+            <RemainBox>
+              <Big>
+                <span>
+                  {username}님의
+                  <br />
+                </span>
+                <div style={{ marginTop: '18px' }}>
+                  <span>할 일이</span>
+                  <span style={{ color: '#487AFF', fontWeight: '700' }}>
+                    &nbsp;{allNum - doneNum}개&nbsp;
+                  </span>
+                  <span>
+                    남았어요.
+                    <br />
+                  </span>
+                </div>
+              </Big>
+              <Small>
+                <Text>남은 시간 힘내서 달려보아요</Text>
+                <Percent>{remainPercent}%</Percent>
+              </Small>
+            </RemainBox>
+          </RemainContainer>
+          <BarContainer>
+            <ul>
+              <li>
+                <Bar
+                  className="css-progressbar"
+                  remainPercent={remainPercent}
+                  userid={userid}
+                />
+              </li>
+            </ul>
+          </BarContainer>
+        </SummaryContainer>
+      )}
     </>
   );
 };
