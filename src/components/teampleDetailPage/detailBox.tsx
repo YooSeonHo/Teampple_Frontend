@@ -446,7 +446,7 @@ const DetailBox = () => {
     })
       .then(() => {
         alert('파일 등록이 완료되었습니다.');
-        // location.reload();
+        location.reload();
       })
       .catch((e) => {
         console.log(e);
@@ -644,7 +644,7 @@ const DetailBox = () => {
             </div>
             {detail.files && (
               <div className="files">
-                {detail.files.reverse().map((file, index) => (
+                {detail.files.map((file, index) => (
                   <div className="fileCard" key={index}>
                     <div className="fileName">
                       <div className="nameText">
