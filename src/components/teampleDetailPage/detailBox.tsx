@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import React, { useEffect, useState, useRef } from 'react';
 import vector from '../images/Vector.png';
 import more from '../images/Group 419.png';
-import finBtn from '../images/Group 435.png';
+import startBtn from '../images/Group 435.png';
+import finBtn from '../images/Group 437.png';
 import download from '../images/DownloadSimple.png';
 import trash from '../images/Trash.png';
 import ellipse from '../images/Ellipse 1.png';
@@ -508,7 +509,6 @@ const DetailBox = () => {
         .then(() => {
           setAddFeed('');
           location.reload();
-          //이거 하고 나서 파일 추가에도 해야댐
         })
         .catch((e) => {
           console.log(e);
@@ -525,9 +525,19 @@ const DetailBox = () => {
     postFile();
   }, [file]);
 
-  // useEffect(()=>{
-  //   getDetail();
-  // },[detail?.feedbacks])
+  const onChangeStatus = async () =>{
+    await axios({
+      url: '/api/tasks/status',
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      headers : {
+        Authorization : token,
+      },
+      params : {taskId : taskId}
+    }).then(()=>{
+      location.reload();
+        })  
+  }
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
@@ -555,9 +565,11 @@ const DetailBox = () => {
               </div>
               <div className="subName">
                 <div className="taskName">{detail.taskName}</div>
-                <div className="finBtn">
-                  <img src={finBtn} />
+
+                <div className="finBtn" onClick={onChangeStatus}>
+                  {detail.done? <img src={startBtn}/> : <img src={finBtn} /> }
                 </div>
+
               </div>
               <div className="subInfo">
                 <div className="manager">
