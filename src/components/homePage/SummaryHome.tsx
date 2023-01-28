@@ -12,6 +12,8 @@ import prof9 from '../images/profile/proImageU9.png';
 import HomeSummaryBg from '../images/HomeSummaryBg.png';
 import axios from 'axios';
 import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';
+import { useRecoilState } from 'recoil';
+import { profileImgState } from 'state';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -33,6 +35,7 @@ const SummaryHome = () => {
   let s1 = 0;
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
+  const [profileImg] = useRecoilState(profileImgState);
 
   const getTaskAPI = async () => {
     await axios({

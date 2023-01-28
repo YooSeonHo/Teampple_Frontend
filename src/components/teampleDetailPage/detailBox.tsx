@@ -525,7 +525,7 @@ const DetailBox = () => {
   useDidMountEffect(() => {
     postFile();
   }, [file]);
-  
+
   const onChangeStatus = async () =>{
     await axios({
       url: '/api/tasks/status',
@@ -645,7 +645,7 @@ const DetailBox = () => {
             </div>
             {detail.files && (
               <div className="files">
-                {detail.files.map((file, index) => (
+                {detail.files.reverse().map((file, index) => (
                   <div className="fileCard" key={index}>
                     <div className="fileName">
                       <div className="nameText">
