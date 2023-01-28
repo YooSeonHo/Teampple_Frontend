@@ -4,6 +4,8 @@ import { atom } from 'recoil';
 import { v1 } from 'uuid';
 // key duplicate 방지를 위한 라이브러리 설치
 // npm i --save-dev @types/uuid
+import { recoilPersist } from "recoil-persist";
+const { persistAtom } = recoilPersist();
 
 export const usernameState = atom<string>({
   key: `username/${v1()}`,
@@ -21,8 +23,9 @@ export const usermajorState = atom<string>({
 });
 
 export const teamidState = atom<number>({
-  key: `teamid/${v1()}`,
+  key: `teamid`,
   default: 1,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const teamMateNumState = atom<number>({
@@ -42,6 +45,16 @@ export const searchFileState = atom<string>({
 
 export const IsSearchState = atom<boolean>({
   key: `isSearch/${v1()}`,
+  default: false,
+});
+
+export const searchTemplateState = atom<string>({
+  key: `searchTemplate/${v1()}`,
+  default: '',
+});
+
+export const IsSearchTemplateState = atom<boolean>({
+  key: `isSearchTemplate/${v1()}`,
   default: false,
 });
 
@@ -129,8 +142,9 @@ export const stageIdState = atom<number>({
 });
 
 export const taskIdState = atom<number>({
-  key : `taskId/${v1()}`,
-  default: 1
+  key : `taskId`,
+  default: 1,
+  effects_UNSTABLE: [persistAtom],
 })
 
 export const fbListState = atom<fbInfo[]>({

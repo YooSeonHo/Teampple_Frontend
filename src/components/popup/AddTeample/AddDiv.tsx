@@ -175,30 +175,30 @@ overflow : hidden;
 `
 
 const StepContainer = styled.div`
-  width: 640px;
-  height: 110px;
-  margin-bottom: 32px;
+  width: 33.333vw;
+  height: 10.185185vh;
+  margin-bottom: 2.96296vh;
 `;
 
 const NameContainer = styled.div`
-  width: 640px;
-  height: 50px;
+  width: 33.333vw;
+  height: 4.62963vh;
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 1.111vh;
 `;
 
 const TagContainer = styled.div`
-  width: 50px;
-  height: 50px;
-  margin-top: 70px;
-  margin-left: 23px;
+  width: 2.60417vw;
+  height: 4.62963vh;
+  margin-top: 6.4815vh;
+  margin-left: 1.19792vw;
   text-align: center;
 `;
 
 const Tag = styled.div`
   font-weight: 500;
-  font-size: 18px;
+  font-size: 0.9375vw;
   line-height: 100%;
   color: #707070;
 `;
@@ -212,58 +212,58 @@ const SubTag = styled.span`
 `;
 
 const InputBox = styled.div`
-  width: 468px;
-  height: 50px;
+  width: 24.375vw;
+  height: 4.62963vh;
   border: none;
   background-color: rgba(237, 239, 246, 0.5);
   border-radius: 8px;
-  margin-left: 21px;
+  margin-left: 1.09375vw;
 `;
 
 const Input = styled.input`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 0.8333vw;
   line-height: 100%;
-  width: 400px;
-  height: 48px;
+  width: 20.833vw;
+  height: 4.444vh;
   border: none;
   background-color: transparent;
   color: #707070;
-  margin-left: 16px;
+  margin-left: 0.8333vw;
 `;
 
 const TextLength = styled.span`
   font-weight: 400;
-  font-size: 12px;
+  font-size: 0.625vw;
   line-height: 100%;
   color: #c0c0c0;
-  margin-right: 6px;
+  margin-right: 0.3125vw;
 `;
 
 const DelBtn = styled.button`
-  margin-left: 16px;
-  margin-top: -60px;
+  margin-left: 0.8333vw;
+  margin-top: -5.1852vh;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 0.8333vw;
   color: #a7a7a7;
 `;
 
 const DateContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 93px;
+  margin-left: 4.84375vw;
 `;
 
 const DateBox1 = styled.div`
-  width: 220px;
-  height: 48px;
+  width: 11.4583vw;
+  height: 4.444vh;
   border: none;
   background-color: rgba(237, 239, 246, 0.5);
   border-radius: 8px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 0.833vw;
   line-height: 100%;
-  padding: 16px;
+  padding: 0.833vw;
   margin: 0px 6px 0px 0px;
   display: flex;
   align-items: center;
@@ -277,24 +277,24 @@ const DateBox2 = styled(DateBox1)`
 `;
 
 const Dash = styled(AiOutlineLine)`
-  width: 16px;
+  width: 0.833vw;
   height: 0px;
   border: 0.6px solid #383838;
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-  width: 220px;
-  height: 48px;
+  width: 11.4583vw;
+  height: 4.444vh;
   border: none;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 0.833vw;
   line-height: 100%;
   padding: 20px;
   background-color: transparent;
   color: #707070;
   position: absolute;
-  top: -30px;
-  left: -20px;
+  top: -2.77778vh;
+  left: -1.0417vw;
 `;
 
 const MakeButton = styled.button`
