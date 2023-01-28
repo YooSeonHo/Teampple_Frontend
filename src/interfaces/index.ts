@@ -16,6 +16,8 @@ export interface FileInfo {
   updatedAt: string;
   uploader: string;
   url: string;
+  fileId: number;
+  taskId: number;
 }
 
 export interface StyledToDoInfo {
