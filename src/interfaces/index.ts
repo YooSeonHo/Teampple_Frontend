@@ -16,6 +16,8 @@ export interface FileInfo {
   updatedAt: string;
   uploader: string;
   url: string;
+  fileId: number;
+  taskId: number;
 }
 
 export interface StyledToDoInfo {
@@ -102,3 +104,20 @@ export interface userInfo{
   schoolName : string;
   subscribePlan : string;
   }
+
+export interface fbInfo {
+  checked: boolean,
+  modifiedAt: string,
+  taskId: number,
+  taskName: string,
+  teamId: number,
+  teamName: string
+}
+
+export interface fbListInfo {
+  feedbacks : fbInfo[]
+}
+
+export interface profileImg {
+  profileImg : string
+}

@@ -267,6 +267,7 @@ const ToDoCard = ({ todoList }: any) => {
             <div className="info">
               <div className="step">{todo.sequenceNum}단계</div>
               <div className="when">
+                
                 {todo.startDate}~{todo.dueDate}
               </div>
             </div>
@@ -287,13 +288,12 @@ const ToDoCard = ({ todoList }: any) => {
                 style={{ textDecoration: 'none' }}
                 >
                   <Box onClick={onClick} id={doo.taskId}>
-                    {doo.done === 'true' ? (
+                    {doo.done === true ? (
                       <div className="doneIcon">
                         <img src={done} />
                       </div>
-                    ) : (
-                      <></>
-                    )}
+                    ) : <></>
+                    }
                     <div className="doneText">{doo.name}</div>
                     <div className="doneArr">
                       <img src={arrow} />

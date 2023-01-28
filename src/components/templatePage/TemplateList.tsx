@@ -1,77 +1,108 @@
 import React from 'react';
-import template1 from '../images/template1.png';
 import styled from 'styled-components';
-//피그마 터져서 나중에 추가
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { searchTemplateState, IsSearchTemplateState } from 'state';
+
+interface ITemplate {
+  templateId: number;
+  url: string;
+  name: string;
+}
+
 const TemplateList = () => {
+  const token = localStorage.getItem('jwt_accessToken');
+  const [templates, setTemplates] = useState([]);
+  const [searchTemp, setSearchTemp] = useRecoilState(searchTemplateState);
+  const [isSearch, setIsSearch] = useRecoilState(IsSearchTemplateState);
+
+  const getTemplateAPI = async () => {
+    await axios({
+      url: `/api/templates`,
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        setTemplates(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getTemplateAPI();
+  }, []);
+
   return (
-    <MiniTemplateContainer>
-      <TemplateBoxContainer>
-        <Template1>
-          <Img1 />
-          <Desc1>피피티 템플릿 모음집</Desc1>
-        </Template1>
-        <Template1>
-          <Img1 />
-          <Desc1>피피티 템플릿 모음집</Desc1>
-        </Template1>
-        <Template1>
-          <Img1 />
-          <Desc1>피피티 템플릿 모음집</Desc1>
-        </Template1>
-        <Template1>
-          <Img1 />
-          <Desc1>피피티 템플릿 모음집</Desc1>
-        </Template1>
-      </TemplateBoxContainer>
-    </MiniTemplateContainer>
+    <TemplateBoxContainer>
+      {templates && isSearch
+        ? templates
+            .filter((temp: ITemplate) => {
+              return temp.name.includes(searchTemp);
+            })
+            .map((template: ITemplate) => (
+              <Template
+                key={template.templateId}
+                onClick={() => window.open(`${template.url}`, '_blank')}
+              >
+                <Img
+                  src={require(`../images/templateThumb/template_${template.templateId}.png`)}
+                />
+                <Desc>{template.name}</Desc>
+              </Template>
+            ))
+        : templates.map((template: ITemplate) => (
+            <Template
+              key={template.templateId}
+              onClick={() => window.open(`${template.url}`, '_blank')}
+            >
+              <Img
+                src={require(`../images/templateThumb/template_${template.templateId}.png`)}
+              />
+              <Desc>{template.name}</Desc>
+            </Template>
+          ))}
+    </TemplateBoxContainer>
   );
 };
 
-const MiniTemplateContainer = styled.div`
-  position: relative;
-`;
-
 const TemplateBoxContainer = styled.div`
-  width: 1200px;
-  position: absolute;
-  top: 40px;
-  left: 254px;
+  width: 87.5vw;
+  margin-top: 5.37037vh;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 `;
 
-const Template1 = styled.div`
-  position: relative;
-  width: 372px;
-  height: 200px;
-  background: #edeff6;
-  border-radius: 12px;
-  margin-right: 28px;
-  margin-bottom: 29px;
+const Template = styled.div`
+  width: 19.375vw;
+  margin-right: 1.4583vw;
+  margin-bottom: 2.6851vh;
   display: grid;
   grid-template-rows: 8fr 2fr;
 `;
 
-const Img1 = styled.div`
-  background-image: url(${template1});
-  background-size: cover;
-  width: 150px;
-  height: 130px;
+const Img = styled.img`
+  width: 19.375vw;
+  height: 18.518vh;
   margin: auto;
 `;
 
-const Desc1 = styled.div`
+const Desc = styled.div`
   font-weight: 500;
-  font-size: 20px;
+  font-size: 0.9375vw;
   line-height: 100%;
-  color: #707070;
-  background: #f9fafd;
-  border-radius: 0px 0px 12px 12px;
-  width: 372px;
-  height: 55px;
+  color: #505050;
+  width: 19.375vw;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 24px;
+  padding: 1.11vh;
 `;
 
 export default TemplateList;

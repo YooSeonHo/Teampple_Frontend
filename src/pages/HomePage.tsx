@@ -44,7 +44,7 @@ const HomePageContainer = styled.div`
 const SideBarContainer = styled.div`
   position: absolute;
   width: 12.5vw;
-  height: 1080px;
+  height: 100vh;
   left: 0px;
   top: 0px;
 `;
@@ -52,7 +52,7 @@ const SideBarContainer = styled.div`
 const HeaderContainer = styled.div`
   position: absolute;
   width: 87.5vw;
-  height: 72px;
+  height: 6.6666vh;
   left: 12.5vw;
   top: 0px;
 `;
@@ -76,7 +76,7 @@ const TodoContainer = styled.div`
 const SummaryHomeContainer = styled.div`
   position: absolute;
   left: 12.5vw;
-  top: 72px;
+  top: 6.6666vh;
 `;
 
 const MiniTemplateContainer = styled.div`

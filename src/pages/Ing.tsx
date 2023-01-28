@@ -9,6 +9,7 @@ import {
   jwtRefreshTokenState,
 } from 'state';
 import axios from 'axios';
+import ClockLoader from 'react-spinners/ClockLoader';
 
 const Ing = () => {
   const navigate = useNavigate();
@@ -49,7 +50,6 @@ const Ing = () => {
           'jwt_refreshToken',
           response.data.data.jwtRefreshToken,
         );
-        alert('카카오 로그인 성공 (홈으로 이동합니다)');
         navigate('/home');
       })
       .catch(function (error) {
@@ -61,7 +61,19 @@ const Ing = () => {
     console.log(idToken);
     console.log(kakaoAccessToken);
   }, []);
-  return <div>로그인 중...</div>;
+  return (
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <ClockLoader color="#487aff" size={50} />
+    </div>
+  );
 };
 
 export default Ing;

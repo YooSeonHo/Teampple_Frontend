@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import template1 from '../images/template1.png';
 import template2 from '../images/template2.png';
 import template3 from '../images/template3.png';
+import template4 from '../images/template4.png';
 
 const MiniTemplate = () => {
   return (
@@ -43,7 +44,7 @@ const MiniTemplate = () => {
           <Template1
             onClick={() => window.open('https://linkareer.com', '_blank')}
           >
-            <Img2 />
+            <Img4 />
             <Desc1>대학생 공모전 대외활동, 링커리어</Desc1>
           </Template1>
         </TemplateBox>
@@ -54,7 +55,7 @@ const MiniTemplate = () => {
 
 const MiniTemplateContainer = styled.div`
   position: relative;
-  margin-left: 54px;
+  margin-left: 2.8125vw;
   width: 87.5vw;
 `;
 
@@ -102,6 +103,10 @@ const Img2 = styled(Img1)`
 
 const Img3 = styled(Img1)`
   background-image: url(${template3});
+`;
+
+const Img4 = styled(Img1)`
+  background-image: url(${template4});
 `;
 
 const Desc1 = styled.div`

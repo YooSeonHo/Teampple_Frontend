@@ -4,7 +4,7 @@ import SideBar from './sideBar';
 import ProfileHeader from './profileHeader';
 
 const Container = styled.div`
-  margin-left: 240px;
+margin-left : 12.5vw;
 `;
 
 const LayoutBox = styled.div`

@@ -17,12 +17,10 @@ const SummaryTeample = () => {
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
   const week = weeks[now.getDay()];
 
-  const [doneNum, setDoneNum] = useState(0);
-  const [allNum, setAllNum] = useState(0);
+  const [doneNum, setDoneNum] = useState<number>(0);
+  const [allNum, setAllNum] = useState<number>(0);
   const [currentPercent, setCurrentPercent] = useState<number>(
-    isNaN(Math.round(Number(doneNum / allNum) * 100))
-      ? 0
-      : Math.round(Number(doneNum / allNum) * 100),
+    Math.round(Number(doneNum / allNum) * 100),
   );
   const [icon, setIcon] = useState(progress1);
   const [text, setText] = useState('');
@@ -30,6 +28,11 @@ const SummaryTeample = () => {
   let s1 = 0;
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
+
+  const nanTest = (doneNum: number, allNum: any) => {
+    if (isNaN(Math.round(Number(doneNum / allNum) * 100))) return 0;
+    return isNaN(Math.round(Number(doneNum / allNum) * 100));
+  };
 
   const changeStatus = () => {
     if (currentPercent >= 1 && currentPercent < 25) {
@@ -55,7 +58,6 @@ const SummaryTeample = () => {
   }, [currentPercent]);
 
   const getTaskAPI = async () => {
-
     await axios({
       url: `/api/teams/tasks`,
       baseURL: 'https://www.teampple.site',
@@ -73,6 +75,8 @@ const SummaryTeample = () => {
         const totaltaskAcum = response.data.data.map((t: any) =>
           setAllNum((s2 += parseInt(t.totaltask))),
         );
+        if (allNum === 0) setCurrentPercent(0);
+        else setCurrentPercent(Math.round(Number(doneNum / allNum) * 100));
       })
       .catch(function (error) {
         console.log(error);
@@ -81,7 +85,7 @@ const SummaryTeample = () => {
 
   useEffect(() => {
     getTaskAPI();
-  }, [teamid]);
+  }, [doneNum, allNum]);
 
   return (
     <SummaryContainer>

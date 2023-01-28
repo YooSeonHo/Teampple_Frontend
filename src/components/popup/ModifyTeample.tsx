@@ -105,7 +105,11 @@ const ModifyTeample = ({ setModal1 }: any) => {
                 onChange={(date: Date) => setStartDate(date)}
               />
               <IoCalendarNumberOutline
-                style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
+                style={{
+                  width: '1.25vw',
+                  height: '2.22222vh',
+                  color: '#a7a7a7',
+                }}
               />
             </DateBox1>
             <Dash />
@@ -118,7 +122,11 @@ const ModifyTeample = ({ setModal1 }: any) => {
                 onChange={(date: Date) => setEndDate(date)}
               />
               <IoCalendarNumberOutline
-                style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
+                style={{
+                  width: '1.25vw',
+                  height: '2.22222vh',
+                  color: '#a7a7a7',
+                }}
               />
             </DateBox2>
           </DateContainer>

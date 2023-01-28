@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FileInfo } from 'interfaces';
 import { useRecoilState } from 'recoil';
 import { IsSearchState, searchFileState, teamidState } from 'state';
+import { Link } from 'react-router-dom';
 
 const ListBox = styled.div`
   width: 61.042vw;
@@ -145,13 +146,13 @@ const FileList = () => {
         params: {
           teamId: teamid,
         },
-        headers : {
-          Authorization : token
-        }
-        //파람스 부분 바꾸면 댐
+        headers: {
+          Authorization: token,
+        },
       })
         .then((res) => {
           setFiles(res.data.data);
+          console.log(res.data.data);
         })
         .catch((e) => {
           console.log(e);
@@ -181,46 +182,58 @@ const FileList = () => {
                 })
                 .map((file: FileInfo) => {
                   return (
-                    <File key={file.updatedAt}>
-                      <div className="name">{file.fileName}</div>
-                      <div className="loc">{file.url}</div>
-                      <div className="owner">{file.uploader}</div>
-                      <div className="size">
-                        {Math.round(file.size / 1024)}MB
-                      </div>
-                      <div className="date">
-                        {file.updatedAt
-                          .replace(/-/g, '.')
-                          .replace('T', ' ')
-                          .replace(/:[0-9]+$/, '')}
-                      </div>
-                      <div className="icon">
-                        <img src={arrow} />
-                      </div>
-                    </File>
+                    <Link
+                      to={`/teample-detail/${file.taskId}`}
+                      key={file.fileId}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <File key={file.updatedAt}>
+                        <div className="name">{file.fileName}</div>
+                        <div className="loc">{file.route}</div>
+                        <div className="owner">{file.uploader}</div>
+                        <div className="size">
+                          {Math.round(file.size / 1024)}MB
+                        </div>
+                        <div className="date">
+                          {file.updatedAt
+                            .replace(/-/g, '.')
+                            .replace('T', ' ')
+                            .replace(/:[0-9]+$/, '')}
+                        </div>
+                        <div className="icon">
+                          <img src={arrow} />
+                        </div>
+                      </File>
+                    </Link>
                   );
                 })
             : files &&
               files.map(
                 (file: FileInfo) =>
                   file && (
-                    <File key={file.updatedAt}>
-                      <div className="name">{file.fileName}</div>
-                      <div className="loc">{file.url}</div>
-                      <div className="owner">{file.uploader}</div>
-                      <div className="size">
-                        {Math.round(file.size / 1024)}MB
-                      </div>
-                      <div className="date">
-                        {file.updatedAt
-                          .replace(/-/g, '.')
-                          .replace('T', ' ')
-                          .replace(/:[0-9]+$/, '')}
-                      </div>
-                      <div className="icon">
-                        <img src={arrow} />
-                      </div>
-                    </File>
+                    <Link
+                      to={`/teample-detail/${file.taskId}`}
+                      key={file.fileId}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <File key={file.updatedAt}>
+                        <div className="name">{file.fileName}</div>
+                        <div className="loc">{file.route}</div>
+                        <div className="owner">{file.uploader}</div>
+                        <div className="size">
+                          {Math.round(file.size / 1024)}MB
+                        </div>
+                        <div className="date">
+                          {file.updatedAt
+                            .replace(/-/g, '.')
+                            .replace('T', ' ')
+                            .replace(/:[0-9]+$/, '')}
+                        </div>
+                        <div className="icon">
+                          <img src={arrow} />
+                        </div>
+                      </File>
+                    </Link>
                   ),
               )}
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
@@ -20,6 +20,7 @@ const InfoInput = () => {
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
   const navigate = useNavigate();
+  const randomNum = Math.floor(Math.random() * 12) + 1
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -43,7 +44,7 @@ const InfoInput = () => {
         name: name,
         schoolName: school,
         major: major,
-        profileImage: 'proImageU100', //아직 설정 안 함
+        profileImage: `proImageU${randomNum}`
       },
     })
       .then((response) => {
@@ -65,6 +66,7 @@ const InfoInput = () => {
         console.log(error);
       });
   };
+
   return (
     <div>
       <InputContainer>

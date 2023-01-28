@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import React, { useEffect, useState, useRef } from 'react';
 import vector from '../images/Vector.png';
 import more from '../images/Group 419.png';
-import finBtn from '../images/Group 435.png';
-import addFile from '../images/Frame 295.png';
+import startBtn from '../images/Group 435.png';
+import finBtn from '../images/Group 437.png';
 import download from '../images/DownloadSimple.png';
 import trash from '../images/Trash.png';
 import ellipse from '../images/Ellipse 1.png';
@@ -168,11 +168,13 @@ const DetailContainer = styled.div`
   }
 
   .addFile {
-    width: 6.4vw;
-    height: 3.2vh;
+    width: 6.3vw;
+    height: 3.5vh;
     margin-left: 24px;
-    margin-top: auto;
-    margin-bottom: auto;
+    border: 1px solid #d5dbee;
+    border-radius: 8px;
+    color: #707070;
+    font-size: 0.625vw;
   }
 
   .addFile:hover {
@@ -299,7 +301,7 @@ const DetailContainer = styled.div`
     left: 45.7vw;
     border: none;
     background-color: transparent;
-    color: #A7A7A7;
+    color: #a7a7a7;
     width: 17px;
     height: 17px;
   }
@@ -391,7 +393,7 @@ const DetailBox = () => {
   const [teamid] = useRecoilState(teamidState);
   const [user, setUser] = useState<userInfo>();
   const [addFeed, setAddFeed] = useState('');
-  const [taskId,] = useRecoilState(taskIdState);
+  const [taskId] = useRecoilState(taskIdState);
   const navigate = useNavigate();
 
   const onClick = () => {
@@ -412,6 +414,7 @@ const DetailBox = () => {
     await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
+        console.log(data.location);
       })
       .catch((e: any) => {
         console.log(e);
@@ -443,6 +446,7 @@ const DetailBox = () => {
     })
       .then(() => {
         alert('파일 등록이 완료되었습니다.');
+        // location.reload();
       })
       .catch((e) => {
         console.log(e);
@@ -462,7 +466,7 @@ const DetailBox = () => {
       },
     })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         setDetail(res.data.data);
       })
       .catch((e) => {
@@ -490,8 +494,7 @@ const DetailBox = () => {
   const postFeedback = async () => {
     if (addFeed.trim() === '') {
       alert('댓글 내용을 입력해주세요.');
-    }
-    else{
+    } else {
       await axios({
         url: '/api/feedbacks',
         baseURL: 'https://www.teampple.site/',
@@ -503,13 +506,15 @@ const DetailBox = () => {
           taskId: taskId,
         },
         data: { comment: addFeed },
-      }).then(()=>{
-        setAddFeed('');
       })
+        .then(() => {
+          setAddFeed('');
+          location.reload();
+        })
         .catch((e) => {
           console.log(e);
         });
-      }
+    }
   };
 
   useEffect(() => {
@@ -521,13 +526,46 @@ const DetailBox = () => {
     postFile();
   }, [file]);
 
-  useEffect(()=>{
-    getDetail();
-  },[detail?.feedbacks, detail?.files])
+  const onChangeStatus = async () =>{
+    await axios({
+      url: '/api/tasks/status',
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      headers : {
+        Authorization : token,
+      },
+      params : {taskId : taskId}
+    }).then(()=>{
+      location.reload();
+        })  
+  }
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
   };
+
+  const downloadFile = (url:any) => {
+      fetch(url, { method: 'GET' })
+        .then((res) => {
+          return res.blob();
+        })
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = '파일명';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout((_) => {
+            window.URL.revokeObjectURL(url);
+          }, 60000);
+          a.remove();
+        })
+        .catch((err) => {
+          console.error('err: ', err);
+        });
+    };
+
 
   return (
     <Container>
@@ -551,14 +589,18 @@ const DetailBox = () => {
               </div>
               <div className="subName">
                 <div className="taskName">{detail.taskName}</div>
-                <div className="finBtn">
-                  <img src={finBtn} />
+
+                <div className="finBtn" onClick={onChangeStatus}>
+                  {detail.done? <img src={startBtn}/> : <img src={finBtn} /> }
                 </div>
+
               </div>
               <div className="subInfo">
                 <div className="manager">
                   담당자
-                  <span className="managerInput">{detail.operators.map((op)=>`${op} `)}</span>
+                  <span className="managerInput">
+                    {detail.operators.map((op) => `${op} `)}
+                  </span>
                 </div>
                 <div className="date">
                   기간
@@ -571,7 +613,6 @@ const DetailBox = () => {
                       .replace('T', ' ')
                       .replace(/:[0-9]+$/, '')}`}
                   </span>
-                  {/* <span className="dateInput">2022.11.22-2022.11.23</span> */}
                 </div>
                 <div className="state">
                   진행 상태
@@ -597,24 +638,24 @@ const DetailBox = () => {
                 onClick={onReset}
               />
 
-              <button
-                style={{
-                  backgroundImage: `url(${addFile})`,
-                  border: 'none',
-                  backgroundSize: 'cover',
-                }}
-                className="addFile"
-                onClick={onClick}
-              />
+              <button className="addFile" onClick={onClick}>
+                + 파일 첨부하기
+              </button>
             </div>
             {detail.files && (
               <div className="files">
-                {detail.files.map((file, index) => (
+                {detail.files.reverse().map((file, index) => (
                   <div className="fileCard" key={index}>
                     <div className="fileName">
-                      <div className="nameText">{file.filename}</div>
+                      <div className="nameText">
+                        {file.filename}
+                      </div>
                       <div className="icons">
-                        <img src={download} className="download" />
+                        <img
+                          src={download}
+                          className="download"
+                          onClick={() => downloadFile(fileLoc)}
+                        />
                         <img src={trash} className="trash" />
                       </div>
                     </div>
