@@ -5,10 +5,13 @@ import done from '../images/done icon.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import NotToDoBox from 'components/teampleHomePage/nothing/NotToDoBox';
+import { useRecoilState } from 'recoil';
+import { taskIdState } from 'state';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
   const token = localStorage.getItem('jwt_accessToken');
+  const [taskId,setTaskId] = useRecoilState(taskIdState)
 
   const getTodoAPI = async () => {
     await axios({
@@ -27,6 +30,12 @@ const HomeToDo = () => {
         console.log(error);
       });
   };
+
+  const onClick = (e : any) =>{
+    setTaskId(e.target.id)
+  }
+
+
   useEffect(() => {
     getTodoAPI();
   }, []);
@@ -41,30 +50,31 @@ const HomeToDo = () => {
           <ToDosContainer>
             {teams &&
               teams.map((team: any, index: number) => (
-                <Link
-                  to={`/teample-detail/${team.taskId}`}
-                  key={index}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <ToDoContainer>
-                    <ToDoTitle style={{ color: '#383838;' }}>
-                      {team.name}
-                    </ToDoTitle>
-                    <Left>
-                      <LeftText>남은 일</LeftText>
-                      <LeftNum>{team.totalStage - team.achievement}</LeftNum>
-                    </Left>
-                    <ToDoList>
-                      {team.tasks.map((t: any, index: number) => (
-                        <ToDo key={index}>
+                <ToDoContainer key={index}>
+                  <ToDoTitle style={{ color: '#383838' }}>
+                    {team.name}
+                  </ToDoTitle>
+                  <Left>
+                    <LeftText>남은 일</LeftText>
+                    <LeftNum>{team.totalStage - team.achievement}</LeftNum>
+                  </Left>
+                  <ToDoList>
+                    {team.tasks.map((t: any, index: number) => (
+                      <Link
+                        to={`/teample-detail/${t.taskId}`}
+                        key={index}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <ToDo onClick={onClick} id={t.taskId}>
                           {t.done === true ? <Done src={done} /> : <></>}
+
                           <ToDoText>{t.name}</ToDoText>
                           <Arrow src={arrow} />
                         </ToDo>
-                      ))}
-                    </ToDoList>
-                  </ToDoContainer>
-                </Link>
+                      </Link>
+                    ))}
+                  </ToDoList>
+                </ToDoContainer>
               ))}
           </ToDosContainer>
         </HomeToDoContainer>

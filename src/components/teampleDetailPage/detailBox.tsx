@@ -414,6 +414,7 @@ const DetailBox = () => {
     await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
+        console.log(data.location);
       })
       .catch((e: any) => {
         console.log(e);
@@ -543,6 +544,30 @@ const DetailBox = () => {
     setAddFeed(e.target.value);
   };
 
+  const downloadFile = (url:any) => {
+
+      fetch(url, { method: 'GET' })
+        .then((res) => {
+          return res.blob();
+        })
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = '파일명';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout((_) => {
+            window.URL.revokeObjectURL(url);
+          }, 60000);
+          a.remove();
+        })
+        .catch((err) => {
+          console.error('err: ', err);
+        });
+    };
+
+
   return (
     <Container>
       {detail && (
@@ -623,9 +648,16 @@ const DetailBox = () => {
                 {detail.files.reverse().map((file, index) => (
                   <div className="fileCard" key={index}>
                     <div className="fileName">
-                      <div className="nameText">{file.filename}</div>
+                      <div className="nameText">
+                        {file.filename}
+                        {fileLoc}
+                      </div>
                       <div className="icons">
-                        <img src={download} className="download" />
+                        <img
+                          src={download}
+                          className="download"
+                          onClick={() => downloadFile(fileLoc)}
+                        />
                         <img src={trash} className="trash" />
                       </div>
                     </div>
