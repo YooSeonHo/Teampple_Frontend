@@ -130,14 +130,14 @@ const LeftText = styled.span`
   color: #487aff;
   position: absolute;
   right: 3.072vw;
-  top: 26px;
+  top: 2.4074vh;
 `;
 const LeftNum = styled.span`
   position: absolute;
   right: 1.042vw;
   top: 20px;
-  width: 28px;
-  height: 28px;
+  width: 1.458333vw;
+  height: 2.592593vh;
   border-radius: 50px;
   background-color: #487aff;
   color: white;

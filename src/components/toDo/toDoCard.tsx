@@ -91,7 +91,7 @@ const CardBox = styled.div<StyledToDoInfo>`
   .leftNumBox {
     background-color: #487aff;
     width: 1.45833vw;
-    height: 2.592593vh;
+    // height: 2.592593vh;
     border-radius: 100px;
     color: white;
     font-weight: 700;
