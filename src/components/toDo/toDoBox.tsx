@@ -4,7 +4,7 @@ import ToDoCard from './toDoCard';
 import { StyledToDoBoxInfo } from 'interfaces';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { teamidState } from 'state';
+import { taskIdState, teamidState } from 'state';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: ${(props) => (props.pathname === '/home' ? '87.5vw' : '66.25vw')};
@@ -42,6 +42,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState([]);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
+  const [taskId,setTaskId] = useRecoilState(taskIdState);
   const getTodoAPI = async () => {
     await axios({
       url: `/api/teams/tasks`,
@@ -54,7 +55,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
     })
       .then((response) => {
         setTodoList(response.data.data);
-        console.log(response.data.data);
+        setTaskId(0);
       })
       .catch(function (error) {
         console.log(error);

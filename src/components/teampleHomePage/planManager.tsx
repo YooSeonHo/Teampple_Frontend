@@ -45,7 +45,6 @@ const PlanManager = () => {
 
   useEffect(() => {
     getPlanAPI();
-    console.log(teamid);
   }, [teamid]);
 
   const getDeadDay = (dueDate: Date) => {
