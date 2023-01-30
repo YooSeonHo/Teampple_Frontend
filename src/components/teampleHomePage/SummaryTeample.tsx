@@ -63,7 +63,6 @@ const SummaryTeample = () => {
       params: { teamId: teamid },
     })
       .then((response) => {
-        console.log(response.data.data);
         const achievementAcum = response.data.data.map((t: any) =>
           setDoneNum((s1 += parseInt(t.achievement))),
         );

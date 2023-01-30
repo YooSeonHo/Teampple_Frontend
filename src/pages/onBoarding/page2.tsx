@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const Box = styled.div`
     width :100%;
     // height : 499px;
-    height : 1080px;
+    height : 100vh;
     position : relative;
     margin-top : auto;
     display : flex;
@@ -18,8 +18,8 @@ const Box = styled.div`
 
 const Background = styled.div`
     background-image : url('${page2}');
-    width : 757px;
-    height : 473px;
+    width : 39.427083vw;
+    height : 43.796vh;
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
@@ -30,21 +30,21 @@ const Contents = styled.div`
     display : flex;
     flex-direction : column;
     position : absolute;
-    left : 350px;
-    top : 280px;
-    width : 446px;
-    height: 134px;
+    left : 18.2291vw;
+    top : 25.925vh;
+    width : 23.2291vw;
+    height: 12.4074vh;
 
     .header{
         font-weight: 500;
-        font-size: 32px;
+        font-size: 1.6666667vw;
         line-height: 150%;
         color: #383838;
     }
 
     .mid{
         font-weight: 400;
-        font-size: 18px;
+        font-size: 1.66667vw;
         line-height: 100%;
         color: #A7A7A7;
     }

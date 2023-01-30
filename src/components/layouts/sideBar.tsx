@@ -257,7 +257,6 @@ const SideBar = () => {
     })
       .then((response) => {
         setActTeamList(response.data.data.teams);
-        console.log(response.data.data.teams);
       })
       .catch(function (error) {
         console.log(error);

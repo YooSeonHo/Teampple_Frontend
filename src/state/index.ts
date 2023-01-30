@@ -1,5 +1,5 @@
 // import { detailInfo } from 'interfaces';
-import { fbInfo, fbListInfo, makeTeampleInfo, stageInfo } from 'interfaces';
+import { detailInfo, fbInfo, fbListInfo, makeTeampleInfo, stageInfo } from 'interfaces';
 import { atom } from 'recoil';
 import { v1 } from 'uuid';
 // key duplicate 방지를 위한 라이브러리 설치
@@ -161,4 +161,20 @@ export const fbListState = atom<fbInfo[]>({
 export const profileImgState = atom<string>({
   key :'profileImg',
   default : ''
+})
+
+export const detailState = atom<detailInfo>({
+  key :  `detail/${v1()}`,
+  default :
+  {
+    done : false,
+    dueDate : '',  
+    feedbacks : [],
+    files: [],
+    operators : [],
+    sequenceNum : 0,
+    stageName : '',
+    startDate : '',
+    taskName : '',
+  }
 })

@@ -13,7 +13,11 @@ import {
   AddToDozIndexState,
   stageIdState,
   taskIdState,
+  detailState,
 } from 'state';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import useDidMountEffect from 'components/hooks/useDidMountEffect';
 
 const CardBox = styled.div<StyledToDoInfo>`
   width: 19.375vw;
@@ -221,6 +225,10 @@ const Box = styled.div<any>`
     margin-right: 0.41666vw;
     margin-left: auto;
   }
+
+  :hover{
+    cursor : grab;
+  }
   /* 
     스크롤 관련해서 문제 있으면 체크하기 ->호버 할때 보이게해야댐 */
 `;
@@ -238,6 +246,9 @@ const ToDoCard = ({ todoList }: any) => {
   const [toDoZindex,setToDoZindex] = useRecoilState(AddToDozIndexState);
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [taskId,setTaskId] = useRecoilState(taskIdState);
+  const [detail,setDetail] = useRecoilState(detailState);
+  const token = localStorage.getItem('jwt_accessToken');
+  const navigate = useNavigate();
 
   const showModal = () => {
     setModal(!modal);
@@ -251,9 +262,38 @@ const ToDoCard = ({ todoList }: any) => {
     setStageId(Number(stage.id));
   };
 
-  const onClick = (e : any) =>{
-    setTaskId(e.target.id)
+  const onClick = async (e : any) =>{
+    setTaskId(e.currentTarget.id);
+    // taskId && await getDetail().then(()=>{
+    //       navigate(`/teample-detail/${taskId}`);
+    //   })
   }
+
+  useDidMountEffect(async ()=>{
+    taskId && await getDetail().then(()=>{
+      navigate(`/teample-detail/${taskId}`) 
+    })
+  },[taskId])
+
+  const getDetail = async () => {
+    await axios({
+      url: `/api/tasks`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'get',
+      params: {
+        taskId: taskId,
+      },
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setDetail(res.data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <>
@@ -282,12 +322,12 @@ const ToDoCard = ({ todoList }: any) => {
             </div>
             <div className="toDos">
               {todo.tasks.map((doo: any, index: number) => (
-                <Link
-                to={`/teample-detail/${doo.taskId}`}
-                key={index}
-                style={{ textDecoration: 'none' }}
-                >
-                  <Box onClick={onClick} id={doo.taskId}>
+                // <Link
+                // to={`/teample-detail/${doo.taskId}`}
+                // key={index}
+                // style={{ textDecoration: 'none' }}
+                // >
+                  <Box onClick={onClick} key={index} id={doo.taskId}>
                     {doo.done === true ? (
                       <div className="doneIcon">
                         <img src={done} />
@@ -299,7 +339,7 @@ const ToDoCard = ({ todoList }: any) => {
                       <img src={arrow} />
                     </div>
                   </Box>
-                </Link>
+                // </Link>
               ))}
             </div>
             <div
