@@ -9,7 +9,7 @@ import {
   jwtRefreshTokenState,
 } from 'state';
 import axios from 'axios';
-import ClockLoader from 'react-spinners/ClockLoader';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 const Ing = () => {
   const navigate = useNavigate();
@@ -71,7 +71,7 @@ const Ing = () => {
         alignItems: 'center',
       }}
     >
-      <ClockLoader color="#487aff" size={50} />
+      <BeatLoader color="#487aff" size={50} />
     </div>
   );
 };

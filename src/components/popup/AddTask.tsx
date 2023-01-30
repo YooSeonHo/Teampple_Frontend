@@ -8,7 +8,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
-import { zIndexState, teamidState, stageIdState, AddToDozIndexState } from 'state';
+import {
+  zIndexState,
+  teamidState,
+  stageIdState,
+  AddToDozIndexState,
+} from 'state';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -21,9 +26,10 @@ const AddTask = ({ setModal }: any) => {
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid, setTeamid] = useRecoilState(teamidState);
   const [teamMates, setTeamMates] = useState([]);
-  const [checkedList, setCheckedList] = useState<string[]>([]);
+  const [checkedNameList, setCheckedNameList] = useState<string[]>([]);
+  const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
   const [stageId, setStageId] = useRecoilState(stageIdState);
-  const [toDoZindex,setToDoZindex] = useRecoilState(AddToDozIndexState);
+  const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -33,7 +39,7 @@ const AddTask = ({ setModal }: any) => {
     setZIndex(997);
     setToDoZindex(997);
   };
-  
+
   const postTasksAPI = async () => {
     await axios({
       url: `/api/tasks`,
@@ -49,7 +55,7 @@ const AddTask = ({ setModal }: any) => {
           '00:00:00'
         ).toString(),
         name: name,
-        operators: checkedList, // api 고치면 실행될 듯
+        operators: checkedIdList,
         startDate: (
           moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
           'T' +
@@ -79,37 +85,41 @@ const AddTask = ({ setModal }: any) => {
       },
       params: { teamId: teamid },
     })
-    .then((response) => {
-      setTeamMates(response.data.data.teammates);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        setTeamMates(response.data.data.teammates);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
-  
+
   const onClickBtn = () => {
     if (name === '') alert('할일 이름 입력은 필수입니다.');
-    else {postTasksAPI();
+    else {
+      postTasksAPI();
       setZIndex(997);
       setToDoZindex(997);
     }
   };
-  
+
   useEffect(() => {
     getTeamMateAPI();
   }, []);
-  
-  const onCheckedHandle = (checked: boolean, item: string) => {
+
+  const onCheckedHandle = (checked: boolean, item: string, id: number) => {
     if (checked) {
-      setCheckedList([...checkedList, item]);
+      setCheckedNameList([...checkedNameList, item]);
+      setCheckedIdList([...checkedIdList, id]);
     } else if (!checked) {
-      setCheckedList(checkedList.filter((el) => el !== item));
+      setCheckedNameList(checkedNameList.filter((el) => el !== item));
+      setCheckedIdList(checkedIdList.filter((el) => el !== id));
     }
   };
 
-  const onRemoveHandle = (item: string) => {
-    setCheckedList(checkedList.filter((el) => el !== item));
-  };
+  // const onRemoveHandle = (item: string, id:number) => {
+  //   setCheckedNameList(checkedNameList.filter((el) => el !== item));
+  //   setCheckedIdList(checkedIdList.filter((el) => el !== id));
+  // };
 
   return (
     <Background>
@@ -154,12 +164,12 @@ const AddTask = ({ setModal }: any) => {
         </DateBox2>
         <Tag3>담당자</Tag3>
         <ManagerContainer>
-          {checkedList.map((item) => (
+          {checkedNameList.map((item) => (
             <Manager key={item}>
               {item}
-              <SmallCloseBtn onClick={() => onRemoveHandle(item)}>
+              {/* <SmallCloseBtn onClick={() => onRemoveHandle(item)}>
                 <GrClose />
-              </SmallCloseBtn>
+              </SmallCloseBtn> */}
             </Manager>
           ))}
         </ManagerContainer>
@@ -178,10 +188,17 @@ const AddTask = ({ setModal }: any) => {
                 <CheckBox
                   type="checkbox"
                   value={teammate.name}
+                  id={teammate.teammateId}
                   onChange={(e) => {
-                    onCheckedHandle(e.target.checked, e.target.value);
+                    onCheckedHandle(
+                      e.target.checked,
+                      e.target.value,
+                      Number(e.target.id),
+                    );
                   }}
-                  checked={checkedList.includes(teammate.name) ? true : false}
+                  checked={
+                    checkedNameList.includes(teammate.name) ? true : false
+                  }
                 />
               </TeamMate>
             ))}
@@ -203,32 +220,32 @@ const Background = styled.div`
 `;
 
 const ModifyTeampleContainer = styled.div`
-width: 33.33333vw;
-height: 59.259vh;
-background: #ffffff;
-border-radius: 16px;
-position: relative;
-z-index: 999;
-position: fixed;
-top: 20.37037vh;
-left: 33.33333vw;
+  width: 33.33333vw;
+  height: 59.259vh;
+  background: #ffffff;
+  border-radius: 16px;
+  position: relative;
+  z-index: 999;
+  position: fixed;
+  top: 20.37037vh;
+  left: 33.33333vw;
 `;
 
 const CloseBtn = styled(GrClose)`
-position: absolute;
-top: 4.4444vh;
-right: 1.66666vw;
-cursor: pointer;
+  position: absolute;
+  top: 4.4444vh;
+  right: 1.66666vw;
+  cursor: pointer;
 `;
 
 const Title = styled.div`
-font-weight: 600;
-font-size: 1.25vw;
-line-height: 100%;
-text-align: center;
-position: absolute;
-top: 4.4444vh;
-left: 14.375vw;
+  font-weight: 600;
+  font-size: 1.25vw;
+  line-height: 100%;
+  text-align: center;
+  position: absolute;
+  top: 4.4444vh;
+  left: 14.375vw;
 `;
 
 const ManagerContainer = styled.div`
@@ -244,13 +261,13 @@ const ManagerContainer = styled.div`
 const TeamMateContainer = styled.div``;
 
 const Tag1 = styled.span`
-font-weight: 500;
-font-size: 0.9375vw;
-line-height: 100%;
-color: #707070;
-position: absolute;
-top: 12.592593vh;
-left: 1.66666vw;
+  font-weight: 500;
+  font-size: 0.9375vw;
+  line-height: 100%;
+  color: #707070;
+  position: absolute;
+  top: 12.592593vh;
+  left: 1.66666vw;
 `;
 
 const Tag2 = styled(Tag1)`
@@ -262,86 +279,86 @@ const Tag3 = styled(Tag1)`
 `;
 
 const Input1 = styled.input`
-width: 26.822817vw;
-height: 4.4444vh;
-border: none;
-background-color: rgba(237, 239, 246, 0.5);
-border-radius: 8px;
-font-weight: 400;
-line-height: 100%;
-font-size: 0.83333vw;
-padding-left: 0.8333vw;
-padding-right: 0.8333vw;
-padding-top: 1.481481vh;
-padding-bottom: 1.481481vh;
-position: absolute;
-top: 11.11111vh;
-left: 4.84375vw;
-color: #707070;
+  width: 26.822817vw;
+  height: 4.4444vh;
+  border: none;
+  background-color: rgba(237, 239, 246, 0.5);
+  border-radius: 8px;
+  font-weight: 400;
+  line-height: 100%;
+  font-size: 0.83333vw;
+  padding-left: 0.8333vw;
+  padding-right: 0.8333vw;
+  padding-top: 1.481481vh;
+  padding-bottom: 1.481481vh;
+  position: absolute;
+  top: 11.11111vh;
+  left: 4.84375vw;
+  color: #707070;
 `;
 
 const DateBox1 = styled.div`
-width: 12.5vw;
-height: 4.4444vh;
-border: none;
-background-color: rgba(237, 239, 246, 0.5);
-border-radius: 8px;
-font-weight: 400;
-font-size: 0.83333vw;
-padding-left: 0.8333vw;
-padding-right: 0.8333vw;
-padding-top: 1.481481vh;
-padding-bottom: 1.481481vh;
-line-height: 100%;
-position: absolute;
-top: 18.925926vh;
-left: 4.84375vw;
-display: flex;
-align-items: center;
-&:hover {
-  cursor: pointer;
-}
+  width: 12.5vw;
+  height: 4.4444vh;
+  border: none;
+  background-color: rgba(237, 239, 246, 0.5);
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 0.83333vw;
+  padding-left: 0.8333vw;
+  padding-right: 0.8333vw;
+  padding-top: 1.481481vh;
+  padding-bottom: 1.481481vh;
+  line-height: 100%;
+  position: absolute;
+  top: 18.925926vh;
+  left: 4.84375vw;
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const DateBox2 = styled(DateBox1)`
-left: 19.010417vw;
+  left: 19.010417vw;
 `;
 
 const Dash = styled(AiOutlineLine)`
-position: absolute;
-width: 0.83333vw;
-height: 0vh;
-left: 17.760417vw;
-top: 21.148148vh;
-border: 0.6px solid #383838;
+  position: absolute;
+  width: 0.83333vw;
+  height: 0vh;
+  left: 17.760417vw;
+  top: 21.148148vh;
+  border: 0.6px solid #383838;
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-width: 12.5vw;
-height: 4.4444vh;
-border: none;
-font-weight: 400;
-font-size: 0.8333vw;
-line-height: 100%;
-padding-left: 1.041667vw;
-padding-right: 1.041667vw;
-padding-top: 1.851852vh;
-padding-bottom: 1.851852vh;
-background-color: transparent;
-color: #707070;
-position: absolute;
-top: -2.777778vh;
-left: -1.041667vw;
+  width: 12.5vw;
+  height: 4.4444vh;
+  border: none;
+  font-weight: 400;
+  font-size: 0.8333vw;
+  line-height: 100%;
+  padding-left: 1.041667vw;
+  padding-right: 1.041667vw;
+  padding-top: 1.851852vh;
+  padding-bottom: 1.851852vh;
+  background-color: transparent;
+  color: #707070;
+  position: absolute;
+  top: -2.777778vh;
+  left: -1.041667vw;
 `;
 
 const TextLength1 = styled.span`
-position: absolute;
-top: 12.777778vh;
-right: 2.5vw;
-font-weight: 400;
-font-size: 0.625vw;
-line-height: 100%;
-color: #c0c0c0;
+  position: absolute;
+  top: 12.777778vh;
+  right: 2.5vw;
+  font-weight: 400;
+  font-size: 0.625vw;
+  line-height: 100%;
+  color: #c0c0c0;
 `;
 
 const Manager = styled.div`
@@ -411,7 +428,7 @@ const Name = styled.div`
 const School = styled.div`
   font-weight: 400;
   font-size: 0.72916vw;
-  line-height: 1.5740vh;
+  line-height: 1.574vh;
   color: #a7a7a7;
   margin-top: 0.37037;
 `;
