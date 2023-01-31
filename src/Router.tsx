@@ -10,19 +10,16 @@ import TemplatePage from 'pages/TemplatePage';
 import ProfilePage from 'pages/ProfilePage';
 import FilePage from 'pages/FilePage';
 import NotFoundPage from 'pages/NotFoundPage';
-import AddTeample1 from 'components/popup/AddTeample1';
-import AddTeample2 from 'components/popup/AddTeample2';
 import InitialHomePage from './pages/InitialHomePage';
 import Ing from 'pages/Ing';
 
-const Router = () => {
+const Router = (ref:any) => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<OnboardingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        {/* 초대받았으면 path에 팀 id - 이렇게 하는게 맞는 건지는 모름 */}
         <Route path="/login/:teamid" element={<LoginPage />} />
         <Route path="/moreinfo" element={<MoreInfoPage />} />
         <Route path="/home/init" element={<InitialHomePage />} />
@@ -31,8 +28,7 @@ const Router = () => {
         <Route path="/template" element={<TemplatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/file" element={<FilePage />} />
-        <Route path="/ing" element={<Ing />} />
-        {/* modals */}
+        <Route path="/ing" element={<Ing ref={ref} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
