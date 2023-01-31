@@ -87,7 +87,9 @@ const Feed = styled.div`
     line-height: 100%;
     color: #a7a7a7;
     margin-top: 1.851852vh;
-    margin-left: 2.083333vw;
+    margin-left : auto;
+    margin-right : 1vw;
+    // margin-left: 2.083333vw;
   }
 `;
 
