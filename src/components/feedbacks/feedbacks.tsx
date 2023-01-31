@@ -39,7 +39,8 @@ const FeedBox = styled.div<StyledFeedInfo>`
     margin-top: 1.111vh;
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   img {
