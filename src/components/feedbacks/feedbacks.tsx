@@ -4,7 +4,7 @@ import profile1 from '../images/profile/proImageU1.png';
 import { StyledFeedInfo } from 'interfaces';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
-import { fbListState } from 'state';
+import { fbListState,taskIdState } from 'state';
 
 const FeedBox = styled.div<StyledFeedInfo>`
   border: 1px solid #dedede;
@@ -96,8 +96,10 @@ const Feed = styled.div`
 
 const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useRecoilState(fbListState);
+  const [taskId, setTaskId] = useRecoilState(taskIdState);
 
   const getTaskId = (e: any) => {
+    setTaskId(e.target.id);
     window.open(`/teample-detail/${e.target.id}`, '_self');
   };
 

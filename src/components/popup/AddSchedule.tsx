@@ -84,7 +84,7 @@ const AddSchedule = ({ setModal }: any) => {
         <InputContainer>
           <NameContainer>
             <Tag1>이름</Tag1>
-            <Input value={name} onChange={onChangeName} maxLength={12} />
+            <Input value={name} onChange={onChangeName} maxLength={12} placeholder='ex. 중간 발표'/>
             <TextLength>
               ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
             </TextLength>
@@ -176,22 +176,25 @@ const Tag2 = styled(Tag1)`
 `;
 
 const Input = styled.input`
-width: 26.822817vw;
-height: 4.4444vh;
-border: none;
-background-color: rgba(237, 239, 246, 0.5);
-border-radius: 8px;
-font-weight: 400;
-line-height: 100%;
-font-size: 0.83333vw;
-padding-left: 0.8333vw;
-padding-right: 0.8333vw;
-padding-top: 1.481481vh;
-padding-bottom: 1.481481vh;
-position: absolute;
-top: 11.11111vh;
-left: 4.84375vw;
-color: #707070;
+  width: 26.822817vw;
+  height: 4.4444vh;
+  border: none;
+  background-color: rgba(237, 239, 246, 0.5);
+  border-radius: 8px;
+  font-weight: 400;
+  line-height: 100%;
+  font-size: 0.83333vw;
+  padding-left: 0.8333vw;
+  padding-right: 0.8333vw;
+  padding-top: 1.481481vh;
+  padding-bottom: 1.481481vh;
+  position: absolute;
+  top: 11.11111vh;
+  left: 4.84375vw;
+  color: #707070;
+  ::placeholder {
+    color: #cccccc;
+  }
 `;
 
 const Time = styled(Input)`
@@ -200,6 +203,9 @@ const Time = styled(Input)`
   height: 4.44444vh;
   left: 17.6979vw;
   top: 18.518vh;
+  ::placeholder {
+    color: #cccccc;
+  }
 `;
 
 const Clock = styled(CiAlarmOn)`

@@ -252,7 +252,6 @@ const TeampleHeader = () => {
   return (
     <HeaderBox>
       <div id="main">{name}</div>
-
       <div id="sub">{goal}</div>
       <div id="dDayBox">
         <div id="dDay">D-{deadDay}</div>

@@ -39,7 +39,7 @@ const TeamMateInfo = () => {
       params: { teamId: teamid },
       headers: {
         Authorization: token,
-      }, //바꾸기 ㅋ
+      },
     })
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {

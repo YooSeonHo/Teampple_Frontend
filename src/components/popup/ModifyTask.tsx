@@ -152,7 +152,6 @@ const ModifyTask = ({ setBigModal }: any) => {
           value={name}
           onChange={onChangeName}
           maxLength={12}
-          placeholder="ex. 온라인 회의"
         />
         <TextLength1>
           ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)

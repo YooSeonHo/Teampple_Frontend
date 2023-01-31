@@ -295,6 +295,9 @@ const DetailContainer = styled.div`
 
   .inputBox {
     position: relative;
+    ::placeholder {
+      color: #cccccc;
+    }
   }
 
   .send {

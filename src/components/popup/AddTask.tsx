@@ -296,6 +296,9 @@ const Input1 = styled.input`
   top: 11.11111vh;
   left: 4.84375vw;
   color: #707070;
+  ::placeholder {
+    color: #CCCCCC;
+  }
 `;
 
 const DateBox1 = styled.div`
