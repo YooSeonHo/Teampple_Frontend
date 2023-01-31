@@ -48,6 +48,13 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   const token = localStorage.getItem('jwt_accessToken');
 
   const postTeample = async () => {
+    // makeTeample.stages.map((temp) =>{
+    //   if (temp.name.trim() === ''){
+    //     temp.sequenceNum && alert(`${temp.sequenceNum}단계를 입력해주세요.`)
+    //     return
+    //   } 
+    // })
+
     await axios({
       url : '/api/teams',
       baseURL :  'https://www.teampple.site',
@@ -56,7 +63,7 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
         Authorization : token
       },
       data : makeTeample,
-    }).then((response)=>{
+    }).then(()=>{
       alert('팀플 생성이 완료되었습니다.');
       setModal(false);
       setNextModal(false);
@@ -73,17 +80,26 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
     setNextModal(false);
   };
   
-    
-    
   const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
+    const TrimCheck : stageInfo[] = stages.filter((stag) =>{
+      return (stag.name.trim() === '');
+    })
+
+    if  (TrimCheck.length >= 1 ){
+      TrimCheck.map((tr : stageInfo)=>(
+        alert(`${tr.sequenceNum}단계를 확인해주세요.`)
+      ))
+    }
+    else{
     setTemp(stages.map((s)=>(
       {...s, 
         startDate : moment(s.startDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00',
         dueDate : moment(s.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'
       })))
-    };
+    }
+  }
     
     useEffect(()=>{
       setMakeTeample((prev)=>({

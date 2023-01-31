@@ -106,6 +106,7 @@ const AddDiv = (props: any) => {
                       placeholder="ex. 자료 조사"
                       value={i.name}
                       id={i.sequenceNum.toString()}
+                      required
                     />
                     <TextLength>
                     ({i.name.replace(/<br\s*\/?>/gm, '\n').length}/9)
