@@ -407,8 +407,8 @@ const DetailBox = () => {
   const [smallModal, setSmallModal] = useState(false);
   const [bigModal, setBigModal] = useRecoilState(teampleDetailState);
 
-  const onClick = () => {
-    fileInput.current && fileInput.current.click;
+  const AddFile = () => {
+    fileInput.current && fileInput.current.click();
   };
 
   const showSmallModal = () => {
@@ -581,6 +581,29 @@ const DetailBox = () => {
       });
   };
 
+  const delTaskAPI = async (fileId: number) => {
+    await axios({
+      baseURL: 'https://www.teampple.site/',
+      url: 'api/files',
+      method: 'delete',
+      headers: {
+        Authorization: token,
+      },
+      params: { fileId: fileId },
+    })
+      .then((response) => {
+        console.log(response);
+        location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const delFile = (e: any) => {
+    delTaskAPI(Number(e.target.id));
+  };
+
   return (
     <Container>
       <ModalContainer>
@@ -661,7 +684,7 @@ const DetailBox = () => {
                 onClick={onReset}
               />
 
-              <button className="addFile" onClick={onClick}>
+              <button className="addFile" onClick={AddFile}>
                 + 파일 첨부하기
               </button>
             </div>
@@ -677,7 +700,12 @@ const DetailBox = () => {
                           className="download"
                           onClick={() => downloadFile(fileLoc)}
                         />
-                        <img src={trash} className="trash" />
+                        <img
+                          src={trash}
+                          className="trash"
+                          id={file.fileId?.toString()}
+                          onClick={delFile}
+                        />
                       </div>
                     </div>
                     <div className="fileInfo">
