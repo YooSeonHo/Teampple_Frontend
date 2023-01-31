@@ -5,7 +5,7 @@ import { StyledFeedInfo } from 'interfaces';
 import axios from 'axios';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
-import { fbListState } from 'state';
+import { fbListState, profileImgState } from 'state';
 
 const FeedBox = styled.div<StyledFeedInfo>`
   border: 1px solid #dedede;
@@ -95,6 +95,7 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useRecoilState(fbListState);
   const token = localStorage.getItem('jwt_accessToken');
   const [taskId, setTaskId] = useState<number>();
+  const [profileImg,setProfileImg] = useRecoilState(profileImgState);
   
   const getTaskId = (fb: any, e: React.MouseEvent<HTMLElement>) => {
     setTaskId(fb.taskId); //이 task id 가지고 맞는 할일에 라우팅
@@ -112,7 +113,12 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
             }}
           >
             <div className="icon">
-              <img src={profile1} />
+               {profileImg && 
+                  <img
+                    src={require('../images/profile/' +
+                      profileImg +
+                      '.png')}
+                  />}
             </div>
             <div className="feedContent">
               [{fb.teamName}]

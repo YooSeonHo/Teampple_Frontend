@@ -7,14 +7,6 @@ import folderIcon from '../images/FolderSimple.png';
 import headset from '../images/Headset.png';
 import { Link } from 'react-router-dom';
 import prof1 from '../images/profile/proImageU1.png';
-import prof2 from '../images/profile/proImageU2.png';
-import prof3 from '../images/profile/proImageU3.png';
-import prof4 from '../images/profile/proImageU4.png';
-import prof5 from '../images/profile/proImageU5.png';
-import prof6 from '../images/profile/proImageU6.png';
-import prof7 from '../images/profile/proImageU7.png';
-import prof8 from '../images/profile/proImageU8.png';
-import prof9 from '../images/profile/proImageU9.png';
 // import tnames from '../../data/teamList.json';
 import { usernameState, userschoolState, usermajorState, profileImgState } from 'state';
 import { useRecoilState } from 'recoil';
@@ -29,7 +21,7 @@ import { ModalContainer } from 'components/teampleHomePage/planManager';
 import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
 
-const SideBarBox = styled.div<{ userid: string }>`
+const SideBarBox = styled.div`
   width: 12.5vw;
   height: 100vh;
   display: flex;
@@ -74,9 +66,8 @@ const SideBarBox = styled.div<{ userid: string }>`
   }
 
   #userImage {
-    width: 40px;
-    height: 40px;
-    background-image: url(${(props) => props.userid});
+    width: 2.08333vw;
+    height: 3.703704vh;
     background-size: cover;
     border-radius: 40px;
     position: absolute;
@@ -149,7 +140,7 @@ const SideBarBox = styled.div<{ userid: string }>`
     margin-left: 0.625vw;
     line-height: 40px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 0.9375vw;
     color: #707070;
   }
 
@@ -159,7 +150,7 @@ const SideBarBox = styled.div<{ userid: string }>`
   }
 
   #icon {
-    width: 24px;
+    width: 1.25vw;
     margin-left: 0.625vw;
   }
 
@@ -286,7 +277,7 @@ const SideBar = () => {
   }, []);
 
   return (
-    <SideBarBox userid={userid} style={{ zIndex: zIndex }}>
+    <SideBarBox style={{ zIndex: zIndex }}>
       <div className="logo">
         <Link to="/" style={{ textDecoration: 'none' }}>
           <img src={logo} />
