@@ -37,7 +37,7 @@ const HomePage = () => {
 const HomePageContainer = styled.div`
   position: relative;
   width: 100vw;
-  height: 1602px;
+  height: 1400px;
   overflow: hidden;
 `;
 
@@ -83,7 +83,7 @@ const MiniTemplateContainer = styled.div`
   position: absolute;
   width: 87.5vw;
   left: 12.5vw;
-  top: 1042px;
+  top: 1000px;
 `;
 
 export default HomePage;

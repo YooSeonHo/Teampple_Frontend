@@ -32,6 +32,9 @@ const Contents = styled.div`
     height: 60px;
     margin: auto;
     margin-top: 53px;
+    :hover {
+      cursor: pointer;
+    }
   }
   img {
     max-width: 100%;
