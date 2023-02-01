@@ -247,7 +247,7 @@ const SideBar = () => {
       params: { active: 1 },
     })
       .then((response) => {
-        setActTeamList(response.data.data.teams);
+        setActTeamList(response.data.data.teams.reverse());
       })
       .catch(function (error) {
         console.log(error);
