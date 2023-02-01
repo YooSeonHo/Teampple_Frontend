@@ -33,6 +33,7 @@ const ModifyTask = ({ setBigModal }: any) => {
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
   const [taskId] = useRecoilState(taskIdState);
+  const [user, setUser] = useState<any | undefined>();
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -110,6 +111,7 @@ const ModifyTask = ({ setBigModal }: any) => {
     })
       .then((response) => {
         setTeamMates(response.data.data.teammates);
+        setUser(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -148,11 +150,7 @@ const ModifyTask = ({ setBigModal }: any) => {
         <CloseBtn onClick={closeModal} />
         <Title>할일 수정</Title>
         <Tag1>할일</Tag1>
-        <Input1
-          value={name}
-          onChange={onChangeName}
-          maxLength={12}
-        />
+        <Input1 value={name} onChange={onChangeName} maxLength={12} />
         <TextLength1>
           ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
         </TextLength1>
@@ -196,6 +194,31 @@ const ModifyTask = ({ setBigModal }: any) => {
         <TeamMateContainer>
           <AddTeamMate>담당자 추가</AddTeamMate>
           <TeamMateBox>
+            {user && (
+              <TeamMate>
+                <Profile />
+                <TextInfo>
+                  <Name>{user.name}</Name>
+                  <School>
+                    {user.schoolName} {user.major}
+                  </School>
+                </TextInfo>
+                <CheckBox
+                  type="checkbox"
+                  value={name}
+                  // id={teammateId}
+                  //api 수정되면 재수정 필요!
+                  onChange={(e) => {
+                    onCheckedHandle(
+                      e.target.checked,
+                      e.target.value,
+                      Number(e.target.id),
+                    );
+                  }}
+                  checked={checkedNameList.includes(name) ? true : false}
+                />
+              </TeamMate>
+            )}
             {teamMates.map((teammate: any, index: number) => (
               <TeamMate key={index}>
                 <Profile />
@@ -315,6 +338,9 @@ const Input1 = styled.input`
   top: 11.11111vh;
   left: 4.84375vw;
   color: #707070;
+  :focus {
+    border: solid 1px #487aff;
+  }
 `;
 
 const DateBox1 = styled.div`

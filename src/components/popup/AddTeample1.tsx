@@ -208,6 +208,9 @@ const Input1 = styled.input`
   ::placeholder {
     color: #cccccc;
   }
+  :focus {
+    border: solid 1px #487aff;
+  }
 `;
 
 const Input2 = styled(Input1)`
