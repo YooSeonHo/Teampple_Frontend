@@ -236,7 +236,7 @@ const FileList = () => {
                         <div className="loc">{file.route}</div>
                         <div className="owner">{file.uploader}</div>
                         <div className="size">
-                          {Math.round(file.size / 1024)}MB
+                          {(file.size / (1024 * 1024)).toFixed(1)}MB
                         </div>
                         <div className="date">
                           {file.updatedAt
