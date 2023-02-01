@@ -147,6 +147,9 @@ const SideBarBox = styled.div`
   .subBoxText {
     margin-left: 2.5vw;
     line-height: 40px;
+    overflow : hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
   }
 
   #icon {
