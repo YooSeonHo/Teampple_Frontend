@@ -13,7 +13,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import InitialHomePage from './pages/InitialHomePage';
 import Ing from 'pages/Ing';
 
-const Router = (ref:any) => {
+const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -28,7 +28,7 @@ const Router = (ref:any) => {
         <Route path="/template" element={<TemplatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/file" element={<FilePage />} />
-        <Route path="/ing" element={<Ing ref={ref} />} />
+        <Route path="/ing" element={<Ing />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
