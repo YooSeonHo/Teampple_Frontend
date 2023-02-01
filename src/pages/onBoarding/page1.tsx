@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 export const Background = styled.div`
   background-image: url('${page1}');
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-size: contain;
   background-repeat: no-repeat;

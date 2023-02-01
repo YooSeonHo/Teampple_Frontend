@@ -2,13 +2,19 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import logo from '../images/logo.png';
 import house from '../images/House.png';
+import moreCircle from '../images/moreCircle.png';
 import usersThree from '../images/UsersThree.png';
 import folderIcon from '../images/FolderSimple.png';
 import headset from '../images/Headset.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import prof1 from '../images/profile/proImageU1.png';
-// import tnames from '../../data/teamList.json';
-import { usernameState, userschoolState, usermajorState, profileImgState } from 'state';
+import { ImExit } from 'react-icons/im';
+import {
+  usernameState,
+  userschoolState,
+  usermajorState,
+  profileImgState,
+} from 'state';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import {
@@ -90,9 +96,34 @@ const SideBarBox = styled.div`
   }
 
   .box:hover {
-    background-color: #d4e4ff;
-    color: #487aff;
+    /* background-color: #d4e4ff;
+    color: #487aff; */
+    background-color: #487aff;
+    color: #d4e4ff;
     cursor: grab;
+  }
+
+  #more {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #moreicon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #cccccc;
+    opacity: 0;
+    :hover {
+      opacity: 1;
+    }
   }
 
   .endBox {
@@ -147,9 +178,10 @@ const SideBarBox = styled.div`
   .subBoxText {
     margin-left: 2.5vw;
     line-height: 40px;
-    overflow : hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+    width: 5.5vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   #icon {
@@ -176,7 +208,6 @@ const SideBarBox = styled.div`
   .btm {
     margin-top: auto;
     margin-bottom: 48px;
-    
   }
 
   .profileImg {
@@ -202,7 +233,8 @@ const SideBar = () => {
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
-  const [profileImg,setProfileImg] = useRecoilState(profileImgState);
+  const [profileImg, setProfileImg] = useRecoilState(profileImgState);
+  const navigate = useNavigate();
 
   const showModal = () => {
     setModal(!modal);
@@ -213,6 +245,31 @@ const SideBar = () => {
     } else {
       setZIndex(1000);
     }
+  };
+
+  //api 만들어지면 연결
+  // const delTeampleAPI = async () => {
+  //   await axios({
+  //     baseURL: 'https://www.teampple.site/',
+  //     url: 'api/tasks',
+  //     method: 'delete',
+  //     headers: {
+  //       Authorization: token,
+  //     },
+  //     params: { taskId: taskId },
+  //   })
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
+
+  const teampleOut = () => {
+    // delTeampleAPI();
+    alert('팀플 나가기 성공');
+    navigate('/home');
   };
 
   const getTeamid = (t: any) => {
@@ -232,7 +289,7 @@ const SideBar = () => {
         setName(res.data.data.name);
         setSchool(res.data.data.schoolName);
         setMajor(res.data.data.major);
-        setProfileImg(res.data.data.profileImage)
+        setProfileImg(res.data.data.profileImage);
       })
       .catch((e) => {
         console.log(e);
@@ -288,14 +345,11 @@ const SideBar = () => {
       </div>
       <Link to="/profile" style={{ textDecoration: 'none' }}>
         <div className="user">
-        <div className="profileImg">
-                {profileImg && 
-                  <img
-                    src={require('../images/profile/' +
-                      profileImg +
-                      '.png')}
-                  />}
-              </div>
+          <div className="profileImg">
+            {profileImg && (
+              <img src={require('../images/profile/' + profileImg + '.png')} />
+            )}
+          </div>
           <a id="userName">{name}</a>
         </div>
       </Link>
@@ -315,48 +369,63 @@ const SideBar = () => {
         </div>
         <div className="boxText">팀플</div>
       </div>
-
       <div style={{ overflow: 'auto' }}>
         {actTeamList.map((team: any, index: number) => (
           <div
-            key={index}
+            style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            className="box"
             id={team.teamId}
             onClick={(e) => {
               getTeamid(e.target);
             }}
+            key={index}
           >
             <div
-              className="box"
+              className="subBoxText"
               id={team.teamId}
               onClick={() =>
                 window.open(`/teample-home/${team.teamId}`, '_self')
               }
             >
-              <div className="subBoxText" id={team.teamId}>
-                {team.name}
-              </div>
+              {team.name}
+            </div>
+            <div id="more" onClick={teampleOut}>
+              <ImExit id="moreicon" />
             </div>
           </div>
         ))}
+
         {/* 끝난 팀플 css 수정 필요 */}
         {finTeamList.map((team: any, index: number) => (
           <div
-            key={index}
+            className="endBox"
             id={team.teamId}
+            style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+            }}
             onClick={(e) => {
               getTeamid(e.target);
             }}
+            key={index}
           >
-            <Link
-              to={`/teample-home/${team.teamId}`}
-              style={{ textDecoration: 'none', color: '#707070' }}
+            <div
+              className="subBoxText"
+              id={team.teamId}
+              onClick={() =>
+                window.open(`/teample-home/${team.teamId}`, '_self')
+              }
             >
-              <div className="endBox" id={team.teamId}>
-                <div className="subBoxText" id={team.teamId}>
-                  {team.name}
-                </div>
-              </div>
-            </Link>
+              {team.name}
+            </div>
+            <div id="more" onClick={teampleOut}>
+              <ImExit id="moreicon" />
+            </div>
           </div>
         ))}
         <div className="newBox" id="newTeample" onClick={showModal}>

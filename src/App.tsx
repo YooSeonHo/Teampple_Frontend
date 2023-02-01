@@ -40,7 +40,7 @@ function App() {
       }
     };
     reToken();
-    setInterval(reToken, 25 * 60 * 1000);
+    setInterval(reToken, 20 * 60 * 1000);
   }, []);
 
   return (
