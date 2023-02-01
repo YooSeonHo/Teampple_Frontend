@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
@@ -30,6 +30,25 @@ const ModifyTeample = ({ setModal1 }: any) => {
   const closeModal = () => {
     setModal1(false);
   };
+
+  const getTeamInfo = async () => {
+    await axios({
+      method: 'get',
+      baseURL: 'https://www.teampple.site',
+      url: '/api/teams',
+      params: { teamId: teamid },
+      headers: {
+        Authorization: token,
+      },
+    }).then((res) => {
+      setName(res.data.data.name);
+      setAim(res.data.data.goal);
+    });
+  };
+
+  useEffect(() => {
+    getTeamInfo();
+  }, []);
 
   const postSchedulesAPI = async () => {
     await axios({

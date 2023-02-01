@@ -60,6 +60,7 @@ export interface filesInfo{
   url : string
   size: number;
   updatedAt: string;
+  fileId?: number;
 }
 
 

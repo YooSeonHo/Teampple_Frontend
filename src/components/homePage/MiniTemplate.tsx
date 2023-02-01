@@ -76,13 +76,18 @@ const TemplateBox = styled.div`
 
 const Template1 = styled.div`
   position: relative;
-  width: 24.58vw;
-  height: 268px;
+  /* width: 24.58vw; */
+  width: 18.5vw;
+  height: 230px;
+  /* height: 268px; */
   background: #fce44c;
   border-radius: 12px;
   margin-right: 2.604vw;
   display: grid;
   grid-template-rows: 8fr 2fr;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Template2 = styled(Template1)`
@@ -92,20 +97,24 @@ const Template2 = styled(Template1)`
 const Img1 = styled.div`
   background-image: url(${template1});
   background-size: cover;
-  width: 211.17px;
-  height: 186.15px;
+  /* width: 211.17px; */
+  width: 12vw;
+  height: 150px;
+  /* height: 186.15px; */
   margin: auto;
 `;
 const Img2 = styled(Img1)`
-  width: 227.44px;
+  width: 13.5vw;
   background-image: url(${template2});
 `;
 
 const Img3 = styled(Img1)`
+  width: 10vw;
   background-image: url(${template3});
 `;
 
 const Img4 = styled(Img1)`
+  width: 10vw;
   background-image: url(${template4});
 `;
 
@@ -116,7 +125,8 @@ const Desc1 = styled.div`
   color: #707070;
   background: #fff8b7;
   border-radius: 0px 0px 12px 12px;
-  width: 24.58vw;
+  /* width: 24.58vw; */
+  width: 18.5vw;
   height: 55px;
   display: flex;
   align-items: center;
