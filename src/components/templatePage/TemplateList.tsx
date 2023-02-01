@@ -85,6 +85,9 @@ const Template = styled.div`
   margin-bottom: 2.6851vh;
   display: grid;
   grid-template-rows: 8fr 2fr;
+  :hover{
+    cursor: pointer;
+  }
 `;
 
 const Img = styled.img`

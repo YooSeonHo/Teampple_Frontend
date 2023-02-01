@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const Box = styled.div`
     width :100%;
-    height : 1080px;
+    height : 100vh;
     position : relative;
     margin : auto;
     display : flex;
@@ -16,7 +16,7 @@ const Box = styled.div`
 
     .content{
         font-weight: 400;
-        font-size: 28px;
+        font-size: 1.45833vw;
         line-height: 160%;
         text-align: center;
         color: #505050;
@@ -32,12 +32,12 @@ const Box = styled.div`
     
     const Background = styled.div`
     background-image : url('${page3}');
-    width: 1172px;
-    height : 586px;
+    width: 61.04166vw;
+    height : 54.259259vh;
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
-    margin-top : 142px;
+    margin-top : 13.148148vh;
     
 `;
 

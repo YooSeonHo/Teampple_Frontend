@@ -13,11 +13,13 @@ import {
   teamidState,
   stageIdState,
   AddToDozIndexState,
+  taskIdState,
 } from 'state';
 import moment from 'moment';
 import axios from 'axios';
+import { detailInfo } from 'interfaces';
 
-const AddTask = ({ setModal }: any) => {
+const ModifyTask = ({ setBigModal }: any) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
@@ -30,27 +32,50 @@ const AddTask = ({ setModal }: any) => {
   const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
+  const [taskId] = useRecoilState(taskIdState);
+  const [user, setUser] = useState<any | undefined>();
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
   const closeModal = () => {
-    setModal(false);
-    setZIndex(997);
-    setToDoZindex(997);
+    setBigModal(false);
   };
 
-  const postTasksAPI = async () => {
+  const getDetail = async () => {
+    await axios({
+      url: `/api/tasks`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'get',
+      params: {
+        taskId: taskId,
+      },
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setName(res.data.data.taskName);
+        setCheckedNameList(res.data.data.operators);
+        // setStartDate(res.data.data.startDate.format('YYYYMMDD'));
+        // setEndDate(res.data.data.dueDate.format('YYYYMMDD'));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const putTasksAPI = async () => {
     await axios({
       url: `/api/tasks`,
       baseURL: 'https://www.teampple.site',
-      method: 'post',
+      method: 'put',
       headers: {
         Authorization: token,
       },
       data: {
         dueDate: (
-          moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          moment(endDate, 'YYYYMMDDTT').format('YYYY-MM-DD') +
           'T' +
           '00:00:00'
         ).toString(),
@@ -62,13 +87,12 @@ const AddTask = ({ setModal }: any) => {
           '00:00:00'
         ).toString(),
       },
-      params: { stageId: stageId },
+      params: { taskId: taskId },
     })
       .then((response) => {
         console.log(response);
-        alert('새로운 할일 추가 성공!');
+        alert('할일 수정 완료');
         location.reload();
-        // window.location.replace('/teample-home/${teamId}');
       })
       .catch(function (error) {
         console.log(error);
@@ -87,6 +111,7 @@ const AddTask = ({ setModal }: any) => {
     })
       .then((response) => {
         setTeamMates(response.data.data.teammates);
+        setUser(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -96,13 +121,14 @@ const AddTask = ({ setModal }: any) => {
   const onClickBtn = () => {
     if (name === '') alert('할일 이름 입력은 필수입니다.');
     else {
-      postTasksAPI();
+      putTasksAPI();
       setZIndex(997);
       setToDoZindex(997);
     }
   };
 
   useEffect(() => {
+    getDetail();
     getTeamMateAPI();
   }, []);
 
@@ -114,25 +140,17 @@ const AddTask = ({ setModal }: any) => {
       setCheckedNameList(checkedNameList.filter((el) => el !== item));
       setCheckedIdList(checkedIdList.filter((el) => el !== id));
     }
+    console.log(checkedNameList);
+    console.log(checkedIdList);
   };
-
-  // const onRemoveHandle = (item: string, id:number) => {
-  //   setCheckedNameList(checkedNameList.filter((el) => el !== item));
-  //   setCheckedIdList(checkedIdList.filter((el) => el !== id));
-  // };
 
   return (
     <Background>
-      <AddTaskContainer>
+      <ModifyTeampleContainer>
         <CloseBtn onClick={closeModal} />
-        <Title>할일 추가</Title>
+        <Title>할일 수정</Title>
         <Tag1>할일</Tag1>
-        <Input1
-          value={name}
-          onChange={onChangeName}
-          maxLength={12}
-          placeholder="ex. 온라인 회의"
-        />
+        <Input1 value={name} onChange={onChangeName} maxLength={12} />
         <TextLength1>
           ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
         </TextLength1>
@@ -176,6 +194,31 @@ const AddTask = ({ setModal }: any) => {
         <TeamMateContainer>
           <AddTeamMate>담당자 추가</AddTeamMate>
           <TeamMateBox>
+            {user && (
+              <TeamMate>
+                <Profile />
+                <TextInfo>
+                  <Name>{user.name}</Name>
+                  <School>
+                    {user.schoolName} {user.major}
+                  </School>
+                </TextInfo>
+                <CheckBox
+                  type="checkbox"
+                  value={name}
+                  // id={teammateId}
+                  //api 수정되면 재수정 필요!
+                  onChange={(e) => {
+                    onCheckedHandle(
+                      e.target.checked,
+                      e.target.value,
+                      Number(e.target.id),
+                    );
+                  }}
+                  checked={checkedNameList.includes(name) ? true : false}
+                />
+              </TeamMate>
+            )}
             {teamMates.map((teammate: any, index: number) => (
               <TeamMate key={index}>
                 <Profile />
@@ -205,7 +248,7 @@ const AddTask = ({ setModal }: any) => {
           </TeamMateBox>
         </TeamMateContainer>
         <SaveButton onClick={onClickBtn}>저장</SaveButton>
-      </AddTaskContainer>
+      </ModifyTeampleContainer>
     </Background>
   );
 };
@@ -216,20 +259,19 @@ const Background = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.01);
+  background: rgba(0, 0, 0, 0.6);
 `;
 
-const AddTaskContainer = styled.div`
+const ModifyTeampleContainer = styled.div`
   width: 33.33333vw;
   height: 59.259vh;
   background: #ffffff;
   border-radius: 16px;
   position: relative;
-  z-index: 999;
+  z-index: 1000;
   position: fixed;
   top: 20.37037vh;
   left: 33.33333vw;
-  
 `;
 
 const CloseBtn = styled(GrClose)`
@@ -296,9 +338,6 @@ const Input1 = styled.input`
   top: 11.11111vh;
   left: 4.84375vw;
   color: #707070;
-  ::placeholder {
-    color: #cccccc;
-  }
   :focus {
     border: solid 1px #487aff;
   }
@@ -466,4 +505,4 @@ const SmallCloseBtn = styled.button`
   margin-left: 0.729167vw;
 `;
 
-export default AddTask;
+export default ModifyTask;

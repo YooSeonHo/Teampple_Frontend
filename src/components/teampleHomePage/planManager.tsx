@@ -34,6 +34,7 @@ const PlanManager = () => {
       params: { teamId: teamid },
     })
       .then((response) => {
+        console.log(response)
         setPlans(response.data.data.schedules);
         setDueDate(response.data.data.dueDate);
         setDeadDay(getDeadDay(response.data.data.dueDate));
@@ -45,7 +46,6 @@ const PlanManager = () => {
 
   useEffect(() => {
     getPlanAPI();
-    console.log(teamid);
   }, [teamid]);
 
   const getDeadDay = (dueDate: Date) => {

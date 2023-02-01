@@ -9,6 +9,7 @@ import { teamMateNumState, modal2State, teamidState } from 'state';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
+  const [user, setUser] = useState<any | undefined>();
   const [modal2, setModal2] = useRecoilState(modal2State);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
@@ -25,6 +26,8 @@ const TeamMateInfo = () => {
     })
       .then((response) => {
         setTeamMates(response.data.data.teammates);
+        console.log(response.data.data.teammates);
+        setUser(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -39,7 +42,7 @@ const TeamMateInfo = () => {
       params: { teamId: teamid },
       headers: {
         Authorization: token,
-      }, //바꾸기 ㅋ
+      },
     })
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {
@@ -64,15 +67,18 @@ const TeamMateInfo = () => {
     <TeamMateInfoContainer>
       <Title>팀메이트 정보</Title>
       <TeamMateBox>
-        {/* <TeamMate>
-          <Profile />
-          <TextInfo>
-            <Name>{name}</Name>
-            <School>{school} {major}</School>
-          </TextInfo>
-          <Me>(나)</Me>
-        </TeamMate> */}
-        <Me>(나)</Me>
+        {user && (
+          <TeamMate>
+            <Profile />
+            <TextInfo>
+              <Name>{user.name}</Name>
+              <School>
+                {user.schoolName} {user.major}
+              </School>
+            </TextInfo>
+            <Me>(나)</Me>
+          </TeamMate>
+        )}
         {teamMates &&
           teamMates.map((teamMate: ITeamMate) => (
             <TeamMate key={teamMate.name}>
@@ -125,7 +131,7 @@ const TeamMate = styled.div`
   padding-top: 1.1111vh;
   padding-bottom: 1.1111vh;
   padding-right: 0.9375vh;
-  padding-left: 0.9375vh;
+  padding-left: 2vh;
   display: flex;
 `;
 
@@ -165,6 +171,7 @@ const Me = styled.div`
   color: #487aff;
   position: absolute;
   right: 1.041667vw;
+  top: 0px;
 `;
 
 const LinkBtn = styled.div`

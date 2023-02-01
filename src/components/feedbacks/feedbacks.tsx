@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import profile1 from '../images/profile/proImageU1.png';
 import { StyledFeedInfo } from 'interfaces';
-import axios from 'axios';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
-import { fbListState } from 'state';
+import { fbListState,taskIdState, profileImgState } from 'state';
+
 
 const FeedBox = styled.div<StyledFeedInfo>`
   border: 1px solid #dedede;
@@ -40,7 +40,8 @@ const FeedBox = styled.div<StyledFeedInfo>`
     margin-top: 1.111vh;
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   img {
@@ -53,13 +54,17 @@ const Feed = styled.div`
   width: 17.1875vw;
   height: 5.925926vh;
   margin-left: 1.041667vw;
+  margin-top: 1vh;
   display: flex;
-
+  border-bottom: 1px solid #cccccc;
+  :hover {
+    cursor: pointer;
+  }
   .icon {
     width: 2.083333vw;
     height: 3.7043704vh;
     margin-right: 0.83333vw;
-    margin-bottom: 1.1111vh;
+    margin-bottom: 1vh;
   }
 
   .feedContent {
@@ -87,39 +92,43 @@ const Feed = styled.div`
     line-height: 100%;
     color: #a7a7a7;
     margin-top: 1.851852vh;
-    margin-left: 2.083333vw;
+    margin-left : auto;
+    margin-right : 1vw;
+    // margin-left: 2.083333vw;
   }
 `;
 
 const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useRecoilState(fbListState);
-  const token = localStorage.getItem('jwt_accessToken');
-  const [taskId, setTaskId] = useState<number>();
-  
-  const getTaskId = (fb: any, e: React.MouseEvent<HTMLElement>) => {
-    setTaskId(fb.taskId); //이 task id 가지고 맞는 할일에 라우팅
-  };
+  const [taskId, setTaskId] = useRecoilState(taskIdState);
+
+  const getTaskId = (e: any) => {
+    setTaskId(e.target.id);
+    window.open(`/teample-detail/${e.target.id}`, '_self');
+    }
+  const [profileImg,setProfileImg] = useRecoilState(profileImgState);
+
 
   return (
     <FeedBox pathname={pathname}>
       <div className="feedText">피드백</div>
       <div className="feedList">
         {fbList.map((fb: any, index: number) => (
-          <Feed
-            key={index}
-            onClick={(e) => {
-              getTaskId(fb, e);
-            }}
-          >
+          <Feed id={fb.taskId} key={index} onClick={getTaskId}>
             <div className="icon">
-              <img src={profile1} />
+               {profileImg && 
+                  <img
+                    src={require('../images/profile/' +
+                      profileImg +
+                      '.png')}
+                  />}
             </div>
-            <div className="feedContent">
+            <div className="feedContent" id={fb.taskId}>
               [{fb.teamName}]
               <br />
               {fb.taskName}에 적힌 피드백입니다.
             </div>
-            <div className="feedAt">
+            <div className="feedAt" id={fb.taskId}>
               {moment(fb.modifiedAt).format('MM-DD  HH:mm')}
             </div>
           </Feed>

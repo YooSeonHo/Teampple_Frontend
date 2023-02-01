@@ -16,12 +16,14 @@ import axios from 'axios';
 import { AiFillMessage } from 'react-icons/ai';
 
 const MsgIcon = styled(AiFillMessage)`
-position: absolute;
-top: 1.851852vh;
-right: 2.81vw;
-color: #487aff;
-width: 1.67vw;
-height: 2.96293vh;
+  // position: absolute;
+  // top: 1.851852vh;
+  // right: 2.81vw;
+  color: #487aff;
+  width: 1.67vw;
+  height:  6.6666vh;
+  display : flex;
+  align-item: center;
 `;
 
 const HeaderBox = styled.div`
@@ -206,6 +208,7 @@ const TeampleHeader = () => {
     })
       .then((response) => {
         setFbList(response.data.data.feedbacks);
+        console.log(response.data.data.feedbacks);
       })
       .catch(function (error) {
         console.log(error);
@@ -251,7 +254,6 @@ const TeampleHeader = () => {
   return (
     <HeaderBox>
       <div id="main">{name}</div>
-
       <div id="sub">{goal}</div>
       <div id="dDayBox">
         <div id="dDay">D-{deadDay}</div>
@@ -264,7 +266,7 @@ const TeampleHeader = () => {
         {modal1 && <ModifyTeample setModal1={setModal1} />}
       </ModalContainer1>
       <div id="teamList" onClick={showModal2}>
-        <a id="teamNum">+{teamMatesNum}</a>
+        <a id="teamNum">+{teamMatesNum-1}</a>
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox" onClick={openFeed}>

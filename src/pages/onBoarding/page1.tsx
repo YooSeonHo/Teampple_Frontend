@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 export const Background = styled.div`
   background-image: url('${page1}');
   width: 100%;
-  height: 1080px;
+  height: 100vh;
   background-size: contain;
   background-repeat: no-repeat;
   justify-content: center;
@@ -21,24 +21,24 @@ export const Background = styled.div`
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
+  margin-top: 7.407vh;
 
   .header {
     font-weight: 500;
-    font-size: 28px;
+    font-size: 1.458333vw;
     line-height: 140%;
     color: #707070;
-    margin-bottom: 8px;
+    margin-bottom: 0.74074vh;
     margin-left: auto;
     margin-right: auto;
   }
 
   .mid {
     font-weight: 700;
-    font-size: 36px;
+    font-size: 1.875vw;
     line-height: 140%;
     color: #383838;
-    margin-bottom: 35px;
+    margin-bottom: 3.240741vh;
 
     a {
       color: #487aff;
@@ -46,8 +46,8 @@ const ContentBox = styled.div`
   }
 
   .start {
-    width: 131px;
-    height: 56px;
+    width: 6.82291vw;
+    height: 5.18518vh;
     margin-left: auto;
     margin-right: auto;
   }

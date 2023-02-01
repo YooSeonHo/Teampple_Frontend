@@ -9,7 +9,7 @@ import {
   jwtRefreshTokenState,
 } from 'state';
 import axios from 'axios';
-import ClockLoader from 'react-spinners/ClockLoader';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 const Ing = () => {
   const navigate = useNavigate();
@@ -20,8 +20,11 @@ const Ing = () => {
   const [kakaoRefreshToken, setKakaoRefreshToken] = useRecoilState(
     kakaoRefreshTokenState,
   );
-  const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
-  const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
+  const [jwtAccessToken, setjwtAccessToken] =
+    useRecoilState(jwtAccessTokenState);
+  const [jwtRefreshToken, setjwtRefreshToken] =
+    useRecoilState(jwtRefreshTokenState);
+
   const postAuthLoginAPI = async () => {
     await axios({
       url: `/api/auth/login`,
@@ -51,6 +54,7 @@ const Ing = () => {
           response.data.data.jwtRefreshToken,
         );
         navigate('/home');
+        location.reload();
       })
       .catch(function (error) {
         console.log(error);
@@ -58,9 +62,8 @@ const Ing = () => {
   };
   useEffect(() => {
     postAuthLoginAPI();
-    console.log(idToken);
-    console.log(kakaoAccessToken);
   }, []);
+
   return (
     <div
       style={{
@@ -71,7 +74,7 @@ const Ing = () => {
         alignItems: 'center',
       }}
     >
-      <ClockLoader color="#487aff" size={50} />
+      <BeatLoader color="#487aff" size={50} />
     </div>
   );
 };
