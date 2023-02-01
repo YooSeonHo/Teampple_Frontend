@@ -49,8 +49,7 @@ const Page8 = () => {
     <Background>
       <Contents>
         <div>
-          건강하고 성공적인 팀플을 위해
-          <br /> 팀쁠의 가이드를 받아 볼 준비가 되셨나요?
+        대학생들을 위한, <br/>체계적인 팀프로젝트 협업 툴
         </div>
         <div className="btn">
           <img src={btn} onClick={onClickBtn} />
