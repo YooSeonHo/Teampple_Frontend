@@ -234,6 +234,9 @@ const Input1 = styled.input`
   top: 11.11111vh;
   left: 4.84375vw;
   color: #707070;
+  :focus {
+    border: solid 1px #487aff;
+  }
 `;
 
 const Input2 = styled(Input1)`

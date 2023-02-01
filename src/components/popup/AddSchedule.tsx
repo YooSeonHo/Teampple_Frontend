@@ -195,6 +195,9 @@ const Input = styled.input`
   ::placeholder {
     color: #cccccc;
   }
+  :focus {
+    border: solid 1px #487aff;
+  }
 `;
 
 const Time = styled(Input)`
@@ -205,6 +208,9 @@ const Time = styled(Input)`
   top: 18.518vh;
   ::placeholder {
     color: #cccccc;
+  }
+  :focus {
+    border: solid 1px #487aff;
   }
 `;
 

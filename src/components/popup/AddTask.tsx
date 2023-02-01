@@ -297,7 +297,10 @@ const Input1 = styled.input`
   left: 4.84375vw;
   color: #707070;
   ::placeholder {
-    color: #CCCCCC;
+    color: #cccccc;
+  }
+  :focus {
+    border: solid 1px #487aff;
   }
 `;
 

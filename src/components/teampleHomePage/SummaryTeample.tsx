@@ -157,7 +157,7 @@ const Text = styled.span`
 
 const Percent = styled.div`
   position: absolute;
-  left: 36.71875vw;
+  left: 35.5vw;
   top: 8.7962vh;
   line-height: 100%;
   font-size: 0.9375vw;
@@ -178,7 +178,7 @@ const BarContainer = styled.div`
 
   li {
     background-color: #ececec;
-    height: 1.481481vh;
+    height: 13px;
     border-radius: 46px;
   }
 `;
@@ -187,7 +187,7 @@ const Bar = styled.span<{ currentPercent: number; icon: string }>`
   position: absolute;
   border-radius: 46px;
   background-color: #487aff;
-  height: 1.481481vh;
+  height: 13px;
   width: ${(props) => props.currentPercent}%;
   -webkit-animation: teample-progressbar 2s ease-out;
   animation: teample-progressbar 2s ease-out;
@@ -196,8 +196,8 @@ const Bar = styled.span<{ currentPercent: number; icon: string }>`
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     content: '';
-    width: 2.08333vw;
-    height: 3.7037vh;
+    width: 30px;
+    height: 30px;
     position: absolute;
     top: -0.92592vh;
     right: -0.520833vw;
