@@ -53,8 +53,9 @@ const Ing = forwardRef((props:any, ref: any) => {
           'jwt_refreshToken',
           response.data.data.jwtRefreshToken,
         );
-        onLoginSuccess();
+        onLoginSuccess;
         navigate('/home');
+        location.reload();
       })
       .catch(function (error) {
         console.log(error);
