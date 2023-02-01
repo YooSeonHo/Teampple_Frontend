@@ -106,7 +106,6 @@ const AddDiv = (props: any) => {
                       placeholder="ex. 자료 조사"
                       value={i.name}
                       id={i.sequenceNum.toString()}
-                      required
                     />
                     <TextLength>
                     ({i.name.replace(/<br\s*\/?>/gm, '\n').length}/9)
@@ -120,10 +119,12 @@ const AddDiv = (props: any) => {
                       dateFormat="yyyy.MM.dd"
                       selected={new Date(i.startDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+                      popperProps={{strategy: 'fixed'}}
                       onChange={(date: Date) => {
                         const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, startDate : date} : s)
                         setStages(temp);
                       }}
+                      
                     />
                     <IoCalendarNumberOutline
                       style={{
@@ -140,11 +141,13 @@ const AddDiv = (props: any) => {
                       dateFormat="yyyy.MM.dd"
                       selected={new Date(i.dueDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+                      popperProps={{strategy: 'fixed'}}
                       onChange={(date: Date) => {
                         const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ?{...s, dueDate : date} : s)
                         //  {...s, dueDate : moment(date, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'} : s)
                         setStages(temp);
                       }}
+                      
                     />
                     <IoCalendarNumberOutline
                       style={{
@@ -171,8 +174,8 @@ const AddDiv = (props: any) => {
 };
 
 const AddDivContainer = styled.div`
-position: relative;
-overflow : hidden;
+  position: relative;
+  overflow : hidden;
 `
 
 const StepContainer = styled.div`
@@ -296,6 +299,7 @@ const StyledDatePicker = styled(DatePicker)`
   position: absolute;
   top: -2.77778vh;
   left: -1.0417vw;
+  
 `;
 
 const MakeButton = styled.button`

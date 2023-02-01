@@ -211,6 +211,7 @@ const InputContainer = styled.div`
   width: 33.3333vw;
   height: 36.11vh;
   overflow: auto;
+  z-index : 1000;
 `;
 
 const AddStepButton = styled.button`
