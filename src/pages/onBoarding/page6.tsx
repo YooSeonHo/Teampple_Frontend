@@ -8,12 +8,12 @@ import { useEffect } from "react";
 
 export const Background = styled.div`
     background-image : url('${page6}');
-    width: 1172px;
-    height : 447px;
+    width: 61.041667vw;
+    height : 41.38888vh;
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
-    margin-top : 46px;
+    margin-top : 4.259259vh;
 `;
 
 
@@ -21,7 +21,7 @@ const Page6 = () =>{
 
     useEffect(()=>{
         AOS.init({
-            duration : 2000,
+            duration : 1500,
         });
         
       })

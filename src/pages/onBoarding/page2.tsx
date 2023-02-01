@@ -38,13 +38,14 @@ const Contents = styled.div`
     .header{
         font-weight: 500;
         font-size: 1.6666667vw;
-        line-height: 150%;
+        line-height: 100%;
         color: #383838;
     }
 
     .mid{
         font-weight: 400;
-        font-size: 1.66667vw;
+        font-size: 0.9375vw;
+        margin-top : 1.851852vh;
         line-height: 100%;
         color: #A7A7A7;
     }
@@ -55,7 +56,7 @@ const Page2 = () =>{
 
     useEffect(()=>{
         AOS.init({
-            duration : 2000,
+            duration : 1500,
         });
         
       })

@@ -8,8 +8,8 @@ import { useEffect } from "react";
 
 export const Background = styled.div`
     background-image : url('${page7}');
-    width: 1172px;
-    height : 276px;
+    width: 61.041667vw;
+    height : 25.55555vh;
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
@@ -18,17 +18,17 @@ export const Background = styled.div`
     
     const Content = styled.div`
     font-weight: 600;
-    font-size: 32px;
+    font-size: 1.66666vw;
     line-height: 38px;
     color: #383838;
     margin : auto;
-    margin-bottom : 48px;
+    margin-bottom : 4.44444vh;
 `;
 
 const Page7 = () =>{
     useEffect(()=>{
         AOS.init({
-            duration : 2000,
+            duration : 1500,
         });
         
       })
