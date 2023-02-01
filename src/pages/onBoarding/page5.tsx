@@ -8,19 +8,19 @@ import { useEffect } from "react";
 
 export const Background = styled.div`
     background-image : url('${page5}');
-    width: 1172px;
-    height : 400px;
+    width: 61.041667vw;
+    height : 37.037037vh;
     background-size: contain;
     background-repeat : no-repeat;
     margin: auto;
-    margin-top : 51px;
+    margin-top : 4.7222vh;
 `;
 
 
 const Page5 = () =>{
     useEffect(()=>{
         AOS.init({
-            duration : 2000,
+            duration : 1500,
         });
         
       })

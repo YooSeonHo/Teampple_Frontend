@@ -234,6 +234,9 @@ const Input = styled.input`
   background-color: transparent;
   color: #707070;
   margin-left: 0.8333vw;
+  ::placeholder {
+    color: #cccccc;
+  }
 `;
 
 const TextLength = styled.span`

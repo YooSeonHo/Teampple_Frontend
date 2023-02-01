@@ -9,7 +9,7 @@ import { useEffect } from "react";
 export const Box = styled.div`
     width : 100%;
     text-align : center;
-    height : 1080px;
+    height : 100vh;
     display : flex;
     flex-direction : column;
 
@@ -21,18 +21,18 @@ export const Contents = styled.div`
     margin-top : auto;
     .top{
         font-weight: 700;
-        font-size: 24px;
+        font-size: 1.25vw;
         line-height: 29px;
         color: #487AFF;
-        margin-bottom : 32px;
+        margin-bottom : 2.962963vh;
     }
     
     .mid{
         font-weight: 400;
-        font-size: 20px;
+        font-size: 1.041667vw;
         line-height: 160%;
         color: #383838;
-        margin-bottom : 72px;
+        margin-bottom : 6.66666vh;
         
         span{
             font-weight : bold;
@@ -43,8 +43,8 @@ export const Contents = styled.div`
     
 export const Background = styled.div`
     background-image : url('${page4}');
-    width: 1172px;
-    height : 793px;
+    width: 61.041667vw;
+    height : 73.425926vh;
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
@@ -55,7 +55,7 @@ const Page4 = () =>{
 
     useEffect(()=>{
         AOS.init({
-            duration : 2000,
+            duration : 1500,
         });
         
       })

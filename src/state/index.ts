@@ -1,9 +1,7 @@
 // import { detailInfo } from 'interfaces';
 import { detailInfo, fbInfo, fbListInfo, makeTeampleInfo, stageInfo } from 'interfaces';
 import { atom } from 'recoil';
-import { v1 } from 'uuid';
-// key duplicate 방지를 위한 라이브러리 설치
-// npm i --save-dev @types/uuid
+import { v1 } from 'uuid'; // key duplicate 방지를 위한 라이브러리
 import { recoilPersist } from "recoil-persist";
 const { persistAtom } = recoilPersist();
 
@@ -163,6 +161,11 @@ export const profileImgState = atom<string>({
   default : ''
 })
 
+export const teampleDetailState = atom<boolean>({
+  key: `isOpen/${v1()}`,
+  default: false,
+});
+
 export const detailState = atom<detailInfo>({
   key :  `detail/${v1()}`,
   default :
@@ -178,3 +181,8 @@ export const detailState = atom<detailInfo>({
     taskName : '',
   }
 })
+
+export const isLoginState = atom<boolean>({
+  key: 'isLogin',
+  default: false,
+});

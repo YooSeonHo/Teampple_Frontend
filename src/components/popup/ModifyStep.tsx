@@ -149,6 +149,9 @@ const Input = styled.input`
   background-color: transparent;
   color: #707070;
   margin-left: 16px;
+  :focus {
+    border: solid 1px #487aff;
+  }
 `;
 
 const TextLength = styled.span`

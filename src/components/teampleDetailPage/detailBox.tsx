@@ -13,9 +13,11 @@ import { detailInfo, userInfo } from 'interfaces';
 import S3 from 'react-aws-s3-typescript';
 import { config } from 'config';
 import { useRecoilState } from 'recoil';
-import { taskIdState, teamidState,detailState } from 'state';
+import { taskIdState, teamidState, teampleDetailState, detailState } from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { useNavigate } from 'react-router-dom';
+import MoreTeampleDetail from 'components/popup/MoreTeampleDetail';
+import ModifyTask from 'components/popup/ModifyTask';
 
 const DetailContainer = styled.div`
   width: 52.0833vw;
@@ -293,6 +295,9 @@ const DetailContainer = styled.div`
 
   .inputBox {
     position: relative;
+    ::placeholder {
+      color: #cccccc;
+    }
   }
 
   .send {
@@ -383,6 +388,13 @@ const Container = styled.div`
   justify-content: center;
 `;
 
+const ModalContainer = styled.div`
+  position: absolute;
+  top: 40px;
+  left: -140px;
+  z-index: 1000;
+`;
+
 const DetailBox = () => {
   const token = localStorage.getItem('jwt_accessToken');
 
@@ -393,11 +405,17 @@ const DetailBox = () => {
   const [teamid] = useRecoilState(teamidState);
   const [user, setUser] = useState<userInfo>();
   const [addFeed, setAddFeed] = useState('');
-  const [taskId] = useRecoilState(taskIdState);
+  const [taskId, setTaskId] = useRecoilState(taskIdState);
   const navigate = useNavigate();
+  const [smallModal, setSmallModal] = useState(false);
+  const [bigModal, setBigModal] = useRecoilState(teampleDetailState);
 
-  const onClick = () => {
+  const AddFile = () => {
     fileInput.current && fileInput.current.click();
+  };
+
+  const showSmallModal = () => {
+    setSmallModal(!smallModal);
   };
 
   const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -526,57 +544,89 @@ const DetailBox = () => {
     postFile();
   }, [file]);
 
-  const onChangeStatus = async () =>{
+  const onChangeStatus = async () => {
     await axios({
       url: '/api/tasks/status',
       baseURL: 'https://www.teampple.site/',
       method: 'post',
-      headers : {
-        Authorization : token,
+      headers: {
+        Authorization: token,
       },
-      params : {taskId : taskId}
-    }).then(()=>{
+      params: { taskId: taskId },
+    }).then(() => {
       location.reload();
-        })  
-  }
+    });
+  };
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
   };
 
-  const downloadFile = (url:any) => {
-      fetch(url, { method: 'GET' })
-        .then((res) => {
-          return res.blob();
-        })
-        .then((blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = '파일명';
-          document.body.appendChild(a);
-          a.click();
-          setTimeout((_) => {
-            window.URL.revokeObjectURL(url);
-          }, 60000);
-          a.remove();
-        })
-        .catch((err) => {
-          console.error('err: ', err);
-        });
-    };
+  const downloadFile = (url: any) => {
+    fetch(url, { method: 'GET' })
+      .then((res) => {
+        return res.blob();
+      })
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '파일명';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout((_) => {
+          window.URL.revokeObjectURL(url);
+        }, 60000);
+        a.remove();
+      })
+      .catch((err) => {
+        console.error('err: ', err);
+      });
+  };
 
+  const delTaskAPI = async (fileId: number) => {
+    await axios({
+      baseURL: 'https://www.teampple.site/',
+      url: 'api/files',
+      method: 'delete',
+      headers: {
+        Authorization: token,
+      },
+      params: { fileId: fileId },
+    })
+      .then((response) => {
+        console.log(response);
+        location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const delFile = (e: any) => {
+    delTaskAPI(Number(e.target.id));
+  };
 
   return (
     <Container>
+      <ModalContainer>
+        {bigModal && <ModifyTask setBigModal={setBigModal} />}
+      </ModalContainer>
       {detail && (
         <DetailContainer>
           <div className="headerBtns">
             <div className="back" onClick={() => navigate(-1)}>
               <img src={vector} />
             </div>
-            <div className="more">
+            <div
+              className="more"
+              onClick={showSmallModal}
+              style={{ position: 'relative' }}
+            >
               <img src={more} />
+              <ModalContainer>
+                {smallModal && <MoreTeampleDetail />}
+              </ModalContainer>
             </div>
           </div>
           <div className="toDoInfoBox">
@@ -591,9 +641,8 @@ const DetailBox = () => {
                 <div className="taskName">{detail.taskName}</div>
 
                 <div className="finBtn" onClick={onChangeStatus}>
-                  {detail.done? <img src={startBtn}/> : <img src={finBtn} /> }
+                  {detail.done ? <img src={startBtn} /> : <img src={finBtn} />}
                 </div>
-
               </div>
               <div className="subInfo">
                 <div className="manager">
@@ -638,7 +687,7 @@ const DetailBox = () => {
                 onClick={onReset}
               />
 
-              <button className="addFile" onClick={onClick}>
+              <button className="addFile" onClick={AddFile}>
                 + 파일 첨부하기
               </button>
             </div>
@@ -647,16 +696,19 @@ const DetailBox = () => {
                 {detail.files.map((file, index) => (
                   <div className="fileCard" key={index}>
                     <div className="fileName">
-                      <div className="nameText">
-                        {file.filename}
-                      </div>
+                      <div className="nameText">{file.filename}</div>
                       <div className="icons">
                         <img
                           src={download}
                           className="download"
                           onClick={() => downloadFile(fileLoc)}
                         />
-                        <img src={trash} className="trash" />
+                        <img
+                          src={trash}
+                          className="trash"
+                          id={file.fileId?.toString()}
+                          onClick={delFile}
+                        />
                       </div>
                     </div>
                     <div className="fileInfo">

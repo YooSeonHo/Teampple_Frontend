@@ -4,7 +4,7 @@ import arrow from '../images/ArrowLineRight2.png';
 import axios from 'axios';
 import { FileInfo } from 'interfaces';
 import { useRecoilState } from 'recoil';
-import { IsSearchState, searchFileState, teamidState } from 'state';
+import { IsSearchState, searchFileState, teamidState,taskIdState } from 'state';
 import { Link } from 'react-router-dom';
 
 const ListBox = styled.div`
@@ -136,6 +136,7 @@ const FileList = () => {
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
   const [teamid] = useRecoilState(teamidState);
   const token = localStorage.getItem('jwt_accessToken');
+  const [taskId, setTaskId] = useRecoilState(taskIdState);
 
   useEffect(() => {
     const getFiles = async () => {
@@ -162,6 +163,11 @@ const FileList = () => {
     getFiles();
   }, []);
 
+  const getTaskId = (e: any) => {
+    setTaskId(Number(e.target.id));
+    console.log(Number(e.target.id))
+  };
+
   return (
     <Container>
       <ListBox>
@@ -186,8 +192,13 @@ const FileList = () => {
                       to={`/teample-detail/${file.taskId}`}
                       key={file.fileId}
                       style={{ textDecoration: 'none' }}
+                      id={file.taskId.toString()}
                     >
-                      <File key={file.updatedAt}>
+                      <File
+                        key={file.updatedAt}
+                        onClick={getTaskId}
+                        id={file.taskId.toString()}
+                      >
                         <div className="name">{file.fileName}</div>
                         <div className="loc">{file.route}</div>
                         <div className="owner">{file.uploader}</div>
@@ -216,12 +227,16 @@ const FileList = () => {
                       key={file.fileId}
                       style={{ textDecoration: 'none' }}
                     >
-                      <File key={file.updatedAt}>
+                      <File
+                        key={file.updatedAt}
+                        onClick={getTaskId}
+                        id={file.taskId.toString()}
+                      >
                         <div className="name">{file.fileName}</div>
                         <div className="loc">{file.route}</div>
                         <div className="owner">{file.uploader}</div>
                         <div className="size">
-                          {Math.round(file.size / 1024)}MB
+                          {(file.size / (1024 * 1024)).toFixed(1)}MB
                         </div>
                         <div className="date">
                           {file.updatedAt

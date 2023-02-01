@@ -45,7 +45,7 @@ const Box = styled.div`
 const Page3 = () =>{
     useEffect(()=>{
         AOS.init({
-            duration : 2000,
+            duration : 1500,
         });
         
       })

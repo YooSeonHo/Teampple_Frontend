@@ -208,6 +208,7 @@ const TeampleHeader = () => {
     })
       .then((response) => {
         setFbList(response.data.data.feedbacks);
+        console.log(response.data.data.feedbacks);
       })
       .catch(function (error) {
         console.log(error);
@@ -253,7 +254,6 @@ const TeampleHeader = () => {
   return (
     <HeaderBox>
       <div id="main">{name}</div>
-
       <div id="sub">{goal}</div>
       <div id="dDayBox">
         <div id="dDay">D-{deadDay}</div>
@@ -266,7 +266,7 @@ const TeampleHeader = () => {
         {modal1 && <ModifyTeample setModal1={setModal1} />}
       </ModalContainer1>
       <div id="teamList" onClick={showModal2}>
-        <a id="teamNum">+{teamMatesNum}</a>
+        <a id="teamNum">+{teamMatesNum-1}</a>
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox" onClick={openFeed}>

@@ -56,7 +56,7 @@ const FileInfo = () => {
             <span style={{ fontSize: '1.25vw' }}>{fileNum}</span>
             <span style={{ color: '#707070' }}>&nbsp;파일</span>
           </FileNum>
-          <FileSize>{Math.round(nowFileSize / 1024)}MB/5GB</FileSize>
+          <FileSize>{(nowFileSize / (1024 * 1024)).toFixed(1)}MB/5GB</FileSize>
           <BarContainer>
             <ul>
               <li>
