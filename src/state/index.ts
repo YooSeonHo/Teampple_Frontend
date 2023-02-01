@@ -181,3 +181,8 @@ export const detailState = atom<detailInfo>({
     taskName : '',
   }
 })
+
+export const isLoginState = atom<boolean>({
+  key: 'isLogin',
+  default: false,
+});
