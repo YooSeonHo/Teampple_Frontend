@@ -13,7 +13,7 @@ import { detailInfo, userInfo } from 'interfaces';
 import S3 from 'react-aws-s3-typescript';
 import { config } from 'config';
 import { useRecoilState } from 'recoil';
-import { taskIdState, teamidState, teampleDetailState } from 'state';
+import { taskIdState, teamidState, teampleDetailState, detailState } from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { useNavigate } from 'react-router-dom';
 import MoreTeampleDetail from 'components/popup/MoreTeampleDetail';
@@ -398,7 +398,7 @@ const ModalContainer = styled.div`
 const DetailBox = () => {
   const token = localStorage.getItem('jwt_accessToken');
 
-  const [detail, setDetail] = useState<detailInfo | undefined>();
+  const [detail,setDetail] = useRecoilState(detailState);
   const [file, setFile] = useState<File>();
   const [fileLoc, setFileLoc] = useState('');
   const fileInput = useRef<any>();
@@ -484,7 +484,6 @@ const DetailBox = () => {
       },
     })
       .then((res) => {
-        console.log(res.data);
         setDetail(res.data.data);
       })
       .catch((e) => {
@@ -508,6 +507,7 @@ const DetailBox = () => {
         console.log(e);
       });
   };
+  //새로고침 시에도 taskId에 맞는 디테일 정보를 가져와야 해서 양쪽에서 모두 get함수를..;;
 
   const postFeedback = async () => {
     if (addFeed.trim() === '') {

@@ -1,5 +1,5 @@
 // import { detailInfo } from 'interfaces';
-import { fbInfo, fbListInfo, makeTeampleInfo, stageInfo } from 'interfaces';
+import { detailInfo, fbInfo, fbListInfo, makeTeampleInfo, stageInfo } from 'interfaces';
 import { atom } from 'recoil';
 import { v1 } from 'uuid'; // key duplicate 방지를 위한 라이브러리
 import { recoilPersist } from "recoil-persist";
@@ -165,3 +165,19 @@ export const teampleDetailState = atom<boolean>({
   key: `isOpen/${v1()}`,
   default: false,
 });
+
+export const detailState = atom<detailInfo>({
+  key :  `detail/${v1()}`,
+  default :
+  {
+    done : false,
+    dueDate : '',  
+    feedbacks : [],
+    files: [],
+    operators : [],
+    sequenceNum : 0,
+    stageName : '',
+    startDate : '',
+    taskName : '',
+  }
+})

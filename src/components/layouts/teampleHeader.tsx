@@ -16,12 +16,14 @@ import axios from 'axios';
 import { AiFillMessage } from 'react-icons/ai';
 
 const MsgIcon = styled(AiFillMessage)`
-position: absolute;
-top: 1.851852vh;
-right: 2.81vw;
-color: #487aff;
-width: 1.67vw;
-height: 2.96293vh;
+  // position: absolute;
+  // top: 1.851852vh;
+  // right: 2.81vw;
+  color: #487aff;
+  width: 1.67vw;
+  height:  6.6666vh;
+  display : flex;
+  align-item: center;
 `;
 
 const HeaderBox = styled.div`

@@ -4,7 +4,8 @@ import profile1 from '../images/profile/proImageU1.png';
 import { StyledFeedInfo } from 'interfaces';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
-import { fbListState,taskIdState } from 'state';
+import { fbListState,taskIdState, profileImgState } from 'state';
+
 
 const FeedBox = styled.div<StyledFeedInfo>`
   border: 1px solid #dedede;
@@ -91,7 +92,9 @@ const Feed = styled.div`
     line-height: 100%;
     color: #a7a7a7;
     margin-top: 1.851852vh;
-    margin-left: 2.083333vw;
+    margin-left : auto;
+    margin-right : 1vw;
+    // margin-left: 2.083333vw;
   }
 `;
 
@@ -102,7 +105,9 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
   const getTaskId = (e: any) => {
     setTaskId(e.target.id);
     window.open(`/teample-detail/${e.target.id}`, '_self');
-  };
+    }
+  const [profileImg,setProfileImg] = useRecoilState(profileImgState);
+
 
   return (
     <FeedBox pathname={pathname}>
@@ -110,8 +115,13 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
       <div className="feedList">
         {fbList.map((fb: any, index: number) => (
           <Feed id={fb.taskId} key={index} onClick={getTaskId}>
-            <div className="icon" id={fb.taskId}>
-              <img src={profile1} id={fb.taskId} />
+            <div className="icon">
+               {profileImg && 
+                  <img
+                    src={require('../images/profile/' +
+                      profileImg +
+                      '.png')}
+                  />}
             </div>
             <div className="feedContent" id={fb.taskId}>
               [{fb.teamName}]

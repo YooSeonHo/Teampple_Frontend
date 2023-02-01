@@ -3,15 +3,39 @@ import styled from 'styled-components';
 import arrow from '../images/ArrowLineRight2.png';
 import done from '../images/done icon.png';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NotToDoBox from 'components/teampleHomePage/nothing/NotToDoBox';
 import { useRecoilState } from 'recoil';
-import { taskIdState } from 'state';
+import { detailState, taskIdState } from 'state';
+import useDidMountEffect from 'components/hooks/useDidMountEffect';
+import { Navigate } from 'react-router-dom';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
   const token = localStorage.getItem('jwt_accessToken');
-  const [taskId,setTaskId] = useRecoilState(taskIdState)
+  const [taskId,setTaskId] = useRecoilState(taskIdState);
+  const [detail,setDetail] = useRecoilState(detailState);
+  const navigate = useNavigate();
+
+  const getDetail = async () => {
+    await axios({
+      url: `/api/tasks`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'get',
+      params: {
+        taskId: taskId,
+      },
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setDetail(res.data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const getTodoAPI = async () => {
     await axios({
@@ -23,8 +47,8 @@ const HomeToDo = () => {
       },
     })
       .then((response) => {
-        console.log(response.data.data.teams);
         setTeams(response.data.data.teams);
+        setTaskId(0);
       })
       .catch(function (error) {
         console.log(error);
@@ -32,9 +56,14 @@ const HomeToDo = () => {
   };
 
   const onClick = (e : any) =>{
-    setTaskId(e.target.id)
+    setTaskId(e.currentTarget.id)
   }
 
+  useDidMountEffect(async ()=>{
+    taskId && await getDetail().then(()=>{
+      navigate(`/teample-detail/${taskId}`) 
+    })
+  },[taskId])
 
   useEffect(() => {
     getTodoAPI();
@@ -60,18 +89,11 @@ const HomeToDo = () => {
                   </Left>
                   <ToDoList>
                     {team.tasks.map((t: any, index: number) => (
-                      <Link
-                        to={`/teample-detail/${t.taskId}`}
-                        key={index}
-                        style={{ textDecoration: 'none' }}
-                      >
-                        <ToDo onClick={onClick} id={t.taskId}>
+                        <ToDo onClick={onClick} key={index} id={t.taskId}>
                           {t.done === true ? <Done src={done} /> : <></>}
-
                           <ToDoText>{t.name}</ToDoText>
                           <Arrow src={arrow} />
                         </ToDo>
-                      </Link>
                     ))}
                   </ToDoList>
                 </ToDoContainer>
@@ -130,14 +152,14 @@ const LeftText = styled.span`
   color: #487aff;
   position: absolute;
   right: 3.072vw;
-  top: 26px;
+  top: 2.4074vh;
 `;
 const LeftNum = styled.span`
   position: absolute;
   right: 1.042vw;
   top: 20px;
-  width: 28px;
-  height: 28px;
+  width: 1.458333vw;
+  height: 2.592593vh;
   border-radius: 50px;
   background-color: #487aff;
   color: white;
@@ -166,6 +188,10 @@ const ToDo = styled.div`
   align-items: center;
   position: relative;
   margin-bottom: 12px;
+
+  :hover{
+    cursor : grab;
+  }
 `;
 
 const ToDoText = styled.span`
