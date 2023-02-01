@@ -2,39 +2,37 @@ import React from 'react';
 import styled from 'styled-components';
 import page8 from './images/Component 8.png';
 import btn from './images/Group 310.png';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { useEffect } from 'react';
 
 export const Background = styled.div`
   background-image: url('${page8}');
-  width: 100%;
+  width: 100vw;
   text-align: center;
-  height: 614px;
+  height: 56.851852vh;
   background-size: contain;
   background-repeat: no-repeat;
   margin: auto;
   background-color: #487aff;
-  margin-top: 310px;
+  margin-top: 28.70370vh;
 `;
 
 const Contents = styled.div`
   font-weight: 600;
-  font-size: 32px;
+  font-size: 1.66666vw;
   line-height: 160%;
   color: #ffffff;
-  padding-top: 200px;
+  padding-top: 18.51851vh;
   display: flex;
   flex-direction: column;
 
   .btn {
-    width: 183px;
-    height: 60px;
+    width: 9.53125vw;
+    height: 5.55555vh;
     margin: auto;
     margin-top: 53px;
     :hover {
       cursor: pointer;
     }
+
   }
   img {
     max-width: 100%;
@@ -43,11 +41,7 @@ const Contents = styled.div`
 `;
 
 const Page8 = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 2000,
-    });
-  });
+
   const onClickBtn = () => {
     {
       localStorage.getItem('jwt_accessToken')
@@ -56,7 +50,7 @@ const Page8 = () => {
     }
   };
   return (
-    <Background data-aos="fade-down">
+    <Background>
       <Contents>
         <div>
           건강하고 성공적인 팀플을 위해
