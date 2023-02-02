@@ -69,7 +69,7 @@ const Page1 = () => {
   return (
     <Background data-aos="fade-up">
       <ContentBox>
-        <div className="header">서로가 모여 플러스가 되는</div>
+        <div className="header">서로가 모여 플러스(A+)가 되는</div>
         <div className="mid">
           새내기 팀플 가이드 솔루션 <a>팀쁠</a>
         </div>

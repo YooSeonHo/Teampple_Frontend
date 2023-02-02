@@ -6,6 +6,7 @@ import startBtn from '../images/Group 435.png';
 import finBtn from '../images/Group 437.png';
 import download from '../images/DownloadSimple.png';
 import trash from '../images/Trash.png';
+import deleteBtn from '../images/delete.png';
 import ellipse from '../images/Ellipse 1.png';
 import Send from '../images/send.png';
 import axios from 'axios';
@@ -360,10 +361,11 @@ const DetailContainer = styled.div`
   }
 
   .plusBtn {
-    width: 0.2604vw;
-    height: 1.944vh;
+    height: 0.7604vw;
+    width: 2.944vh;
     margin-left: auto;
     margin-right: 1.041667vw;
+    margin-top : auto;
   }
 
   .plusBtn:hover {
@@ -769,7 +771,7 @@ const DetailBox = () => {
                             .replace('T', ' ')}
                         </div>
                         <div className="plusBtn">
-                          <img src={more} />
+                          <img src={deleteBtn} />
                         </div>
                       </div>
                       <div className="feedContent">{feedback.comment}</div>
