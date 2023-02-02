@@ -211,7 +211,6 @@ const TeampleHeader = () => {
     })
       .then((response) => {
         setFbList(response.data.data.feedbacks);
-        console.log(response.data.data.feedbacks);
       })
       .catch(function (error) {
         console.log(error);

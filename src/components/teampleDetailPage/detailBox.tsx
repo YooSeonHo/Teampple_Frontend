@@ -557,8 +557,28 @@ const DetailBox = () => {
       params: { taskId: taskId },
     }).then(() => {
       location.reload();
+    })
+    .catch((e) => {
+      console.log(e);
     });
   };
+
+  const onDeleteFeed = async (e : React.MouseEvent<HTMLDivElement>) =>{
+    await axios({
+      url: '/api/feedbacks',
+      baseURL: 'https://www.teampple.site/',
+      method: 'delete',
+      headers: {
+        Authorization: token,
+      },
+      params : {feedbackId : Number(e.currentTarget.id)}
+    }).then(()=>{
+      alert('댓글이 삭제되었습니다.')
+      location.reload();
+    }).catch((e) => {
+      console.log(e);
+    });
+  }
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
@@ -753,8 +773,8 @@ const DetailBox = () => {
             </div>
             {detail.feedbacks && (
               <div className="feedbacks">
-                {detail.feedbacks.map((feedback, index) => (
-                  <div className="feedBox" key={index}>
+                {detail.feedbacks.map((feedback) => (
+                  <div className="feedBox" key={feedback.feedbackId}>
                     <div className="profileImg">
                       <img
                         src={require('../images/profile/' +
@@ -770,9 +790,11 @@ const DetailBox = () => {
                             .replace(/-/g, '.')
                             .replace('T', ' ')}
                         </div>
-                        <div className="plusBtn">
+                        {feedback.adviser === user?.name ?
+                        <div className="plusBtn" onClick={onDeleteFeed} id={feedback.feedbackId}>
                           <img src={deleteBtn} />
-                        </div>
+                        </div> : null
+                        }
                       </div>
                       <div className="feedContent">{feedback.comment}</div>
                     </div>

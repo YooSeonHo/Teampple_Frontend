@@ -53,6 +53,7 @@ export interface feedbacksInfo{
   comment : string;
   createdAt : string;
   adviserImage : string;
+  feedbackId : string;
 }
 
 export interface filesInfo{
