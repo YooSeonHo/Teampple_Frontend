@@ -60,26 +60,7 @@ const LoginPage = () => {
         alert('다시 시도하세요');
       });
   };
-  const getKakaoInfo = () => {
-    // 3.기존 회원인지 아닌지 확인 -> 기존 회원이면 3-1 / 아니면 3-2
-    fetch(`https://kapi.kakao.com/v2/user/me`, {
-      method: 'GET',
-      // headers: {
-      //   //테스트용
-      //   Authorization: `Bearer HbHbfub3Y5WkpxHuuHTVAEP0nmtoeItVAQq1hRRmCj1zmwAAAYXiPqjW'`,
-      // },
-      headers: {
-        Authorization: `Bearer ${kakaoAccessToken}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response);
-        alert('회원 확인 성공');
-        // postAuthLoginAPI(); //받아오기 성공하면 로그인 실행
-      });
-  };
-  const token = localStorage.getItem('jwt_accessToken');
+  
   const getTeamName = async () => {
     await axios({
       url: `/api/invitations/validation`,
