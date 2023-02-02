@@ -33,7 +33,7 @@ const AddSchedule = ({ setModal }: any) => {
 
   const closeModal = () => {
     setModal(false);
-    setZIndex(997);
+    setZIndex(999);
   };
 
   const token = localStorage.getItem('jwt_accessToken');
@@ -84,7 +84,12 @@ const AddSchedule = ({ setModal }: any) => {
         <InputContainer>
           <NameContainer>
             <Tag1>이름</Tag1>
-            <Input value={name} onChange={onChangeName} maxLength={12} placeholder='ex. 중간 발표'/>
+            <Input
+              value={name}
+              onChange={onChangeName}
+              maxLength={12}
+              placeholder="ex. 중간 발표"
+            />
             <TextLength>
               ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
             </TextLength>
@@ -100,7 +105,11 @@ const AddSchedule = ({ setModal }: any) => {
                 onChange={onChangeDate}
               />
               <IoCalendarNumberOutline
-                style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
+                style={{
+                  width: '1.25vw',
+                  height: '2.22222vh',
+                  color: '#a7a7a7',
+                }}
               />
             </DateBox>
             <Time
@@ -140,20 +149,20 @@ const AddScheduleContainer = styled.div`
 `;
 
 const CloseBtn = styled(GrClose)`
-position: absolute;
-top: 4.4444vh;
-right: 1.66666vw;
-cursor: pointer;
+  position: absolute;
+  top: 4.4444vh;
+  right: 1.66666vw;
+  cursor: pointer;
 `;
 
 const Title = styled.div`
-font-weight: 600;
-font-size: 1.25vw;
-line-height: 100%;
-text-align: center;
-position: absolute;
-top: 4.4444vh;
-left: 14.375vw;
+  font-weight: 600;
+  font-size: 1.25vw;
+  line-height: 100%;
+  text-align: center;
+  position: absolute;
+  top: 4.4444vh;
+  left: 14.375vw;
 `;
 
 const InputContainer = styled.div``;
@@ -162,13 +171,13 @@ const NameContainer = styled.div``;
 const DateContainer = styled.div``;
 
 const Tag1 = styled.span`
-font-weight: 500;
-font-size: 0.9375vw;
-line-height: 100%;
-color: #707070;
-position: absolute;
-top: 12.592593vh;
-left: 1.66666vw;
+  font-weight: 500;
+  font-size: 0.9375vw;
+  line-height: 100%;
+  color: #707070;
+  position: absolute;
+  top: 12.592593vh;
+  left: 1.66666vw;
 `;
 
 const Tag2 = styled(Tag1)`
@@ -224,18 +233,18 @@ const Clock = styled(CiAlarmOn)`
 `;
 
 const DateBox = styled.div`
-width: 12.5vw;
-height: 4.4444vh;
-border: none;
-background-color: rgba(237, 239, 246, 0.5);
-border-radius: 8px;
-font-weight: 400;
-font-size: 0.83333vw;
-padding-left: 0.8333vw;
-padding-right: 0.8333vw;
-padding-top: 1.481481vh;
-padding-bottom: 1.481481vh;
-line-height: 100%;
+  width: 12.5vw;
+  height: 4.4444vh;
+  border: none;
+  background-color: rgba(237, 239, 246, 0.5);
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 0.83333vw;
+  padding-left: 0.8333vw;
+  padding-right: 0.8333vw;
+  padding-top: 1.481481vh;
+  padding-bottom: 1.481481vh;
+  line-height: 100%;
   position: absolute;
   top: 18.518519vh;
   left: 4.84375vw;
@@ -244,24 +253,27 @@ line-height: 100%;
   &:hover {
     cursor: pointer;
   }
+  :focus-within {
+    border: solid 1px #487aff;
+  }
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-width: 12.5vw;
-height: 4.4444vh;
-border: none;
-font-weight: 400;
-font-size: 0.8333vw;
-line-height: 100%;
-padding-left: 1.041667vw;
-padding-right: 1.041667vw;
-padding-top: 1.851852vh;
-padding-bottom: 1.851852vh;
-background-color: transparent;
-color: #707070;
-position: absolute;
-top: -2.777778vh;
-left: -1.041667vw;
+  width: 12.5vw;
+  height: 4.4444vh;
+  border: none;
+  font-weight: 400;
+  font-size: 0.8333vw;
+  line-height: 100%;
+  padding-left: 1.041667vw;
+  padding-right: 1.041667vw;
+  padding-top: 1.851852vh;
+  padding-bottom: 1.851852vh;
+  background-color: transparent;
+  color: #707070;
+  position: absolute;
+  top: -2.777778vh;
+  left: -1.041667vw;
 `;
 
 const TextLength = styled.span`

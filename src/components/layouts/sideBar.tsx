@@ -96,10 +96,10 @@ const SideBarBox = styled.div`
   }
 
   .box:hover {
-    /* background-color: #d4e4ff;
-    color: #487aff; */
-    background-color: #487aff;
-    color: #d4e4ff;
+    background-color: #d4e4ff;
+    color: #487aff;
+    /* background-color: #487aff;
+    color: #d4e4ff; */
     cursor: grab;
   }
 
@@ -119,7 +119,8 @@ const SideBarBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #cccccc;
+    /* color: #cccccc; */
+    color: white;
     opacity: 0;
     :hover {
       opacity: 1;

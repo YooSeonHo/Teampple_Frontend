@@ -113,7 +113,7 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
     <FeedBox pathname={pathname}>
       <div className="feedText">피드백</div>
       <div className="feedList">
-        {fbList.map((fb: any, index: number) => (
+        {fbList && fbList.map((fb: any, index: number) => (
           <Feed id={fb.taskId} key={index} onClick={getTaskId}>
             <div className="icon">
                {profileImg && 

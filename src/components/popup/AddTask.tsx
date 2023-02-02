@@ -30,6 +30,7 @@ const AddTask = ({ setModal }: any) => {
   const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
+  const [user, setUser] = useState<any | undefined>();
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -87,6 +88,7 @@ const AddTask = ({ setModal }: any) => {
     })
       .then((response) => {
         setTeamMates(response.data.data.teammates);
+        setUser(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -176,6 +178,30 @@ const AddTask = ({ setModal }: any) => {
         <TeamMateContainer>
           <AddTeamMate>담당자 추가</AddTeamMate>
           <TeamMateBox>
+            {user && (
+              <TeamMate>
+                <Profile />
+                <TextInfo>
+                  <Name>{user.name}</Name>
+                  <School>
+                    {user.schoolName} {user.major}
+                  </School>
+                </TextInfo>
+                <CheckBox
+                  type="checkbox"
+                  value={user.name}
+                  id={user.teammateId}
+                  onChange={(e) => {
+                    onCheckedHandle(
+                      e.target.checked,
+                      e.target.value,
+                      Number(e.target.id),
+                    );
+                  }}
+                  checked={checkedNameList.includes(user.name) ? true : false}
+                />
+              </TeamMate>
+            )}
             {teamMates.map((teammate: any, index: number) => (
               <TeamMate key={index}>
                 <Profile />
@@ -324,6 +350,9 @@ const DateBox1 = styled.div`
   align-items: center;
   &:hover {
     cursor: pointer;
+  }
+  :focus-within {
+    border: solid 1px #487aff;
   }
 `;
 

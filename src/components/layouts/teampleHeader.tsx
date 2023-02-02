@@ -62,10 +62,10 @@ const HeaderBox = styled.div`
     padding: 0px;
     gap: 8px;
     width: 3.020833vw;
-    height: 2.407504vh;
+    height: 2.6vh;
     background: #ffffff;
     border: 1px solid #88a9ff;
-    border-radius: 8px;
+    border-radius: 7px;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 7.239583vw;
@@ -92,12 +92,12 @@ const HeaderBox = styled.div`
   .editBox {
     position: absolute;
     width: 3.593vw;
-    height: 2.592593vh;
+    height: 2.6vh;
     left: 54.8958vw;
     top: 2.037vh;
     background: #ffffff;
     border: 1px solid #d5dbee;
-    border-radius: 8px;
+    border-radius: 7px;
     font-weight: 500;
     font-size: 0.625vw;
     line-height: 100%;
@@ -208,7 +208,6 @@ const TeampleHeader = () => {
     })
       .then((response) => {
         setFbList(response.data.data.feedbacks);
-        console.log(response.data.data.feedbacks);
       })
       .catch(function (error) {
         console.log(error);

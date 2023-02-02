@@ -48,13 +48,6 @@ const AddTeample2 = ({setModal,setNextModal} : ModalProps) => {
   const token = localStorage.getItem('jwt_accessToken');
 
   const postTeample = async () => {
-    // makeTeample.stages.map((temp) =>{
-    //   if (temp.name.trim() === ''){
-    //     temp.sequenceNum && alert(`${temp.sequenceNum}단계를 입력해주세요.`)
-    //     return
-    //   } 
-    // })
-
     await axios({
       url : '/api/teams',
       baseURL :  'https://www.teampple.site',
