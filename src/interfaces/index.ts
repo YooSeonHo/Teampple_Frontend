@@ -89,6 +89,10 @@ export interface makeTeampleInfo{
   startDate : Date | string;
 }
 
+export interface modTeampleInfo {
+  stages: stageInfo[];
+}
+
 export interface stageInfo{
   name: string
   sequenceNum: number;

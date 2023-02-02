@@ -1,5 +1,5 @@
 // import { detailInfo } from 'interfaces';
-import { detailInfo, fbInfo, fbListInfo, makeTeampleInfo, stageInfo } from 'interfaces';
+import { detailInfo, fbInfo, fbListInfo, makeTeampleInfo, stageInfo, modTeampleInfo } from 'interfaces';
 import { atom } from 'recoil';
 import { v1 } from 'uuid'; // key duplicate 방지를 위한 라이브러리
 import { recoilPersist } from "recoil-persist";
@@ -117,6 +117,20 @@ export const makeTeampleState = atom<makeTeampleInfo>({
     ],
     startDate: new Date,
   }  
+});
+
+export const modTeampleState = atom<modTeampleInfo>({
+  key: 'modTeample',
+  default: {
+    stages: [
+      {
+        name: '',
+        sequenceNum: 1,
+        dueDate: new Date(),
+        startDate: new Date(),
+      },
+    ],
+  },
 });
 
 export const stageState = atom<stageInfo[]>({

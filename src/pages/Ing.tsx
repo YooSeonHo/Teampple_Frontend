@@ -53,16 +53,51 @@ const Ing = () => {
           'jwt_refreshToken',
           response.data.data.jwtRefreshToken,
         );
+        setInterval(reToken, 1200000);
         navigate('/home');
         location.reload();
       })
       .catch(function (error) {
         console.log(error);
+        alert('로그인 실패. 다시 시도하세요.');
+        navigate('/login');
       });
   };
   useEffect(() => {
     postAuthLoginAPI();
   }, []);
+
+  const reToken = async () => {
+    if (jwtRefreshToken) {
+      await axios({
+        url: '/api/auth/reIssuance',
+        baseURL: 'https://www.teampple.site/',
+        method: 'post',
+        headers: {
+          Authorization: jwtAccessToken,
+        },
+        data: {
+          jwtAccessToken: jwtAccessToken,
+          jwtRefreshToken: jwtAccessToken,
+        },
+      })
+        .then((response) => {
+          console.log(response.data.data);
+          localStorage.setItem(
+            'jwt_accessToken',
+            response.data.data.jwtAccessToken,
+          );
+          localStorage.setItem(
+            'jwt_refreshToken',
+            response.data.data.jwtRefreshToken,
+          );
+          setInterval(reToken, 1200000);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
 
   return (
     <div
