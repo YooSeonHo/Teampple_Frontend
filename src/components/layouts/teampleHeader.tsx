@@ -11,6 +11,7 @@ import {
   teamMateNumState,
   teamidState,
   fbListState,
+  isCheckedState,
 } from 'state';
 import axios from 'axios';
 import { AiFillMessage } from 'react-icons/ai';
@@ -181,6 +182,8 @@ const TeampleHeader = () => {
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
   const [fbList,setFbList] = useRecoilState(fbListState)
+  const [isCheck,setIsCheck] = useRecoilState(isCheckedState);
+
 
   const showModal1 = () => {
     setModal1(!modal1);
@@ -214,10 +217,30 @@ const TeampleHeader = () => {
         console.log(error);
       });
   };
+
+  const countChecked = () =>{
+    let cnt = 0
+    fbList && fbList.map((fb)=>{
+      if (!fb.checked) {
+        cnt += 1
+      }
+    })
+    if (cnt > 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  useEffect(()=>{
+    setIsCheck(countChecked());
+  },[fbList]);
   
   useEffect(() => {
     getFeedbackAPI();
   }, []);
+
+
 
 
   const getTHeader = async () => {
@@ -270,7 +293,7 @@ const TeampleHeader = () => {
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox" onClick={openFeed}>
-        {fbList.length === 0? <img id="feedback" src={feedback}/> : <MsgIcon/>}
+        {isCheck?  <MsgIcon/> : <img id="feedback" src={feedback}/>}
       </div>
       
     </HeaderBox>
