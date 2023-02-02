@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import logo from '../../components/images/logo.png';
+import logo from '../../components/images/onboardingLogo.png';
 import { Link } from 'react-router-dom';
 
 
@@ -25,8 +25,8 @@ const Logo = styled.div`
     
     .logo{
         margin : auto;
-        height: 4vh;
-        width: 8vw;
+        height: 4.53803vh;
+        width: 10.83333vw;
         
     }
     img{
@@ -46,13 +46,15 @@ const Logo = styled.div`
     display : flex;
 
     .aboutUs,
-    .plan {
+    .plan,
+    .service {
         margin-right : 1.4vw;
     }
 
     .aboutUs:hover,
     .plan:hover,
-    .login:hover{
+    .login:hover,
+    .service:hover{
         cursor : grab;
         border-bottom : 1px solid black;
     }
@@ -75,6 +77,7 @@ const OnBoardingHeader = () => {
             <Contents>
                 <div className='aboutUs'>ABOUT US</div>
                 <div className='plan'>PLAN</div>
+                <div className='service'>SERVICE</div>
                 <Link to='/login' style={{textDecoration : 'none', color: '#383838'}}>
                     <div className='login'>LOGIN</div>
                 </Link>

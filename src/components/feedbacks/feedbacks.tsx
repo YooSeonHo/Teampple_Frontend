@@ -5,6 +5,7 @@ import { StyledFeedInfo } from 'interfaces';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { fbListState,taskIdState, profileImgState } from 'state';
+import axios from 'axios';
 
 
 const FeedBox = styled.div<StyledFeedInfo>`
@@ -50,13 +51,15 @@ const FeedBox = styled.div<StyledFeedInfo>`
   }
 `;
 
-const Feed = styled.div`
+const Feed = styled.div<any>`
   width: 17.1875vw;
-  height: 5.925926vh;
+  height: 4.925926vh;
   margin-left: 1.041667vw;
   margin-top: 1vh;
   display: flex;
   border-bottom: 1px solid #cccccc;
+  opacity: ${(props)=>props.checked? '0.5' : '1'};
+  
   :hover {
     cursor: pointer;
   }
@@ -114,7 +117,7 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
       <div className="feedText">피드백</div>
       <div className="feedList">
         {fbList.map((fb: any, index: number) => (
-          <Feed id={fb.taskId} key={index} onClick={getTaskId}>
+          <Feed id={fb.taskId} key={index} onClick={getTaskId} checked={fb.checked}>
             <div className="icon">
                {profileImg && 
                   <img
