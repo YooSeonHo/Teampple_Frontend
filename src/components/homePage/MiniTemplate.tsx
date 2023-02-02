@@ -16,7 +16,7 @@ const MiniTemplate = () => {
               window.open('https://if-blog.tistory.com/10531', '_blank')
             }
           >
-            <Img1 />
+            <Img1 src={template1} />
             <Desc1>레포트 작성 가이드</Desc1>
           </Template1>
           <Template2
@@ -27,7 +27,7 @@ const MiniTemplate = () => {
               )
             }
           >
-            <Img2 />
+            <Img2 src={template2} />
             <Desc2>자료 조사 하는 법</Desc2>
           </Template2>
           <Template2
@@ -38,13 +38,13 @@ const MiniTemplate = () => {
               )
             }
           >
-            <Img3 />
+            <Img3 src={template3} />
             <Desc2>보고서 각주와 참고문헌 작성법</Desc2>
           </Template2>
           <Template1
             onClick={() => window.open('https://linkareer.com', '_blank')}
           >
-            <Img4 />
+            <Img4 src={template4} />
             <Desc1>대학생 공모전 대외활동, 링커리어</Desc1>
           </Template1>
         </TemplateBox>
@@ -57,6 +57,7 @@ const MiniTemplateContainer = styled.div`
   position: relative;
   margin-left: 2.8125vw;
   width: 87.5vw;
+  height: 250px;
 `;
 
 const Title = styled.div`
@@ -68,6 +69,7 @@ const Title = styled.div`
 
 const TemplateBoxContainer = styled.div`
   overflow: auto;
+  height: 250px;
 `;
 
 const TemplateBox = styled.div`
@@ -76,10 +78,8 @@ const TemplateBox = styled.div`
 
 const Template1 = styled.div`
   position: relative;
-  /* width: 24.58vw; */
   width: 18.5vw;
-  height: 230px;
-  /* height: 268px; */
+  height: 190px;
   background: #fce44c;
   border-radius: 12px;
   margin-right: 2.604vw;
@@ -94,28 +94,19 @@ const Template2 = styled(Template1)`
   background: #487aff;
 `;
 
-const Img1 = styled.div`
-  background-image: url(${template1});
-  background-size: cover;
-  /* width: 211.17px; */
-  width: 12vw;
-  height: 150px;
-  /* height: 186.15px; */
+const Img1 = styled.img`
+  width: 150px;
   margin: auto;
 `;
 const Img2 = styled(Img1)`
-  width: 13.5vw;
-  background-image: url(${template2});
 `;
 
 const Img3 = styled(Img1)`
-  width: 10vw;
-  background-image: url(${template3});
+  width: 100px;
 `;
 
 const Img4 = styled(Img1)`
-  width: 10vw;
-  background-image: url(${template4});
+  width: 120px;
 `;
 
 const Desc1 = styled.div`

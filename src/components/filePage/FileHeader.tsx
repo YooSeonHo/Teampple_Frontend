@@ -6,10 +6,13 @@ import headerImg from '../images/Group 773.png';
 import { useRecoilState } from 'recoil';
 import { searchFileState, IsSearchState } from 'state';
 import { SearchFileInfo, SearchInputProps } from 'interfaces';
+import back from '../images/Vector.png';
+import { useNavigate } from 'react-router-dom';
 
 const FileHeader = () => {
   const [search, setSearch] = useRecoilState(searchFileState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
+  const navigate = useNavigate();
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.value === '') {
@@ -22,6 +25,7 @@ const FileHeader = () => {
   };
   return (
     <FileHeaderContainer>
+      <Back src={back} onClick={() => navigate(-1)} />
       <TextContainer>
         <Title>공유 파일함</Title>
         <Desc>팀플에 첨부된 자료를 한눈에 편하게</Desc>
@@ -45,7 +49,7 @@ const FileHeaderContainer = styled.div`
 
 const TextContainer = styled.div`
   position: absolute;
-  left: 15.521vw;
+  left: 16.5vw;
   top: 3.6111vh;
 `;
 
@@ -84,6 +88,17 @@ const Input = styled.input<SearchInputProps>`
   border: none;
   padding: 0.41667vw;
   background-color: transparent;
+`;
+
+const Back = styled.img`
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: 12.8125vw;
+  top: 3.33vh;
+  :hover{
+    cursor: pointer;
+  }
 `;
 
 export default FileHeader;

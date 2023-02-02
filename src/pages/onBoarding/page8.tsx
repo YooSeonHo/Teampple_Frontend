@@ -28,7 +28,11 @@ const Contents = styled.div`
     width: 9.53125vw;
     height: 5.55555vh;
     margin: auto;
-    margin-top: 4.907407vh;
+    margin-top: 53px;
+    :hover {
+      cursor: pointer;
+    }
+
   }
   img {
     max-width: 100%;

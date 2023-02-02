@@ -289,7 +289,7 @@ const TeampleHeader = () => {
         {modal1 && <ModifyTeample setModal1={setModal1} />}
       </ModalContainer1>
       <div id="teamList" onClick={showModal2}>
-        <a id="teamNum">+{teamMatesNum-1}</a>
+        <a id="teamNum">+{teamMatesNum}</a>
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox" onClick={openFeed}>

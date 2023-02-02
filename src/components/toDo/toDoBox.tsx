@@ -55,6 +55,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
     })
       .then((response) => {
         setTodoList(response.data.data);
+        console.log(response.data);
         setTaskId(0);
       })
       .catch(function (error) {
