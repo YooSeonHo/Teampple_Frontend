@@ -67,7 +67,7 @@ const SideBarBox = styled.div`
     font-size: 0.9375vw;
     line-height: 22px;
     position: absolute;
-    top: 21px;
+    top: 2.6vh;
     left: 5.5vw;
   }
 

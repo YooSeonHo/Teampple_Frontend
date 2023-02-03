@@ -6,18 +6,25 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import NotToDoBox from 'components/teampleHomePage/nothing/NotToDoBox';
 import { useRecoilState } from 'recoil';
-import { detailState, taskIdState } from 'state';
+import {
+  detailState,
+  taskIdState,
+  isLoading1State,
+  isLoading2State,
+} from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
-import { Navigate } from 'react-router-dom';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
   const token = localStorage.getItem('jwt_accessToken');
-  const [taskId,setTaskId] = useRecoilState(taskIdState);
-  const [detail,setDetail] = useRecoilState(detailState);
+  const [taskId, setTaskId] = useRecoilState(taskIdState);
+  const [detail, setDetail] = useRecoilState(detailState);
   const navigate = useNavigate();
+  const [isLoading1, setIsLoading1] = useRecoilState(isLoading1State);
+  const [isLoading2, setIsLoading2] = useRecoilState(isLoading2State);
 
   const getDetail = async () => {
+    setIsLoading1(true);
     await axios({
       url: `/api/tasks`,
       baseURL: 'https://www.teampple.site/',
@@ -31,6 +38,7 @@ const HomeToDo = () => {
     })
       .then((res) => {
         setDetail(res.data.data);
+        setIsLoading1(false);
       })
       .catch((e) => {
         console.log(e);
@@ -38,6 +46,7 @@ const HomeToDo = () => {
   };
 
   const getTodoAPI = async () => {
+    setIsLoading2(true);
     await axios({
       url: `/api/users/tasks`,
       baseURL: 'https://www.teampple.site',
@@ -49,21 +58,23 @@ const HomeToDo = () => {
       .then((response) => {
         setTeams(response.data.data.teams);
         setTaskId(0);
+        setIsLoading2(false);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const onClick = (e : any) =>{
-    setTaskId(e.currentTarget.id)
-  }
+  const onClick = (e: any) => {
+    setTaskId(e.currentTarget.id);
+  };
 
-  useDidMountEffect(async ()=>{
-    taskId && await getDetail().then(()=>{
-      navigate(`/teample-detail/${taskId}`) 
-    })
-  },[taskId])
+  useDidMountEffect(async () => {
+    taskId &&
+      (await getDetail().then(() => {
+        navigate(`/teample-detail/${taskId}`);
+      }));
+  }, [taskId]);
 
   useEffect(() => {
     getTodoAPI();
@@ -71,36 +82,34 @@ const HomeToDo = () => {
 
   return (
     <>
-      {teams.length === 0 ? (
+      {/* {teams.length === 0 ? (
         <NotToDoBox />
-      ) : (
-        <HomeToDoContainer>
-          <Title>할 일</Title>
-          <ToDosContainer>
-            {teams &&
-              teams.map((team: any, index: number) => (
-                <ToDoContainer key={index}>
-                  <ToDoTitle style={{ color: '#383838' }}>
-                    {team.name}
-                  </ToDoTitle>
-                  <Left>
-                    <LeftText>남은 일</LeftText>
-                    <LeftNum>{team.totalStage - team.achievement}</LeftNum>
-                  </Left>
-                  <ToDoList>
-                    {team.tasks.map((t: any, index: number) => (
-                        <ToDo onClick={onClick} key={index} id={t.taskId}>
-                          {t.done === true ? <Done src={done} /> : <></>}
-                          <ToDoText>{t.name}</ToDoText>
-                          <Arrow src={arrow} />
-                        </ToDo>
-                    ))}
-                  </ToDoList>
-                </ToDoContainer>
-              ))}
-          </ToDosContainer>
-        </HomeToDoContainer>
-      )}
+      ) : ( */}
+      <HomeToDoContainer>
+        <Title>할 일</Title>
+        <ToDosContainer>
+          {teams &&
+            teams.map((team: any, index: number) => (
+              <ToDoContainer key={index}>
+                <ToDoTitle style={{ color: '#383838' }}>{team.name}</ToDoTitle>
+                <Left>
+                  <LeftText>남은 일</LeftText>
+                  <LeftNum>{team.totalStage - team.achievement}</LeftNum>
+                </Left>
+                <ToDoList>
+                  {team.tasks.map((t: any, index: number) => (
+                    <ToDo onClick={onClick} key={index} id={t.taskId}>
+                      {t.done === true ? <Done src={done} /> : <></>}
+                      <ToDoText>{t.name}</ToDoText>
+                      <Arrow src={arrow} />
+                    </ToDo>
+                  ))}
+                </ToDoList>
+              </ToDoContainer>
+            ))}
+        </ToDosContainer>
+      </HomeToDoContainer>
+      {/* )} */}
     </>
   );
 };
@@ -189,8 +198,8 @@ const ToDo = styled.div`
   position: relative;
   margin-bottom: 1.111vh;
 
-  :hover{
-    cursor : grab;
+  :hover {
+    cursor: grab;
   }
 `;
 
@@ -208,8 +217,8 @@ const Arrow = styled.img`
 `;
 
 const Done = styled.img`
-width: 2.8vw;
-margin-left: 0.625vw;
+  width: 2.8vw;
+  margin-left: 0.625vw;
 `;
 
 export default HomeToDo;

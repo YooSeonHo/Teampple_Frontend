@@ -7,7 +7,7 @@ import progress3 from '../images/progressbar/LoadingIcon_Boat.png';
 import progress4 from '../images/progressbar/LoadingIcon_lightening.png';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { teamidState } from 'state';
+import { teamidState, isLoading5State } from 'state';
 
 const SummaryTeample = () => {
   const now = new Date();
@@ -28,6 +28,7 @@ const SummaryTeample = () => {
   let s1 = 0;
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
+  const [, setIsLoading5] = useRecoilState(isLoading5State);
 
   const changeStatus = () => {
     if (currentPercent >= 1 && currentPercent < 25) {
@@ -53,6 +54,7 @@ const SummaryTeample = () => {
   }, [currentPercent]);
 
   const getTaskAPI = async () => {
+    setIsLoading5(true);
     await axios({
       url: `/api/teams/tasks`,
       baseURL: 'https://www.teampple.site',
@@ -71,6 +73,7 @@ const SummaryTeample = () => {
         );
         if (allNum === 0) setCurrentPercent(0);
         else setCurrentPercent(Math.round(Number(doneNum / allNum) * 100));
+        setIsLoading5(false);
       })
       .catch(function (error) {
         console.log(error);

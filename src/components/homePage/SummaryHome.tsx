@@ -13,7 +13,7 @@ import HomeSummaryBg from '../images/HomeSummaryBg.png';
 import axios from 'axios';
 import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';
 import { useRecoilState } from 'recoil';
-import { profileImgState } from 'state';
+import { profileImgState, isLoading4State } from 'state';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -22,6 +22,7 @@ const SummaryHome = () => {
   const date = now.getDate();
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
   const week = weeks[now.getDay()];
+  const [, setIsLoading4] = useRecoilState(isLoading4State);
 
   const [username, setUsername] = useState('');
   const [doneNum, setDoneNum] = useState<number>(0);
@@ -37,6 +38,7 @@ const SummaryHome = () => {
   const [profileImage, setProfileImage] = useState(proImageU2);
 
   const getTaskAPI = async () => {
+    setIsLoading4(true);
     await axios({
       url: `/api/users/tasks`,
       baseURL: 'https://www.teampple.site',
@@ -55,6 +57,7 @@ const SummaryHome = () => {
         );
         if (allNum === 0) setRemainPercent(0);
         else setRemainPercent(Math.round(Number(doneNum / allNum) * 100));
+        setIsLoading4(false);
       })
       .catch(function (error) {
         console.log(error);

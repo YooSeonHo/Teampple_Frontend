@@ -205,3 +205,28 @@ export const isCheckedState = atom<boolean>({
   key : 'checkedNum',
   default : false,
 })
+
+export const isLoading1State = atom<boolean>({
+  key: 'isLoading1',
+  default: true,
+});
+
+export const isLoading2State = atom<boolean>({
+  key: 'isLoading2',
+  default: true,
+});
+
+export const isLoading3State = atom<boolean>({
+  key: 'isLoading3',
+  default: true,
+});
+
+export const isLoading4State = atom<boolean>({
+  key: 'isLoading4',
+  default: true,
+});
+
+export const isLoading5State = atom<boolean>({
+  key: 'isLoading4',
+  default: true,
+});
