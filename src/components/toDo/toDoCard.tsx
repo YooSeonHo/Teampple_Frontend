@@ -295,9 +295,10 @@ const ToDoCard = ({ todoList }: any) => {
   };
 
   const nowCheck = (startTime : Date , dueTime : Date) =>{
-    const start = new Date(startTime).getTime();
-    const end = new Date(dueTime).getTime();
-    if (now.getTime() >= start && now.getTime() <= end){
+    const start = new Date(startTime);
+    const end = new Date(dueTime);
+    end.setDate(end.getDate() + 1);
+    if (now.getTime() >= start.getTime() && now.getTime() < end.getTime()){
       return true;
     }
     else{
@@ -306,8 +307,7 @@ const ToDoCard = ({ todoList }: any) => {
   }
 
   useEffect(()=>{
-    const test = new Date();
-    console.log(test.getFullYear(),test.getMonth()+1,test.getDate());
+    console.log(todoList);
   },[])
 
   return (
