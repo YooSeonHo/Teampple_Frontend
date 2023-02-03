@@ -434,7 +434,6 @@ const DetailBox = () => {
     await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
-        console.log(data.location);
       })
       .catch((e: any) => {
         console.log(e);
@@ -544,7 +543,7 @@ const DetailBox = () => {
 
   useDidMountEffect(() => {
     postFile();
-  }, [file]);
+  }, [fileLoc]);
 
   const onChangeStatus = async () => {
     await axios({
@@ -584,7 +583,8 @@ const DetailBox = () => {
     setAddFeed(e.target.value);
   };
 
-  const downloadFile = (url: any) => {
+  const downloadFile = (url : any,filename: string) => {
+    console.log(url)
     fetch(url, { method: 'GET' })
       .then((res) => {
         return res.blob();
@@ -593,7 +593,7 @@ const DetailBox = () => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '파일명';
+        a.download = filename;
         document.body.appendChild(a);
         a.click();
         setTimeout((_) => {
@@ -723,7 +723,7 @@ const DetailBox = () => {
                         <img
                           src={download}
                           className="download"
-                          onClick={() => downloadFile(fileLoc)}
+                          onClick={() => downloadFile(file.url, file.filename)}
                         />
                         <img
                           src={trash}

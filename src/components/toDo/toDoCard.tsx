@@ -298,17 +298,13 @@ const ToDoCard = ({ todoList }: any) => {
     const start = new Date(startTime);
     const end = new Date(dueTime);
     end.setDate(end.getDate() + 1);
-    if (now.getTime() >= start.getTime() && now.getTime() < end.getTime()){
+    if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()){
       return true;
     }
     else{
       return false;
     }
   }
-
-  useEffect(()=>{
-    console.log(todoList);
-  },[])
 
   return (
     <>
