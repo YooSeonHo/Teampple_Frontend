@@ -22,6 +22,7 @@ export interface FileInfo {
 
 export interface StyledToDoInfo {
   pathname: string;
+  isNow : boolean;
 }
 
 export interface StyledFeedInfo {
@@ -53,6 +54,7 @@ export interface feedbacksInfo{
   comment : string;
   createdAt : string;
   adviserImage : string;
+  feedbackId : string;
 }
 
 export interface filesInfo{

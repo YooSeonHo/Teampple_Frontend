@@ -434,7 +434,6 @@ const DetailBox = () => {
     await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
-        console.log(data.location);
       })
       .catch((e: any) => {
         console.log(e);
@@ -544,7 +543,7 @@ const DetailBox = () => {
 
   useDidMountEffect(() => {
     postFile();
-  }, [file]);
+  }, [fileLoc]);
 
   const onChangeStatus = async () => {
     await axios({
@@ -557,14 +556,35 @@ const DetailBox = () => {
       params: { taskId: taskId },
     }).then(() => {
       location.reload();
+    })
+    .catch((e) => {
+      console.log(e);
     });
   };
+
+  const onDeleteFeed = async (e : React.MouseEvent<HTMLDivElement>) =>{
+    await axios({
+      url: '/api/feedbacks',
+      baseURL: 'https://www.teampple.site/',
+      method: 'delete',
+      headers: {
+        Authorization: token,
+      },
+      params : {feedbackId : Number(e.currentTarget.id)}
+    }).then(()=>{
+      alert('댓글이 삭제되었습니다.')
+      location.reload();
+    }).catch((e) => {
+      console.log(e);
+    });
+  }
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
   };
 
-  const downloadFile = (url: any) => {
+  const downloadFile = (url : any,filename: string) => {
+    console.log(url)
     fetch(url, { method: 'GET' })
       .then((res) => {
         return res.blob();
@@ -573,7 +593,7 @@ const DetailBox = () => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '파일명';
+        a.download = filename;
         document.body.appendChild(a);
         a.click();
         setTimeout((_) => {
@@ -703,7 +723,7 @@ const DetailBox = () => {
                         <img
                           src={download}
                           className="download"
-                          onClick={() => downloadFile(fileLoc)}
+                          onClick={() => downloadFile(file.url, file.filename)}
                         />
                         <img
                           src={trash}
@@ -753,8 +773,8 @@ const DetailBox = () => {
             </div>
             {detail.feedbacks && (
               <div className="feedbacks">
-                {detail.feedbacks.map((feedback, index) => (
-                  <div className="feedBox" key={index}>
+                {detail.feedbacks.map((feedback) => (
+                  <div className="feedBox" key={feedback.feedbackId}>
                     <div className="profileImg">
                       <img
                         src={require('../images/profile/' +
@@ -770,9 +790,11 @@ const DetailBox = () => {
                             .replace(/-/g, '.')
                             .replace('T', ' ')}
                         </div>
-                        <div className="plusBtn">
+                        {feedback.adviser === user?.name ?
+                        <div className="plusBtn" onClick={onDeleteFeed} id={feedback.feedbackId}>
                           <img src={deleteBtn} />
-                        </div>
+                        </div> : null
+                        }
                       </div>
                       <div className="feedContent">{feedback.comment}</div>
                     </div>
