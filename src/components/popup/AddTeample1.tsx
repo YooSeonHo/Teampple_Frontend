@@ -235,6 +235,9 @@ const DateBox1 = styled.div`
   &:hover {
     cursor: pointer;
   }
+  :focus-within {
+    border: solid 1px #487aff;
+  }
 `;
 
 const DateBox2 = styled(DateBox1)`

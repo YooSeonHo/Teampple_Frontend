@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import styled from 'styled-components';
 import SummaryTeample from 'components/teampleHomePage/SummaryTeample';
 import FileInfo from 'components/teampleHomePage/FileInfo';
@@ -7,7 +7,8 @@ import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/layout';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { teamidState } from 'state';
+import { teamidState, AddToDozIndexState } from 'state';
+import ModifyStep from '../components/popup/ModifyStep';
 
 const ContentBox = styled.div`
   display: flex;
@@ -31,9 +32,36 @@ const AllBox = styled.div`
   }
 `;
 
+const EditBtn = styled.button`
+  width: 3.59375vw;
+  height: 2.592592vh;
+  border: 1px solid #d5dbee;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.625vw;
+  line-height: 100%;
+  color: #707070;
+  margin-top: 4.44444vh;
+  margin-left: 1.25vw;
+`;
+
+const ModalContainer = styled.div`
+  position: fixed;
+  margin: 0 auto;
+  z-index: 1000;
+`;
+
 const TeampleHomePage = () => {
   const [teamid, setTeamid] = useRecoilState(teamidState);
   const params = useParams();
+  const [modal, setModal] = useState(false);
+  const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
+
+  const showModal = () => {
+    setModal(!modal);
+    setToDoZindex(998);
+  };
+
   useEffect(() => {
     setTeamid(Number(params.teamid));
   },[])
@@ -45,7 +73,13 @@ const TeampleHomePage = () => {
             <SummaryTeample />
             <FileInfo />
           </ContentBox>
-          <div className="text">할 일</div>
+          <div style={{ display: 'flex' }}>
+            <div className="text">할 일</div>
+            <EditBtn onClick={showModal}>단계 편집</EditBtn>
+          </div>
+          <ModalContainer>
+            {modal && <ModifyStep setModal={setModal} />}
+          </ModalContainer>
           <MainContentBox>
             <ToDoBox pathname={window.location.pathname} />
           </MainContentBox>
