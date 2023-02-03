@@ -87,7 +87,11 @@ const EditBox = styled.div`
     background-color: rgba(237, 239, 246, 0.5);
     border-radius: 12px;
     display: flex;
-    margin-right: 1.4583vw;
+    margin: 0px 12px;
+    margin-top: 12px;
+    :focus-within {
+      border: solid 1px #487aff;
+    }
   }
 
   .infoText {
@@ -101,12 +105,8 @@ const EditBox = styled.div`
     margin-right: 2.5925vh;
   }
 
-  .schoolInfoLine2 {
-    display: flex;
-    justify-content: center;
-    margin-top: 2.22222vh;
-  }
-
+  .name,
+  .email,
   .school,
   .major,
   .grade {
@@ -146,6 +146,13 @@ const EditBox = styled.div`
       cursor: grab;
     }
   }
+
+  .inputContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
 `;
 
 const EditProfile = () => {
@@ -161,6 +168,12 @@ const EditProfile = () => {
   };
   const onMajor = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMajor(e.target.value);
+  };
+  const onName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const onEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   const token = localStorage.getItem('jwt_accessToken');
@@ -198,6 +211,8 @@ const EditProfile = () => {
       data: {
         major: major,
         schoolName: school,
+        email: email,
+        name: name,
       },
     })
       .then((response) => {
@@ -235,13 +250,9 @@ const EditProfile = () => {
   return (
     <EditBox>
       <div className="profileImg">
-        {/* <img src={require(`../images/profile/` + `${profimg}` + `.png`)} /> */}
-        {profimg && 
-                  <img
-                    src={require('../images/profile/' +
-                      profimg +
-                      '.png')}
-                  />}
+        {profimg && (
+          <img src={require('../images/profile/' + profimg + '.png')} />
+        )}
       </div>
       <div className="profileInfo">
         <div className="profileName">{name}</div>
@@ -250,13 +261,19 @@ const EditProfile = () => {
           로그아웃
         </div>
       </div>
-      <div className="schoolInfo">
+      <div className="inputContainer">
+        <div className="infoBox">
+          <div className="infoText">이름</div>
+          <input className="name" value={name} onChange={onName}></input>
+        </div>
+        <div className="infoBox">
+          <div className="infoText">이메일</div>
+          <input className="email" value={email} onChange={onEmail}></input>
+        </div>
         <div className="infoBox">
           <div className="infoText">학교</div>
           <input className="school" value={school} onChange={onSchool}></input>
         </div>
-      </div>
-      <div className="schoolInfoLine2">
         <div className="infoBox">
           <div className="infoText">전공</div>
           <input className="major" value={major} onChange={onMajor}></input>
