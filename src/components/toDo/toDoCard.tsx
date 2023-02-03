@@ -5,7 +5,6 @@ import done from '../images/done icon.png';
 import { StyledToDoInfo } from 'interfaces';
 import AddTask from 'components/popup/AddTask';
 import { useRecoilState } from 'recoil';
-import { Link } from 'react-router-dom';
 import {
   zIndexState,
   feedbackState,
@@ -22,8 +21,8 @@ import useDidMountEffect from 'components/hooks/useDidMountEffect';
 const CardBox = styled.div<StyledToDoInfo>`
   width: 19.375vw;
   height: 51.481vh;
-  background-color: #f4f8ff;
-  /* border: 2px solid #487AFF; */
+  background-color: ${(props)=>props.isNow? '#f4f8ff' : '#F0F2F7' };
+  border : ${(props)=>props.isNow? ' 2px solid #487AFF' : null };
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -47,55 +46,53 @@ const CardBox = styled.div<StyledToDoInfo>`
     font-weight: 500;
     font-size: 0.9375vw;
     line-height: 100%;
-    color: #707070;
-    /* color: #88A9FF; */
+    color:${(props)=>props.isNow? '#88A9FF' : '#707070' };
   }
-
+  
   .when {
     font-weight: 400;
     font-size: 0.83333vw;
     line-height: 100%;
-    color: #707070;
-    /* color: #88A9FF; */
+    color:${(props)=>props.isNow? '#88A9FF' : '#707070' };
   }
-
+  
   .headerText {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 2.407407vh;
   }
-
+  
   .name {
     margin-top: ${(props) => (props.pathname === '/home' ? '2.22222vh' : '1.481481vh')};
     margin-left: 1.25vw;
     font-weight: 600;
     font-size: 1.145833vw;
     line-height: 100%;
-    color: #383838;
+    color:${(props)=>props.isNow? '#487AFF' : '#383838' };
   }
-
+  
   .left {
     margin-right: 1.041667vw;
     margin-top: ${(props) => (props.pathname === '/home' ? '1.851852vh' : '1.296296vh')};
     display: flex;
   }
-
+  
   .leftText {
     font-family: 'Pretendard';
     font-style: normal;
     font-weight: 500;
     font-size: 0.83333vw;
-    color: #487aff;
+    color:${(props)=>props.isNow? '#487AFF' : '#707070' };
     margin-right: 0.416667vw;
     margin-top: auto;
     margin-bottom: auto;
   }
-
+  
   .leftNumBox {
-    background-color: #487aff;
+    background-color:${(props)=>props.isNow? '#487AFF' : '#707070' };
     width: 1.45833vw;
-    // height: 2.592593vh;
+    height: 2.592593vh;
     border-radius: 100px;
     color: white;
     font-weight: 700;
@@ -103,6 +100,7 @@ const CardBox = styled.div<StyledToDoInfo>`
     line-height: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom : 3px;
   }
 
   .leftNum {
@@ -248,6 +246,7 @@ const ToDoCard = ({ todoList }: any) => {
   const [taskId,setTaskId] = useRecoilState(taskIdState);
   const [detail,setDetail] = useRecoilState(detailState);
   const token = localStorage.getItem('jwt_accessToken');
+  const now = new Date();
   const navigate = useNavigate();
 
   const showModal = () => {
@@ -295,20 +294,38 @@ const ToDoCard = ({ todoList }: any) => {
       });
   };
 
+  const nowCheck = (startTime : Date , dueTime : Date) =>{
+    const start = new Date(startTime).getTime();
+    const end = new Date(dueTime).getTime();
+    if (now.getTime() >= start && now.getTime() <= end){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  useEffect(()=>{
+    const test = new Date();
+    console.log(test.getFullYear(),test.getMonth()+1,test.getDate());
+  },[])
+
   return (
     <>
       {todoList.map((todo: any, index: number) => (
         <CardBox
-          pathname={window.location.pathname}
-          key={index}
-          style={{ zIndex: toDoZindex }}
+        pathname={window.location.pathname}
+        key={index}
+        style={{ zIndex: toDoZindex }}
+        isNow={nowCheck((todo.startDate.replaceAll('.','-')),(todo.dueDate.replaceAll('.','-')))}
         >
           <>
             <div className="info">
               <div className="step">{todo.sequenceNum}단계</div>
               <div className="when">
                 
-                {todo.startDate}~{todo.dueDate}
+                {todo.startDate.split('.')[1]+'.' +todo.startDate.split('.')[2]}-
+                {todo.dueDate.split('.')[1]+'.' +todo.dueDate.split('.')[2]}
               </div>
             </div>
             <div className="headerText">
