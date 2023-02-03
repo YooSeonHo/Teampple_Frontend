@@ -79,7 +79,7 @@ const FileInfoContainer = styled.div`
 
 const FileInfoBox = styled.div`
   width: 19.375vw;
-  height: 12.592vh;
+  height: 13.5vh;
   background: #fffce3;
   border-radius: 12px;
   position: relative;
@@ -110,7 +110,7 @@ const FileSize = styled.div`
 
 const BarContainer = styled.div`
   position: absolute;
-  top: 9vh;
+  bottom: 3vh;
   height: 0.8vh;
   ul {
     position: relative;

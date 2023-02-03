@@ -61,10 +61,10 @@ const TodoContainer = styled.div`
   width: 87.5vw;
   height: 670px;
   left: 12.5vw;
-  top: 368px;
+  top: 37vh;
   overflow: hidden;
   .text {
-    margin-top: 48px;
+    margin-top: 4.4444vh;
     color: #383838;
     font-weight: 500;
     font-size: 1.24vw;
@@ -83,7 +83,7 @@ const MiniTemplateContainer = styled.div`
   position: absolute;
   width: 87.5vw;
   left: 12.5vw;
-  top: 1000px;
+  top: 92.5926vh;
 `;
 
 export default HomePage;

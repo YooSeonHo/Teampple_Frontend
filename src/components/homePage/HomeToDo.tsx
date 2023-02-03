@@ -108,12 +108,12 @@ const HomeToDo = () => {
 const HomeToDoContainer = styled.div`
   position: relative;
   width: 87.5vw;
-  height: 550px;
+  height: 50.926vh;
   overflow: auto;
 `;
 const Title = styled.div`
   position: absolute;
-  top: 24px;
+  top: 2.222vh;
   left: 2.8125vw;
   font-weight: 500;
   font-size: 1.457vw;
@@ -121,15 +121,15 @@ const Title = styled.div`
 `;
 const ToDosContainer = styled.div`
   position: absolute;
-  top: 80px;
+  top: 7.40741vh;
   left: 2.8125vw;
   width: 87.5vw;
-  height: 480px;
+  height: 44.444vh;
   display: flex;
 `;
 const ToDoContainer = styled.div`
   width: 19.375vw;
-  height: 448px;
+  height: 41.4815vh;
   background: #f4f8ff;
   border-radius: 16px;
   margin-right: 1.4583vw;
@@ -138,7 +138,7 @@ const ToDoContainer = styled.div`
 `;
 const ToDoTitle = styled.div`
   position: absolute;
-  top: 24px;
+  top: 2.222vh;
   left: 1.25vw;
   font-weight: 600;
   font-size: 1.145vw;
@@ -173,21 +173,21 @@ const LeftNum = styled.span`
 `;
 const ToDoList = styled.div`
   position: absolute;
-  top: 72px;
+  top: 6.6667vh;
   left: 1.041vw;
   width: 18.33vw;
-  height: 376px;
+  height: 34.8148vh;
   overflow: auto;
 `;
 const ToDo = styled.div`
   width: 17.29vw;
-  height: 72px;
+  height: 6.66667vh;
   background: #ffffff;
   border-radius: 12px;
   display: flex;
   align-items: center;
   position: relative;
-  margin-bottom: 12px;
+  margin-bottom: 1.111vh;
 
   :hover{
     cursor : grab;
@@ -208,8 +208,7 @@ const Arrow = styled.img`
 `;
 
 const Done = styled.img`
-width: 2.916667vw;
-height: 3.148148vh;
+width: 2.8vw;
 margin-left: 0.625vw;
 `;
 

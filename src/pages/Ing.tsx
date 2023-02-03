@@ -95,6 +95,9 @@ const Ing = () => {
         })
         .catch((error) => {
           console.log(error);
+          localStorage.removeItem('jwt_accessToken');
+          localStorage.removeItem('jwt_refreshToken');
+          navigate('/login');
         });
     }
   };

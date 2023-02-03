@@ -116,7 +116,7 @@ const SummaryHome = () => {
 
 const SummaryContainer = styled.div`
   width: 87.5vw;
-  height: 296px;
+  height: 30vh;
   position: relative;
   background-color: #f9fafd;
   background-image: url(${HomeSummaryBg});
@@ -127,7 +127,7 @@ const SummaryContainer = styled.div`
 const DateContainer = styled.div`
   position: absolute;
   left: 2.81vw;
-  top: 36px;
+  top: 3.33vh;
   font-size: 0.83vw;
   line-height: 100%;
 `;
@@ -136,7 +136,7 @@ const RemainContainer = styled.div``;
 
 const RemainBox = styled.div`
   position: absolute;
-  top: 74px;
+  top: 6.85185vh;
   left: 2.81vw;
 `;
 
@@ -147,7 +147,7 @@ const Big = styled.div`
 `;
 
 const Small = styled.div`
-  margin-top: 20px;
+  margin-top: 1.851852vh;
 `;
 
 const Text = styled.span`
@@ -163,7 +163,7 @@ const Percent = styled.span`
 
 const BarContainer = styled.div`
   position: absolute;
-  top: 230px;
+  top: 21.2963vh;
   left: 4vw;
   ul {
     position: relative;
