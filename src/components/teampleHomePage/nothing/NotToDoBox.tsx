@@ -13,28 +13,29 @@ const NotToDoBox = () => {
 };
 
 const Wrapper = styled.div`
-  width: 1272px;
-height: 556px;
+width:  87.5vw;
+height: 51.481481vh;
 display: flex;
 border-radius: 16px;
 overflow: overlay;
-margin-left : 54px;
-margin-top : 33px;
+margin-top : 3.05555vh;
 `
 
 const NotToDoContainer = styled.div`
-  background: #f9fafd;
-  border-radius: 16px;
-  width: 1650px;
-  height: 450px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+background: #f9fafd;
+border-radius: 16px;
+width: 85.937vw;
+height: 41.6666vh;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-left :2.8125vw;
+margin-right :2.8125vw;
 `;
 
 const Img = styled.img`
-  width: 181px;
-  height: 304px;
+  width: 9.427083vw;
+  height: 28.148148vh;
 `;
 
 export default NotToDoBox;

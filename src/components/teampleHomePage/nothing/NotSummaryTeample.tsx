@@ -34,8 +34,8 @@ const NotSummaryTeample = () => {
 };
 
 const SummaryContainer = styled.div`
-  width: 1680px;
-  height: 296px;
+  width: 87.5vw;
+  height: 27.407407vh;
   position: relative;
   background-image: url(${HomeSummaryBg});
   background-size: cover;
@@ -43,9 +43,9 @@ const SummaryContainer = styled.div`
 
 const DateContainer = styled.div`
   position: absolute;
-  left: 54px;
-  top: 36px;
-  font-size: 16px;
+  left: 2.81vw;
+  top: 3.3333vh;
+  font-size: 0.83vw;
   line-height: 100%;
 `;
 
@@ -54,31 +54,31 @@ const RemainContainer = styled.div``;
 const RemainBox = styled.div`
   position: absolute;
   top: 74px;
-  left: 54px;
+  left: 2.81vw;
 `;
 
 const Big = styled.div`
-  font-size: 32px;
+  font-size: 1.67vw;
   line-height: 100%;
   font-weight: 500;
-  margin-top: 16px;
+  margin-top: 1.481481vh;
 `;
 
 const Text = styled.span`
-  font-size: 18px;
+font-size: 0.9375vw;
   font-weight: 400;
   color: #707070;
 `;
 
 const BarContainer = styled.div`
   position: absolute;
-  top: 188px;
-  left: 54px;
+  top: 17.407407vh;
+  left: 2.8125vw;
   ul {
     position: relative;
     padding: 0;
     list-style: none;
-    width: 772px;
+    width: 40.208333vw;
   }
 
   li {

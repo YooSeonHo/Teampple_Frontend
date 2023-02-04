@@ -75,7 +75,7 @@ const HomeToDo = () => {
         <NotToDoBox />
       ) : (
         <HomeToDoContainer>
-          <Title>할 일</Title>
+          {/* <Title>할 일</Title> */}
           <ToDosContainer>
             {teams &&
               teams.map((team: any, index: number) => (
@@ -111,14 +111,14 @@ const HomeToDoContainer = styled.div`
   height: 550px;
   overflow: auto;
 `;
-const Title = styled.div`
-  position: absolute;
-  top: 24px;
-  left: 2.8125vw;
-  font-weight: 500;
-  font-size: 1.457vw;
-  line-height: 100%;
-`;
+// const Title = styled.div`
+//   position: absolute;
+//   top: 24px;
+//   left: 2.8125vw;
+//   font-weight: 500;
+//   font-size: 1.457vw;
+//   line-height: 100%;
+// `;
 const ToDosContainer = styled.div`
   position: absolute;
   top: 80px;

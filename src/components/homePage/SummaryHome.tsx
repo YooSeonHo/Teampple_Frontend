@@ -116,7 +116,7 @@ const SummaryHome = () => {
 
 const SummaryContainer = styled.div`
   width: 87.5vw;
-  height: 296px;
+  height: 27.407407vh;
   position: relative;
   background-color: #f9fafd;
   background-image: url(${HomeSummaryBg});
@@ -127,7 +127,7 @@ const SummaryContainer = styled.div`
 const DateContainer = styled.div`
   position: absolute;
   left: 2.81vw;
-  top: 36px;
+  top: 3.3333vh;
   font-size: 0.83vw;
   line-height: 100%;
 `;
