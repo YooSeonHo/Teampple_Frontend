@@ -270,7 +270,7 @@ const TeampleHeader = () => {
     const now = new Date();
     const distance = setDate.getTime() - now.getTime();
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-    if (day + 1 === 0) return '- DAY';
+    if (day + 1 === 0) return '-DAY';
     else if (day + 1 < 0) return `+` + Math.abs(day + 1);
     else return `-` + (day + 1);
   };

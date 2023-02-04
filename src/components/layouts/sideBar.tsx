@@ -8,6 +8,7 @@ import headset from '../images/Headset.png';
 import { Link, useNavigate } from 'react-router-dom';
 import prof1 from '../images/profile/proImageU1.png';
 import { ImExit } from 'react-icons/im';
+import delSad from '../images/delSad.png';
 import {
   usernameState,
   userschoolState,
@@ -25,6 +26,8 @@ import {
 import { ModalContainer } from 'components/teampleHomePage/planManager';
 import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const SideBarBox = styled.div`
   width: 12.5vw;
@@ -290,15 +293,6 @@ const SideBar = () => {
       });
   };
 
-  const teampleOut = () => {
-    if (window.confirm('정말로 팀플에서 나가시겠어요?')) {
-      delTeampleAPI();
-      alert('팀플 나가기 성공.');
-      navigate('/home');
-      location.reload();
-    }
-  };
-
   const getTeamid = (t: any) => {
     setTeamid(t.id);
   };
@@ -362,6 +356,37 @@ const SideBar = () => {
     getActiveTeamsAPI();
     getFinishedTeamsAPI();
   }, []);
+
+  const alertDelTeample = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <Alert>
+            <img src={delSad} className="sad" />
+            <div className="alertBody">
+              팀플에서 나가면 프로젝트 데이터가 삭제됩니다
+            </div>
+            <div className="alertTitle">정말로 팀플에서 나가시겠어요?</div>
+            <div className="alertButtons">
+              <button onClick={onClose} className="alertNo">
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  delTeampleAPI();
+                  navigate('/home');
+                  location.reload();
+                }}
+                className="alertYes"
+              >
+                네,삭제할래요.
+              </button>
+            </div>
+          </Alert>
+        );
+      },
+    });
+  };
 
   return (
     <SideBarBox style={{ zIndex: zIndex }}>
@@ -441,7 +466,7 @@ const SideBar = () => {
             >
               {team.name}
             </div>
-            <div id="more" onClick={teampleOut}>
+            <div id="more" onClick={alertDelTeample}>
               <ImExit
                 id="moreicon"
                 style={
@@ -478,7 +503,7 @@ const SideBar = () => {
             >
               {team.name}
             </div>
-            <div id="more" onClick={teampleOut}>
+            <div id="more" onClick={alertDelTeample}>
               <ImExit
                 id="moreicon"
                 style={
@@ -522,5 +547,61 @@ const SideBar = () => {
     </SideBarBox>
   );
 };
+
+const Alert = styled.div`
+  width: 440px;
+  height: 193px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+
+  .alertButtons {
+    position: absolute;
+    bottom: 34px;
+    right: 34px;
+    display: flex;
+    justify-content: right;
+  }
+
+  .alertBody {
+    position: absolute;
+    top: 91px;
+    font-size: 14px;
+    color: #707070;
+    font-weight: 400;
+  }
+
+  .alertTitle {
+    position: absolute;
+    font-size: 18px;
+    color: #383838;
+    font-weight: 600;
+    top: 113px;
+  }
+
+  .alertYes {
+    color: #487aff;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .alertNo {
+    color: #a7a7a7;
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+
+  .sad {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 18px;
+  }
+`;
 
 export default SideBar;

@@ -98,8 +98,7 @@ const Img1 = styled.img`
   width: 150px;
   margin: auto;
 `;
-const Img2 = styled(Img1)`
-`;
+const Img2 = styled(Img1)``;
 
 const Img3 = styled(Img1)`
   width: 100px;
