@@ -22,6 +22,7 @@ export interface FileInfo {
 
 export interface StyledToDoInfo {
   pathname: string;
+  isNow : boolean;
 }
 
 export interface StyledFeedInfo {
@@ -53,6 +54,7 @@ export interface feedbacksInfo{
   comment : string;
   createdAt : string;
   adviserImage : string;
+  feedbackId : string;
 }
 
 export interface filesInfo{
@@ -77,8 +79,8 @@ export interface detailInfo{
 }
 
 export interface ModalProps{
-  setModal : any;
-  setNextModal : any;
+  setModal : React.Dispatch<React.SetStateAction<boolean>>;
+  setNextModal : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface makeTeampleInfo{
@@ -87,6 +89,10 @@ export interface makeTeampleInfo{
   stages : stageInfo[];
   dueDate : Date | string;
   startDate : Date | string;
+}
+
+export interface modTeampleInfo {
+  stages: stageInfo[];
 }
 
 export interface stageInfo{

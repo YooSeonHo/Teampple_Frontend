@@ -11,6 +11,7 @@ import {
   teamMateNumState,
   teamidState,
   fbListState,
+  isCheckedState,
 } from 'state';
 import axios from 'axios';
 import { AiFillMessage } from 'react-icons/ai';
@@ -62,10 +63,10 @@ const HeaderBox = styled.div`
     padding: 0px;
     gap: 8px;
     width: 3.020833vw;
-    height: 2.407504vh;
+    height: 2.6vh;
     background: #ffffff;
     border: 1px solid #88a9ff;
-    border-radius: 8px;
+    border-radius: 7px;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 7.239583vw;
@@ -92,12 +93,12 @@ const HeaderBox = styled.div`
   .editBox {
     position: absolute;
     width: 3.593vw;
-    height: 2.592593vh;
+    height: 2.6vh;
     left: 54.8958vw;
     top: 2.037vh;
     background: #ffffff;
     border: 1px solid #d5dbee;
-    border-radius: 8px;
+    border-radius: 7px;
     font-weight: 500;
     font-size: 0.625vw;
     line-height: 100%;
@@ -181,6 +182,8 @@ const TeampleHeader = () => {
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
   const [fbList,setFbList] = useRecoilState(fbListState)
+  const [isCheck,setIsCheck] = useRecoilState(isCheckedState);
+
 
   const showModal1 = () => {
     setModal1(!modal1);
@@ -208,16 +211,35 @@ const TeampleHeader = () => {
     })
       .then((response) => {
         setFbList(response.data.data.feedbacks);
-        console.log(response.data.data.feedbacks);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  const countChecked = () =>{
+    let cnt = 0
+    fbList && fbList.map((fb)=>{
+      if (!fb.checked) {
+        cnt += 1
+      }
+    })
+    if (cnt > 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  useEffect(()=>{
+    setIsCheck(countChecked());
+  },[fbList]);
   
   useEffect(() => {
     getFeedbackAPI();
   }, []);
+
+
 
 
   const getTHeader = async () => {
@@ -266,11 +288,11 @@ const TeampleHeader = () => {
         {modal1 && <ModifyTeample setModal1={setModal1} />}
       </ModalContainer1>
       <div id="teamList" onClick={showModal2}>
-        <a id="teamNum">+{teamMatesNum-1}</a>
+        <a id="teamNum">+{teamMatesNum}</a>
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox" onClick={openFeed}>
-        {fbList.length === 0? <img id="feedback" src={feedback}/> : <MsgIcon/>}
+        {isCheck?  <MsgIcon/> : <img id="feedback" src={feedback}/>}
       </div>
       
     </HeaderBox>

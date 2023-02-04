@@ -1,5 +1,5 @@
 // import { detailInfo } from 'interfaces';
-import { detailInfo, fbInfo, fbListInfo, makeTeampleInfo, stageInfo } from 'interfaces';
+import { detailInfo, fbInfo, fbListInfo, makeTeampleInfo, stageInfo, modTeampleInfo } from 'interfaces';
 import { atom } from 'recoil';
 import { v1 } from 'uuid'; // key duplicate 방지를 위한 라이브러리
 import { recoilPersist } from "recoil-persist";
@@ -119,6 +119,20 @@ export const makeTeampleState = atom<makeTeampleInfo>({
   }  
 });
 
+export const modTeampleState = atom<modTeampleInfo>({
+  key: 'modTeample',
+  default: {
+    stages: [
+      {
+        name: '',
+        sequenceNum: 1,
+        dueDate: new Date(),
+        startDate: new Date(),
+      },
+    ],
+  },
+});
+
 export const stageState = atom<stageInfo[]>({
   key : 'stage',
   default :
@@ -157,9 +171,9 @@ export const fbListState = atom<fbInfo[]>({
 })
 
 export const profileImgState = atom<string>({
-  key :'profileImg',
-  default : ''
-})
+  key: 'profileImg',
+  default: '',
+});
 
 export const teampleDetailState = atom<boolean>({
   key: `isOpen/${v1()}`,
@@ -185,4 +199,34 @@ export const detailState = atom<detailInfo>({
 export const isLoginState = atom<boolean>({
   key: 'isLogin',
   default: false,
+});
+
+export const isCheckedState = atom<boolean>({
+  key : 'checkedNum',
+  default : false,
+})
+
+export const isLoading1State = atom<boolean>({
+  key: 'isLoading1/${v1()}',
+  default: true,
+});
+
+export const isLoading2State = atom<boolean>({
+  key: 'isLoading2/${v1()}',
+  default: true,
+});
+
+export const isLoading3State = atom<boolean>({
+  key: 'isLoading3/${v1()}',
+  default: true,
+});
+
+export const isLoading4State = atom<boolean>({
+  key: 'isLoading4/${v1()}',
+  default: true,
+});
+
+export const isLoading5State = atom<boolean>({
+  key: 'isLoading4',
+  default: true,
 });

@@ -79,14 +79,14 @@ const FileInfoContainer = styled.div`
 
 const FileInfoBox = styled.div`
   width: 19.375vw;
-  height: 12.592vh;
+  height: 13.5vh;
   background: #fffce3;
   border-radius: 12px;
   position: relative;
 `;
 
 const Title = styled.div`
-  font-size: 1.25vw;
+  font-size: 1.2vw;
   position: absolute;
   top: 2.2222vh;
   left: 1.25vw;
@@ -95,7 +95,8 @@ const Title = styled.div`
 const FileNum = styled.div`
   position: absolute;
   top: 2.2222vh;
-  left: 15.468vw;
+  left: 15.1vw;
+  font-size: 1.2vw;
 `;
 
 const FileSize = styled.div`
@@ -104,12 +105,13 @@ const FileSize = styled.div`
   top: 8.1041vh;
   right: 1.25vw;
   height: 1.481481vh;
+  font-size: 1vw;
 `;
 
 const BarContainer = styled.div`
   position: absolute;
-  top: 9.814815vh;
-  height: 0.925926vh;
+  bottom: 3vh;
+  height: 0.8vh;
   ul {
     position: relative;
     padding: 0;

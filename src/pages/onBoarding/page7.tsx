@@ -8,8 +8,8 @@ import { useEffect } from "react";
 
 export const Background = styled.div`
     background-image : url('${page7}');
-    width: 61.041667vw;
-    height : 25.55555vh;
+    width: 81.979167vw;
+    height : 26.48148vh;
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
@@ -36,7 +36,7 @@ const Page7 = () =>{
     return(
         <Box data-aos="fade-up">
             <Content>
-                <div>또, 이런 사람들에게 필요해요</div>
+                <div>이런 사람들에게 필요해요</div>
             </Content>
             <Background/>
         </Box>

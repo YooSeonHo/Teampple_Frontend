@@ -6,6 +6,7 @@ import startBtn from '../images/Group 435.png';
 import finBtn from '../images/Group 437.png';
 import download from '../images/DownloadSimple.png';
 import trash from '../images/Trash.png';
+import deleteBtn from '../images/delete.png';
 import ellipse from '../images/Ellipse 1.png';
 import Send from '../images/send.png';
 import axios from 'axios';
@@ -360,10 +361,11 @@ const DetailContainer = styled.div`
   }
 
   .plusBtn {
-    width: 0.2604vw;
-    height: 1.944vh;
+    height: 0.7604vw;
+    width: 2.944vh;
     margin-left: auto;
     margin-right: 1.041667vw;
+    margin-top : auto;
   }
 
   .plusBtn:hover {
@@ -432,7 +434,6 @@ const DetailBox = () => {
     await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
-        console.log(data.location);
       })
       .catch((e: any) => {
         console.log(e);
@@ -542,7 +543,7 @@ const DetailBox = () => {
 
   useDidMountEffect(() => {
     postFile();
-  }, [file]);
+  }, [fileLoc]);
 
   const onChangeStatus = async () => {
     await axios({
@@ -555,14 +556,35 @@ const DetailBox = () => {
       params: { taskId: taskId },
     }).then(() => {
       location.reload();
+    })
+    .catch((e) => {
+      console.log(e);
     });
   };
+
+  const onDeleteFeed = async (e : React.MouseEvent<HTMLDivElement>) =>{
+    await axios({
+      url: '/api/feedbacks',
+      baseURL: 'https://www.teampple.site/',
+      method: 'delete',
+      headers: {
+        Authorization: token,
+      },
+      params : {feedbackId : Number(e.currentTarget.id)}
+    }).then(()=>{
+      alert('댓글이 삭제되었습니다.')
+      location.reload();
+    }).catch((e) => {
+      console.log(e);
+    });
+  }
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
   };
 
-  const downloadFile = (url: any) => {
+  const downloadFile = (url : any,filename: string) => {
+    console.log(url)
     fetch(url, { method: 'GET' })
       .then((res) => {
         return res.blob();
@@ -571,7 +593,7 @@ const DetailBox = () => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '파일명';
+        a.download = filename;
         document.body.appendChild(a);
         a.click();
         setTimeout((_) => {
@@ -701,7 +723,7 @@ const DetailBox = () => {
                         <img
                           src={download}
                           className="download"
-                          onClick={() => downloadFile(fileLoc)}
+                          onClick={() => downloadFile(file.url, file.filename)}
                         />
                         <img
                           src={trash}
@@ -733,7 +755,7 @@ const DetailBox = () => {
               <div className="profileImg">
                 {user && (
                   <img
-                    src={require('../images/profile/' +
+                    src={require('../images/profile/proImageU' +
                       user.profileImage +
                       '.png')}
                   />
@@ -751,11 +773,11 @@ const DetailBox = () => {
             </div>
             {detail.feedbacks && (
               <div className="feedbacks">
-                {detail.feedbacks.map((feedback, index) => (
-                  <div className="feedBox" key={index}>
+                {detail.feedbacks.map((feedback) => (
+                  <div className="feedBox" key={feedback.feedbackId}>
                     <div className="profileImg">
                       <img
-                        src={require('../images/profile/' +
+                        src={require('../images/profile/proImageU' +
                           feedback.adviserImage +
                           '.png')}
                       />
@@ -768,9 +790,15 @@ const DetailBox = () => {
                             .replace(/-/g, '.')
                             .replace('T', ' ')}
                         </div>
-                        <div className="plusBtn">
-                          <img src={more} />
-                        </div>
+                        {feedback.adviser === user?.name ? (
+                          <div
+                            className="plusBtn"
+                            onClick={onDeleteFeed}
+                            id={feedback.feedbackId}
+                          >
+                            <img src={deleteBtn} />
+                          </div>
+                        ) : null}
                       </div>
                       <div className="feedContent">{feedback.comment}</div>
                     </div>

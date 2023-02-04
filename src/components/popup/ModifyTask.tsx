@@ -56,7 +56,8 @@ const ModifyTask = ({ setBigModal }: any) => {
     })
       .then((res) => {
         setName(res.data.data.taskName);
-        setCheckedNameList(res.data.data.operators);
+        // setCheckedNameList(res.data.data.operators); //일단 이딴식으로함 흑
+        console.log(res.data.data)
         // setStartDate(res.data.data.startDate.format('YYYYMMDD'));
         // setEndDate(res.data.data.dueDate.format('YYYYMMDD'));
       })
@@ -132,6 +133,11 @@ const ModifyTask = ({ setBigModal }: any) => {
     getTeamMateAPI();
   }, []);
 
+useEffect(() => {
+  console.log(checkedNameList);
+  console.log(checkedIdList);
+}, );
+
   const onCheckedHandle = (checked: boolean, item: string, id: number) => {
     if (checked) {
       setCheckedNameList([...checkedNameList, item]);
@@ -140,8 +146,6 @@ const ModifyTask = ({ setBigModal }: any) => {
       setCheckedNameList(checkedNameList.filter((el) => el !== item));
       setCheckedIdList(checkedIdList.filter((el) => el !== id));
     }
-    console.log(checkedNameList);
-    console.log(checkedIdList);
   };
 
   return (
@@ -205,9 +209,8 @@ const ModifyTask = ({ setBigModal }: any) => {
                 </TextInfo>
                 <CheckBox
                   type="checkbox"
-                  value={name}
-                  // id={teammateId}
-                  //api 수정되면 재수정 필요!
+                  value={user.name}
+                  id={user.teammateId}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -215,7 +218,7 @@ const ModifyTask = ({ setBigModal }: any) => {
                       Number(e.target.id),
                     );
                   }}
-                  checked={checkedNameList.includes(name) ? true : false}
+                  checked={checkedNameList.includes(user.name) ? true : false}
                 />
               </TeamMate>
             )}
@@ -363,6 +366,9 @@ const DateBox1 = styled.div`
   align-items: center;
   &:hover {
     cursor: pointer;
+  }
+  :focus-within {
+    border: solid 1px #487aff;
   }
 `;
 

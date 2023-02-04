@@ -1,22 +1,19 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { AiFillMessage } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
-import { feedbackState, fbListState } from 'state';
-import Feedbacks from 'components/feedbacks/feedbacks';
+import {
+  feedbackState,
+  fbListState,
+  isCheckedState,
+} from 'state';
 import feedback from '../images/feedback.png';
 import axios from 'axios';
 
-
 const HomeHeader = () => {
-  const navigation = useNavigate();
   const token = localStorage.getItem('jwt_accessToken');
   const [fbList,setFbList] = useRecoilState(fbListState)
-  const onClickMsg = (e: React.MouseEvent<HTMLElement>) => {
-    navigation('/feedback');
-    console.log(e.target);
-  };
+  const [isCheck,setIsCheck] = useRecoilState(isCheckedState);
 
   const getFeedbackAPI = async () => {
     await axios({
@@ -29,16 +26,34 @@ const HomeHeader = () => {
     })
       .then((response) => {
         setFbList(response.data.data.feedbacks);
+        console.log(response.data.data.feedbacks);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-  
+
+  const countChecked = () => {
+    let cnt = 0;
+    fbList &&
+      fbList.map((fb) => {
+        if (!fb.checked) {
+          cnt += 1;
+        }
+      });
+    if (cnt > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  useEffect(() => {
+    setIsCheck(countChecked());
+  }, [fbList]);
+
   useEffect(() => {
     getFeedbackAPI();
   }, []);
-
 
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
 
@@ -50,7 +65,7 @@ const HomeHeader = () => {
     <HomeHeaderContainer>
       <HomeTitle>홈</HomeTitle>
       <div className="iconBox" onClick={openFeed}>
-        {fbList.length === 0?  <img id="feedback" src={feedback}/> : <MsgIcon/> }
+        {isCheck ? <MsgIcon /> : <img id="feedback" src={feedback} />}
       </div>
     </HomeHeaderContainer>
   );
@@ -63,32 +78,31 @@ const HomeHeaderContainer = styled.div`
   border-bottom: solid;
   border-width: 3px;
   border-color: #edeff6;
-  display : flex;
+  display: flex;
 
-  .iconBox{
-  margin-left: auto;
-  margin-right: 2.8125vw;
-  
-  #feedback {
-    width: 1.6666vw;
-    height: 2.962vh;
-    margin-top: 1.8518vh;
+  .iconBox {
+    margin-left: auto;
+    margin-right: 2.8125vw;
+
+    #feedback {
+      width: 1.6666vw;
+      height: 2.962vh;
+      margin-top: 1.8518vh;
+    }
+
+    img {
+      max-width: 100vw;
+      max-height: 100vh;
+    }
   }
-  
-  img {
-    max-width: 100vw;
-    max-height: 100vh;
-  }
-  
-}
-  .iconBox:hover{
+  .iconBox:hover {
     cursor: grab;
   }
 `;
 const HomeTitle = styled.div`
   position: absolute;
   top: 2.2222vh;
-  left: 5.20vw;
+  left: 5.2vw;
   font-weight: 600;
   font-size: 1.25vw;
   line-height: 100%;
@@ -102,10 +116,9 @@ const MsgIcon = styled(AiFillMessage)`
   width: 1.67vw;
   height: 2.96293vh;
 
-  :hover{
-    cursor : grab;
+  :hover {
+    cursor: grab;
   }
 `;
-
 
 export default HomeHeader;

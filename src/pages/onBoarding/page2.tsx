@@ -23,6 +23,8 @@ const Background = styled.div`
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
+    margin-left : 35.885vw;
+    margin-right:24.6875vw;
     
 `;
 
@@ -30,7 +32,7 @@ const Contents = styled.div`
     display : flex;
     flex-direction : column;
     position : absolute;
-    left : 18.2291vw;
+    left : 23.2291vw;
     top : 25.925vh;
     width : 23.2291vw;
     height: 12.4074vh;
@@ -38,15 +40,15 @@ const Contents = styled.div`
     .header{
         font-weight: 500;
         font-size: 1.6666667vw;
-        line-height: 100%;
+        line-height: 150%;
         color: #383838;
     }
 
     .mid{
         font-weight: 400;
         font-size: 0.9375vw;
-        margin-top : 1.851852vh;
-        line-height: 100%;
+        margin-top : 1.351852vh;
+        line-height: 140%;
         color: #A7A7A7;
     }
 `;
@@ -66,7 +68,7 @@ const Page2 = () =>{
             <Background/>
                 <Contents>
                     <div className="header">대학에 갓 입학했는데<br/>전공에도 교양에도..팀플이..</div>
-                    <div className="mid">잘 해보고 싶었지만 쉽게 알 수 없어서 나서기 힘들었던 새내기들</div>
+                    <div className="mid">학교, 대외활동, 공모전 ...<br/> 각종 팀프로젝트를 진행 하느라 지치셨나요?</div>
                 </Contents>
         </Box>
     )

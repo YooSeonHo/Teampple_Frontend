@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -8,43 +8,56 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
-import {
-  stepState,
-} from 'state/AddTeample/atom';
+import { stepState } from 'state/AddTeample/atom';
 import { useForm } from 'react-hook-form';
 import { stageInfo } from 'interfaces';
-import { stageState } from 'state';
+import { stageState, teamidState } from 'state';
 import moment from 'moment';
+import axios from 'axios';
 
-const AddDiv = (props: any) => {
-  // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
+const ModDiv = (props: any) => {
   const [step, setStep] = useRecoilState(stepState);
-  const today = new window.Date();
-  const [stepStartDate, setStepStartDate] = useState<Date>(today);
-  const [stepEndDate, setStepEndDate] = useState<Date>(today);
-  const [stages,setStages] = useRecoilState<stageInfo[]>(stageState);
+  const [stages, setStages] = useRecoilState<stageInfo[]>(stageState);
+  const token = localStorage.getItem('jwt_accessToken');
+  const [teamid] = useRecoilState(teamidState);
 
-  const onClickDel = (e: any) => { //수정 필요 에러
+  const getStage = async () => {
+    await axios({
+      url: '/api/stages',
+      baseURL: 'https://www.teampple.site',
+      method: 'get',
+      headers: {
+        Authorization: token,
+      },
+      params: {
+        teamId: teamid,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        setStages(response.data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const onClickDel = (e: any) => {
     e.preventDefault();
 
     if (stages.length <= 1) {
-      alert('1단계는 필수입니다.')
-    }
-    else {
-    const n = parseInt(e.target.parentElement.id);
-    // const counter = countArr.slice(1)[0];
-    // console.log(counter)
-    // counter -= 1;
-    // countArr[counter] = counter; // index 사용 시
-    const del = stages.filter((st)=>{
-      return st.sequenceNum !== n;
-    }).map((st,index)=>(
-      {...st, sequenceNum : index+1}
-    ));
-    setStages(del);
+      alert('1단계는 필수입니다.');
+    } else {
+      const n = parseInt(e.target.parentElement.id);
+  
+      const del = stages
+        .filter((st) => {
+          return st.sequenceNum !== n;
+        })
+        .map((st, index) => ({ ...st, sequenceNum: index + 1 }));
+      setStages(del);
     }
   };
-
 
   // enter키 누르면 submit 방지
   document.addEventListener(
@@ -58,34 +71,23 @@ const AddDiv = (props: any) => {
   );
 
   const { register, handleSubmit } = useForm();
-  const Subb = (data:any) => {
-      setStep(data);
-      console.log(data);
-      console.log(step);
-      // console.log(name, aim, startDate, endDate, stepTest);
-      alert('팀플 만들기 완료');
-  }
-  
-  // const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
-  //   // if (stepName === '') alert('1단계는 필수 항목입니다.');
-  //   // else {
-  //   event.preventDefault();
-  //   // console.log(name, aim, startDate, endDate, stepTest);
-  //   alert('팀플 만들기 완료');
+  const Subb = (data: any) => {
+    setStep(data);
+    alert('팀플 만들기 완료');
+  };
 
-  //   // }
-  // };
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const temp = stages.map((s) =>
+      s.sequenceNum === parseInt(e.target.id)
+        ? { ...s, name: e.target.value }
+        : s,
+    );
+    setStages(temp);
+  };
 
-  const onChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
-    // const temp = stages.filter((s)=>{
-    //   return s.sequenceNum === parseInt(e.target.id);
-    // }).map((s)=>{
-    //   return {...s, name : e.target.value};
-    // }
-    // )
-     const temp = stages.map((s)=> s.sequenceNum === parseInt(e.target.id) ? {...s, name : e.target.value} : s)
-     setStages(temp);
-  }
+  useEffect(() => {
+    getStage();
+  }, []);
 
   return (
     <AddDivContainer>
@@ -108,8 +110,8 @@ const AddDiv = (props: any) => {
                       id={i.sequenceNum.toString()}
                     />
                     <TextLength>
-                    ({i.name.replace(/<br\s*\/?>/gm, '\n').length}/9)
-                  </TextLength>
+                      ({i.name.replace(/<br\s*\/?>/gm, '\n').length}/9)
+                    </TextLength>
                   </InputBox>
                 </NameContainer>
                 <DateContainer id={i.sequenceNum.toString()}>
@@ -119,12 +121,15 @@ const AddDiv = (props: any) => {
                       dateFormat="yyyy.MM.dd"
                       selected={new Date(i.startDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                      popperProps={{strategy: 'fixed'}}
+                      popperProps={{ strategy: 'fixed' }}
                       onChange={(date: Date) => {
-                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, startDate : date} : s)
+                        const temp = stages.map((s) =>
+                          s.sequenceNum === i.sequenceNum
+                            ? { ...s, startDate: date }
+                            : s,
+                        );
                         setStages(temp);
                       }}
-                      
                     />
                     <IoCalendarNumberOutline
                       style={{
@@ -141,13 +146,16 @@ const AddDiv = (props: any) => {
                       dateFormat="yyyy.MM.dd"
                       selected={new Date(i.dueDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-                      popperProps={{strategy: 'fixed'}}
+                      popperProps={{ strategy: 'fixed' }}
                       onChange={(date: Date) => {
-                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ?{...s, dueDate : date} : s)
+                        const temp = stages.map((s) =>
+                          s.sequenceNum === i.sequenceNum
+                            ? { ...s, dueDate: date }
+                            : s,
+                        );
                         //  {...s, dueDate : moment(date, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'} : s)
                         setStages(temp);
                       }}
-                      
                     />
                     <IoCalendarNumberOutline
                       style={{
@@ -164,10 +172,6 @@ const AddDiv = (props: any) => {
               </StepContainer>
             ))}
         </div>
-        {/* <button type="submit">전송</button> */}
-        {/* <MakeButton type="submit">
-          팀플 만들기
-        </MakeButton> */}
       </form>
     </AddDivContainer>
   );
@@ -175,8 +179,8 @@ const AddDiv = (props: any) => {
 
 const AddDivContainer = styled.div`
   position: relative;
-  overflow : hidden;
-`
+  overflow: hidden;
+`;
 
 const StepContainer = styled.div`
   width: 33.333vw;
@@ -207,13 +211,6 @@ const Tag = styled.div`
   color: #707070;
 `;
 
-const SubTag = styled.span`
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 100%;
-  color: #c0c0c0;
-  margin-top: 38px;
-`;
 
 const InputBox = styled.div`
   width: 24.375vw;
@@ -308,23 +305,6 @@ const StyledDatePicker = styled(DatePicker)`
   position: absolute;
   top: -2.77778vh;
   left: -1.0417vw;
-  
 `;
 
-const MakeButton = styled.button`
-  width: 277px;
-  height: 56px;
-  //주의)))) 절대 위치임 매번 바꿔야함 해결방안 모색 중 ...
-  //이유: form태그 내부에 button을 위치시켜야하는데 컴포넌트 분리해서 form으로 submit 기능 불가능 ...
-  position: fixed;
-  top: 550px;
-  left: 350px;
-  background: #487aff;
-  border-radius: 12px;
-  color: #ffffff;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 100%;
-`;
-
-export default AddDiv;
+export default ModDiv;

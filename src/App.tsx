@@ -8,40 +8,44 @@ function App() {
   const accessToken = localStorage.getItem('jwt_accessToken');
   const refreshToken = localStorage.getItem('jwt_refreshToken');
 
-  useEffect(() => {
-    const reToken = async () => {
-      if (refreshToken) {
-        await axios({
-          url: '/api/auth/reIssuance',
-          baseURL: 'https://www.teampple.site/',
-          method: 'post',
-          headers: {
-            Authorization: accessToken,
-          },
-          data: {
-            jwtAccessToken: accessToken,
-            jwtRefreshToken: refreshToken,
-          },
+  const reToken = async () => {
+    if (refreshToken) {
+      await axios({
+        url: '/api/auth/reIssuance',
+        baseURL: 'https://www.teampple.site/',
+        method: 'post',
+        headers: {
+          Authorization: accessToken,
+        },
+        data: {
+          jwtAccessToken: accessToken,
+          jwtRefreshToken: refreshToken,
+        },
+      })
+        .then((response) => {
+          console.log(response.data.data);
+          localStorage.setItem(
+            'jwt_accessToken',
+            response.data.data.jwtAccessToken,
+          );
+          localStorage.setItem(
+            'jwt_refreshToken',
+            response.data.data.jwtRefreshToken,
+          );
+          setInterval(reToken, 1200000);
         })
-          .then((response) => {
-            console.log(response.data.data);
-            localStorage.setItem(
-              'jwt_accessToken',
-              response.data.data.jwtAccessToken,
-            );
-            localStorage.setItem(
-              'jwt_refreshToken',
-              response.data.data.jwtRefreshToken,
-            );
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    };
+        .catch((error) => {
+          console.log(error);
+          localStorage.removeItem('jwt_accessToken');
+          localStorage.removeItem('jwt_refreshToken');
+        });
+    }
+  };
+
+  if (performance.navigation.type === 1) {
+    //새로고침하면 바로 로그인 연장(토큰 갱신)
     reToken();
-    setInterval(reToken, 25 * 60 * 1000);
-  }, []);
+  }
 
   return (
     <RecoilRoot>

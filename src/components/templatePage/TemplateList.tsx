@@ -40,12 +40,24 @@ const TemplateList = () => {
 
   return (
     <TemplateBoxContainer>
-      {templates && isSearch
-        ? templates
-            .filter((temp: ITemplate) => {
-              return temp.name.includes(searchTemp);
-            })
-            .map((template: ITemplate) => (
+      <Box>
+        {templates && isSearch
+          ? templates
+              .filter((temp: ITemplate) => {
+                return temp.name.includes(searchTemp);
+              })
+              .map((template: ITemplate) => (
+                <Template
+                  key={template.templateId}
+                  onClick={() => window.open(`${template.url}`, '_blank')}
+                >
+                  <Img
+                    src={require(`../images/templateThumb/template_${template.templateId}.png`)}
+                  />
+                  <Desc>{template.name}</Desc>
+                </Template>
+              ))
+          : templates.map((template: ITemplate) => (
               <Template
                 key={template.templateId}
                 onClick={() => window.open(`${template.url}`, '_blank')}
@@ -55,18 +67,8 @@ const TemplateList = () => {
                 />
                 <Desc>{template.name}</Desc>
               </Template>
-            ))
-        : templates.map((template: ITemplate) => (
-            <Template
-              key={template.templateId}
-              onClick={() => window.open(`${template.url}`, '_blank')}
-            >
-              <Img
-                src={require(`../images/templateThumb/template_${template.templateId}.png`)}
-              />
-              <Desc>{template.name}</Desc>
-            </Template>
-          ))}
+            ))}
+      </Box>
     </TemplateBoxContainer>
   );
 };
@@ -74,6 +76,12 @@ const TemplateList = () => {
 const TemplateBoxContainer = styled.div`
   width: 87.5vw;
   margin-top: 5.37037vh;
+  display: flex;
+  justify-content: center;
+`;
+
+const Box = styled.div`
+  width: 63vw;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
