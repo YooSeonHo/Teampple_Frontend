@@ -4,7 +4,7 @@ import OnBoardingHeader from "./onBoardingHeader";
 import OnBoardingFooter from "./onBoardingFooter";
 
 const Children = styled.div`
-
+    width : 100vw;
 `;
 
 const OnBoardingLayOut = ({children} : {children : any}) =>{
