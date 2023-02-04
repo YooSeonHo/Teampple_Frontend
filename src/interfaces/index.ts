@@ -79,8 +79,8 @@ export interface detailInfo{
 }
 
 export interface ModalProps{
-  setModal : any;
-  setNextModal : any;
+  setModal : React.Dispatch<React.SetStateAction<boolean>>;
+  setNextModal : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface makeTeampleInfo{

@@ -82,9 +82,9 @@ const HomeToDo = () => {
 
   return (
     <>
-      {/* {teams.length === 0 ? (
+       {teams.length === 0 ? (
         <NotToDoBox />
-      ) : ( */}
+      ) : ( 
       <HomeToDoContainer>
         <Title>할 일</Title>
         <ToDosContainer>
@@ -109,7 +109,7 @@ const HomeToDo = () => {
             ))}
         </ToDosContainer>
       </HomeToDoContainer>
-      {/* )} */}
+       )} 
     </>
   );
 };

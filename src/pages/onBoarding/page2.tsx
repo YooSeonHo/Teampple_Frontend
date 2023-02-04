@@ -23,6 +23,8 @@ const Background = styled.div`
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
+    margin-left : 35.885vw;
+    margin-right:24.6875vw;
     
 `;
 
@@ -30,7 +32,7 @@ const Contents = styled.div`
     display : flex;
     flex-direction : column;
     position : absolute;
-    left : 18.2291vw;
+    left : 23.2291vw;
     top : 25.925vh;
     width : 23.2291vw;
     height: 12.4074vh;

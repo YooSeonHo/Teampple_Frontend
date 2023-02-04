@@ -74,12 +74,13 @@ const TodoContainer = styled.div`
   left: 12.5vw;
   top: 37vh;
   overflow: hidden;
+
   .text {
     margin-top: 4.4444vh;
     color: #383838;
     font-weight: 500;
-    font-size: 1.24vw;
-    line-height: 29px;
+    font-size: 1.458333vw;
+    line-height: 100%;
     margin-left: 2.8125vw;
   }
 `;

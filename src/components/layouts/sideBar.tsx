@@ -68,6 +68,9 @@ const SideBarBox = styled.div`
     position: absolute;
     top: 2.6vh;
     left: 5.5vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   #userImage {
@@ -226,18 +229,17 @@ const TeamBox = styled.div`
 `;
 
 const SideBar = () => {
-  const [userid, setUserid] = useState(prof1);
   const [name, setName] = useRecoilState(usernameState);
-  const [school, setSchool] = useRecoilState(userschoolState);
-  const [major, setMajor] = useRecoilState(usermajorState);
-  const [teamid, setTeamid] = useRecoilState(teamidState);
+  const [, setSchool] = useRecoilState(userschoolState);
+  const [, setMajor] = useRecoilState(usermajorState);
+  const [, setTeamid] = useRecoilState(teamidState);
   const [actTeamList, setActTeamList] = useState([]);
   const [finTeamList, setFinTeamList] = useState([]);
   const [modal, setModal] = useState(false);
   const [nextModal, setNextModal] = useState(false);
   const token = localStorage.getItem('jwt_accessToken');
-  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
-  const [modal2, setModal2] = useRecoilState(modal2State);
+  const [, setIsOpen] = useRecoilState(feedbackState);
+  const [, setModal2] = useRecoilState(modal2State);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
   const [profileImg, setProfileImg] = useRecoilState(profileImgState);
   const navigate = useNavigate();

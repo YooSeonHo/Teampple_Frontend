@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { AiFillMessage } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
 import {
@@ -8,19 +7,13 @@ import {
   fbListState,
   isCheckedState,
 } from 'state';
-import Feedbacks from 'components/feedbacks/feedbacks';
 import feedback from '../images/feedback.png';
 import axios from 'axios';
 
 const HomeHeader = () => {
-  const navigation = useNavigate();
   const token = localStorage.getItem('jwt_accessToken');
-  const [fbList, setFbList] = useRecoilState(fbListState);
-  const [isCheck, setIsCheck] = useRecoilState(isCheckedState);
-  const onClickMsg = (e: React.MouseEvent<HTMLElement>) => {
-    navigation('/feedback');
-    console.log(e.target);
-  };
+  const [fbList,setFbList] = useRecoilState(fbListState)
+  const [isCheck,setIsCheck] = useRecoilState(isCheckedState);
 
   const getFeedbackAPI = async () => {
     await axios({
