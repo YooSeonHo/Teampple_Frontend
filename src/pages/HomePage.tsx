@@ -36,6 +36,7 @@ const HomePage = () => {
         </SummaryHomeContainer>
         {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
         <TodoContainer>
+          
           <HomeToDo />
         </TodoContainer>
         <MiniTemplateContainer>

@@ -75,8 +75,25 @@ const LoginPage = () => {
         setTeamname(res.data.data.teamName);
         setInvited(true);
       }
+    }).catch((e)=>{
+      console.log(e)
     });
   };
+
+  const joinTeam = async () =>{
+    await axios({
+      url: `/api/invitations`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      params: {
+        code: code,
+      },
+  }).then((res)=>{
+    console.log(res);
+  }).catch((e)=>{
+    console.log(e)
+  });
+}
   // useEffect(() => {
   //   if (!location.search) return;
   //   getKakaoToken();
