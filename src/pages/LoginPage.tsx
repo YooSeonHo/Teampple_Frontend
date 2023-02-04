@@ -118,7 +118,7 @@ const LoginPage = () => {
       ) : (
         <></>
       )}
-      <KakaoButton>
+      <KakaoButton onClick={joinTeam()}>
         <a href="http://teampple.site/api/oauth2/authorization/kakao">
           <KakaoBtn />
         </a>
@@ -156,7 +156,7 @@ const Desc = styled.div`
   position: absolute;
   top: 339px;
 `;
-const KakaoButton = styled.button`
+const KakaoButton = styled.button<any>`
   position: absolute;
   top: 494px;
 `;
