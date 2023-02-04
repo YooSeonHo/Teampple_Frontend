@@ -6,6 +6,8 @@ import axios from 'axios';
 import { ITeamMate } from '../../interfaces';
 import { useRecoilState } from 'recoil';
 import { teamMateNumState, modal2State, teamidState } from 'state';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
@@ -46,7 +48,7 @@ const TeamMateInfo = () => {
     })
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {
-          alert('초대 코드 복사가 완료되었습니다.');
+          alertCopyLink();
           setModal2(false);
         });
       })
@@ -61,6 +63,24 @@ const TeamMateInfo = () => {
 
   const onCopy = async () => {
     await getLink();
+  };
+
+  const alertCopyLink = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <Alert>
+            <div className="alertTitle">링크가 클립보드에 복사되었어요</div>
+            <div className="alertBody">
+              링크를 팀원들에게 전송해 팀쁠에 초대해주세요
+            </div>
+            <button onClick={onClose} className="close">
+              확인
+            </button>
+          </Alert>
+        );
+      },
+    });
   };
 
   return (
@@ -193,6 +213,41 @@ const LinkBtn = styled.div`
 
   :hover {
     cursor: grab;
+  }
+`;
+
+const Alert = styled.div`
+  width: 440px;
+  height: 168px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  .alertBody {
+    position: absolute;
+    font-size: 18px;
+    color: #383838;
+    font-weight: 600;
+    top: 66px;
+  }
+
+  .alertTitle {
+    position: absolute;
+    top: 40px;
+    font-size: 14px;
+    color: #707070;
+    font-weight: 400;
+  }
+
+  .close {
+    color: #487aff;
+    font-weight: 600;
+    font-size: 16px;
+    position: absolute;
+    bottom: 34px;
   }
 `;
 

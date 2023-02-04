@@ -203,7 +203,7 @@ const Bar = styled.span<{ currentPercent: number; icon: string }>`
     height: 30px;
     position: absolute;
     top: -0.92592vh;
-    right: -1.5vw;
+    right: -0.5vw;
     border-radius: 54px;
     background-image: url(${(props) => props.icon});
     background-size: cover;
