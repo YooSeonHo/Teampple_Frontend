@@ -155,6 +155,9 @@ const Name = styled.div`
   font-weight: 500;
   font-size: 0.9375vw;
   line-height: 2.03703vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const School = styled.div`
   font-weight: 400;

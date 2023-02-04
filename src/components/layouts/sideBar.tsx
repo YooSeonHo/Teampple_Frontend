@@ -37,9 +37,9 @@ const SideBarBox = styled.div`
 
   .logo {
     margin-left: 2.1vw;
-    margin-top: 19px;
+    margin-top: 1.759259vh;
     width: 7.05vw;
-    height: 38px;
+    height: 3.518519vh;
   }
 
   img {
@@ -50,28 +50,32 @@ const SideBarBox = styled.div`
   .user {
     display: flex;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 1.38888vh;
     margin-left: 1.04vw;
     margin-top: 1.111vh;
     width: 10.42vw;
-    height: 64px;
+    height: 5.925926vh;
     position: relative;
     color: #383838;
     border-radius: 8px;
+    overflow: hidden;
+    
     &:hover {
       cursor: pointer;
       background-color: #d4e4ff;
     }
   }
-
+  
   #userName {
     font-family: 'Pretendard';
     font-style: normal;
     font-weight: 600;
     font-size: 0.9375vw;
-    line-height: 22px;
+    line-height: 2.037037vh;
     position: absolute;
     left: 5vw;
+
+    width: 5.42vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -96,7 +100,7 @@ const SideBarBox = styled.div`
     margin-bottom: 8px;
     border-radius: 8px;
     width: 10.42vw;
-    height: 40px;
+    height: 3.703704vh;
     display: flex;
     flex-direction: row;
   }
@@ -110,18 +114,18 @@ const SideBarBox = styled.div`
   }
 
   #more {
-    width: 30px;
-    height: 30px;
+    width: 1.5625vw;
+    height: 2.7777vh;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   #moreicon {
-    width: 20px;
-    height: 20px;
+    width: 1.041667vw;
+    height: 1.851852;
     position: absolute;
-    right: 10px;
+    right: 0.5208333vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,10 +138,10 @@ const SideBarBox = styled.div`
     font-weight: 600;
     font-size: 0.9375vw;
     line-height: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 0.740741vh;
     border-radius: 8px;
     width: 10.42vw;
-    height: 40px;
+    height: 3.703704vh;
     display: flex;
     flex-direction: row;
   }
@@ -157,7 +161,7 @@ const SideBarBox = styled.div`
     line-height: 100%;
     border-radius: 8px;
     width: 10.42vw;
-    height: 40px;
+    height: 3.703704vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -171,15 +175,16 @@ const SideBarBox = styled.div`
 
   .boxText {
     margin-left: 0.625vw;
-    line-height: 40px;
+    line-height: 3.703704vh;
     font-weight: 600;
     font-size: 0.9375vw;
     color: #707070;
+    
   }
 
   .subBoxText {
     margin-left: 2.5vw;
-    line-height: 40px;
+    line-height: 3.703704vh;
     width: 5.5vw;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -209,15 +214,15 @@ const SideBarBox = styled.div`
 
   .btm {
     margin-top: auto;
-    margin-bottom: 48px;
+    margin-bottom: 4.44444vh;
   }
 
   .profileImg {
     width: 2.8vw;
     border-radius: 50%;
     position: absolute;
-    top: 12px;
     left: 1.5vw;
+    top : 0.5vh;
   }
 `;
 
