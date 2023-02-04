@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
-import arrow from '../images/ArrowLineRight2.png';
+import arrow from '../images/rightArrow.png';
 import done from '../images/done icon.png';
 import { StyledToDoInfo } from 'interfaces';
 import AddTask from 'components/popup/AddTask';
@@ -216,12 +216,13 @@ const Box = styled.div<any>`
 
   .doneArr {
     color: #c0c0c0;
-    width: 1.6666vw;
-    height: 2.9629vh;
+    width: 9.5px;
     margin-top: auto;
     margin-bottom: auto;
-    margin-right: 0.41666vw;
+    margin-right: 1.2vw;
     margin-left: auto;
+    display: flex;
+    align-items: center;
   }
 
   :hover{

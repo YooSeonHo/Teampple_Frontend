@@ -13,7 +13,7 @@ import HomeSummaryBg from '../images/HomeSummaryBg.png';
 import axios from 'axios';
 import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';
 import { useRecoilState } from 'recoil';
-import { profileImgState } from 'state';
+import { profileImgState, isLoading4State } from 'state';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -22,6 +22,7 @@ const SummaryHome = () => {
   const date = now.getDate();
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
   const week = weeks[now.getDay()];
+  const [, setIsLoading4] = useRecoilState(isLoading4State);
 
   const [username, setUsername] = useState('');
   const [doneNum, setDoneNum] = useState<number>(0);
@@ -29,14 +30,15 @@ const SummaryHome = () => {
   const [remainPercent, setRemainPercent] = useState<number>(
     Math.round(Number(doneNum / allNum) * 100),
   );
-  // const [userid, setUserid] = useState(prof1);
   let s1 = 0;
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
   const [profileImg] = useRecoilState(profileImgState);
   const [profileImage, setProfileImage] = useState(proImageU2);
+  //헐 이거 안 바꿈
 
   const getTaskAPI = async () => {
+    setIsLoading4(true);
     await axios({
       url: `/api/users/tasks`,
       baseURL: 'https://www.teampple.site',
@@ -55,6 +57,7 @@ const SummaryHome = () => {
         );
         if (allNum === 0) setRemainPercent(0);
         else setRemainPercent(Math.round(Number(doneNum / allNum) * 100));
+        setIsLoading4(false);
       })
       .catch(function (error) {
         console.log(error);
@@ -116,7 +119,7 @@ const SummaryHome = () => {
 
 const SummaryContainer = styled.div`
   width: 87.5vw;
-  height: 27.407407vh;
+  height: 30vh;
   position: relative;
   background-color: #f9fafd;
   background-image: url(${HomeSummaryBg});
@@ -127,7 +130,7 @@ const SummaryContainer = styled.div`
 const DateContainer = styled.div`
   position: absolute;
   left: 2.81vw;
-  top: 3.3333vh;
+  top: 3.33vh;
   font-size: 0.83vw;
   line-height: 100%;
 `;
@@ -136,7 +139,7 @@ const RemainContainer = styled.div``;
 
 const RemainBox = styled.div`
   position: absolute;
-  top: 74px;
+  top: 6.85185vh;
   left: 2.81vw;
 `;
 
@@ -147,7 +150,7 @@ const Big = styled.div`
 `;
 
 const Small = styled.div`
-  margin-top: 20px;
+  margin-top: 1.851852vh;
 `;
 
 const Text = styled.span`
@@ -163,7 +166,7 @@ const Percent = styled.span`
 
 const BarContainer = styled.div`
   position: absolute;
-  top: 230px;
+  top: 21.2963vh;
   left: 4vw;
   ul {
     position: relative;

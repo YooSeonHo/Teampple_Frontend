@@ -5,40 +5,50 @@ import MiniTemplate from 'components/homePage/MiniTemplate';
 import HomeHeader from 'components/homePage/HomeHeader';
 import SideBar from 'components/layouts/sideBar';
 import HomeToDo from 'components/homePage/HomeToDo';
-import ToDoBox from 'components/toDo/toDoBox';
 import { useRecoilState } from 'recoil';
-import { feedbackState } from 'state';
+import {
+  feedbackState,
+  isLoading1State,
+  isLoading2State,
+  isLoading4State,
+} from 'state';
 import Feedbacks from 'components/feedbacks/feedbacks';
+import Loading from 'components/common/Loading';
 
 const HomePage = () => {
-  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
+  const [isOpen] = useRecoilState(feedbackState);
+  const [isLoading1] = useRecoilState(isLoading1State);
+  const [isLoading2] = useRecoilState(isLoading2State);
+  const [isLoading4] = useRecoilState(isLoading4State);
 
   return (
-    <HomePageContainer>
-      <HeaderContainer>
-        <HomeHeader />
-      </HeaderContainer>
-      <SideBarContainer>
-        <SideBar />
-      </SideBarContainer>
-      <SummaryHomeContainer>
-        <SummaryHome />
-      </SummaryHomeContainer>
-      {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
-      <TodoContainer>
-        <div className='text'>할 일</div>
-        <HomeToDo />
-      </TodoContainer>
-      <MiniTemplateContainer>
-        <MiniTemplate />
-      </MiniTemplateContainer>
-    </HomePageContainer>
+    <>
+      {isLoading1 && isLoading2 && isLoading4 ? <Loading /> : null}
+      <HomePageContainer>
+        <HeaderContainer>
+          <HomeHeader />
+        </HeaderContainer>
+        <SideBarContainer>
+          <SideBar />
+        </SideBarContainer>
+        <SummaryHomeContainer>
+          <SummaryHome />
+        </SummaryHomeContainer>
+        {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
+        <TodoContainer>
+          <HomeToDo />
+        </TodoContainer>
+        <MiniTemplateContainer>
+          <MiniTemplate />
+        </MiniTemplateContainer>
+      </HomePageContainer>
+    </>
   );
 };
 const HomePageContainer = styled.div`
   position: relative;
   width: 100vw;
-  height: 1400px;
+  height: 1100px;
   overflow: hidden;
 `;
 
@@ -62,7 +72,7 @@ const TodoContainer = styled.div`
   width: 87.5vw;
   height: 670px;
   left: 12.5vw;
-  top: 34.074074vh;
+  top: 37vh;
   overflow: hidden;
 
   .text {
@@ -85,7 +95,7 @@ const MiniTemplateContainer = styled.div`
   position: absolute;
   width: 87.5vw;
   left: 12.5vw;
-  top: 92.592593vh;
+  top: 92.5926vh;
 `;
 
 export default HomePage;

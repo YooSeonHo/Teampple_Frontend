@@ -35,16 +35,18 @@ const NotSummaryTeample = () => {
 
 const SummaryContainer = styled.div`
   width: 87.5vw;
-  height: 27.407407vh;
+  height: 30vh;
   position: relative;
+  background-color: #f9fafd;
   background-image: url(${HomeSummaryBg});
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 
 const DateContainer = styled.div`
   position: absolute;
   left: 2.81vw;
-  top: 3.3333vh;
+  top: 3.33vh;
   font-size: 0.83vw;
   line-height: 100%;
 `;
@@ -53,7 +55,7 @@ const RemainContainer = styled.div``;
 
 const RemainBox = styled.div`
   position: absolute;
-  top: 74px;
+  top: 6.85185vh;
   left: 2.81vw;
 `;
 
@@ -61,24 +63,24 @@ const Big = styled.div`
   font-size: 1.67vw;
   line-height: 100%;
   font-weight: 500;
-  margin-top: 1.481481vh;
+  margin-top: 1.48148vh;
 `;
 
 const Text = styled.span`
-font-size: 0.9375vw;
+  font-size: 0.9375vw;
   font-weight: 400;
   color: #707070;
 `;
 
 const BarContainer = styled.div`
   position: absolute;
-  top: 17.407407vh;
-  left: 2.8125vw;
+  top: 21.2963vh;
+  left: 4vw;
   ul {
     position: relative;
     padding: 0;
     list-style: none;
-    width: 40.208333vw;
+    width: 46.25vw;
   }
 
   li {
@@ -103,7 +105,7 @@ const Bar = styled.span`
     height: 40px;
     position: absolute;
     top: -10px;
-    right: -10px;
+    right: -0.5208vw;
     border-radius: 54px;
     background-image: url(${progress0});
     background-size: cover;

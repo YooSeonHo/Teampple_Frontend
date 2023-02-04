@@ -28,7 +28,7 @@ const Router = () => {
         <Route path="/template" element={<TemplatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/file" element={<FilePage />} />
-        <Route path="/ing" element={<Ing />} />
+        <Route path="/oauth/kakao/success/ing" element={<Ing />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

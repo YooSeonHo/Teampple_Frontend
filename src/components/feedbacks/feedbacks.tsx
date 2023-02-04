@@ -117,14 +117,20 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
       <div className="feedText">피드백</div>
       <div className="feedList">
         {fbList.map((fb: any, index: number) => (
-          <Feed id={fb.taskId} key={index} onClick={getTaskId} checked={fb.checked}>
+          <Feed
+            id={fb.taskId}
+            key={index}
+            onClick={getTaskId}
+            checked={fb.checked}
+          >
             <div className="icon">
-               {profileImg && 
-                  <img
-                    src={require('../images/profile/' +
-                      profileImg +
-                      '.png')}
-                  />}
+              {profileImg && (
+                <img
+                  src={require('../images/profile/proImageU' +
+                    profileImg +
+                    '.png')}
+                />
+              )}
             </div>
             <div className="feedContent" id={fb.taskId}>
               [{fb.teamName}]

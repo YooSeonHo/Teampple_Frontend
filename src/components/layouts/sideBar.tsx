@@ -66,7 +66,7 @@ const SideBarBox = styled.div`
     font-size: 0.9375vw;
     line-height: 22px;
     position: absolute;
-    top: 21px;
+    top: 2.6vh;
     left: 5.5vw;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -144,8 +144,8 @@ const SideBarBox = styled.div`
   }
 
   .endBox:hover {
-    background-color: #ff5854;
-    color: white;
+    background-color: #f7b6b5;
+    color: #ff5854;
     cursor: grab;
   }
   /* 추가로 클릭 되면 box 색 바뀌게 설정 */
@@ -222,6 +222,12 @@ const SideBarBox = styled.div`
   }
 `;
 
+const TeamBox = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
 const SideBar = () => {
   const [name, setName] = useRecoilState(usernameState);
   const [, setSchool] = useRecoilState(userschoolState);
@@ -237,6 +243,16 @@ const SideBar = () => {
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
   const [profileImg, setProfileImg] = useRecoilState(profileImgState);
   const navigate = useNavigate();
+
+  const activeButton = {
+    background: '#487AFF',
+    color: 'white',
+  };
+
+  const activeEndButton = {
+    background: '#FF5854',
+    color: 'white',
+  };
 
   const showModal = () => {
     setModal(!modal);
@@ -348,8 +364,14 @@ const SideBar = () => {
       <Link to="/profile" style={{ textDecoration: 'none' }}>
         <div className="user">
           <div className="profileImg">
-            {profileImg && (
-              <img src={require('../images/profile/' + profileImg + '.png')} />
+            {profileImg ? (
+              <img
+                src={require(`../images/profile/proImageU` +
+                  profileImg +
+                  `.png`)}
+              />
+            ) : (
+              <img src={prof1} />
             )}
           </div>
           <a id="userName">{name}</a>
@@ -373,18 +395,14 @@ const SideBar = () => {
       </div>
       <div style={{ overflow: 'auto' }}>
         {actTeamList.map((team: any, index: number) => (
-          <div
-            style={{
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-            }}
+          <TeamBox
             className="box"
             id={team.teamId}
             onClick={(e) => {
               getTeamid(e.target);
             }}
             key={index}
+            style={team.teamId === teamid ? activeButton : {}}
           >
             <div
               className="subBoxText"
@@ -398,23 +416,19 @@ const SideBar = () => {
             <div id="more" onClick={teampleOut}>
               <ImExit id="moreicon" />
             </div>
-          </div>
+          </TeamBox>
         ))}
 
-        {/* 끝난 팀플 css 수정 필요 */}
+        {/* 끝난 팀플 */}
         {finTeamList.map((team: any, index: number) => (
-          <div
+          <TeamBox
             className="endBox"
             id={team.teamId}
-            style={{
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-            }}
             onClick={(e) => {
               getTeamid(e.target);
             }}
             key={index}
+            style={team.teamId === teamid ? activeEndButton : {}}
           >
             <div
               className="subBoxText"
@@ -428,7 +442,7 @@ const SideBar = () => {
             <div id="more" onClick={teampleOut}>
               <ImExit id="moreicon" />
             </div>
-          </div>
+          </TeamBox>
         ))}
         <div className="newBox" id="newTeample" onClick={showModal}>
           <div>+ 새 팀플</div>

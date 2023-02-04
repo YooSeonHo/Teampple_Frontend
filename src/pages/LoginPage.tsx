@@ -27,40 +27,41 @@ const LoginPage = () => {
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
   const [, , code] = window.location.pathname.split('/');
-  const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458'; // 로컬 버전
-  const REDIRECT_URI = 'http://localhost:3000/login'; // 로컬 버전
+  // const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458'; // 로컬 버전
+  // const REDIRECT_URI = 'http://localhost:3000/login'; // 로컬 버전
   // const REST_API_KEY = 'efe60942fb73d266236ba244244c0899'; // 배포 버전 (배포할 때 이걸로!!!!)
   // const REDIRECT_URI = 'https://teampple.com/login';  // 배포 버전 (배포할 때 이걸로!!!!)
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  const handleLogin = () => {
-    // 1. 인가 코드 받기
-    window.location.href = KAKAO_AUTH_URL;
-  };
-  const location = useLocation();
-  const KAKAO_CODE = location.search.split('=')[1];
-  const getKakaoToken = () => {
-    // 2. 카카오에서 토큰 받아오기
-    fetch(`https://kauth.kakao.com/oauth/token`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setIdToken(data.id_token);
-        setKakaoAccessToken(data.access_token);
-        setKakaoRefreshToken(data.refresh_token);
-        // getKakaoInfo();
-        // navigate('/moreinfo');
-        // postAuthLoginAPI();
-        navigate('/ing');
-      })
-      .catch(() => {
-        alert('다시 시도하세요');
-      });
-  };
-  
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  // const handleLogin = () => {
+  //   // 1. 인가 코드 받기
+  //   window.location.href = KAKAO_AUTH_URL;
+  // };
+  // // const location = useLocation();
+  // // const KAKAO_CODE = location.search.split('=')[1];
+  // const getKakaoToken = () => {
+  //   // 2. 카카오에서 토큰 받아오기
+  //   fetch(`https://kauth.kakao.com/oauth/token`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //     body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //   setIdToken(data.id_token);
+  //   setKakaoAccessToken(data.access_token);
+  //   setKakaoRefreshToken(data.refresh_token);
+  //   // getKakaoInfo();
+  //   // navigate('/moreinfo');
+  //   // postAuthLoginAPI();
+  //   navigate('/ing');
+  // })
+  // .catch(() => {
+  //   alert('다시 시도하세요');
+  // });
+  // };
+
   const getTeamName = async () => {
     await axios({
       url: `/api/invitations/validation`,
@@ -76,10 +77,10 @@ const LoginPage = () => {
       }
     });
   };
-  useEffect(() => {
-    if (!location.search) return;
-    getKakaoToken();
-  }, []);
+  // useEffect(() => {
+  //   if (!location.search) return;
+  //   getKakaoToken();
+  // }, []);
   useEffect(() => {
     if (code) {
       getTeamName();
@@ -100,8 +101,8 @@ const LoginPage = () => {
       ) : (
         <></>
       )}
-      <KakaoButton onClick={handleLogin}>
-        <a href={KAKAO_AUTH_URL}>
+      <KakaoButton>
+        <a href="http://teampple.site/api/oauth2/authorization/kakao">
           <KakaoBtn />
         </a>
       </KakaoButton>
