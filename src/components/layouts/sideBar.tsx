@@ -232,7 +232,7 @@ const SideBar = () => {
   const [name, setName] = useRecoilState(usernameState);
   const [, setSchool] = useRecoilState(userschoolState);
   const [, setMajor] = useRecoilState(usermajorState);
-  const [, setTeamid] = useRecoilState(teamidState);
+  const [teamid, setTeamid] = useRecoilState(teamidState);
   const [actTeamList, setActTeamList] = useState([]);
   const [finTeamList, setFinTeamList] = useState([]);
   const [modal, setModal] = useState(false);
