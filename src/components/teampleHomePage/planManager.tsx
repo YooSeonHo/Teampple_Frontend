@@ -20,7 +20,7 @@ const PlanManager = () => {
   const [plans, setPlans] = useState([]);
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const [dueDate, setDueDate] = useState();
-  const [teamid, ] = useRecoilState(teamidState);
+  const [teamid] = useRecoilState(teamidState);
   const token = localStorage.getItem('jwt_accessToken');
 
   const getPlanAPI = async () => {
@@ -34,7 +34,7 @@ const PlanManager = () => {
       params: { teamId: teamid },
     })
       .then((response) => {
-        console.log(response)
+        console.log(response);
         setPlans(response.data.data.schedules);
         setDueDate(response.data.data.dueDate);
         setDeadDay(getDeadDay(response.data.data.dueDate));
@@ -53,7 +53,9 @@ const PlanManager = () => {
     const now = new Date();
     const distance = setDate.getTime() - now.getTime();
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-    return day + 1;
+    if (day + 1 === 0) return '- DAY';
+    else if (day + 1 < 0) return `+` + Math.abs(day + 1);
+    else return `-` + (day + 1);
   };
 
   const getPlanDay = (dueDate: any) => {
@@ -61,7 +63,9 @@ const PlanManager = () => {
     const now = new Date();
     const distance = setDate.getTime() - now.getTime();
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-    return day + 1;
+    if (day === 0) return '-DAY';
+    else if (day < 0) return `+` + Math.abs(day);
+    else return `-` + (day);
   };
 
   return (
@@ -70,14 +74,14 @@ const PlanManager = () => {
         <div className="text">일정 관리자</div>
         <div className="headerBox">
           <div className="headerText">프로젝트 마감까지</div>
-          <div className="headerdDay">D-{deadDay}</div>
+          <div className="headerdDay">D{deadDay}</div>
         </div>
       </div>
       <div className="contentBox">
         {plans &&
           plans.map((plan: IPlan, index: number) => (
             <Content key={index}>
-              <div className="contentdDay">D-{getPlanDay(plan.dueDate)}</div>
+              <div className="contentdDay">D{getPlanDay(plan.dueDate)}</div>
               <div className="contentInfo">
                 <div className="contentName">{plan.name}</div>
                 <div className="when">
@@ -212,7 +216,8 @@ const Content = styled.div`
     margin-top: 2.2222vh;
     margin-bottom: 2.2222vh;
     margin-left: 1.25vw;
-    margin-right: 1.4583vw;
+    margin-right: 1vw;
+    width: 2.7vw;
   }
 
   .contentInfo {
