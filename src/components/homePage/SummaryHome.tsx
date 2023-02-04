@@ -34,8 +34,8 @@ const SummaryHome = () => {
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
   const [profileImg] = useRecoilState(profileImgState);
+  // const [profileImage, setProfileImage] = useState(`proImageU` + profileImg);
   const [profileImage, setProfileImage] = useState(proImageU2);
-  //헐 이거 안 바꿈
 
   const getTaskAPI = async () => {
     setIsLoading4(true);
@@ -204,7 +204,7 @@ const Bar = styled.span<IBar>`
     height: 40px;
     position: absolute;
     top: -10px;
-    right: -0.5208vw;
+    right: -1.5vw;
     border: 1.5px solid #487aff;
     border-radius: 54px;
     background-image: url(${(props) => props.profileImage});
