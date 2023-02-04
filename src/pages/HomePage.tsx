@@ -26,6 +26,7 @@ const HomePage = () => {
       </SummaryHomeContainer>
       {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
       <TodoContainer>
+        <div className='text'>할 일</div>
         <HomeToDo />
       </TodoContainer>
       <MiniTemplateContainer>
@@ -61,14 +62,15 @@ const TodoContainer = styled.div`
   width: 87.5vw;
   height: 670px;
   left: 12.5vw;
-  top: 368px;
+  top: 34.074074vh;
   overflow: hidden;
+
   .text {
-    margin-top: 48px;
+    margin-top: 4.4444vh;
     color: #383838;
     font-weight: 500;
-    font-size: 1.24vw;
-    line-height: 29px;
+    font-size: 1.458333vw;
+    line-height: 100%;
     margin-left: 2.8125vw;
   }
 `;
@@ -83,7 +85,7 @@ const MiniTemplateContainer = styled.div`
   position: absolute;
   width: 87.5vw;
   left: 12.5vw;
-  top: 1000px;
+  top: 92.592593vh;
 `;
 
 export default HomePage;

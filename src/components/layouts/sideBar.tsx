@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import logo from '../images/logo.png';
 import house from '../images/House.png';
-import moreCircle from '../images/moreCircle.png';
 import usersThree from '../images/UsersThree.png';
 import folderIcon from '../images/FolderSimple.png';
 import headset from '../images/Headset.png';
@@ -69,6 +68,9 @@ const SideBarBox = styled.div`
     position: absolute;
     top: 21px;
     left: 5.5vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   #userImage {
@@ -221,18 +223,17 @@ const SideBarBox = styled.div`
 `;
 
 const SideBar = () => {
-  const [userid, setUserid] = useState(prof1);
   const [name, setName] = useRecoilState(usernameState);
-  const [school, setSchool] = useRecoilState(userschoolState);
-  const [major, setMajor] = useRecoilState(usermajorState);
-  const [teamid, setTeamid] = useRecoilState(teamidState);
+  const [, setSchool] = useRecoilState(userschoolState);
+  const [, setMajor] = useRecoilState(usermajorState);
+  const [, setTeamid] = useRecoilState(teamidState);
   const [actTeamList, setActTeamList] = useState([]);
   const [finTeamList, setFinTeamList] = useState([]);
   const [modal, setModal] = useState(false);
   const [nextModal, setNextModal] = useState(false);
   const token = localStorage.getItem('jwt_accessToken');
-  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
-  const [modal2, setModal2] = useRecoilState(modal2State);
+  const [, setIsOpen] = useRecoilState(feedbackState);
+  const [, setModal2] = useRecoilState(modal2State);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
   const [profileImg, setProfileImg] = useRecoilState(profileImgState);
   const navigate = useNavigate();
