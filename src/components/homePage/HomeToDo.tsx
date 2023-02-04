@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import arrow from '../images/ArrowLineRight2.png';
+import arrow from '../images/rightArrow.png';
 import done from '../images/done icon.png';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -118,7 +118,6 @@ const HomeToDoContainer = styled.div`
   position: relative;
   width: 87.5vw;
   height: 50.926vh;
-  overflow: auto;
 `;
 const Title = styled.div`
   position: absolute;
@@ -213,7 +212,8 @@ const ToDoText = styled.span`
 
 const Arrow = styled.img`
   position: absolute;
-  right: 0.9375vw;
+  right: 1.2vw;
+  width: 9px;
 `;
 
 const Done = styled.img`

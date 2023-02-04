@@ -51,6 +51,7 @@ const EditBox = styled.div`
     font-size: 1.468vw;
     line-height: 100%;
     text-align: center;
+    height: 20px;
   }
 
   .profileEmail {
@@ -60,6 +61,7 @@ const EditBox = styled.div`
     text-align: center;
     color: #383838;
     margin-top: 1.85185vh;
+    height: 20px;
   }
 
   .logout {
@@ -101,8 +103,8 @@ const EditBox = styled.div`
     color: #707070;
     margin-top: auto;
     margin-bottom: auto;
+    width: 50px;
     margin-left: 0.8333vw;
-    margin-right: 2.5925vh;
   }
 
   .name,
@@ -135,7 +137,7 @@ const EditBox = styled.div`
     font-size: 1.042vw;
     line-height: 100%;
     color: #383838;
-    margin-top: 12.04vh;
+    margin-top: 8vh;
 
     .myPlan {
       margin-bottom: 2.5926vh;
@@ -224,6 +226,11 @@ const EditProfile = () => {
       });
   };
 
+  const putProfile = () => {
+    if (name === '') alert('이름 입력은 필수입니다.');
+    else putProfileAPI();
+  };
+
   const postAuthLogoutAPI = async () => {
     await axios({
       url: `/api/auth/logout`,
@@ -251,7 +258,9 @@ const EditProfile = () => {
     <EditBox>
       <div className="profileImg">
         {profimg && (
-          <img src={require('../images/profile/' + profimg + '.png')} />
+          <img
+            src={require('../images/profile/proImageU' + profimg + '.png')}
+          />
         )}
       </div>
       <div className="profileInfo">
@@ -279,7 +288,7 @@ const EditProfile = () => {
           <input className="major" value={major} onChange={onMajor}></input>
         </div>
       </div>
-      <div className="editBtn" onClick={putProfileAPI}>
+      <div className="editBtn" onClick={putProfile}>
         <img src={editBtn} />
       </div>
       <div className="extraText">

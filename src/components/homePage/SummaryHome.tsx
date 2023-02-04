@@ -30,12 +30,12 @@ const SummaryHome = () => {
   const [remainPercent, setRemainPercent] = useState<number>(
     Math.round(Number(doneNum / allNum) * 100),
   );
-  // const [userid, setUserid] = useState(prof1);
   let s1 = 0;
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
   const [profileImg] = useRecoilState(profileImgState);
   const [profileImage, setProfileImage] = useState(proImageU2);
+  //헐 이거 안 바꿈
 
   const getTaskAPI = async () => {
     setIsLoading4(true);

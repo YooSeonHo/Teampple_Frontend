@@ -755,7 +755,7 @@ const DetailBox = () => {
               <div className="profileImg">
                 {user && (
                   <img
-                    src={require('../images/profile/' +
+                    src={require('../images/profile/proImageU' +
                       user.profileImage +
                       '.png')}
                   />
@@ -777,7 +777,7 @@ const DetailBox = () => {
                   <div className="feedBox" key={feedback.feedbackId}>
                     <div className="profileImg">
                       <img
-                        src={require('../images/profile/' +
+                        src={require('../images/profile/proImageU' +
                           feedback.adviserImage +
                           '.png')}
                       />
@@ -790,11 +790,15 @@ const DetailBox = () => {
                             .replace(/-/g, '.')
                             .replace('T', ' ')}
                         </div>
-                        {feedback.adviser === user?.name ?
-                        <div className="plusBtn" onClick={onDeleteFeed} id={feedback.feedbackId}>
-                          <img src={deleteBtn} />
-                        </div> : null
-                        }
+                        {feedback.adviser === user?.name ? (
+                          <div
+                            className="plusBtn"
+                            onClick={onDeleteFeed}
+                            id={feedback.feedbackId}
+                          >
+                            <img src={deleteBtn} />
+                          </div>
+                        ) : null}
                       </div>
                       <div className="feedContent">{feedback.comment}</div>
                     </div>

@@ -62,7 +62,7 @@ const MiniTemplateContainer = styled.div`
 
 const Title = styled.div`
   font-weight: 500;
-  font-size: 1.46vw;
+  font-size: 1.3vw;
   line-height: 100%;
   margin-bottom: 20px;
 `;

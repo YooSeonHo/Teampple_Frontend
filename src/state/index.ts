@@ -171,9 +171,9 @@ export const fbListState = atom<fbInfo[]>({
 })
 
 export const profileImgState = atom<string>({
-  key :'profileImg',
-  default : ''
-})
+  key: 'profileImg',
+  default: '',
+});
 
 export const teampleDetailState = atom<boolean>({
   key: `isOpen/${v1()}`,
@@ -207,22 +207,22 @@ export const isCheckedState = atom<boolean>({
 })
 
 export const isLoading1State = atom<boolean>({
-  key: 'isLoading1',
+  key: 'isLoading1/${v1()}',
   default: true,
 });
 
 export const isLoading2State = atom<boolean>({
-  key: 'isLoading2',
+  key: 'isLoading2/${v1()}',
   default: true,
 });
 
 export const isLoading3State = atom<boolean>({
-  key: 'isLoading3',
+  key: 'isLoading3/${v1()}',
   default: true,
 });
 
 export const isLoading4State = atom<boolean>({
-  key: 'isLoading4',
+  key: 'isLoading4/${v1()}',
   default: true,
 });
 

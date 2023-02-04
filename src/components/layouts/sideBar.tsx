@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import logo from '../images/logo.png';
 import house from '../images/House.png';
-import moreCircle from '../images/moreCircle.png';
 import usersThree from '../images/UsersThree.png';
 import folderIcon from '../images/FolderSimple.png';
 import headset from '../images/Headset.png';
@@ -245,7 +244,7 @@ const SideBar = () => {
 
   const activeButton = {
     background: '#487AFF',
-    color: 'white'
+    color: 'white',
   };
 
   const activeEndButton = {
@@ -363,8 +362,14 @@ const SideBar = () => {
       <Link to="/profile" style={{ textDecoration: 'none' }}>
         <div className="user">
           <div className="profileImg">
-            {profileImg && (
-              <img src={require('../images/profile/' + profileImg + '.png')} />
+            {profileImg ? (
+              <img
+                src={require(`../images/profile/proImageU` +
+                  profileImg +
+                  `.png`)}
+              />
+            ) : (
+              <img src={prof1} />
             )}
           </div>
           <a id="userName">{name}</a>
