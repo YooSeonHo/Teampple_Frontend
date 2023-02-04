@@ -110,7 +110,7 @@ const FileSize = styled.div`
 
 const BarContainer = styled.div`
   position: absolute;
-  bottom: 3vh;
+  bottom: 2vh;
   height: 0.8vh;
   ul {
     position: relative;
