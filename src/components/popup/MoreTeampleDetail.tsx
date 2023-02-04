@@ -40,7 +40,6 @@ const MoreTeampleDetail = () => {
 
   const onDelete = () => {
     delTaskAPI();
-    alert('삭제되었습니다');
     navigate(`/teample-home/${teamid}`);
     window.location.reload();
   };

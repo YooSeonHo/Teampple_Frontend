@@ -581,7 +581,6 @@ const DetailBox = () => {
       params: { feedbackId: feedId },
     })
       .then(() => {
-        alert('피드백이 삭제되었습니다.');
         location.reload();
       })
       .catch((e) => {
