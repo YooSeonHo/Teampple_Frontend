@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { profileImgState } from 'state';
+import prof1 from '../images/profile/proImageU1.png';
 
 const EditBox = styled.div`
   width: 50.625vw;
@@ -105,6 +106,7 @@ const EditBox = styled.div`
     margin-bottom: auto;
     width: 50px;
     margin-left: 0.8333vw;
+    margin-right: 0.8333vw;
   }
 
   .name,
@@ -137,7 +139,7 @@ const EditBox = styled.div`
     font-size: 1.042vw;
     line-height: 100%;
     color: #383838;
-    margin-top: 8vh;
+    margin-top: 13vh;
 
     .myPlan {
       margin-bottom: 2.5926vh;
@@ -257,10 +259,12 @@ const EditProfile = () => {
   return (
     <EditBox>
       <div className="profileImg">
-        {profimg && (
+        {profimg ? (
           <img
             src={require('../images/profile/proImageU' + profimg + '.png')}
           />
+        ) : (
+          <img src={prof1} />
         )}
       </div>
       <div className="profileInfo">

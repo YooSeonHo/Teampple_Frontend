@@ -49,13 +49,18 @@ const SideBarBox = styled.div`
 
   .user {
     display: flex;
+    align-items: center;
     margin-top: 15px;
-    width: 12.5vw;
+    margin-left: 1.04vw;
+    margin-top: 1.111vh;
+    width: 10.42vw;
     height: 64px;
     position: relative;
     color: #383838;
+    border-radius: 8px;
     &:hover {
       cursor: pointer;
+      background-color: #d4e4ff;
     }
   }
 
@@ -66,8 +71,7 @@ const SideBarBox = styled.div`
     font-size: 0.9375vw;
     line-height: 22px;
     position: absolute;
-    top: 2.6vh;
-    left: 5.5vw;
+    left: 5vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -79,13 +83,13 @@ const SideBarBox = styled.div`
     background-size: cover;
     border-radius: 40px;
     position: absolute;
-    top: 12px;
-    left: 1.875vw;
+    left: 1.2vw;
   }
 
   .box {
     color: #707070;
     margin-left: 1.04vw;
+    margin-top: 1.111vh;
     font-weight: 600;
     font-size: 0.9375vw;
     line-height: 100%;
@@ -121,12 +125,7 @@ const SideBarBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    /* color: #cccccc; */
-    color: white;
     opacity: 0;
-    :hover {
-      opacity: 1;
-    }
   }
 
   .endBox {
@@ -218,7 +217,7 @@ const SideBarBox = styled.div`
     border-radius: 50%;
     position: absolute;
     top: 12px;
-    left: 1.875vw;
+    left: 1.5vw;
   }
 `;
 
@@ -243,15 +242,22 @@ const SideBar = () => {
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
   const [profileImg, setProfileImg] = useRecoilState(profileImgState);
   const navigate = useNavigate();
+  const [clickHome, setClickHome] = useState(false);
 
   const activeButton = {
     background: '#487AFF',
-    color: 'white',
+    color: '#ffffff',
+    opacity: 1,
   };
 
   const activeEndButton = {
     background: '#FF5854',
     color: 'white',
+    opacity: 1,
+  };
+
+  const activeProfBtn = {
+    background: '#D4E4FF',
   };
 
   const showModal = () => {
@@ -266,28 +272,31 @@ const SideBar = () => {
   };
 
   //api 만들어지면 연결
-  // const delTeampleAPI = async () => {
-  //   await axios({
-  //     baseURL: 'https://www.teampple.site/',
-  //     url: 'api/tasks',
-  //     method: 'delete',
-  //     headers: {
-  //       Authorization: token,
-  //     },
-  //     params: { taskId: taskId },
-  //   })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
+  const delTeampleAPI = async () => {
+    await axios({
+      baseURL: 'https://www.teampple.site/',
+      url: 'api/teams',
+      method: 'delete',
+      headers: {
+        Authorization: token,
+      },
+      params: { teamId: teamid },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const teampleOut = () => {
-    // delTeampleAPI();
-    alert('팀플 나가기 성공');
-    navigate('/home');
+    if (window.confirm('정말로 팀플에서 나가시겠어요?')) {
+      delTeampleAPI();
+      alert('팀플 나가기 성공.');
+      navigate('/home');
+      location.reload();
+    }
   };
 
   const getTeamid = (t: any) => {
@@ -362,7 +371,10 @@ const SideBar = () => {
         </Link>
       </div>
       <Link to="/profile" style={{ textDecoration: 'none' }}>
-        <div className="user">
+        <div
+          className="user"
+          style={window.location.pathname === '/profile' ? activeProfBtn : {}}
+        >
           <div className="profileImg">
             {profileImg ? (
               <img
@@ -379,11 +391,23 @@ const SideBar = () => {
       </Link>
 
       <Link to="/home" style={{ textDecoration: 'none' }}>
-        <div className="box" style={{ marginTop: '12px' }}>
+        <div
+          className="box"
+          style={window.location.pathname === '/home' ? activeProfBtn : {}}
+        >
           <div className="iconWrap">
-            <img src={house} id="icon" />
+            <img
+              src={house}
+              id="icon"
+              style={window.location.pathname === '/home' ? activeProfBtn : {}}
+            />
           </div>
-          <div className="boxText">홈</div>
+          <div
+            className="boxText"
+            style={window.location.pathname === '/home' ? activeProfBtn : {}}
+          >
+            홈
+          </div>
         </div>
       </Link>
 
@@ -402,7 +426,11 @@ const SideBar = () => {
               getTeamid(e.target);
             }}
             key={index}
-            style={team.teamId === teamid ? activeButton : {}}
+            style={
+              window.location.pathname === `/teample-home/${team.teamId}`
+                ? activeButton
+                : {}
+            }
           >
             <div
               className="subBoxText"
@@ -414,7 +442,14 @@ const SideBar = () => {
               {team.name}
             </div>
             <div id="more" onClick={teampleOut}>
-              <ImExit id="moreicon" />
+              <ImExit
+                id="moreicon"
+                style={
+                  window.location.pathname === `/teample-home/${team.teamId}`
+                    ? activeButton
+                    : {}
+                }
+              />
             </div>
           </TeamBox>
         ))}
@@ -428,7 +463,11 @@ const SideBar = () => {
               getTeamid(e.target);
             }}
             key={index}
-            style={team.teamId === teamid ? activeEndButton : {}}
+            style={
+              window.location.pathname === `/teample-home/${team.teamId}`
+                ? activeEndButton
+                : {}
+            }
           >
             <div
               className="subBoxText"
@@ -440,7 +479,14 @@ const SideBar = () => {
               {team.name}
             </div>
             <div id="more" onClick={teampleOut}>
-              <ImExit id="moreicon" />
+              <ImExit
+                id="moreicon"
+                style={
+                  window.location.pathname === `/teample-home/${team.teamId}`
+                    ? activeEndButton
+                    : {}
+                }
+              />
             </div>
           </TeamBox>
         ))}
