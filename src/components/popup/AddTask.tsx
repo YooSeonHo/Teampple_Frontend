@@ -16,6 +16,7 @@ import {
 } from 'state';
 import moment from 'moment';
 import axios from 'axios';
+import { baseURL } from 'api/client';
 
 const AddTask = ({ setModal }: any) => {
   const today = new window.Date();
@@ -44,7 +45,7 @@ const AddTask = ({ setModal }: any) => {
   const postTasksAPI = async () => {
     await axios({
       url: `/api/tasks`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'post',
       headers: {
         Authorization: token,
@@ -79,7 +80,7 @@ const AddTask = ({ setModal }: any) => {
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,

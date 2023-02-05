@@ -26,6 +26,7 @@ import MoreTeampleDetail from 'components/popup/MoreTeampleDetail';
 import ModifyTask from 'components/popup/ModifyTask';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { baseURL } from 'api/client';
 
 const DetailContainer = styled.div`
   width: 52.0833vw;
@@ -455,7 +456,7 @@ const DetailBox = () => {
   const postFile = async () => {
     await axios({
       url: `/api/files`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'post',
       data: {
         fileName: file?.name,
@@ -482,7 +483,7 @@ const DetailBox = () => {
   const getDetail = async () => {
     await axios({
       url: `/api/tasks`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'get',
       params: {
         taskId: taskId,
@@ -502,7 +503,7 @@ const DetailBox = () => {
   const getUser = async () => {
     await axios({
       url: '/api/users/userprofiles',
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,
@@ -523,7 +524,7 @@ const DetailBox = () => {
     } else {
       await axios({
         url: '/api/feedbacks',
-        baseURL: 'https://www.teampple.site/',
+        baseURL: baseURL,
         method: 'post',
         headers: {
           Authorization: token,
@@ -555,7 +556,7 @@ const DetailBox = () => {
   const onChangeStatus = async () => {
     await axios({
       url: '/api/tasks/status',
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'post',
       headers: {
         Authorization: token,
@@ -573,7 +574,7 @@ const DetailBox = () => {
   const onDeleteFeed = async (feedId: number) => {
     await axios({
       url: '/api/feedbacks',
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'delete',
       headers: {
         Authorization: token,
@@ -617,7 +618,7 @@ const DetailBox = () => {
 
   const delTaskAPI = async (fileId: number) => {
     await axios({
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       url: 'api/files',
       method: 'delete',
       headers: {

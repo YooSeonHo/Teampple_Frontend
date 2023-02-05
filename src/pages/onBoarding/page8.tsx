@@ -7,12 +7,12 @@ export const Background = styled.div`
   background-image: url('${page8}');
   width: 100vw;
   text-align: center;
-  height: 56.851852vh;
-  background-size: contain;
+  height: 63vh;
+  background-size: 100vw;
   background-repeat: no-repeat;
   margin: auto;
   background-color: #487aff;
-  margin-top: 28.70370vh;
+  margin-top: 10vh;
 `;
 
 const Contents = styled.div`

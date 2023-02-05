@@ -6,6 +6,7 @@ import { FileInfo } from 'interfaces';
 import { useRecoilState } from 'recoil';
 import { IsSearchState, searchFileState, teamidState,taskIdState } from 'state';
 import { Link } from 'react-router-dom';
+import { baseURL } from 'api/client';
 
 const ListBox = styled.div`
   width: 61.042vw;
@@ -142,7 +143,7 @@ const FileList = () => {
     const getFiles = async () => {
       await axios({
         url: `/api/files`,
-        baseURL: 'https://www.teampple.site/',
+        baseURL: baseURL,
         method: 'get',
         params: {
           teamId: teamid,

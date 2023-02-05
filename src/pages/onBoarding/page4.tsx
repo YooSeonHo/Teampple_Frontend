@@ -43,7 +43,7 @@ export const Background = styled.div`
   background-image: url('${page4}');
   width: 61.041667vw;
   height: 73.425926vh;
-  background-size: contain;
+  background-size: 61.041667vw;
   background-repeat: no-repeat;
   margin: auto;
 `;

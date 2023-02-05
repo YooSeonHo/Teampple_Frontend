@@ -14,6 +14,7 @@ import { stageInfo } from 'interfaces';
 import { stageState, teamidState } from 'state';
 import moment from 'moment';
 import axios from 'axios';
+import { baseURL } from 'api/client';
 
 const ModDiv = (props: any) => {
   const [step, setStep] = useRecoilState(stepState);
@@ -24,7 +25,7 @@ const ModDiv = (props: any) => {
   const getStage = async () => {
     await axios({
       url: '/api/stages',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,

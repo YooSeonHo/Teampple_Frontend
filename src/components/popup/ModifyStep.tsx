@@ -18,6 +18,7 @@ import {
 import moment from 'moment';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import axios from 'axios';
+import { baseURL } from 'api/client';
 
 const ModifyStep = ({ setModal }: any) => {
   const token = localStorage.getItem('jwt_accessToken');
@@ -35,7 +36,7 @@ const ModifyStep = ({ setModal }: any) => {
   const putTeample = async () => {
     await axios({
       url: '/api/stages',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'put',
       headers: {
         Authorization: token,

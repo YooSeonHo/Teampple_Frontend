@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { profileImgState } from 'state';
 import prof1 from '../images/profile/proImageU1.png';
+import { baseURL } from 'api/client';
 
 const EditBox = styled.div`
   width: 50.625vw;
@@ -184,7 +185,7 @@ const EditProfile = () => {
 
   const getProfile = async () => {
     await axios({
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       url: 'api/users/userprofiles',
       method: 'get',
       headers: {
@@ -207,7 +208,7 @@ const EditProfile = () => {
   const putProfileAPI = async () => {
     await axios({
       url: `api/users/userprofiles`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'put',
       headers: {
         Authorization: token,
@@ -236,7 +237,7 @@ const EditProfile = () => {
   const postAuthLogoutAPI = async () => {
     await axios({
       url: `/api/auth/logout`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'post',
       headers: {
         Authorization: token,

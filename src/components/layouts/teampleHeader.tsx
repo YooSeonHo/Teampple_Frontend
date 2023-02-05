@@ -15,6 +15,7 @@ import {
 } from 'state';
 import axios from 'axios';
 import { AiFillMessage } from 'react-icons/ai';
+import { baseURL } from 'api/client';
 
 const MsgIcon = styled(AiFillMessage)`
   // position: absolute;
@@ -203,7 +204,7 @@ const TeampleHeader = () => {
   const getFeedbackAPI = async () => {
     await axios({
       url: `/api/users/feedbacks`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,
@@ -245,7 +246,7 @@ const TeampleHeader = () => {
   const getTHeader = async () => {
     await axios({
       method: 'get',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       url: '/api/teams',
       params: { teamId: teamid },
       headers : {
