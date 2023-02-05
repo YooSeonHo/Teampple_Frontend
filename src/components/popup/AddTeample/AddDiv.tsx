@@ -87,6 +87,16 @@ const AddDiv = (props: any) => {
      setStages(temp);
   }
 
+
+  // const checkDate = () =>{
+  //   const temp = stages.map((s)=> s.startDate > s.dueDate ? {...s, dueDate : s.startDate} : s)
+  //   setStages(temp);
+  // }
+
+  // useEffect(()=>{
+  //     checkDate();
+  // },[stages])
+
   return (
     <AddDivContainer>
       <form onSubmit={handleSubmit(Subb)}>
@@ -142,6 +152,7 @@ const AddDiv = (props: any) => {
                       selected={new Date(i.dueDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                       popperProps={{strategy: 'fixed'}}
+                      minDate={new Date(i.startDate)}
                       onChange={(date: Date) => {
                         const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ?{...s, dueDate : date} : s)
                         //  {...s, dueDate : moment(date, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'} : s)
