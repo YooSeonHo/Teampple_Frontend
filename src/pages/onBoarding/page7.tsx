@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import page7 from './images/Component 7.png';
-import { Box } from "./page5";
+import { Box } from "./page4";
 import AOS from 'aos';
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -34,7 +34,7 @@ const Page7 = () =>{
       })
 
     return(
-        <Box data-aos="fade-up">
+        <Box data-aos="fade-up" style={{height : '50vh'}}>
             <Content>
                 <div>이런 사람들에게 필요해요</div>
             </Content>
