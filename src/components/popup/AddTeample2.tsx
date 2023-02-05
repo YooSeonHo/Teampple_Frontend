@@ -105,11 +105,21 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
     const TrimCheck: stageInfo[] = stages.filter((stag) => {
       return stag.name.trim() === '';
     });
+    const DateCheck: stageInfo[] = stages.filter((stag) => {
+      return stag.startDate > stag.dueDate;
+    });
 
-    if (TrimCheck.length >= 1) {
+    if (TrimCheck.length >= 1 || DateCheck.length >= 1) {
+      if (TrimCheck.length >= 1){
       TrimCheck.map((tr: stageInfo) =>
-        alert(`${tr.sequenceNum}단계를 확인해주세요.`),
+        alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
       );
+      }
+      if (DateCheck.length >= 1){
+        DateCheck.map((da : stageInfo) =>
+          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`)
+        )
+      }
     } else {
       setTemp(
         stages.map((s) => ({
@@ -136,7 +146,8 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
 
   useDidMountEffect(async () => {
     if (makeTeample.stages.length !== 0) {
-      await postTeample();
+      // await postTeample();
+      console.log(makeTeample)
     }
   }, [makeTeample]);
 
