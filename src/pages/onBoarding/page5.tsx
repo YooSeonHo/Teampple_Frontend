@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import page5 from './images/Component 5.png';
-import { Box,Contents } from "./page4";
+import {Contents } from "./page4";
 import AOS from 'aos';
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -14,6 +14,14 @@ export const Background = styled.div`
     background-repeat : no-repeat;
     margin: auto;
     margin-top : 4.7222vh;
+`;
+
+export const Box = styled.div`
+  width: 100%;
+  text-align: center;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 

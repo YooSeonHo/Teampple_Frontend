@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import page7 from './images/Component 7.png';
-import { Box } from "./page4";
+import { Box } from "./page5";
 import AOS from 'aos';
 import "aos/dist/aos.css";
 import { useEffect } from "react";
