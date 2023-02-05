@@ -7,13 +7,13 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 
 export const Background = styled.div`
-    background-image : url('${page5}');
-    width: 61.041667vw;
-    height : 37.037037vh;
-    background-size: contain;
-    background-repeat : no-repeat;
-    margin: auto;
-    margin-top : 4.7222vh;
+  background-image: url('${page5}');
+  width: 61.041667vw;
+  height: 37.037037vh;
+  background-size: 61.041667vw;
+  background-repeat: no-repeat;
+  margin: auto;
+  margin-top: 4.7222vh;
 `;
 
 
