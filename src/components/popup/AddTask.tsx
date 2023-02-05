@@ -118,6 +118,16 @@ const AddTask = ({ setModal }: any) => {
     }
   };
 
+  const checkDate = () =>{
+    if (startDate > endDate) {
+      setEndDate(startDate);
+    } 
+  }
+
+  useEffect(()=>{
+    checkDate();
+  },[startDate,endDate])
+
   // const onRemoveHandle = (item: string, id:number) => {
   //   setCheckedNameList(checkedNameList.filter((el) => el !== item));
   //   setCheckedIdList(checkedIdList.filter((el) => el !== id));
@@ -157,6 +167,7 @@ const AddTask = ({ setModal }: any) => {
             locale={ko} //한글
             dateFormat="yyyy.MM.dd"
             selected={endDate}
+            minDate={startDate}
             closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
             onChange={(date: Date) => setEndDate(date)}
           />

@@ -93,9 +93,6 @@ const AddDiv = (props: any) => {
   //   setStages(temp);
   // }
 
-  // useEffect(()=>{
-  //     checkDate();
-  // },[stages])
 
   return (
     <AddDivContainer>
@@ -131,7 +128,7 @@ const AddDiv = (props: any) => {
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                       popperProps={{strategy: 'fixed'}}
                       onChange={(date: Date) => {
-                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, startDate : date} : s)
+                        const temp = stages.map((s)=> s.sequenceNum === i.sequenceNum ? {...s, startDate : date}  : s)
                         setStages(temp);
                       }}
                       
