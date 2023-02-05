@@ -51,6 +51,16 @@ const ModifyTeample = ({ setModal1 }: any) => {
     getTeamInfo();
   }, []);
 
+  const checkDate = () =>{
+    if (startDate > endDate) {
+      setEndDate(startDate);
+    } 
+  }
+
+  useEffect(()=>{
+    checkDate();
+  },[startDate,endDate])
+
   const postSchedulesAPI = async () => {
     await axios({
       url: `/api/teams`,
@@ -138,6 +148,7 @@ const ModifyTeample = ({ setModal1 }: any) => {
                 locale={ko} //한글
                 dateFormat="yyyy.MM.dd"
                 selected={endDate}
+                minDate={startDate}
                 closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                 onChange={(date: Date) => setEndDate(date)}
               />

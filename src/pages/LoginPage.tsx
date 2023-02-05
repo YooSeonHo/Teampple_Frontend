@@ -98,7 +98,7 @@ const Desc = styled.div`
   position: absolute;
   top: 339px;
 `;
-const KakaoButton = styled.button`
+const KakaoButton = styled.button<any>`
   position: absolute;
   top: 494px;
 `;

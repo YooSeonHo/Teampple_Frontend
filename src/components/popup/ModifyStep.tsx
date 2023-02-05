@@ -77,10 +77,21 @@ const ModifyStep = ({ setModal }: any) => {
     const TrimCheck: stageInfo[] = stages.filter((stag) => {
       return stag.name.trim() === '';
     });
-    if (TrimCheck.length >= 1) {
+    const DateCheck: stageInfo[] = stages.filter((stag) => {
+      return ((moment(stag.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +'T' + '00:00:00') > 
+      moment(stag.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') +'T' + '00:00:00');
+    });
+    if (TrimCheck.length >= 1 || DateCheck.length >= 1) {
+      if (TrimCheck.length >= 1){
       TrimCheck.map((tr: stageInfo) =>
-        alert(`${tr.sequenceNum}단계를 확인해주세요.`),
+        alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
       );
+      }
+      if (DateCheck.length >= 1){
+        DateCheck.map((da : stageInfo) =>
+          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`)
+        )
+      }
     }
     else {
       setTemp(

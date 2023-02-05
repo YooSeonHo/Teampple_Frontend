@@ -107,7 +107,7 @@ const SummaryHome = () => {
                 <Bar
                   className="css-progressbar"
                   remainPercent={remainPercent}
-                  profileImage={profileImage}
+                  profileImage={profileImg}
                 />
               </li>
             </ul>
@@ -208,7 +208,7 @@ const Bar = styled.span<IBar>`
     right: -1.5vw;
     border: 1.5px solid #487aff;
     border-radius: 54px;
-    background-image: url(${(props) => props.profileImage});
+    background-image: url(${(props) => require('../images/profile/proImageU' + props.profileImage+ '.png')});
     background-size: cover;
   }
 

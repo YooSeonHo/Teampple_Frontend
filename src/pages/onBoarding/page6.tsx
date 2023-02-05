@@ -27,7 +27,7 @@ const Page6 = () =>{
       })
 
     return(
-        <Box data-aos="fade-up">
+        <Box data-aos="fade-up" style={{height : '75vh'}}>
             <Contents style={{width : '467px', height : '125px'}}>
                 <div className="top">알짜배기 템플릿 / 꿀팁 컨텐츠!</div>
                 <div className="mid">PPT 템플릿, 보고서 양식이 너무 많아 고르기 어려우셨나요?<br/> 팀플에 꼭 필요한 템플릿, 꿀팁 정보를 선별해 제공합니다.</div>

@@ -302,6 +302,8 @@ const ToDoCard = ({ todoList }: any) => {
   const nowCheck = (startTime: Date, dueTime: Date) => {
     const start = new Date(startTime);
     const end = new Date(dueTime);
+    start.setHours(0,0,0);
+    end.setHours(0,0,0);
     end.setDate(end.getDate() + 1);
     if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()) {
       return true;
