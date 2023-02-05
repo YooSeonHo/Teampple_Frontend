@@ -48,7 +48,7 @@ const Contents = styled.div`
         font-weight: 400;
         font-size: 0.9375vw;
         margin-top : 1.351852vh;
-        line-height: 140%;
+        line-height: 150%;
         color: #A7A7A7;
     }
 `;

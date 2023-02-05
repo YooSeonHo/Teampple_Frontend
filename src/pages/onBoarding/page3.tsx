@@ -9,7 +9,6 @@ import { useEffect } from "react";
 const Box = styled.div`
     width :100%;
     height : 100vh;
-    position : relative;
     margin : auto;
     display : flex;
     flex-direction : column;
@@ -20,7 +19,6 @@ const Box = styled.div`
         line-height: 160%;
         text-align: center;
         color: #505050;
-        margin-top : auto;
         span{
             color : #487AFF;
         }
@@ -37,7 +35,6 @@ const Box = styled.div`
     background-size: contain;
     background-repeat : no-repeat;
     margin : auto;
-    margin-top : 13.148148vh;
     
 `;
 
