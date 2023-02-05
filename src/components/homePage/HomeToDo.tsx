@@ -134,6 +134,7 @@ const ToDosContainer = styled.div`
   width: 87.5vw;
   height: 44.444vh;
   display: flex;
+  overflow: auto;
 `;
 const ToDoContainer = styled.div`
   width: 19.375vw;

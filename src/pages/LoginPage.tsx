@@ -58,7 +58,7 @@ const LoginPage = () => {
         <></>
       )}
       <KakaoButton onClick={saveInviteCode}>
-        <a href="http://teampple.site/api/oauth2/authorization/kakao">
+        <a href="http://teampple.com/api/oauth2/authorization/kakao">
           <KakaoBtn />
         </a>
       </KakaoButton>
