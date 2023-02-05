@@ -28,6 +28,7 @@ const TemplateList = () => {
     })
       .then((response) => {
         setTemplates(response.data.data);
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);

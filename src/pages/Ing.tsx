@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import axios from 'axios';
 import BeatLoader from 'react-spinners/BeatLoader';
@@ -8,13 +8,18 @@ const Ing = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem('jwt_accessToken', location.search.split('=')[1]);
-    joinTeam();
-    navigate('/home');
-    window.location.reload();
-    localStorage.removeItem('code');
+    localStorage.setItem(
+      'jwt_accessToken',
+      location.search.split('=')[1].split('&')[0],
+    );
+    localStorage.setItem('jwt_refreshToken', location.search.split('=')[2]);
+    if (localStorage.getItem('code')) {
+      joinTeam();
+      localStorage.removeItem('code');
+    }
+    if (localStorage.getItem('jwt_accessToken')) navigate('/home');
+    else window.location.reload();
   }, []);
-
 
   const joinTeam = async () => {
     await axios({
@@ -25,7 +30,7 @@ const Ing = () => {
         code: localStorage.getItem('code'),
       },
       headers: {
-        Authorization: location.search.split('=')[1],
+        Authorization: location.search.split('=')[1].split('&')[0],
       },
     })
       .then((res) => {
