@@ -11,11 +11,10 @@ export const Background = styled.div`
   background-image: url('${page1}');
   width: 100vw;
   height: 100vh;
-  background-size: contain;
+  background-size: 100vw;
   background-repeat: no-repeat;
   justify-content: center;
   display: flex;
-  overflow: hidden;
 `;
 
 const ContentBox = styled.div`

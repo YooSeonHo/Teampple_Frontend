@@ -8,6 +8,7 @@ import progress4 from '../images/progressbar/LoadingIcon_lightening.png';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { teamidState, isLoading5State } from 'state';
+import { baseURL } from 'api/client';
 
 const SummaryTeample = () => {
   const now = new Date();
@@ -57,7 +58,7 @@ const SummaryTeample = () => {
     setIsLoading5(true);
     await axios({
       url: `/api/teams/tasks`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,

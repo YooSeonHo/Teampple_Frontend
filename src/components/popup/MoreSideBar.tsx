@@ -6,6 +6,7 @@ import { teampleDetailState } from 'state';
 import axios from 'axios';
 import { taskIdState, teamidState } from 'state';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from 'api/client';
 
 const MoreSideBar = () => {
   const [modal, setModal] = useRecoilState(teampleDetailState);
@@ -20,7 +21,7 @@ const MoreSideBar = () => {
 
   const delTeampleAPI = async () => {
     await axios({
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       url: 'api/tasks',
       method: 'delete',
       headers: {

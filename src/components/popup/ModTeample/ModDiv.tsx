@@ -14,6 +14,7 @@ import { stageInfo } from 'interfaces';
 import { stageState, teamidState } from 'state';
 import moment from 'moment';
 import axios from 'axios';
+import { baseURL } from 'api/client';
 
 const ModDiv = (props: any) => {
   const [step, setStep] = useRecoilState(stepState);
@@ -24,7 +25,7 @@ const ModDiv = (props: any) => {
   const getStage = async () => {
     await axios({
       url: '/api/stages',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,
@@ -145,6 +146,7 @@ const ModDiv = (props: any) => {
                       locale={ko} //한글
                       dateFormat="yyyy.MM.dd"
                       selected={new Date(i.dueDate)}
+                      minDate={new Date(i.startDate)}
                       closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
                       popperProps={{ strategy: 'fixed' }}
                       onChange={(date: Date) => {

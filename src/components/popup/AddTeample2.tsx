@@ -22,6 +22,7 @@ import moment from 'moment';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { baseURL } from 'api/client';
 
 const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
@@ -52,7 +53,7 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   const postTeample = async () => {
     await axios({
       url: '/api/teams',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'post',
       headers: {
         Authorization: token,
@@ -105,11 +106,21 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
     const TrimCheck: stageInfo[] = stages.filter((stag) => {
       return stag.name.trim() === '';
     });
+    const DateCheck: stageInfo[] = stages.filter((stag) => {
+      return stag.startDate > stag.dueDate;
+    });
 
-    if (TrimCheck.length >= 1) {
+    if (TrimCheck.length >= 1 || DateCheck.length >= 1) {
+      if (TrimCheck.length >= 1){
       TrimCheck.map((tr: stageInfo) =>
-        alert(`${tr.sequenceNum}단계를 확인해주세요.`),
+        alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
       );
+      }
+      if (DateCheck.length >= 1){
+        DateCheck.map((da : stageInfo) =>
+          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`)
+        )
+      }
     } else {
       setTemp(
         stages.map((s) => ({
@@ -136,7 +147,8 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
 
   useDidMountEffect(async () => {
     if (makeTeample.stages.length !== 0) {
-      await postTeample();
+      // await postTeample();
+      console.log(makeTeample)
     }
   }, [makeTeample]);
 

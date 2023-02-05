@@ -8,6 +8,7 @@ import { useRecoilState } from 'recoil';
 import { teamMateNumState, modal2State, teamidState } from 'state';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { baseURL } from 'api/client';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
@@ -19,7 +20,7 @@ const TeamMateInfo = () => {
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       params: { teamId: teamid },
       headers: {
@@ -39,7 +40,7 @@ const TeamMateInfo = () => {
   const getLink = async () => {
     await axios({
       url: '/api/invitations',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       params: { teamId: teamid },
       headers: {
@@ -89,7 +90,7 @@ const TeamMateInfo = () => {
       <TeamMateBox>
         {user && (
           <TeamMate>
-            <Profile />
+            <Profile profileImage={user.image}/>
             <TextInfo>
               <Name>{user.name}</Name>
               <School>
@@ -102,7 +103,7 @@ const TeamMateInfo = () => {
         {teamMates &&
           teamMates.map((teamMate: ITeamMate) => (
             <TeamMate key={teamMate.name}>
-              <Profile />
+              <Profile profileImage={teamMate.image}/>
               <TextInfo>
                 <Name>{teamMate.name}</Name>
                 <School>
@@ -155,12 +156,12 @@ const TeamMate = styled.div`
   display: flex;
 `;
 
-const Profile = styled.div`
+const Profile = styled.div<any>`
   width: 2.08333vw;
   height: 3.7037vh;
   border-radius: 16px;
   background: #fce44c;
-  background-image: url(${prof}); //사용자별 프로필 이미지 들어갈 예정
+  background-image: url(${(props) => require('../images/profile/proImageU' + props.profileImage+ '.png')});
   background-size: cover;
 `;
 const TextInfo = styled.div`

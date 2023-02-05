@@ -10,6 +10,7 @@ import { useRecoilState } from 'recoil';
 import { zIndexState, teamidState } from 'state';
 import axios from 'axios';
 import moment from 'moment';
+import { baseURL } from 'api/client';
 
 const AddSchedule = ({ setModal }: any) => {
   const today = new window.Date();
@@ -41,7 +42,7 @@ const AddSchedule = ({ setModal }: any) => {
   const postSchedulesAPI = async () => {
     await axios({
       url: `/api/teams/schedules`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'post',
       headers: {
         Authorization: token,

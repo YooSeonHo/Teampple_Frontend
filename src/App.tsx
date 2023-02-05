@@ -3,6 +3,7 @@ import Router from './Router';
 import { RecoilRoot } from 'recoil';
 import { GlobalStyle } from './css/GlobalStyle';
 import axios from 'axios';
+import { baseURL } from 'api/client';
 
 function App() {
   const accessToken = localStorage.getItem('jwt_accessToken');
@@ -12,7 +13,7 @@ function App() {
     if (refreshToken) {
       await axios({
         url: '/api/auth/reIssuance',
-        baseURL: 'https://www.teampple.site/',
+        baseURL: baseURL,
         method: 'post',
         headers: {
           Authorization: accessToken,
@@ -36,16 +37,17 @@ function App() {
         })
         .catch((error) => {
           console.log(error);
-          localStorage.removeItem('jwt_accessToken');
-          localStorage.removeItem('jwt_refreshToken');
+          alert('로그인 연장 실패. 다시 로그인하세요.');
+          // localStorage.removeItem('jwt_accessToken');
+          // localStorage.removeItem('jwt_refreshToken');
         });
     }
   };
 
-  if (performance.navigation.type === 1) {
-    //새로고침하면 바로 로그인 연장(토큰 갱신)
-    reToken();
-  }
+  // if (performance.navigation.type === 1) {
+  //   //새로고침하면 바로 로그인 연장(토큰 갱신)
+  //   reToken();
+  // }
 
   return (
     <RecoilRoot>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
+import { baseURL } from 'api/client';
 
 interface IFileMap {
   size: number;
@@ -22,7 +23,7 @@ const FileInfo = () => {
     const getFiles = async () => {
       await axios({
         url: `/api/files`,
-        baseURL: 'https://www.teampple.site/',
+        baseURL: baseURL,
         method: 'get',
         headers: {
           Authorization: token,

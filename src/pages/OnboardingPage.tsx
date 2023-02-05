@@ -11,8 +11,6 @@ import OnBoardingLayOut from 'components/layouts/onBoardingLayout';
 
 
 const OnboardingPage = () => {
-
-
   return (
     <OnBoardingLayOut>
       <Page1/>

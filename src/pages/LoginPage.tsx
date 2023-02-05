@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import KakaoBtn from 'components/loginPage/KakaoBtn';
 import Logo from '../components/images/Logo_login.png';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import axios from 'axios';
+import { baseURL } from 'api/client';
+import { kakaobaseURL } from 'api/client';
+
 const LoginPage = () => {
   // 초대받았다면 팀 이름 출력
   const [teamname, setTeamname] = useState('경영전략');
@@ -14,7 +17,7 @@ const LoginPage = () => {
   const getTeamName = async () => {
     await axios({
       url: `/api/invitations/validation`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'get',
       params: {
         code: code,
@@ -58,7 +61,7 @@ const LoginPage = () => {
         <></>
       )}
       <KakaoButton onClick={saveInviteCode}>
-        <a href="http://teampple.com/api/oauth2/authorization/kakao">
+        <a href={kakaobaseURL}>
           <KakaoBtn />
         </a>
       </KakaoButton>
