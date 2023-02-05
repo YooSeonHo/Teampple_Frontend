@@ -13,6 +13,7 @@ import {
   isLoading2State,
 } from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
+import { baseURL } from 'api/client';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
@@ -27,7 +28,7 @@ const HomeToDo = () => {
     setIsLoading1(true);
     await axios({
       url: `/api/tasks`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'get',
       params: {
         taskId: taskId,
@@ -49,7 +50,7 @@ const HomeToDo = () => {
     setIsLoading2(true);
     await axios({
       url: `/api/users/tasks`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,

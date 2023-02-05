@@ -8,6 +8,7 @@ import { useRecoilState } from 'recoil';
 import { teamMateNumState, modal2State, teamidState } from 'state';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { baseURL } from 'api/client';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
@@ -19,7 +20,7 @@ const TeamMateInfo = () => {
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       params: { teamId: teamid },
       headers: {
@@ -39,7 +40,7 @@ const TeamMateInfo = () => {
   const getLink = async () => {
     await axios({
       url: '/api/invitations',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       params: { teamId: teamid },
       headers: {

@@ -5,6 +5,7 @@ import { StyledToDoBoxInfo } from 'interfaces';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { taskIdState, teamidState, isLoading3State } from 'state';
+import { baseURL } from 'api/client';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: ${(props) => (props.pathname === '/home' ? '87.5vw' : '66.25vw')};
@@ -50,7 +51,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
     setIsLoading3(true);
     await axios({
       url: `/api/teams/tasks`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,

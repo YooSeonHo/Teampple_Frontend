@@ -22,6 +22,7 @@ import moment from 'moment';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { baseURL } from 'api/client';
 
 const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
@@ -52,7 +53,7 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   const postTeample = async () => {
     await axios({
       url: '/api/teams',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'post',
       headers: {
         Authorization: token,

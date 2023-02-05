@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { searchTemplateState, IsSearchTemplateState } from 'state';
+import { baseURL } from 'api/client';
 
 interface ITemplate {
   templateId: number;
@@ -20,7 +21,7 @@ const TemplateList = () => {
   const getTemplateAPI = async () => {
     await axios({
       url: `/api/templates`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,

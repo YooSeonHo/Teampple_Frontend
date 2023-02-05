@@ -9,6 +9,7 @@ import {
 } from 'state';
 import feedback from '../images/feedback.png';
 import axios from 'axios';
+import { baseURL } from 'api/client';
 
 const HomeHeader = () => {
   const token = localStorage.getItem('jwt_accessToken');
@@ -18,7 +19,7 @@ const HomeHeader = () => {
   const getFeedbackAPI = async () => {
     await axios({
       url: `/api/users/feedbacks`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,

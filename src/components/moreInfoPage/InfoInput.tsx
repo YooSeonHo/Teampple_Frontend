@@ -10,6 +10,8 @@ import {
   jwtAccessTokenState,
   jwtRefreshTokenState,
 } from 'state';
+import { baseURL } from 'api/client';
+
 const InfoInput = () => {
   const [name, setName] = useState('');
   const [school, setSchool] = useState('');
@@ -20,7 +22,7 @@ const InfoInput = () => {
   const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
   const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
   const navigate = useNavigate();
-  const randomNum = Math.floor(Math.random() * 12) + 1
+  const randomNum = Math.floor(Math.random() * 12) + 1;
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -34,7 +36,7 @@ const InfoInput = () => {
     // 3-2. 회원가입 (백한테 카카오 토큰 + 추가 정보 넘겨주기)
     await axios({
       url: `/api/auth/info`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'post',
       data: {
         idToken: idToken,
@@ -44,7 +46,7 @@ const InfoInput = () => {
         name: name,
         schoolName: school,
         major: major,
-        profileImage: `proImageU${randomNum}`
+        profileImage: `proImageU${randomNum}`,
       },
     })
       .then((response) => {
@@ -99,7 +101,7 @@ const InfoInput = () => {
 const InputBox = styled.div`
   width: 372px;
   height: 54px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 8px;
   font-size: 20px;
   line-height: 100%;
@@ -125,15 +127,15 @@ const Input = styled.input`
 const Btn = styled.button`
   width: 372px;
   height: 54px;
-  background-color: #487AFF;
+  background-color: #487aff;
   border-radius: 8px;
   &:disabled {
-    background-color: #D4E4FF;
+    background-color: #d4e4ff;
   }
 `;
 const Text = styled.span`
   font-size: 20px;
   line-height: 100%;
-  color: #FFFFFF; ;
+  color: #ffffff; ;
 `;
 export default InfoInput;
