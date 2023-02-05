@@ -34,7 +34,7 @@ const Page7 = () =>{
       })
 
     return(
-        <Box data-aos="fade-up">
+        <Box data-aos="fade-up" style={{height : '50vh'}}>
             <Content>
                 <div>이런 사람들에게 필요해요</div>
             </Content>

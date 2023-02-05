@@ -89,7 +89,7 @@ const TeamMateInfo = () => {
       <TeamMateBox>
         {user && (
           <TeamMate>
-            <Profile />
+            <Profile profileImage={user.image}/>
             <TextInfo>
               <Name>{user.name}</Name>
               <School>
@@ -102,7 +102,7 @@ const TeamMateInfo = () => {
         {teamMates &&
           teamMates.map((teamMate: ITeamMate) => (
             <TeamMate key={teamMate.name}>
-              <Profile />
+              <Profile profileImage={teamMate.image}/>
               <TextInfo>
                 <Name>{teamMate.name}</Name>
                 <School>
@@ -155,12 +155,12 @@ const TeamMate = styled.div`
   display: flex;
 `;
 
-const Profile = styled.div`
+const Profile = styled.div<any>`
   width: 2.08333vw;
   height: 3.7037vh;
   border-radius: 16px;
   background: #fce44c;
-  background-image: url(${prof}); //사용자별 프로필 이미지 들어갈 예정
+  background-image: url(${(props) => require('../images/profile/proImageU' + props.profileImage+ '.png')});
   background-size: cover;
 `;
 const TextInfo = styled.div`
