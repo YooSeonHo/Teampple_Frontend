@@ -8,6 +8,7 @@ import headset from '../images/Headset.png';
 import { Link, useNavigate } from 'react-router-dom';
 import prof1 from '../images/profile/proImageU1.png';
 import { ImExit } from 'react-icons/im';
+import delSad from '../images/delSad.png';
 import {
   usernameState,
   userschoolState,
@@ -25,6 +26,8 @@ import {
 import { ModalContainer } from 'components/teampleHomePage/planManager';
 import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const SideBarBox = styled.div`
   width: 12.5vw;
@@ -37,9 +40,9 @@ const SideBarBox = styled.div`
 
   .logo {
     margin-left: 2.1vw;
-    margin-top: 19px;
+    margin-top: 1.759259vh;
     width: 7.05vw;
-    height: 38px;
+    height: 3.518519vh;
   }
 
   img {
@@ -49,25 +52,33 @@ const SideBarBox = styled.div`
 
   .user {
     display: flex;
-    margin-top: 15px;
-    width: 12.5vw;
-    height: 64px;
+    align-items: center;
+    margin-top: 1.38888vh;
+    margin-left: 1.04vw;
+    margin-top: 1.111vh;
+    width: 10.42vw;
+    height: 5.925926vh;
     position: relative;
     color: #383838;
+    border-radius: 8px;
+    overflow: hidden;
+    
     &:hover {
       cursor: pointer;
+      background-color: #d4e4ff;
     }
   }
-
+  
   #userName {
     font-family: 'Pretendard';
     font-style: normal;
     font-weight: 600;
     font-size: 0.9375vw;
-    line-height: 22px;
+    line-height: 2.037037vh;
     position: absolute;
-    top: 2.6vh;
-    left: 5.5vw;
+    left: 5vw;
+
+    width: 5.42vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -79,20 +90,20 @@ const SideBarBox = styled.div`
     background-size: cover;
     border-radius: 40px;
     position: absolute;
-    top: 12px;
-    left: 1.875vw;
+    left: 1.2vw;
   }
 
   .box {
     color: #707070;
     margin-left: 1.04vw;
+    margin-top: 1.111vh;
     font-weight: 600;
     font-size: 0.9375vw;
     line-height: 100%;
     margin-bottom: 8px;
     border-radius: 8px;
     width: 10.42vw;
-    height: 40px;
+    height: 3.703704vh;
     display: flex;
     flex-direction: row;
   }
@@ -106,27 +117,22 @@ const SideBarBox = styled.div`
   }
 
   #more {
-    width: 30px;
-    height: 30px;
+    width: 1.5625vw;
+    height: 2.7777vh;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   #moreicon {
-    width: 20px;
-    height: 20px;
+    width: 1.041667vw;
+    height: 1.851852;
     position: absolute;
-    right: 10px;
+    right: 0.5208333vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* color: #cccccc; */
-    color: white;
     opacity: 0;
-    :hover {
-      opacity: 1;
-    }
   }
 
   .endBox {
@@ -135,10 +141,10 @@ const SideBarBox = styled.div`
     font-weight: 600;
     font-size: 0.9375vw;
     line-height: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 0.740741vh;
     border-radius: 8px;
     width: 10.42vw;
-    height: 40px;
+    height: 3.703704vh;
     display: flex;
     flex-direction: row;
   }
@@ -158,7 +164,7 @@ const SideBarBox = styled.div`
     line-height: 100%;
     border-radius: 8px;
     width: 10.42vw;
-    height: 40px;
+    height: 3.703704vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -172,15 +178,16 @@ const SideBarBox = styled.div`
 
   .boxText {
     margin-left: 0.625vw;
-    line-height: 40px;
+    line-height: 3.703704vh;
     font-weight: 600;
     font-size: 0.9375vw;
     color: #707070;
+    
   }
 
   .subBoxText {
     margin-left: 2.5vw;
-    line-height: 40px;
+    line-height: 3.703704vh;
     width: 5.5vw;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -210,15 +217,15 @@ const SideBarBox = styled.div`
 
   .btm {
     margin-top: auto;
-    margin-bottom: 48px;
+    margin-bottom: 4.44444vh;
   }
 
   .profileImg {
     width: 2.8vw;
     border-radius: 50%;
     position: absolute;
-    top: 12px;
-    left: 1.875vw;
+    left: 1.5vw;
+    top : 0.5vh;
   }
 `;
 
@@ -243,15 +250,22 @@ const SideBar = () => {
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
   const [profileImg, setProfileImg] = useRecoilState(profileImgState);
   const navigate = useNavigate();
+  const [clickHome, setClickHome] = useState(false);
 
   const activeButton = {
     background: '#487AFF',
-    color: 'white',
+    color: '#ffffff',
+    opacity: 1,
   };
 
   const activeEndButton = {
     background: '#FF5854',
     color: 'white',
+    opacity: 1,
+  };
+
+  const activeProfBtn = {
+    background: '#D4E4FF',
   };
 
   const showModal = () => {
@@ -266,28 +280,22 @@ const SideBar = () => {
   };
 
   //api 만들어지면 연결
-  // const delTeampleAPI = async () => {
-  //   await axios({
-  //     baseURL: 'https://www.teampple.site/',
-  //     url: 'api/tasks',
-  //     method: 'delete',
-  //     headers: {
-  //       Authorization: token,
-  //     },
-  //     params: { taskId: taskId },
-  //   })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
-
-  const teampleOut = () => {
-    // delTeampleAPI();
-    alert('팀플 나가기 성공');
-    navigate('/home');
+  const delTeampleAPI = async () => {
+    await axios({
+      baseURL: 'https://www.teampple.site/',
+      url: 'api/teams',
+      method: 'delete',
+      headers: {
+        Authorization: token,
+      },
+      params: { teamId: teamid },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const getTeamid = (t: any) => {
@@ -354,6 +362,37 @@ const SideBar = () => {
     getFinishedTeamsAPI();
   }, []);
 
+  const alertDelTeample = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <Alert>
+            <img src={delSad} className="sad" />
+            <div className="alertBody">
+              팀플에서 나가면 프로젝트 데이터가 삭제됩니다
+            </div>
+            <div className="alertTitle">정말로 팀플에서 나가시겠어요?</div>
+            <div className="alertButtons">
+              <button onClick={onClose} className="alertNo">
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  delTeampleAPI();
+                  navigate('/home');
+                  location.reload();
+                }}
+                className="alertYes"
+              >
+                네,삭제할래요.
+              </button>
+            </div>
+          </Alert>
+        );
+      },
+    });
+  };
+
   return (
     <SideBarBox style={{ zIndex: zIndex }}>
       <div className="logo">
@@ -362,7 +401,10 @@ const SideBar = () => {
         </Link>
       </div>
       <Link to="/profile" style={{ textDecoration: 'none' }}>
-        <div className="user">
+        <div
+          className="user"
+          style={window.location.pathname === '/profile' ? activeProfBtn : {}}
+        >
           <div className="profileImg">
             {profileImg ? (
               <img
@@ -379,11 +421,23 @@ const SideBar = () => {
       </Link>
 
       <Link to="/home" style={{ textDecoration: 'none' }}>
-        <div className="box" style={{ marginTop: '12px' }}>
+        <div
+          className="box"
+          style={window.location.pathname === '/home' ? activeProfBtn : {}}
+        >
           <div className="iconWrap">
-            <img src={house} id="icon" />
+            <img
+              src={house}
+              id="icon"
+              style={window.location.pathname === '/home' ? activeProfBtn : {}}
+            />
           </div>
-          <div className="boxText">홈</div>
+          <div
+            className="boxText"
+            style={window.location.pathname === '/home' ? activeProfBtn : {}}
+          >
+            홈
+          </div>
         </div>
       </Link>
 
@@ -402,7 +456,11 @@ const SideBar = () => {
               getTeamid(e.target);
             }}
             key={index}
-            style={team.teamId === teamid ? activeButton : {}}
+            style={
+              window.location.pathname === `/teample-home/${team.teamId}`
+                ? activeButton
+                : {}
+            }
           >
             <div
               className="subBoxText"
@@ -413,8 +471,15 @@ const SideBar = () => {
             >
               {team.name}
             </div>
-            <div id="more" onClick={teampleOut}>
-              <ImExit id="moreicon" />
+            <div id="more" onClick={alertDelTeample}>
+              <ImExit
+                id="moreicon"
+                style={
+                  window.location.pathname === `/teample-home/${team.teamId}`
+                    ? activeButton
+                    : {}
+                }
+              />
             </div>
           </TeamBox>
         ))}
@@ -428,7 +493,11 @@ const SideBar = () => {
               getTeamid(e.target);
             }}
             key={index}
-            style={team.teamId === teamid ? activeEndButton : {}}
+            style={
+              window.location.pathname === `/teample-home/${team.teamId}`
+                ? activeEndButton
+                : {}
+            }
           >
             <div
               className="subBoxText"
@@ -439,8 +508,15 @@ const SideBar = () => {
             >
               {team.name}
             </div>
-            <div id="more" onClick={teampleOut}>
-              <ImExit id="moreicon" />
+            <div id="more" onClick={alertDelTeample}>
+              <ImExit
+                id="moreicon"
+                style={
+                  window.location.pathname === `/teample-home/${team.teamId}`
+                    ? activeEndButton
+                    : {}
+                }
+              />
             </div>
           </TeamBox>
         ))}
@@ -476,5 +552,61 @@ const SideBar = () => {
     </SideBarBox>
   );
 };
+
+const Alert = styled.div`
+  width: 440px;
+  height: 193px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+
+  .alertButtons {
+    position: absolute;
+    bottom: 34px;
+    right: 34px;
+    display: flex;
+    justify-content: right;
+  }
+
+  .alertBody {
+    position: absolute;
+    top: 91px;
+    font-size: 14px;
+    color: #707070;
+    font-weight: 400;
+  }
+
+  .alertTitle {
+    position: absolute;
+    font-size: 18px;
+    color: #383838;
+    font-weight: 600;
+    top: 113px;
+  }
+
+  .alertYes {
+    color: #487aff;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .alertNo {
+    color: #a7a7a7;
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+
+  .sad {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 18px;
+  }
+`;
 
 export default SideBar;

@@ -270,7 +270,9 @@ const TeampleHeader = () => {
     const now = new Date();
     const distance = setDate.getTime() - now.getTime();
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-    return day + 1;
+    if (day + 1 === 0) return '-DAY';
+    else if (day + 1 < 0) return `+` + Math.abs(day + 1);
+    else return `-` + (day + 1);
   };
 
   return (
@@ -278,7 +280,7 @@ const TeampleHeader = () => {
       <div id="main">{name}</div>
       <div id="sub">{goal}</div>
       <div id="dDayBox">
-        <div id="dDay">D-{deadDay}</div>
+        <div id="dDay">D{deadDay}</div>
       </div>
       <div id="date">{startDate}-{dueDate}</div>
       <button className="editBox" onClick={showModal1}>

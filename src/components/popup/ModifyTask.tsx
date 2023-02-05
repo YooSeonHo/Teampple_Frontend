@@ -113,6 +113,7 @@ const ModifyTask = ({ setBigModal }: any) => {
       .then((response) => {
         setTeamMates(response.data.data.teammates);
         setUser(response.data.data);
+        console.log(response.data.data);
       })
       .catch(function (error) {
         console.log(error);

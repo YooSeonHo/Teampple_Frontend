@@ -1,13 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { useRecoilState } from 'recoil';
-import {
-  idTokenState,
-  kakaoAccessTokenState,
-  kakaoRefreshTokenState,
-  jwtAccessTokenState,
-  jwtRefreshTokenState,
-} from 'state';
 import axios from 'axios';
 import BeatLoader from 'react-spinners/BeatLoader';
 
@@ -16,10 +8,33 @@ const Ing = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(location.search.split('=')[1]);
     localStorage.setItem('jwt_accessToken', location.search.split('=')[1]);
+    joinTeam();
     navigate('/home');
+    window.location.reload();
+    localStorage.removeItem('code');
   }, []);
+
+
+  const joinTeam = async () => {
+    await axios({
+      url: `/api/invitations`,
+      baseURL: 'https://www.teampple.site/',
+      method: 'post',
+      params: {
+        code: localStorage.getItem('code'),
+      },
+      headers: {
+        Authorization: location.search.split('=')[1],
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   // const [idToken, setIdToken] = useRecoilState(idTokenState);
   // const [kakaoAccessToken, setKakaoAccessToken] = useRecoilState(

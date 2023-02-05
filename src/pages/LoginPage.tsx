@@ -3,64 +3,13 @@ import styled from 'styled-components';
 import KakaoBtn from 'components/loginPage/KakaoBtn';
 import Logo from '../components/images/Logo_login.png';
 import { useLocation, useNavigate } from 'react-router';
-import { useRecoilState } from 'recoil';
-import {
-  idTokenState,
-  kakaoAccessTokenState,
-  kakaoRefreshTokenState,
-  jwtAccessTokenState,
-  jwtRefreshTokenState,
-} from 'state';
 import axios from 'axios';
 const LoginPage = () => {
   // 초대받았다면 팀 이름 출력
   const [teamname, setTeamname] = useState('경영전략');
   const [invited, setInvited] = useState(false);
   const navigate = useNavigate();
-  const [idToken, setIdToken] = useRecoilState(idTokenState);
-  const [kakaoAccessToken, setKakaoAccessToken] = useRecoilState(
-    kakaoAccessTokenState,
-  );
-  const [kakaoRefreshToken, setKakaoRefreshToken] = useRecoilState(
-    kakaoRefreshTokenState,
-  );
-  const [, setjwtAccessToken] = useRecoilState(jwtAccessTokenState);
-  const [, setjwtRefreshToken] = useRecoilState(jwtRefreshTokenState);
   const [, , code] = window.location.pathname.split('/');
-  // const REST_API_KEY = '7ab7f35aec83a214679a3fdcf64a2458'; // 로컬 버전
-  // const REDIRECT_URI = 'http://localhost:3000/login'; // 로컬 버전
-  // const REST_API_KEY = 'efe60942fb73d266236ba244244c0899'; // 배포 버전 (배포할 때 이걸로!!!!)
-  // const REDIRECT_URI = 'https://teampple.com/login';  // 배포 버전 (배포할 때 이걸로!!!!)
-  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
-  // const handleLogin = () => {
-  //   // 1. 인가 코드 받기
-  //   window.location.href = KAKAO_AUTH_URL;
-  // };
-  // // const location = useLocation();
-  // // const KAKAO_CODE = location.search.split('=')[1];
-  // const getKakaoToken = () => {
-  //   // 2. 카카오에서 토큰 받아오기
-  //   fetch(`https://kauth.kakao.com/oauth/token`, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  //     body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //   setIdToken(data.id_token);
-  //   setKakaoAccessToken(data.access_token);
-  //   setKakaoRefreshToken(data.refresh_token);
-  //   // getKakaoInfo();
-  //   // navigate('/moreinfo');
-  //   // postAuthLoginAPI();
-  //   navigate('/ing');
-  // })
-  // .catch(() => {
-  //   alert('다시 시도하세요');
-  // });
-  // };
 
   const getTeamName = async () => {
     await axios({
@@ -70,25 +19,32 @@ const LoginPage = () => {
       params: {
         code: code,
       },
-    }).then((res) => {
-      if (res.data.data.valid) {
-        setTeamname(res.data.data.teamName);
-        setInvited(true);
-      }
-    });
+    })
+      .then((res) => {
+        if (res.data.data.valid) {
+          setTeamname(res.data.data.teamName);
+          setInvited(true);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
-  // useEffect(() => {
-  //   if (!location.search) return;
-  //   getKakaoToken();
-  // }, []);
+
   useEffect(() => {
     if (code) {
       getTeamName();
     }
   }, []);
+
   const naviOnBoard = () => {
     navigate('/');
   };
+
+  const saveInviteCode = () => {
+    localStorage.setItem('code', code);
+  };
+
   return (
     <LoginPageContainer>
       <LogoImg src={Logo} onClick={naviOnBoard} />
@@ -101,8 +57,8 @@ const LoginPage = () => {
       ) : (
         <></>
       )}
-      <KakaoButton>
-        <a href="http://teampple.site/api/oauth2/authorization/kakao">
+      <KakaoButton onClick={saveInviteCode}>
+        <a href="http://teampple.com/api/oauth2/authorization/kakao">
           <KakaoBtn />
         </a>
       </KakaoButton>
@@ -139,7 +95,7 @@ const Desc = styled.div`
   position: absolute;
   top: 339px;
 `;
-const KakaoButton = styled.button`
+const KakaoButton = styled.button<any>`
   position: absolute;
   top: 494px;
 `;

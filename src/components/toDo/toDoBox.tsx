@@ -15,7 +15,7 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   margin-left: 2.8125vw;
   margin-top: 3.0555vh;
   background-color: white;
-
+  z-index: 80; //ㅋㅋ
   justify-content: flex-start;
   // justify-content: center;
   /* 만약 박스가 비어 있으면 center, 하나라도 할 일이 있으면 flex-start */
@@ -37,7 +37,6 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   .empty {
     align-self: center;
   }
-
 `;
 
 const ToDoBox = ({ pathname }: { pathname: string }) => {
@@ -46,7 +45,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [teamid] = useRecoilState(teamidState);
   const [taskId, setTaskId] = useRecoilState(taskIdState);
   const [isLoading3, setIsLoading3] = useRecoilState(isLoading3State);
-  
+
   const getTodoAPI = async () => {
     setIsLoading3(true);
     await axios({

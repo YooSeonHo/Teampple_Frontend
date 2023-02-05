@@ -14,11 +14,18 @@ import { detailInfo, userInfo } from 'interfaces';
 import S3 from 'react-aws-s3-typescript';
 import { config } from 'config';
 import { useRecoilState } from 'recoil';
-import { taskIdState, teamidState, teampleDetailState, detailState } from 'state';
+import {
+  taskIdState,
+  teamidState,
+  teampleDetailState,
+  detailState,
+} from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { useNavigate } from 'react-router-dom';
 import MoreTeampleDetail from 'components/popup/MoreTeampleDetail';
 import ModifyTask from 'components/popup/ModifyTask';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const DetailContainer = styled.div`
   width: 52.0833vw;
@@ -365,7 +372,7 @@ const DetailContainer = styled.div`
     width: 2.944vh;
     margin-left: auto;
     margin-right: 1.041667vw;
-    margin-top : auto;
+    margin-top: auto;
   }
 
   .plusBtn:hover {
@@ -400,7 +407,7 @@ const ModalContainer = styled.div`
 const DetailBox = () => {
   const token = localStorage.getItem('jwt_accessToken');
 
-  const [detail,setDetail] = useRecoilState(detailState);
+  const [detail, setDetail] = useRecoilState(detailState);
   const [file, setFile] = useState<File>();
   const [fileLoc, setFileLoc] = useState('');
   const fileInput = useRef<any>();
@@ -554,15 +561,16 @@ const DetailBox = () => {
         Authorization: token,
       },
       params: { taskId: taskId },
-    }).then(() => {
-      location.reload();
     })
-    .catch((e) => {
-      console.log(e);
-    });
+      .then(() => {
+        location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
-  const onDeleteFeed = async (e : React.MouseEvent<HTMLDivElement>) =>{
+  const onDeleteFeed = async (feedId: number) => {
     await axios({
       url: '/api/feedbacks',
       baseURL: 'https://www.teampple.site/',
@@ -570,21 +578,22 @@ const DetailBox = () => {
       headers: {
         Authorization: token,
       },
-      params : {feedbackId : Number(e.currentTarget.id)}
-    }).then(()=>{
-      alert('댓글이 삭제되었습니다.')
-      location.reload();
-    }).catch((e) => {
-      console.log(e);
-    });
-  }
+      params: { feedbackId: feedId },
+    })
+      .then(() => {
+        location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const onChangeFeed = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddFeed(e.target.value);
   };
 
-  const downloadFile = (url : any,filename: string) => {
-    console.log(url)
+  const downloadFile = (url: any, filename: string) => {
+    console.log(url);
     fetch(url, { method: 'GET' })
       .then((res) => {
         return res.blob();
@@ -625,8 +634,55 @@ const DetailBox = () => {
       });
   };
 
-  const delFile = (e: any) => {
-    delTaskAPI(Number(e.target.id));
+  const alertDelFile = (e: any) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <AlertFile>
+            <div className="alertBody">삭제하시면 복구할 수 없어요.</div>
+            <div className="alertTitle">정말 파일을 삭제하시겠어요?</div>
+            <div className="alertButtons">
+              <button onClick={onClose} className="alertNo">
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  delTaskAPI(Number(e.target.id));
+                }}
+                className="alertYes"
+              >
+                네,삭제할래요.
+              </button>
+            </div>
+          </AlertFile>
+        );
+      },
+    });
+  };
+
+  const alertDelFeed = (e: any) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <AlertFeed>
+            <div className="alertTitle">피드백을 삭제하시겠어요?</div>
+            <div className="alertButtons">
+              <button onClick={onClose} className="alertNo">
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  onDeleteFeed(Number(e.target.id));
+                }}
+                className="alertYes"
+              >
+                네,삭제할래요.
+              </button>
+            </div>
+          </AlertFeed>
+        );
+      },
+    });
   };
 
   return (
@@ -729,7 +785,7 @@ const DetailBox = () => {
                           src={trash}
                           className="trash"
                           id={file.fileId?.toString()}
-                          onClick={delFile}
+                          onClick={alertDelFile}
                         />
                       </div>
                     </div>
@@ -793,10 +849,13 @@ const DetailBox = () => {
                         {feedback.adviser === user?.name ? (
                           <div
                             className="plusBtn"
-                            onClick={onDeleteFeed}
-                            id={feedback.feedbackId}
+                            id={feedback.feedbackId?.toString()}
                           >
-                            <img src={deleteBtn} />
+                            <img
+                              src={deleteBtn}
+                              onClick={alertDelFeed}
+                              id={feedback.feedbackId?.toString()}
+                            />
                           </div>
                         ) : null}
                       </div>
@@ -812,6 +871,96 @@ const DetailBox = () => {
     </Container>
   );
 };
+
+const AlertFile = styled.div`
+  width: 440px;
+  height: 168px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+
+  .alertButtons {
+    position: absolute;
+    bottom: 34px;
+    right: 34px;
+    display: flex;
+    justify-content: right;
+  }
+
+  .alertBody {
+    position: absolute;
+    top: 40px;
+    font-size: 14px;
+    color: #707070;
+    font-weight: 400;
+  }
+
+  .alertTitle {
+    position: absolute;
+    font-size: 18px;
+    color: #383838;
+    font-weight: 600;
+    top: 66px;
+  }
+
+  .alertYes {
+    color: #487aff;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .alertNo {
+    color: #a7a7a7;
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+`;
+
+const AlertFeed = styled.div`
+  width: 440px;
+  height: 144px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+  background-color: white;
+
+  .alertButtons {
+    position: absolute;
+    bottom: 34px;
+    right: 34px;
+    display: flex;
+    justify-content: right;
+  }
+
+  .alertTitle {
+    position: absolute;
+    font-size: 18px;
+    color: #383838;
+    font-weight: 600;
+    top: 40px;
+  }
+
+  .alertYes {
+    color: #487aff;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .alertNo {
+    color: #a7a7a7;
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+`;
 
 export default DetailBox;
 
