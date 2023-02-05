@@ -14,6 +14,7 @@ import axios from 'axios';
 import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';
 import { useRecoilState } from 'recoil';
 import { profileImgState, isLoading4State } from 'state';
+import { baseURL } from 'api/client';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -41,7 +42,7 @@ const SummaryHome = () => {
     setIsLoading4(true);
     await axios({
       url: `/api/users/tasks`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,

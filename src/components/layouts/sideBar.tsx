@@ -28,6 +28,7 @@ import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { baseURL } from 'api/client';
 
 const SideBarBox = styled.div`
   width: 12.5vw;
@@ -128,7 +129,6 @@ const SideBarBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
   }
 
   .endBox {
@@ -212,7 +212,7 @@ const SideBarBox = styled.div`
 
   .btm {
     margin-top: auto;
-    margin-bottom: 48px;
+    margin-bottom: 3vh;
   }
 
   .profileImg {
@@ -245,7 +245,6 @@ const SideBar = () => {
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
   const [profileImg, setProfileImg] = useRecoilState(profileImgState);
   const navigate = useNavigate();
-  const [clickHome, setClickHome] = useState(false);
 
   const activeButton = {
     background: '#487AFF',
@@ -274,10 +273,9 @@ const SideBar = () => {
     }
   };
 
-  //api 만들어지면 연결
   const delTeampleAPI = async () => {
     await axios({
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       url: 'api/teams',
       method: 'delete',
       headers: {
@@ -287,6 +285,8 @@ const SideBar = () => {
     })
       .then((response) => {
         console.log(response);
+        navigate('/home');
+        location.reload();
       })
       .catch((e) => {
         console.log(e);
@@ -299,7 +299,7 @@ const SideBar = () => {
 
   const getProfile = async () => {
     await axios({
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       url: 'api/users/userprofiles',
       method: 'get',
       headers: {
@@ -320,7 +320,7 @@ const SideBar = () => {
   const getActiveTeamsAPI = async () => {
     await axios({
       url: `/api/users/teams`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,
@@ -337,7 +337,7 @@ const SideBar = () => {
   const getFinishedTeamsAPI = async () => {
     await axios({
       url: `/api/users/teams`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,
@@ -374,8 +374,6 @@ const SideBar = () => {
               <button
                 onClick={() => {
                   delTeampleAPI();
-                  navigate('/home');
-                  location.reload();
                 }}
                 className="alertYes"
               >
@@ -447,7 +445,7 @@ const SideBar = () => {
           <TeamBox
             className="box"
             id={team.teamId}
-            onClick={(e) => {
+            onClick={(e: any) => {
               getTeamid(e.target);
             }}
             key={index}
@@ -466,16 +464,18 @@ const SideBar = () => {
             >
               {team.name}
             </div>
-            <div id="more" onClick={alertDelTeample}>
-              <ImExit
-                id="moreicon"
-                style={
-                  window.location.pathname === `/teample-home/${team.teamId}`
-                    ? activeButton
-                    : {}
-                }
-              />
-            </div>
+            {window.location.pathname === `/teample-home/${team.teamId}` ? (
+              <button id="more" onClick={alertDelTeample}>
+                <ImExit
+                  id="moreicon"
+                  style={
+                    window.location.pathname === `/teample-home/${team.teamId}`
+                      ? activeButton
+                      : {}
+                  }
+                />
+              </button>
+            ) : null}
           </TeamBox>
         ))}
 
@@ -503,16 +503,18 @@ const SideBar = () => {
             >
               {team.name}
             </div>
-            <div id="more" onClick={alertDelTeample}>
-              <ImExit
-                id="moreicon"
-                style={
-                  window.location.pathname === `/teample-home/${team.teamId}`
-                    ? activeEndButton
-                    : {}
-                }
-              />
-            </div>
+            {window.location.pathname === `/teample-home/${team.teamId}` ? (
+              <button id="more" onClick={alertDelTeample}>
+                <ImExit
+                  id="moreicon"
+                  style={
+                    window.location.pathname === `/teample-home/${team.teamId}`
+                      ? activeEndButton
+                      : {}
+                  }
+                />
+              </button>
+            ) : null}
           </TeamBox>
         ))}
         <div className="newBox" id="newTeample" onClick={showModal}>

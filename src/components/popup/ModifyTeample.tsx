@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { GrClose } from 'react-icons/gr';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
@@ -10,6 +10,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
+import { baseURL } from 'api/client';
 
 const ModifyTeample = ({ setModal1 }: any) => {
   const today = new window.Date();
@@ -34,7 +35,7 @@ const ModifyTeample = ({ setModal1 }: any) => {
   const getTeamInfo = async () => {
     await axios({
       method: 'get',
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       url: '/api/teams',
       params: { teamId: teamid },
       headers: {
@@ -53,7 +54,7 @@ const ModifyTeample = ({ setModal1 }: any) => {
   const postSchedulesAPI = async () => {
     await axios({
       url: `/api/teams`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'put',
       headers: {
         Authorization: token,

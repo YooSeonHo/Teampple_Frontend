@@ -18,6 +18,7 @@ import {
 import moment from 'moment';
 import axios from 'axios';
 import { detailInfo } from 'interfaces';
+import { baseURL } from 'api/client';
 
 const ModifyTask = ({ setBigModal }: any) => {
   const today = new window.Date();
@@ -45,7 +46,7 @@ const ModifyTask = ({ setBigModal }: any) => {
   const getDetail = async () => {
     await axios({
       url: `/api/tasks`,
-      baseURL: 'https://www.teampple.site/',
+      baseURL: baseURL,
       method: 'get',
       params: {
         taskId: taskId,
@@ -57,7 +58,7 @@ const ModifyTask = ({ setBigModal }: any) => {
       .then((res) => {
         setName(res.data.data.taskName);
         // setCheckedNameList(res.data.data.operators); //일단 이딴식으로함 흑
-        console.log(res.data.data)
+        console.log(res.data.data);
         // setStartDate(res.data.data.startDate.format('YYYYMMDD'));
         // setEndDate(res.data.data.dueDate.format('YYYYMMDD'));
       })
@@ -69,7 +70,7 @@ const ModifyTask = ({ setBigModal }: any) => {
   const putTasksAPI = async () => {
     await axios({
       url: `/api/tasks`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'put',
       headers: {
         Authorization: token,
@@ -103,7 +104,7 @@ const ModifyTask = ({ setBigModal }: any) => {
   const getTeamMateAPI = async () => {
     await axios({
       url: `/api/teams/teammates`,
-      baseURL: 'https://www.teampple.site',
+      baseURL: baseURL,
       method: 'get',
       headers: {
         Authorization: token,
@@ -134,10 +135,10 @@ const ModifyTask = ({ setBigModal }: any) => {
     getTeamMateAPI();
   }, []);
 
-useEffect(() => {
-  console.log(checkedNameList);
-  console.log(checkedIdList);
-}, );
+  useEffect(() => {
+    console.log(checkedNameList);
+    console.log(checkedIdList);
+  });
 
   const onCheckedHandle = (checked: boolean, item: string, id: number) => {
     if (checked) {
