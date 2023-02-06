@@ -7,7 +7,7 @@ export interface ITeamMate {
   major: string;
   schoolName: string;
   index?: number;
-  image : number
+  image: string;
 }
 
 export interface FileInfo {

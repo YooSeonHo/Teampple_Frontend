@@ -71,6 +71,10 @@ const OnBoardingHeader = () => {
       headers: {
         Authorization: token,
       },
+      data: {
+        jwtAccessToken: localStorage.getItem('jwt_accessToken'),
+        jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
+      },
     })
       .then(() => {
         localStorage.removeItem('jwt_accessToken');
