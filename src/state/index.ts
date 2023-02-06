@@ -232,3 +232,8 @@ export const isLoading5State = atom<boolean>({
   key: 'isLoading4',
   default: true,
 });
+
+export const teamEndDateState = atom<string>({
+  key : 'teamEndDate',
+  default : ''
+});
