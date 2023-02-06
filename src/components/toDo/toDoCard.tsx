@@ -82,7 +82,6 @@ const CardBox = styled.div<StyledToDoInfo>`
   }
 
   .leftText {
-    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 500;
     font-size: 0.83333vw;
