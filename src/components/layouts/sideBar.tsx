@@ -71,7 +71,7 @@ const SideBarBox = styled.div`
   }
   
   #userName {
-    font-family: 'Pretendard';
+    font-family: 'Pretendard', 'Apple SD Gothic Neo';
     font-style: normal;
     font-weight: 600;
     font-size: 0.9375vw;
