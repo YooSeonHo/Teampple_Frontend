@@ -24,7 +24,7 @@ function App() {
         },
       })
         .then((response) => {
-          console.log(response.data.data);
+          console.log(response);
           localStorage.setItem(
             'jwt_accessToken',
             response.data.data.jwtAccessToken,
@@ -38,16 +38,16 @@ function App() {
         .catch((error) => {
           console.log(error);
           alert('로그인 연장 실패. 다시 로그인하세요.');
-          // localStorage.removeItem('jwt_accessToken');
-          // localStorage.removeItem('jwt_refreshToken');
+          localStorage.removeItem('jwt_accessToken');
+          localStorage.removeItem('jwt_refreshToken');
         });
     }
   };
 
-  // if (performance.navigation.type === 1) {
-  //   //새로고침하면 바로 로그인 연장(토큰 갱신)
-  //   reToken();
-  // }
+  if (performance.navigation.type === 1) {
+    //새로고침하면 바로 로그인 연장(토큰 갱신)
+    reToken();
+  }
 
   return (
     <RecoilRoot>
