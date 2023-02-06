@@ -2,19 +2,15 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { AiFillMessage } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
-import {
-  feedbackState,
-  fbListState,
-  isCheckedState,
-} from 'state';
+import { feedbackState, fbListState, isCheckedState } from 'state';
 import feedback from '../images/feedback.png';
 import axios from 'axios';
 import { baseURL } from 'api/client';
 
 const HomeHeader = () => {
   const token = localStorage.getItem('jwt_accessToken');
-  const [fbList,setFbList] = useRecoilState(fbListState)
-  const [isCheck,setIsCheck] = useRecoilState(isCheckedState);
+  const [fbList, setFbList] = useRecoilState(fbListState);
+  const [isCheck, setIsCheck] = useRecoilState(isCheckedState);
 
   const getFeedbackAPI = async () => {
     await axios({
@@ -73,22 +69,23 @@ const HomeHeader = () => {
 };
 
 const HomeHeaderContainer = styled.div`
-  position: relative;
   width: 87.5vw;
   height: 6.6666vh;
   border-bottom: solid;
   border-width: 3px;
   border-color: #edeff6;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 
   .iconBox {
     margin-left: auto;
-    margin-right: 2.8125vw;
+    margin-right: 2.81vw;
 
     #feedback {
-      width: 1.6666vw;
-      height: 2.962vh;
-      margin-top: 1.8518vh;
+      width: 1.8vw;
+      margin-top: 1.3vh;
     }
 
     img {
@@ -102,7 +99,6 @@ const HomeHeaderContainer = styled.div`
 `;
 const HomeTitle = styled.div`
   position: absolute;
-  top: 2.2222vh;
   left: 5.2vw;
   font-weight: 600;
   font-size: 1.25vw;
@@ -111,11 +107,9 @@ const HomeTitle = styled.div`
 
 const MsgIcon = styled(AiFillMessage)`
   position: absolute;
-  top: 1.851852vh;
   right: 2.81vw;
   color: #487aff;
-  width: 1.67vw;
-  height: 2.96293vh;
+  width: 1.8vw;
 
   :hover {
     cursor: grab;

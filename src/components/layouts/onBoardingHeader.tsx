@@ -79,7 +79,7 @@ const OnBoardingHeader = () => {
       .then(() => {
         localStorage.removeItem('jwt_accessToken');
         localStorage.removeItem('jwt_refreshToken');
-        navigate('/');
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
