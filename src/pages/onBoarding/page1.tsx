@@ -15,6 +15,7 @@ export const Background = styled.div`
   background-repeat: no-repeat;
   justify-content: center;
   display: flex;
+  overflow: hidden;
 `;
 
 const ContentBox = styled.div`

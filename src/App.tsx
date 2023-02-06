@@ -40,6 +40,7 @@ function App() {
           alert('로그인 연장 실패. 다시 로그인하세요.');
           localStorage.removeItem('jwt_accessToken');
           localStorage.removeItem('jwt_refreshToken');
+          window.location.reload();
         });
     }
   };
