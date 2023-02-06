@@ -4,7 +4,7 @@ import ToDoCard from './toDoCard';
 import { StyledToDoBoxInfo } from 'interfaces';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { taskIdState, teamidState, isLoading3State } from 'state';
+import { taskIdState, teamidState, isLoading3State, teamEndDateState, } from 'state';
 import { baseURL } from 'api/client';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
@@ -46,6 +46,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [teamid] = useRecoilState(teamidState);
   const [taskId, setTaskId] = useRecoilState(taskIdState);
   const [isLoading3, setIsLoading3] = useRecoilState(isLoading3State);
+  const [teamEndDate,setTeamEndDate] = useRecoilState(teamEndDateState);
 
   const getTodoAPI = async () => {
     setIsLoading3(true);
@@ -60,7 +61,6 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
     })
       .then((response) => {
         setTodoList(response.data.data);
-        console.log(response.data);
         setTaskId(0);
         setIsLoading3(false);
       })
@@ -68,8 +68,28 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
         console.log(error);
       });
   };
+
+  const getEndDate = async () =>{
+    await axios({
+      url: `/api/teams`,
+      baseURL: baseURL,
+      method: 'get',
+      params: { teamId: teamid },
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setTeamEndDate(res.data.data.dueDate);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+  
   useEffect(() => {
     getTodoAPI();
+    getEndDate();
   }, [teamid]);
   return (
     <ToDoWrapper pathname={pathname}>

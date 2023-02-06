@@ -13,6 +13,7 @@ import {
   stageIdState,
   taskIdState,
   detailState,
+  teamEndDateState,
 } from 'state';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -132,6 +133,22 @@ const CardBox = styled.div<StyledToDoInfo>`
     cursor: grab;
   }
 
+  .EndBox {
+    width: 17.291667vw;
+    height: 6.66666vh;
+    background-color: #cccccc;
+    border-radius: 12px;
+    display: flex;
+    margin-left: 1.041667vw;
+    margin-bottom: 1.111vh;
+    justify-content: center;
+    position: absolute;
+    top: 42.962963vh;
+  }
+  .EndBox:hover{
+    cursor: not-allowed;
+  }
+
   .addText {
     font-weight: 600;
     font-size: 0.9375vw;
@@ -248,6 +265,9 @@ const ToDoCard = ({ todoList }: any) => {
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [taskId, setTaskId] = useRecoilState(taskIdState);
   const [detail, setDetail] = useRecoilState(detailState);
+  const [teamEndDate,setTeamEndDate] = useRecoilState(teamEndDateState);
+
+  
   const token = localStorage.getItem('jwt_accessToken');
   const now = new Date();
   const navigate = useNavigate();
@@ -298,6 +318,8 @@ const ToDoCard = ({ todoList }: any) => {
       });
   };
 
+
+
   const nowCheck = (startTime: Date, dueTime: Date) => {
     const start = new Date(startTime);
     const end = new Date(dueTime);
@@ -310,6 +332,18 @@ const ToDoCard = ({ todoList }: any) => {
       return false;
     }
   };
+
+  const teamEndCheck = () =>{
+    const teamEnd = new Date(teamEndDate);
+    teamEnd.setHours(0,0,0);
+    teamEnd.setDate(teamEnd.getDate() + 1);
+    if (now.getTime() <= teamEnd.getTime()){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 
   return (
     <>
@@ -365,6 +399,15 @@ const ToDoCard = ({ todoList }: any) => {
                 // </Link>
               ))}
             </div>
+            
+            {teamEndCheck()
+          ? <div
+          className="EndBox"
+          id={todo.stageId}> 
+          <div className="addText" id={todo.stageId} style={{color : 'white'}}>
+            + 할 일 추가하기
+          </div>
+        </div> :
             <div
               className="addBox"
               onClick={(e) => {
@@ -372,11 +415,11 @@ const ToDoCard = ({ todoList }: any) => {
                 showModal();
               }}
               id={todo.stageId}
-            >
+            > 
               <div className="addText" id={todo.stageId}>
                 + 할 일 추가하기
               </div>
-            </div>
+            </div>}
             <ModalContainer>
               {modal && <AddTask setModal={setModal} />}
             </ModalContainer>
