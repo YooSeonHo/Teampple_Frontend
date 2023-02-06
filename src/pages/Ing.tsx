@@ -14,10 +14,12 @@ const Ing = () => {
       location.search.split('=')[1].split('&')[0],
     );
     localStorage.setItem('jwt_refreshToken', location.search.split('=')[2]);
+
     if (localStorage.getItem('code')) {
       joinTeam();
       localStorage.removeItem('code');
     }
+    
     if (localStorage.getItem('jwt_accessToken')) {
       navigate('/home');
       window.location.reload();
