@@ -32,7 +32,10 @@ const Background = styled.div`
   height: 54.259259vh;
   background-size: 61.04166vw;
   background-repeat: no-repeat;
-  margin: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 13vh;
 `;
 
 const Page3 = () => {

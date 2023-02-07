@@ -13,7 +13,7 @@ const KakaoBtn = () => {
   );
 };
 
-const LoginBtn = styled.button`
+const LoginBtn = styled.div`
   width: 372px;
   height: 54px;
   background-color: #fae100;

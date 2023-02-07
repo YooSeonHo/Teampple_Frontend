@@ -25,7 +25,7 @@ const MsgIcon = styled(AiFillMessage)`
   width: 1.67vw;
   height:  6.6666vh;
   display : flex;
-  align-item: center;
+  align-items: center;
 `;
 
 const HeaderBox = styled.div`
@@ -48,7 +48,6 @@ const HeaderBox = styled.div`
     max-width: 13.0208vw;
     font-weight: 600;
     font-size: 1.25vw;
-    
   }
 
   #sub {
@@ -93,8 +92,8 @@ const HeaderBox = styled.div`
 
   .editBox {
     position: absolute;
-    width: 3.593vw;
-    height: 2.6vh;
+    width: 3.8vw;
+    height: 2.8vh;
     left: 54.8958vw;
     top: 2.037vh;
     background: #ffffff;
@@ -123,19 +122,20 @@ const HeaderBox = styled.div`
     margin-top: auto;
     margin-bottom: auto;
     background-image: url(${group});
-    background-size: 3.75vw 3.7037vh;
+    background-size: contain;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }
 
   #teamNum {
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 0.9vw;
     line-height: 100%;
     text-align: center;
     color: #a7a7a7;
@@ -145,17 +145,16 @@ const HeaderBox = styled.div`
 
   .iconBox {
     margin-left: auto;
-    margin-right: 2.8125vw;
+    margin-right: 2.81vw;
   }
 
-  .iconBox:hover{
+  .iconBox:hover {
     cursor: grab;
   }
 
   #feedback {
-    width: 1.6666vw;
-    height: 2.962vh;
-    margin-top: 1.8518vh;
+    width: 1.8vw;
+    margin-top: 1.3vh;
   }
 `;
 

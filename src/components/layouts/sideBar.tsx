@@ -40,10 +40,9 @@ const SideBarBox = styled.div`
   position: fixed;
 
   .logo {
-    margin-left: 2.1vw;
+    margin-left: 2.5vw;
     margin-top: 1.759259vh;
-    width: 7.05vw;
-    height: 3.518519vh;
+    width: 7.3vw;
   }
 
   img {
@@ -54,57 +53,48 @@ const SideBarBox = styled.div`
   .user {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 1.38888vh;
     margin-left: 1.04vw;
-    margin-top: 1.111vh;
     width: 10.42vw;
     height: 5.925926vh;
     position: relative;
     color: #383838;
     border-radius: 8px;
     overflow: hidden;
-    
+
     &:hover {
       cursor: pointer;
       background-color: #d4e4ff;
+      color: #487aff;
     }
   }
-  
+
   #userName {
-    font-family: 'Pretendard';
+    font-family: 'Pretendard', 'Apple SD Gothic Neo';
     font-style: normal;
     font-weight: 600;
     font-size: 0.9375vw;
     line-height: 2.037037vh;
     position: absolute;
-    left: 5vw;
-
+    left: 4.5vw;
     width: 5.42vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  #userImage {
-    width: 2.08333vw;
-    height: 3.703704vh;
-    background-size: cover;
-    border-radius: 40px;
-    position: absolute;
-    left: 1.2vw;
-  }
-
   .box {
     color: #707070;
     margin-left: 1.04vw;
-    margin-top: 1.111vh;
+    margin-top: 0.6vh;
     font-weight: 600;
     font-size: 0.9375vw;
     line-height: 100%;
     margin-bottom: 8px;
     border-radius: 8px;
     width: 10.42vw;
-    height: 3.703704vh;
+    height: 4.3vh;
     display: flex;
     flex-direction: row;
   }
@@ -112,8 +102,6 @@ const SideBarBox = styled.div`
   .box:hover {
     background-color: #d4e4ff;
     color: #487aff;
-    /* background-color: #487aff;
-    color: #d4e4ff; */
     cursor: grab;
   }
 
@@ -141,10 +129,10 @@ const SideBarBox = styled.div`
     font-weight: 600;
     font-size: 0.9375vw;
     line-height: 100%;
-    margin-bottom: 0.740741vh;
+    margin-bottom: 0.6vh;
     border-radius: 8px;
     width: 10.42vw;
-    height: 3.703704vh;
+    height: 4.3vh;
     display: flex;
     flex-direction: row;
   }
@@ -182,7 +170,8 @@ const SideBarBox = styled.div`
     font-weight: 600;
     font-size: 0.9375vw;
     color: #707070;
-    
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .subBoxText {
@@ -192,6 +181,8 @@ const SideBarBox = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   #icon {
@@ -222,10 +213,10 @@ const SideBarBox = styled.div`
 
   .profileImg {
     width: 2.8vw;
-    border-radius: 50%;
+    border-radius: 60%;
     position: absolute;
-    left: 1.5vw;
-    top : 0.5vh;
+    left: 1vw;
+    top: 0.5vh;
   }
 `;
 
@@ -398,10 +389,10 @@ const SideBar = () => {
           <img src={logo} />
         </Link>
       </div>
-      <Link to="/profile" style={{ textDecoration: 'none' }}>
         <div
           className="user"
           style={window.location.pathname === '/profile' ? activeProfBtn : {}}
+          onClick={() => window.open(`/profile`, '_self')}
         >
           <div className="profileImg">
             {profileImg ? (
@@ -414,14 +405,13 @@ const SideBar = () => {
               <img src={prof1} />
             )}
           </div>
-          <a id="userName">{name}</a>
+          <div id="userName">{name}</div>
         </div>
-      </Link>
 
-      <Link to="/home" style={{ textDecoration: 'none' }}>
         <div
           className="box"
           style={window.location.pathname === '/home' ? activeProfBtn : {}}
+          onClick={() => window.open(`/home`, '_self')}
         >
           <div className="iconWrap">
             <img
@@ -437,7 +427,6 @@ const SideBar = () => {
             홈
           </div>
         </div>
-      </Link>
 
       <div className="box">
         <div className="iconWrap">

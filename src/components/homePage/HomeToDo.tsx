@@ -60,6 +60,7 @@ const HomeToDo = () => {
         setTeams(response.data.data.teams);
         setTaskId(0);
         setIsLoading2(false);
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -136,6 +137,7 @@ const ToDosContainer = styled.div`
   height: 44.444vh;
   display: flex;
   overflow: auto;
+  padding-right: 3vw;
 `;
 const ToDoContainer = styled.div`
   width: 19.375vw;
@@ -162,12 +164,12 @@ const LeftText = styled.span`
   color: #487aff;
   position: absolute;
   right: 3.072vw;
-  top: 2.4074vh;
+  top: 3vh;
 `;
 const LeftNum = styled.span`
   position: absolute;
   right: 1.042vw;
-  top: 20px;
+  top: 2.4074vh;
   width: 1.458333vw;
   height: 2.592593vh;
   border-radius: 50px;

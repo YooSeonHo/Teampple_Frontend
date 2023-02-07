@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
 import { useRecoilState } from 'recoil';
-import { zIndexState, feedbackState, modal2State, teamidState } from 'state';
+import { zIndexState, feedbackState, modal2State, teamidState, teamEndDateState } from 'state';
 import axios from 'axios';
 import { IPlan } from '../../interfaces';
 import { baseURL } from 'api/client';
@@ -23,6 +23,9 @@ const PlanManager = () => {
   const [dueDate, setDueDate] = useState();
   const [teamid] = useRecoilState(teamidState);
   const token = localStorage.getItem('jwt_accessToken');
+  const [teamEndDate,setTeamEndDate] = useRecoilState(teamEndDateState);
+  const now = new Date();
+
 
   const getPlanAPI = async () => {
     await axios({
@@ -45,8 +48,27 @@ const PlanManager = () => {
       });
   };
 
+  const getEndDate = async () =>{
+    await axios({
+      url: `/api/teams`,
+      baseURL: baseURL,
+      method: 'get',
+      params: { teamId: teamid },
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setTeamEndDate(res.data.data.dueDate);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   useEffect(() => {
     getPlanAPI();
+    getEndDate();
   }, [teamid]);
 
   const getDeadDay = (dueDate: Date) => {
@@ -69,6 +91,18 @@ const PlanManager = () => {
     else return `-` + (day);
   };
 
+  const teamEndCheck = () =>{
+    const teamEnd = new Date(teamEndDate);
+    teamEnd.setHours(0,0,0);
+    teamEnd.setDate(teamEnd.getDate() + 1);
+    if (now.getTime() <= teamEnd.getTime()){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
   return (
     <ManagerBox style={{ zIndex: zIndex }}>
       <div className="dDayHeader">
@@ -82,7 +116,9 @@ const PlanManager = () => {
         {plans &&
           plans.map((plan: IPlan, index: number) => (
             <Content key={index}>
-              <div className="contentdDay">D{getPlanDay(plan.dueDate)}</div>
+              <div className="contentdDay">
+                D{getPlanDay(plan.dueDate)}
+              </div>
               <div className="contentInfo">
                 <div className="contentName">{plan.name}</div>
                 <div className="when">
@@ -95,9 +131,15 @@ const PlanManager = () => {
             </Content>
           ))}
       </div>
+      {teamEndCheck() ? 
+      <div className="EndSch">
+        <div className="addText">+ 일정 추가하기</div>
+      </div>
+       :
       <div className="addSch" onClick={showModal}>
         <div className="addText">+ 일정 추가하기</div>
       </div>
+        }
       <ModalContainer>
         {modal && <AddSchedule setModal={setModal} />}
       </ModalContainer>
@@ -181,6 +223,23 @@ const ManagerBox = styled.div`
   .addSch:hover {
     cursor: grab;
   }
+
+  .EndSch {
+    width: 14.791vw;
+    height: 5.185vh;
+    background: #f4f8ff;
+    border-radius: 12px;
+    display: flex;
+    margin-left: 1.041667vw;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: 1.85185vh;
+  }
+
+  .EndSch:hover {
+    cursor: not-allowed;
+  }
+
 
   .addText {
     font-weight: 600;

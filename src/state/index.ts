@@ -209,11 +209,13 @@ export const isCheckedState = atom<boolean>({
 export const isLoading1State = atom<boolean>({
   key: 'isLoading1/${v1()}',
   default: true,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const isLoading2State = atom<boolean>({
   key: 'isLoading2/${v1()}',
   default: true,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const isLoading3State = atom<boolean>({
@@ -229,4 +231,9 @@ export const isLoading4State = atom<boolean>({
 export const isLoading5State = atom<boolean>({
   key: 'isLoading4',
   default: true,
+});
+
+export const teamEndDateState = atom<string>({
+  key : 'teamEndDate',
+  default : ''
 });
