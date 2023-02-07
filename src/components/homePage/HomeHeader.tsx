@@ -82,10 +82,10 @@ const HomeHeaderContainer = styled.div`
   .iconBox {
     margin-left: auto;
     margin-right: 2.81vw;
+    margin-top: 1.3vh;
 
     #feedback {
       width: 1.8vw;
-      margin-top: 1.3vh;
     }
 
     img {
@@ -106,11 +106,10 @@ const HomeTitle = styled.div`
 `;
 
 const MsgIcon = styled(AiFillMessage)`
-  position: absolute;
+  top: 1.3vwh;
   right: 2.81vw;
   color: #487aff;
-  width: 1.8vw;
-
+  font-size: 1.6vw;
   :hover {
     cursor: grab;
   }
