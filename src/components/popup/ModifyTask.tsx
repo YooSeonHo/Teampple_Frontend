@@ -59,8 +59,20 @@ const ModifyTask = ({ setBigModal }: any) => {
         setName(res.data.data.taskName);
         // setCheckedNameList(res.data.data.operators); //일단 이딴식으로함 흑
         console.log(res.data.data);
-        // setStartDate(res.data.data.startDate.format('YYYYMMDD'));
-        // setEndDate(res.data.data.dueDate.format('YYYYMMDD'));
+        setStartDate(
+          new Date(
+            moment(res.data.data.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+              'T' +
+              '00:00:00',
+          ),
+        );
+        setEndDate(
+          new Date(
+            moment(res.data.data.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+              'T' +
+              '00:00:00',
+          ),
+        );
       })
       .catch((e) => {
         console.log(e);

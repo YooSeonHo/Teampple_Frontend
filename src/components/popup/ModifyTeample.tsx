@@ -42,6 +42,20 @@ const ModifyTeample = ({ setModal1 }: any) => {
         Authorization: token,
       },
     }).then((res) => {
+      setStartDate(
+        new Date(
+          moment(res.data.data.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+            'T' +
+            '00:00:00',
+        ),
+      );
+      setEndDate(
+        new Date(
+          moment(res.data.data.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+            'T' +
+            '00:00:00',
+        ),
+      );
       setName(res.data.data.name);
       setAim(res.data.data.goal);
     });
@@ -51,15 +65,15 @@ const ModifyTeample = ({ setModal1 }: any) => {
     getTeamInfo();
   }, []);
 
-  const checkDate = () =>{
+  const checkDate = () => {
     if (startDate > endDate) {
       setEndDate(startDate);
-    } 
-  }
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     checkDate();
-  },[startDate,endDate])
+  }, [startDate, endDate]);
 
   const postSchedulesAPI = async () => {
     await axios({
