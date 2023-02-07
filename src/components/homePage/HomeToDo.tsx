@@ -80,6 +80,7 @@ const HomeToDo = () => {
 
   useEffect(() => {
     getTodoAPI();
+    console.log(teams);
   }, []);
 
   return (
@@ -92,6 +93,7 @@ const HomeToDo = () => {
         <ToDosContainer>
           {teams &&
             teams.map((team: any, index: number) => (
+              team.totalStage === 0 ? null :
               <ToDoContainer key={index}>
                 <ToDoTitle style={{ color: '#383838' }}>{team.name}</ToDoTitle>
                 <Left>
