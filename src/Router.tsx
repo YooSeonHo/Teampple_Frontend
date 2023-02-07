@@ -13,12 +13,13 @@ import NotFoundPage from 'pages/NotFoundPage';
 import InitialHomePage from './pages/InitialHomePage';
 import Ing from 'pages/Ing';
 import PrivateRouter from 'components/routers/privateRouter';
+import PublicRouter from 'components/routers/publicRouter';
 
 const Router = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<OnboardingPage />} />
+        <Route path="/" element={<PublicRouter><OnboardingPage /></PublicRouter>} />
         <Route path="/home" element={
         <PrivateRouter>
         <HomePage />
