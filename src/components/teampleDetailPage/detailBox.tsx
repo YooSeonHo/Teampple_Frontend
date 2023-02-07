@@ -446,9 +446,8 @@ const DetailBox = () => {
 
   const uploadFile = async (file: File) => {
     const S3Client = new S3(config);
-    console.log(S3Client)
-    console.log(file)
-    await S3Client.uploadFile(file, file && file.name.replace(/.[a-z]*$/, ''))
+    console.log(S3Client);
+    await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
       })
@@ -559,7 +558,7 @@ const DetailBox = () => {
   }, []);
 
   useDidMountEffect(() => {
-    postFile();
+    // postFile();
   }, [fileLoc]);
 
   const onChangeStatus = async () => {
