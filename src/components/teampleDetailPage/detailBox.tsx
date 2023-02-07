@@ -436,6 +436,7 @@ const DetailBox = () => {
 
   const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
+      console.log(e.target.files[0]);
       setFile(e.target.files[0]);
       if (e.target.files[0].name.length > 0) {
         uploadFile(e.target.files[0]);
@@ -445,6 +446,8 @@ const DetailBox = () => {
 
   const uploadFile = async (file: File) => {
     const S3Client = new S3(config);
+    console.log(S3Client)
+    console.log(file)
     await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
