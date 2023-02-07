@@ -739,13 +739,19 @@ const DetailBox = () => {
                 <div className="date">
                   기간
                   <span className="dateInput">
-                    {`${detail.startDate
-                      .replace(/-/g, '.')
-                      .replace('T', ' ')
-                      .replace(/:[0-9]+$/, '')} - ${detail.dueDate
-                      .replace(/-/g, '.')
-                      .replace('T', ' ')
-                      .replace(/:[0-9]+$/, '')}`}
+                    {`${
+                      detail.startDate
+                        .replace(/-/g, '.')
+                        .replace('T', ' ')
+                        .split(' ')[0]
+                    } 
+                      - ${
+                        detail.dueDate
+                          .replace(/-/g, '.')
+                          .replace('T', ' ')
+                          .replace(/:[0-9]+$/, '')
+                          .split(' ')[0]
+                      }`}
                   </span>
                 </div>
                 <div className="state">

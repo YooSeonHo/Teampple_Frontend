@@ -21,10 +21,10 @@ const EditBox = styled.div`
 
   .profileImg {
     width: 11.458vw;
-    height: 20.37vh;
     margin-left: auto;
     margin-right: auto;
     margin-top: 3.33vh;
+    border-radius: 50%;
   }
 
   img {
@@ -263,15 +263,14 @@ const EditProfile = () => {
 
   return (
     <EditBox>
-      <div className="profileImg">
-        {profimg ? (
-          <img
-            src={require('../images/profile/proImageU' + profimg + '.png')}
-          />
-        ) : (
-          <img src={prof1} />
-        )}
-      </div>
+      {profimg ? (
+        <img
+          className="profileImg"
+          src={require('../images/profile/proImageU' + profimg + '.png')}
+        />
+      ) : (
+        <img className="profileImg" src={prof1} />
+      )}
       <div className="profileInfo">
         <div className="profileName">{name}</div>
         <div className="profileEmail">{email}</div>
