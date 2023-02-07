@@ -206,8 +206,9 @@ const Bar = styled.span<IBar>`
     right: -1.5vw;
     border: 1.5px solid #487aff;
     border-radius: 54px;
-    background-image: url(${(props) => require('../images/profile/proImageU' + props.profileImage+ '.png')});
-    background-size: cover;
+    background-image: url(${(props) => require(`../images/profile/proImageU` + props.profileImage+ `.png`)});
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 
   @keyframes css-progressbar {

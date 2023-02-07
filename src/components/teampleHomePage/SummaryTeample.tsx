@@ -204,10 +204,11 @@ const Bar = styled.span<{ currentPercent: number; icon: string }>`
     height: 30px;
     position: absolute;
     top: -0.92592vh;
-    right: -0.5vw;
+    right: -0.9vw;
     border-radius: 54px;
     background-image: url(${(props) => props.icon});
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 
   @keyframes teample-progressbar {

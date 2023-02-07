@@ -23,7 +23,6 @@ const Ing = () => {
     // 3. 토큰 저장 (1번 과정) 성공하면 토큰 연장 걸어두고 홈으로 이동
     if (localStorage.getItem('jwt_accessToken')) {
       setInterval(reToken, 1200000);
-      alert('reissue useEffect ing');
       navigate('/home');
       window.location.reload();
     } else window.location.reload();
@@ -73,7 +72,6 @@ const Ing = () => {
             'jwt_refreshToken',
             response.data.data.jwtRefreshToken,
           );
-          alert('reissue retoken');
           setInterval(reToken, 1200000);
         })
         .catch((error) => {

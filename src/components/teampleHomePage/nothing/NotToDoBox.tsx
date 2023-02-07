@@ -35,7 +35,6 @@ margin-right :2.8125vw;
 
 const Img = styled.img`
   width: 9.427083vw;
-  height: 28.148148vh;
 `;
 
 export default NotToDoBox;

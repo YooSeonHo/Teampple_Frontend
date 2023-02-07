@@ -8,8 +8,8 @@ import { taskIdState, teamidState, isLoading3State, teamEndDateState, } from 'st
 import { baseURL } from 'api/client';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
-  width: ${(props) => (props.pathname === '/home' ? '87.5vw' : '66.25vw')};
-  height: ${(props) => (props.pathname === '/home' ? '41.481vh' : '51.4814vh')};
+  width: 66.25vw;
+  height: 53.5vh;
   display: flex;
   overflow: overlay;
   margin-left: 2.8125vw;
