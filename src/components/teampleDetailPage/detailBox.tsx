@@ -234,14 +234,20 @@ const DetailContainer = styled.div`
 
   .icons {
     margin-left: auto;
-    margin-right: 2.08333vw;
-    width: 1.041667vw;
-    height: 1.85185vh;
+    margin-right: 2.3vw;
+    width: 1.3vw;
     display: flex;
   }
 
   .download {
     margin-right: 0.41667vw;
+    width: 3vw;
+    object-fit: cover;
+  }
+
+  .trash {
+    width: 3vw;
+    object-fit: cover;
   }
 
   .download:hover,
@@ -736,13 +742,19 @@ const DetailBox = () => {
                 <div className="date">
                   기간
                   <span className="dateInput">
-                    {`${detail.startDate
-                      .replace(/-/g, '.')
-                      .replace('T', ' ')
-                      .replace(/:[0-9]+$/, '')} - ${detail.dueDate
-                      .replace(/-/g, '.')
-                      .replace('T', ' ')
-                      .replace(/:[0-9]+$/, '')}`}
+                    {`${
+                      detail.startDate
+                        .replace(/-/g, '.')
+                        .replace('T', ' ')
+                        .split(' ')[0]
+                    } 
+                      - ${
+                        detail.dueDate
+                          .replace(/-/g, '.')
+                          .replace('T', ' ')
+                          .replace(/:[0-9]+$/, '')
+                          .split(' ')[0]
+                      }`}
                   </span>
                 </div>
                 <div className="state">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
 import MoreInfoPage from 'pages/MoreInfoPage';
@@ -13,11 +13,10 @@ import NotFoundPage from 'pages/NotFoundPage';
 import InitialHomePage from './pages/InitialHomePage';
 import Ing from 'pages/Ing';
 import PrivateRouter from 'components/routers/privateRouter';
-import PublicRouter from 'components/routers/publicRouter';
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route path="/" element={<OnboardingPage />} />
         <Route path="/home" element={
@@ -36,7 +35,7 @@ const Router = () => {
         <Route path="/oauth/kakao/success/ing" element={<Ing />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 };
 

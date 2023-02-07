@@ -7,7 +7,7 @@ import folderIcon from '../images/FolderSimple.png';
 import headset from '../images/Headset.png';
 import { Link, useNavigate } from 'react-router-dom';
 import prof1 from '../images/profile/proImageU1.png';
-import { ImExit } from 'react-icons/im';
+import out from '../images/Out.png';
 import delSad from '../images/delSad.png';
 import {
   usernameState,
@@ -78,7 +78,6 @@ const SideBarBox = styled.div`
     line-height: 2.037037vh;
     position: absolute;
     left: 4.5vw;
-    width: 5.42vw;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -170,6 +169,8 @@ const SideBarBox = styled.div`
     font-weight: 600;
     font-size: 0.9375vw;
     color: #707070;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .subBoxText {
@@ -179,6 +180,8 @@ const SideBarBox = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   #icon {
@@ -212,7 +215,7 @@ const SideBarBox = styled.div`
     border-radius: 60%;
     position: absolute;
     left: 1vw;
-    top: 0.5vh;
+    padding: 0.2vw;
   }
 `;
 
@@ -385,46 +388,41 @@ const SideBar = () => {
           <img src={logo} />
         </Link>
       </div>
-      <Link to="/profile" style={{ textDecoration: 'none' }}>
-        <div
-          className="user"
-          style={window.location.pathname === '/profile' ? activeProfBtn : {}}
-        >
-          <div className="profileImg">
-            {profileImg ? (
-              <img
-                src={require(`../images/profile/proImageU` +
-                  profileImg +
-                  `.png`)}
-              />
-            ) : (
-              <img src={prof1} />
-            )}
-          </div>
-          <a id="userName">{name}</a>
-        </div>
-      </Link>
+      <div
+        className="user"
+        style={window.location.pathname === '/profile' ? activeProfBtn : {}}
+        onClick={() => window.open(`/profile`, '_self')}
+      >
+        {profileImg ? (
+          <img
+            className="profileImg"
+            src={require(`../images/profile/proImageU` + profileImg + `.png`)}
+          />
+        ) : (
+          <img className="profileImg" src={prof1} />
+        )}
+        <div id="userName">{name}</div>
+      </div>
 
-      <Link to="/home" style={{ textDecoration: 'none' }}>
+      <div
+        className="box"
+        style={window.location.pathname === '/home' ? activeProfBtn : {}}
+        onClick={() => window.open(`/home`, '_self')}
+      >
+        <div className="iconWrap">
+          <img
+            src={house}
+            id="icon"
+            style={window.location.pathname === '/home' ? activeProfBtn : {}}
+          />
+        </div>
         <div
-          className="box"
+          className="boxText"
           style={window.location.pathname === '/home' ? activeProfBtn : {}}
         >
-          <div className="iconWrap">
-            <img
-              src={house}
-              id="icon"
-              style={window.location.pathname === '/home' ? activeProfBtn : {}}
-            />
-          </div>
-          <div
-            className="boxText"
-            style={window.location.pathname === '/home' ? activeProfBtn : {}}
-          >
-            홈
-          </div>
+          홈
         </div>
-      </Link>
+      </div>
 
       <div className="box">
         <div className="iconWrap">
@@ -458,7 +456,8 @@ const SideBar = () => {
             </div>
             {window.location.pathname === `/teample-home/${team.teamId}` ? (
               <button id="more" onClick={alertDelTeample}>
-                <ImExit
+                <img
+                  src={out}
                   id="moreicon"
                   style={
                     window.location.pathname === `/teample-home/${team.teamId}`
@@ -497,7 +496,8 @@ const SideBar = () => {
             </div>
             {window.location.pathname === `/teample-home/${team.teamId}` ? (
               <button id="more" onClick={alertDelTeample}>
-                <ImExit
+                <img
+                  src={out}
                   id="moreicon"
                   style={
                     window.location.pathname === `/teample-home/${team.teamId}`

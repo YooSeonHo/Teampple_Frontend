@@ -33,7 +33,7 @@ export const Contents = styled.div`
     margin-bottom: 6.66666vh;
 
     span {
-      font-weight: 900;
+      font-weight: 600;
       color: black;
     }
   }

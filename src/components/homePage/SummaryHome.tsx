@@ -35,8 +35,6 @@ const SummaryHome = () => {
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
   const [profileImg] = useRecoilState(profileImgState);
-  // const [profileImage, setProfileImage] = useState(`proImageU` + profileImg);
-  const [profileImage, setProfileImage] = useState(proImageU2);
 
   const getTaskAPI = async () => {
     setIsLoading4(true);
@@ -208,8 +206,9 @@ const Bar = styled.span<IBar>`
     right: -1.5vw;
     border: 1.5px solid #487aff;
     border-radius: 54px;
-    background-image: url(${(props) => require('../images/profile/proImageU' + props.profileImage+ '.png')});
-    background-size: cover;
+    background-image: url(${(props) => require(`../images/profile/proImageU` + props.profileImage+ `.png`)});
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 
   @keyframes css-progressbar {

@@ -116,7 +116,9 @@ const PlanManager = () => {
         {plans &&
           plans.map((plan: IPlan, index: number) => (
             <Content key={index}>
-              <div className="contentdDay">D{getPlanDay(plan.dueDate)}</div>
+              <div className="contentdDay">
+                D{getPlanDay(plan.dueDate)}
+              </div>
               <div className="contentInfo">
                 <div className="contentName">{plan.name}</div>
                 <div className="when">

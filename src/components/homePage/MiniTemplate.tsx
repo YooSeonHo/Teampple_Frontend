@@ -55,8 +55,8 @@ const MiniTemplate = () => {
 
 const MiniTemplateContainer = styled.div`
   position: relative;
-  margin-left: 2.8125vw;
-  width: 87.5vw;
+  margin-left: 2.8vw;
+  width: 84.7vw;
   height: 250px;
 `;
 

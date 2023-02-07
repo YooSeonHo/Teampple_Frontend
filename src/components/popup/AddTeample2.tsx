@@ -60,17 +60,18 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
       },
       data: makeTeample,
     })
-      .then(() => {
-        alertPostTeample();
+      .then((res) => {
+        alertPostTeample(res);
         setModal(false);
         setNextModal(false);
+        console.log(res.data.data.teamId);
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const alertPostTeample = () => {
+  const alertPostTeample = (res: any) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -82,7 +83,7 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
             <button
               onClick={() => {
                 onClose();
-                navigate('/home');
+                navigate(`/teample-home/${res.data.data.teamId}`);
                 location.reload();
               }}
               className="close"
@@ -111,15 +112,15 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
     });
 
     if (TrimCheck.length >= 1 || DateCheck.length >= 1) {
-      if (TrimCheck.length >= 1){
-      TrimCheck.map((tr: stageInfo) =>
-        alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
-      );
+      if (TrimCheck.length >= 1) {
+        TrimCheck.map((tr: stageInfo) =>
+          alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
+        );
       }
-      if (DateCheck.length >= 1){
-        DateCheck.map((da : stageInfo) =>
-          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`)
-        )
+      if (DateCheck.length >= 1) {
+        DateCheck.map((da: stageInfo) =>
+          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`),
+        );
       }
     } else {
       setTemp(

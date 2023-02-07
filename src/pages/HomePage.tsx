@@ -49,7 +49,8 @@ const HomePageContainer = styled.div`
   position: relative;
   width: 100vw;
   height: 1100px;
-  overflow: hidden;
+  overflow-x: visible;
+  overflow-y: auto;
 `;
 
 const SideBarContainer = styled.div`

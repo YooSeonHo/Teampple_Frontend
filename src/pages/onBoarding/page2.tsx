@@ -67,7 +67,7 @@ const Page2 = () =>{
         <Box data-aos="fade-up">
             <Background/>
                 <Contents>
-                    <div className="header">대학에 갓 입학했는데<br/>전공에도 교양에도..팀플이..</div>
+                    <div className="header">대학에 입학했더니<br/>전공에도 교양에도..팀플이..</div>
                     <div className="mid">학교, 대외활동, 공모전 ...<br/> 각종 팀프로젝트를 진행 하느라 지치셨나요?</div>
                 </Contents>
         </Box>
