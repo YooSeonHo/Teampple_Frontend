@@ -448,7 +448,7 @@ const DetailBox = () => {
     const S3Client = new S3(config);
     console.log(S3Client)
     console.log(file)
-    await S3Client.uploadFile(file, file.name.replace(/.[a-z]*$/, ''))
+    await S3Client.uploadFile(file, file && file.name.replace(/.[a-z]*$/, ''))
       .then((data: any) => {
         setFileLoc(data.location);
       })
