@@ -35,8 +35,6 @@ const SummaryHome = () => {
   let s2 = 0;
   const token = localStorage.getItem('jwt_accessToken');
   const [profileImg] = useRecoilState(profileImgState);
-  // const [profileImage, setProfileImage] = useState(`proImageU` + profileImg);
-  const [profileImage, setProfileImage] = useState(proImageU2);
 
   const getTaskAPI = async () => {
     setIsLoading4(true);

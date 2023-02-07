@@ -11,7 +11,6 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: ${(props) => (props.pathname === '/home' ? '87.5vw' : '66.25vw')};
   height: ${(props) => (props.pathname === '/home' ? '41.481vh' : '51.4814vh')};
   display: flex;
-  border-radius: 16px;
   overflow: overlay;
   margin-left: 2.8125vw;
   margin-top: 3.0555vh;
