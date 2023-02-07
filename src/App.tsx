@@ -34,7 +34,7 @@ function App() {
             'jwt_refreshToken',
             response.data.data.jwtRefreshToken,
           );
-          setInterval(reToken, 1200000);
+          setInterval(reToken, 1800000);
         })
         .catch((error) => {
           console.log(error);
