@@ -170,6 +170,8 @@ const SideBarBox = styled.div`
     font-weight: 600;
     font-size: 0.9375vw;
     color: #707070;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .subBoxText {
@@ -179,6 +181,8 @@ const SideBarBox = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   #icon {

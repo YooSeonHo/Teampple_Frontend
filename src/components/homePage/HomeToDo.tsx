@@ -164,12 +164,12 @@ const LeftText = styled.span`
   color: #487aff;
   position: absolute;
   right: 3.072vw;
-  top: 2.4074vh;
+  top: 3vh;
 `;
 const LeftNum = styled.span`
   position: absolute;
   right: 1.042vw;
-  top: 20px;
+  top: 2.4074vh;
   width: 1.458333vw;
   height: 2.592593vh;
   border-radius: 50px;
