@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 import { GlobalStyle } from './css/GlobalStyle';
 import axios from 'axios';
 import { baseURL } from 'api/client';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   const accessToken = localStorage.getItem('jwt_accessToken');
@@ -37,24 +38,26 @@ function App() {
         })
         .catch((error) => {
           console.log(error);
-          alert('로그인 연장 실패. 다시 로그인하세요.');
           localStorage.removeItem('jwt_accessToken');
           localStorage.removeItem('jwt_refreshToken');
-          window.location.reload();
+          location.reload();
+          alert('로그인 연장 실패. 다시 로그인하세요.');
         });
     }
   };
 
-  if (performance.navigation.type === 1) {
-    //새로고침하면 바로 로그인 연장(토큰 갱신)
+  useEffect(() => {
+    //페이지 변화할 때마다(는 좀 이상), 새로고침할 때마다 토큰 갱신
     reToken();
-  }
+  }, [location]);
 
   return (
-    <RecoilRoot>
-      <GlobalStyle />
-      <Router />
-    </RecoilRoot>
+    <BrowserRouter>
+      <RecoilRoot>
+        <GlobalStyle />
+        <Router />
+      </RecoilRoot>
+    </BrowserRouter>
   );
 }
 

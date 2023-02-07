@@ -385,10 +385,10 @@ const SideBar = () => {
           <img src={logo} />
         </Link>
       </div>
-      <Link to="/profile" style={{ textDecoration: 'none' }}>
         <div
           className="user"
           style={window.location.pathname === '/profile' ? activeProfBtn : {}}
+          onClick={() => window.open(`/profile`, '_self')}
         >
           <div className="profileImg">
             {profileImg ? (
@@ -401,14 +401,13 @@ const SideBar = () => {
               <img src={prof1} />
             )}
           </div>
-          <a id="userName">{name}</a>
+          <div id="userName">{name}</div>
         </div>
-      </Link>
 
-      <Link to="/home" style={{ textDecoration: 'none' }}>
         <div
           className="box"
           style={window.location.pathname === '/home' ? activeProfBtn : {}}
+          onClick={() => window.open(`/home`, '_self')}
         >
           <div className="iconWrap">
             <img
@@ -424,7 +423,6 @@ const SideBar = () => {
             홈
           </div>
         </div>
-      </Link>
 
       <div className="box">
         <div className="iconWrap">

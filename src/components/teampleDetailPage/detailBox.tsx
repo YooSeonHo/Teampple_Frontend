@@ -234,14 +234,20 @@ const DetailContainer = styled.div`
 
   .icons {
     margin-left: auto;
-    margin-right: 2.08333vw;
-    width: 1.041667vw;
-    height: 1.85185vh;
+    margin-right: 2.3vw;
+    width: 1.3vw;
     display: flex;
   }
 
   .download {
     margin-right: 0.41667vw;
+    width: 3vw;
+    object-fit: cover;
+  }
+
+  .trash {
+    width: 3vw;
+    object-fit: cover;
   }
 
   .download:hover,
