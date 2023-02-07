@@ -12,7 +12,7 @@ export const Background = styled.div`
   background-repeat: no-repeat;
   margin: auto;
   background-color: #487aff;
-  margin-top: 10vh;
+  margin-top: 0;
 `;
 
 const Contents = styled.div`

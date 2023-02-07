@@ -51,15 +51,13 @@ const LoginPage = () => {
   return (
     <LoginPageContainer>
       <LogoImg src={Logo} onClick={naviOnBoard} />
-      <Desc>서로가 모여 플러스가 되는 팀쁠</Desc>
+      <Desc>서로가 모여 플러스(A+)가 되는 팀쁠</Desc>
       {invited ? (
         <TeamNameContainer>
           <TeamName>{teamname} </TeamName>
           팀메이트로 참여하기
         </TeamNameContainer>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <KakaoButton onClick={saveInviteCode}>
         <a href={kakaobaseURL}>
           <KakaoBtn />
@@ -77,44 +75,37 @@ const LoginPageContainer = styled.div`
   background-color: #f4f8ff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  position: relative;
 `;
 const LogoImg = styled.img`
-  width: 237.26px;
-  height: 67px;
-  position: absolute;
-  top: 256px;
+  width: 16vw;
+  margin-top: 23.704vh;
   &:hover {
     cursor: pointer;
   }
 `;
 const Desc = styled.div`
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1vw;
   line-height: 100%;
   color: #707070;
-  position: absolute;
-  top: 339px;
+  margin-top: 1.5vh;
 `;
-const KakaoButton = styled.button<any>`
-  position: absolute;
-  top: 494px;
+const KakaoButton = styled.button`
+  margin-top: 7.5vh;
 `;
 const SubDesc = styled.div`
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1vw;
   line-height: 140%;
   color: #c0c0c0;
-  position: absolute;
-  top: 568px;
+  margin-top: 2.96vh;
 `;
 const TeamNameContainer = styled.div`
-  position: absolute;
-  top: 400px;
+  margin-top: 7.4vh;
   font-weight: 600;
-  font-size: 40px;
+  font-size: 2.0833vw;
   line-height: 100%;
 `;
 const TeamName = styled.span`

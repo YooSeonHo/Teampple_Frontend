@@ -14,26 +14,27 @@ const KakaoBtn = () => {
 };
 
 const LoginBtn = styled.div`
-  width: 372px;
-  height: 54px;
+  width: 23vw;
+  height: 6vh;
   background-color: #fae100;
   border-radius: 8px;
   position: relative;
+  display: flex;
+  align-items: center;
   svg {
-    margin-right: 54px;
+    margin-right: 5vh;
     position: absolute;
-    left: 16px;
-    top: 15px;
+    left: 2vw;
   }
 `;
 
 const Text = styled.span`
-  font-size: 20px;
+  font-size: 1.2vw;
   line-height: 100%;
   color: #383838;
   position: absolute;
-  top: 17px;
-  left: 96px;
+  left: 6vw;
+  font-weight: 600;
 `;
 
 export default KakaoBtn;
