@@ -3515,6 +3515,11 @@
     "shebang-command" "^2.0.0"
     "which" "^2.0.1"
 
+"crypto-js@^3.1.9-1":
+  "integrity" "sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q=="
+  "resolved" "https://registry.npmjs.org/crypto-js/-/crypto-js-3.3.0.tgz"
+  "version" "3.3.0"
+
 "crypto-js@^4.1.1":
   "integrity" "sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw=="
   "resolved" "https://registry.npmjs.org/crypto-js/-/crypto-js-4.1.1.tgz"
@@ -7799,6 +7804,14 @@
     "crypto-js" "^4.1.1"
     "short-uuid" "^4.2.0"
 
+"react-aws-s3@^1.5.0":
+  "integrity" "sha512-ib8JvNFlWaQyFfXvDXNeQCsGsHAHJswQgtA1MbpIU5sCSXZVeqoRVlvexyzjPjJGy8KDnbyYEB9PQ2Rw96g8Ug=="
+  "resolved" "https://registry.npmjs.org/react-aws-s3/-/react-aws-s3-1.5.0.tgz"
+  "version" "1.5.0"
+  dependencies:
+    "crypto-js" "^3.1.9-1"
+    "short-uuid" "^3.1.0"
+
 "react-confirm-alert@^3.0.6":
   "integrity" "sha512-rplP6Ed9ZSNd0KFV5BUzk4EPQ77BxsrayllBXGFuA8xPXc7sbBjgU5KUrNpl7aWFmP7mXRlVXfuy1IT5DbffYw=="
   "resolved" "https://registry.npmjs.org/react-confirm-alert/-/react-confirm-alert-3.0.6.tgz"
@@ -8476,6 +8489,14 @@
   "integrity" "sha512-8o/QEhSSRb1a5i7TFR0iM4G16Z0vYB2OQVs4G3aAFXjn3T6yEx8AZxy1PgDF7I00LZHYA3WxaSYIf5e5sAX8Rw=="
   "resolved" "https://registry.npmjs.org/shell-quote/-/shell-quote-1.7.4.tgz"
   "version" "1.7.4"
+
+"short-uuid@^3.1.0":
+  "integrity" "sha512-7dI69xtJYpTIbg44R6JSgrbDtZFuZ9vAwwmnF/L0PinykbFrhQ7V8omKsQcVw1TP0nYJ7uQp1PN6/aVMkzQFGQ=="
+  "resolved" "https://registry.npmjs.org/short-uuid/-/short-uuid-3.1.1.tgz"
+  "version" "3.1.1"
+  dependencies:
+    "any-base" "^1.1.0"
+    "uuid" "^3.3.2"
 
 "short-uuid@^4.2.0":
   "integrity" "sha512-IE7hDSGV2U/VZoCsjctKX6l5t5ak2jE0+aeGJi3KtvjIUNuZVmHVYUjNBhmo369FIWGDtaieRaO8A83Lvwfpqw=="
@@ -9264,6 +9285,11 @@
   "integrity" "sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA=="
   "resolved" "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz"
   "version" "1.0.1"
+
+"uuid@^3.3.2":
+  "integrity" "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
+  "resolved" "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz"
+  "version" "3.4.0"
 
 "uuid@^8.3.2":
   "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
