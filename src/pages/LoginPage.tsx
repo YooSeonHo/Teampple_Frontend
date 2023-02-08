@@ -28,7 +28,8 @@ const LoginPage = () => {
           setTeamname(res.data.data.teamName);
           setInvited(true);
           localStorage.setItem('code', code);
-        }
+        } else if (res.data.data.valid === false)
+          alert('유효하지 않은 초대코드입니다.');
       })
       .catch((e) => {
         console.log(e);
@@ -65,7 +66,7 @@ const LoginPage = () => {
       })
       .catch((e) => {
         console.log(e);
-        alert('이미 입장했거나 존재하지 않는 팀입니다.');
+        alert('이미 입장한 팀입니다.');
         navigate('/home');
       });
   };
