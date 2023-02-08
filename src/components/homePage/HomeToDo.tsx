@@ -82,6 +82,17 @@ const HomeToDo = () => {
     getTodoAPI();
   }, []);
 
+  const checkTeams = (teams : any) =>{
+    teams.map((t : any) => {
+      if (t.totalStage !== 0){
+        console.log(false);
+        return false;
+      }
+    })
+    console.log(true);
+    return true;
+  }
+
   return (
     <>
        {teams.length === 0 ? (

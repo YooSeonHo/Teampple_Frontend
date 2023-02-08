@@ -51,7 +51,7 @@ export const Background = styled.div`
 const Page4 = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1500,
+      duration: 2000,
     });
   });
 
