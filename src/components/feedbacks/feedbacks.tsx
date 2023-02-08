@@ -94,9 +94,10 @@ const Feed = styled.div<any>`
     font-size: 0.625vw;
     line-height: 100%;
     color: #a7a7a7;
-    margin-top: 1.851852vh;
+    margin-top: 1.5vh;
     margin-left : auto;
-    margin-right : 1vw;
+    margin-right : 0.2vw;
+    width: 4vw;
     // margin-left: 2.083333vw;
   }
 `;

@@ -18,13 +18,10 @@ import { AiFillMessage } from 'react-icons/ai';
 import { baseURL } from 'api/client';
 
 const MsgIcon = styled(AiFillMessage)`
-  // position: absolute;
-  // top: 1.851852vh;
-  // right: 2.81vw;
   color: #487aff;
-  width: 1.67vw;
-  height:  6.6666vh;
-  display : flex;
+  font-size: 1.6vw;
+  margin-top: 1.6vh;
+  display: flex;
   align-items: center;
 `;
 
@@ -141,6 +138,7 @@ const HeaderBox = styled.div`
     color: #a7a7a7;
     margin-left: auto;
     margin-right: 0.677083vw;
+    margin-top: 0.3vh;
   }
 
   .iconBox {
@@ -282,7 +280,9 @@ const TeampleHeader = () => {
       <div id="dDayBox">
         <div id="dDay">D{deadDay}</div>
       </div>
-      <div id="date">{startDate}-{dueDate}</div>
+      <div id="date">
+        {startDate}-{dueDate}
+      </div>
       <button className="editBox" onClick={showModal1}>
         팀플 수정
       </button>
@@ -296,7 +296,6 @@ const TeampleHeader = () => {
       <div className="iconBox" onClick={openFeed}>
         {isCheck?  <MsgIcon/> : <img id="feedback" src={feedback}/>}
       </div>
-      
     </HeaderBox>
   );
 };

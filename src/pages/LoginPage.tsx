@@ -27,6 +27,7 @@ const LoginPage = () => {
         if (res.data.data.valid) {
           setTeamname(res.data.data.teamName);
           setInvited(true);
+          localStorage.setItem('code', code);
         }
       })
       .catch((e) => {
@@ -44,8 +45,26 @@ const LoginPage = () => {
     navigate('/');
   };
 
-  const saveInviteCode = () => {
-    localStorage.setItem('code', code);
+  const joinTeam = async () => {
+    await axios({
+      url: `/api/invitations`,
+      baseURL: baseURL,
+      method: 'post',
+      params: {
+        code: code,
+      },
+      headers: {
+        Authorization: localStorage.getItem('jwt_accessToken'),
+      },
+    })
+      .then((res) => {
+        navigate(`/teample-home/${res.data.data.teamId}`);
+        window.location.reload();
+        localStorage.removeItem('code');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -58,14 +77,20 @@ const LoginPage = () => {
           팀메이트로 참여하기
         </TeamNameContainer>
       ) : null}
-      <KakaoButton onClick={saveInviteCode}>
-        <a href={kakaobaseURL}>
-          <KakaoBtn />
-        </a>
-      </KakaoButton>
-      <SubDesc>
-        계정을 생성하면 서비스이용약관과 개인정보처리방침에 동의하게 됩니다.
-      </SubDesc>
+      {invited && localStorage.getItem('jwt_accessToken') ? (
+        <InviteAcceptBtn onClick={joinTeam}>초대 수락하기</InviteAcceptBtn>
+      ) : (
+        <>
+          <KakaoButton>
+            <a href={kakaobaseURL}>
+              <KakaoBtn />
+            </a>
+          </KakaoButton>
+          <SubDesc>
+            계정을 생성하면 서비스이용약관과 개인정보처리방침에 동의하게 됩니다.
+          </SubDesc>
+        </>
+      )}
     </LoginPageContainer>
   );
 };
@@ -112,4 +137,21 @@ const TeamName = styled.span`
   color: #487aff;
   font-weight: 700;
 `;
+
+const InviteAcceptBtn = styled.button`
+  width: 23vw;
+  height: 6vh;
+  background-color: #487aff;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2vw;
+  line-height: 100%;
+  font-weight: 600;
+  margin-top: 7.5vh;
+`;
+
 export default LoginPage;

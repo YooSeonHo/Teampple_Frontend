@@ -181,14 +181,14 @@ export const teampleDetailState = atom<boolean>({
 });
 
 export const detailState = atom<detailInfo>({
-  key :  `detail/${v1()}`,
-  default :
+  key: `detail/${v1()}`,
+  default:
   {
-    done : false,
-    dueDate : '',  
-    feedbacks : [],
+    done: false,
+    dueDate: '',
+    feedbacks: [],
     files: [],
-    operators : [],
+    operators: [],
     sequenceNum : 0,
     stageName : '',
     startDate : '',

@@ -15,17 +15,18 @@ const Ing = () => {
       location.search.split('=')[1].split('&')[0],
     );
     localStorage.setItem('jwt_refreshToken', location.search.split('=')[2]);
-    // 2. 초대코드 존재하면 참여 post 전송
+    // 2. 토큰 저장 (로그인) 성공하면 토큰 연장 걸어두기
+    if (localStorage.getItem('jwt_accessToken')) {
+      setInterval(reToken, 1800000);
+    } else window.location.reload();
+    // 3. 초대코드 존재하면 참여 post 전송, 조건별 리다렉
     if (localStorage.getItem('code')) {
       joinTeam();
       localStorage.removeItem('code');
-    }
-    // 3. 토큰 저장 (1번 과정) 성공하면 토큰 연장 걸어두고 홈으로 이동
-    if (localStorage.getItem('jwt_accessToken')) {
-      setInterval(reToken, 1200000);
+    } else {
       navigate('/home');
       window.location.reload();
-    } else window.location.reload();
+    }
   }, []);
 
   const joinTeam = async () => {
@@ -41,7 +42,8 @@ const Ing = () => {
       },
     })
       .then((res) => {
-        console.log(res);
+        navigate(`/teample-home/${res.data.data.teamId}`);
+        window.location.reload();
       })
       .catch((e) => {
         console.log(e);
@@ -72,7 +74,7 @@ const Ing = () => {
             'jwt_refreshToken',
             response.data.data.jwtRefreshToken,
           );
-          setInterval(reToken, 1200000);
+          setInterval(reToken, 80);
         })
         .catch((error) => {
           console.log(error);
