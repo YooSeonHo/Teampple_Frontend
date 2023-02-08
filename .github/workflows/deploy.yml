@@ -19,7 +19,7 @@ jobs:
       - name: Set env
         run: |
           touch .env
-          echo ${{secrets.ENV_VARS}} >> .env
+          echo ${{ secrets.ENV_VARS }} >> .env
 
       # 생성할 이미지의 이름과 버전 정보 태깅
       - name: Docker meta
