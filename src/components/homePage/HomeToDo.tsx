@@ -80,7 +80,6 @@ const HomeToDo = () => {
 
   useEffect(() => {
     getTodoAPI();
-    console.log(teams);
   }, []);
 
   return (
