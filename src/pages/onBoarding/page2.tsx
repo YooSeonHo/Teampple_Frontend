@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const Box = styled.div`
     width :100%;
     // height : 499px;
-    height : 75vh;
+    height : 80vh;
     position : relative;
     margin-top : auto;
     display : flex;
@@ -33,7 +33,7 @@ const Contents = styled.div`
     flex-direction : column;
     position : absolute;
     left : 23.2291vw;
-    top : 12.44375vh;
+    top : 17.44375vh;
     width : 23.2291vw;
     height: 12.4074vh;
 

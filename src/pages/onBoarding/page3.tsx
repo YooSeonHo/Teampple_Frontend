@@ -10,6 +10,7 @@ const Box = styled.div`
   height: 100vh;
   margin-left: auto;
   margin-top: auto;
+  padding-top : 9.259259vh;
   margin-right: auto;
   display: flex;
   flex-direction: column;
@@ -35,13 +36,13 @@ const Background = styled.div`
   margin-bottom: auto;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 13vh;
+  margin-top: 8vh;
 `;
 
 const Page3 = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1500,
+      duration: 2000,
     });
   });
 
