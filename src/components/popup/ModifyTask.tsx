@@ -57,8 +57,11 @@ const ModifyTask = ({ setBigModal }: any) => {
     })
       .then((res) => {
         setName(res.data.data.taskName);
-        // setCheckedNameList(res.data.data.operators); //일단 이딴식으로함 흑
-        console.log(res.data.data);
+        const opList = res.data.data.operators;
+        opList.map((op: any) => {
+          checkedNameList.push(op.name);
+          checkedIdList.push(op.id);
+        });
         setStartDate(
           new Date(
             moment(res.data.data.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
@@ -103,8 +106,7 @@ const ModifyTask = ({ setBigModal }: any) => {
       },
       params: { taskId: taskId },
     })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         alert('할일 수정 완료');
         location.reload();
       })
@@ -124,9 +126,8 @@ const ModifyTask = ({ setBigModal }: any) => {
       params: { teamId: teamid },
     })
       .then((response) => {
-        setTeamMates(response.data.data.teammates);
+        setTeamMates(response.data.data.teammateInfoVos);
         setUser(response.data.data);
-        console.log(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -147,11 +148,6 @@ const ModifyTask = ({ setBigModal }: any) => {
     getTeamMateAPI();
   }, []);
 
-  useEffect(() => {
-    console.log(checkedNameList);
-    console.log(checkedIdList);
-  });
-
   const onCheckedHandle = (checked: boolean, item: string, id: number) => {
     if (checked) {
       setCheckedNameList([...checkedNameList, item]);
@@ -162,15 +158,15 @@ const ModifyTask = ({ setBigModal }: any) => {
     }
   };
 
-  const checkDate = () =>{
+  const checkDate = () => {
     if (startDate > endDate) {
       setEndDate(startDate);
-    } 
-  }
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     checkDate();
-  },[startDate,endDate])
+  }, [startDate, endDate]);
 
   return (
     <Background>
@@ -212,12 +208,7 @@ const ModifyTask = ({ setBigModal }: any) => {
         <Tag3>담당자</Tag3>
         <ManagerContainer>
           {checkedNameList.map((item) => (
-            <Manager key={item}>
-              {item}
-              {/* <SmallCloseBtn onClick={() => onRemoveHandle(item)}>
-                <GrClose />
-              </SmallCloseBtn> */}
-            </Manager>
+            <Manager key={item}>{item}</Manager>
           ))}
         </ManagerContainer>
         <TeamMateContainer>
@@ -225,7 +216,7 @@ const ModifyTask = ({ setBigModal }: any) => {
           <TeamMateBox>
             {user && (
               <TeamMate>
-                <Profile profileImage={user.image}/>
+                <Profile profileImage={user.image} />
                 <TextInfo>
                   <Name>{user.name}</Name>
                   <School>
@@ -249,7 +240,7 @@ const ModifyTask = ({ setBigModal }: any) => {
             )}
             {teamMates.map((teammate: any, index: number) => (
               <TeamMate key={index}>
-                <Profile profileImage={teammate.image}/>
+                <Profile profileImage={teammate.image} />
                 <TextInfo>
                   <Name>{teammate.name}</Name>
                   <School>
@@ -259,7 +250,7 @@ const ModifyTask = ({ setBigModal }: any) => {
                 <CheckBox
                   type="checkbox"
                   value={teammate.name}
-                  id={teammate.teammateId}
+                  id={teammate.id}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -486,7 +477,8 @@ const Profile = styled.div<any>`
   height: 3.703704vh;
   border-radius: 16px;
   background: #fce44c;
-  background-image: url(${(props) => require('../images/profile/proImageU' + props.profileImage+ '.png')});
+  background-image: url(${(props) =>
+    require('../images/profile/proImageU' + props.profileImage + '.png')});
   background-size: cover;
 `;
 const TextInfo = styled.div`
