@@ -294,18 +294,28 @@ const DetailContainer = styled.div`
   }
 
   .feedInput {
-    width: 46.6667vw;
+    width: 42.916667vw;
     height: 4.444vh;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 0.8333vw;
     border: 0 solid black;
-    border-bottom: 1px solid #d5dbee;
     padding: 0;
+    background: rgba(237, 239, 246, 0.5);
+    border-radius: 8px;
+    padding-left: 0.83333vw;
+
+    ::-webkit-input-placeholder {
+      margin-left: 16px;
+      color: '#CCCCCC';
+      font-size: 0.83333vw;
+      margin-left: 16px;
+    }
   }
 
   .feedInput:focus {
     outline: none;
+    border: solid 1px #487aff;
   }
 
   .inputBox {
@@ -318,7 +328,7 @@ const DetailContainer = styled.div`
   .send {
     position: absolute;
     top: 1.2vh;
-    left: 45.7vw;
+    left: 44.7vw;
     border: none;
     background-color: transparent;
     color: #a7a7a7;

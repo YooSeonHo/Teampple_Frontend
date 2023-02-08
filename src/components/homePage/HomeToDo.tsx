@@ -23,6 +23,7 @@ const HomeToDo = () => {
   const navigate = useNavigate();
   const [isLoading1, setIsLoading1] = useRecoilState(isLoading1State);
   const [isLoading2, setIsLoading2] = useRecoilState(isLoading2State);
+  const [isZero,setIsZero] = useState(false);
 
   const getDetail = async () => {
     setIsLoading1(true);
@@ -82,9 +83,27 @@ const HomeToDo = () => {
     getTodoAPI();
   }, []);
 
+  const checkTeams = () =>{
+    const TaskCheck = teams.filter((t : any)=>{
+      return t.totalStage !== 0 
+      //total이 0이 아닌애들만 필터 -> 테스크체크 길이가 0이면 다 0인거
+    })
+
+    if (TaskCheck.length <1){
+      setIsZero(true);
+    }
+    else{
+      setIsZero(false);
+    }
+  };
+
+  useEffect(()=>{
+    checkTeams();
+  },[teams]);
+
   return (
     <>
-       {teams.length === 0 ? (
+       {teams.length === 0 || isZero ? (
         <NotToDoBox />
       ) : ( 
       <HomeToDoContainer>
