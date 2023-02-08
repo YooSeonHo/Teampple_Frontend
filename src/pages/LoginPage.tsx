@@ -58,10 +58,9 @@ const LoginPage = () => {
       },
     })
       .then((res) => {
-        console.log(res);
+        navigate(`/teample-home/${res.data.data.teamId}`);
+        window.location.reload();
         localStorage.removeItem('code');
-        navigate('/home');
-        location.reload();
       })
       .catch((e) => {
         console.log(e);
