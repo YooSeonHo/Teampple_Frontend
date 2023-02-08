@@ -303,18 +303,19 @@ const DetailContainer = styled.div`
     padding: 0;
     background: rgba(237, 239, 246, 0.5);
     border-radius: 8px;
-    padding-left : 0.83333vw;
-    
+    padding-left: 0.83333vw;
+
     ::-webkit-input-placeholder {
-      margin-left : 16px;
-      color : '#CCCCCC';
-      font-size : 0.83333vw;
-      margin-left : 16px;
+      margin-left: 16px;
+      color: '#CCCCCC';
+      font-size: 0.83333vw;
+      margin-left: 16px;
     }
   }
 
   .feedInput:focus {
     outline: none;
+    border: solid 1px #487aff;
   }
 
   .inputBox {

@@ -6,43 +6,31 @@ import HomeHeader from 'components/homePage/HomeHeader';
 import SideBar from 'components/layouts/sideBar';
 import HomeToDo from 'components/homePage/HomeToDo';
 import { useRecoilState } from 'recoil';
-import {
-  feedbackState,
-  isLoading1State,
-  isLoading2State,
-  isLoading4State,
-} from 'state';
+import { feedbackState } from 'state';
 import Feedbacks from 'components/feedbacks/feedbacks';
-import Loading from 'components/common/Loading';
 
 const HomePage = () => {
   const [isOpen] = useRecoilState(feedbackState);
-  const [isLoading1] = useRecoilState(isLoading1State);
-  const [isLoading2] = useRecoilState(isLoading2State);
-  const [isLoading4] = useRecoilState(isLoading4State);
 
   return (
-    <>
-      {isLoading1 && isLoading2 && isLoading4 ? <Loading /> : null}
-      <HomePageContainer>
-        <HeaderContainer>
-          <HomeHeader />
-        </HeaderContainer>
-        <SideBarContainer>
-          <SideBar />
-        </SideBarContainer>
-        <SummaryHomeContainer>
-          <SummaryHome />
-        </SummaryHomeContainer>
-        {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
-        <TodoContainer>
-          <HomeToDo />
-        </TodoContainer>
-        <MiniTemplateContainer>
-          <MiniTemplate />
-        </MiniTemplateContainer>
-      </HomePageContainer>
-    </>
+    <HomePageContainer>
+      <HeaderContainer>
+        <HomeHeader />
+      </HeaderContainer>
+      <SideBarContainer>
+        <SideBar />
+      </SideBarContainer>
+      <SummaryHomeContainer>
+        <SummaryHome />
+      </SummaryHomeContainer>
+      {isOpen ? <Feedbacks pathname={window.location.pathname} /> : null}
+      <TodoContainer>
+        <HomeToDo />
+      </TodoContainer>
+      <MiniTemplateContainer>
+        <MiniTemplate />
+      </MiniTemplateContainer>
+    </HomePageContainer>
   );
 };
 const HomePageContainer = styled.div`

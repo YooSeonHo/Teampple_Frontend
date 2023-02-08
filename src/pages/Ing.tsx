@@ -15,18 +15,17 @@ const Ing = () => {
       location.search.split('=')[1].split('&')[0],
     );
     localStorage.setItem('jwt_refreshToken', location.search.split('=')[2]);
-    // 2. 토큰 저장 (로그인) 성공하면 토큰 연장 걸어두기
+    // 2. 토큰 저장 -> 유효성 검사 (로그인)
     if (localStorage.getItem('jwt_accessToken')) {
-      setInterval(reToken, 1800000);
+      reToken();
+      // 3. 초대코드 존재하면 참여 post 전송, 조건별 리다렉
+      if (localStorage.getItem('code')) {
+        joinTeam();
+        localStorage.removeItem('code');
+      } else {
+        window.open('/home', '_self');
+      }
     } else window.location.reload();
-    // 3. 초대코드 존재하면 참여 post 전송, 조건별 리다렉
-    if (localStorage.getItem('code')) {
-      joinTeam();
-      localStorage.removeItem('code');
-    } else {
-      navigate('/home');
-      window.location.reload();
-    }
   }, []);
 
   const joinTeam = async () => {
@@ -47,12 +46,14 @@ const Ing = () => {
       })
       .catch((e) => {
         console.log(e);
+        alert('유효하지 않은 팀플입니다.');
+        navigate('/login');
       });
   };
 
-  const reToken = async () => {
+  const reToken = () => {
     if (localStorage.getItem('jwt_accessToken')) {
-      await axios({
+      axios({
         url: '/api/auth/reIssuance',
         baseURL: baseURL,
         method: 'post',
@@ -65,7 +66,6 @@ const Ing = () => {
         },
       })
         .then((response) => {
-          console.log('ing page retoken()', response);
           localStorage.setItem(
             'jwt_accessToken',
             response.data.data.jwtAccessToken,
@@ -74,13 +74,14 @@ const Ing = () => {
             'jwt_refreshToken',
             response.data.data.jwtRefreshToken,
           );
-          setInterval(reToken, 80);
+          setInterval(reToken, 1800000);
         })
         .catch((error) => {
           console.log(error);
           localStorage.removeItem('jwt_accessToken');
           localStorage.removeItem('jwt_refreshToken');
-          alert('로그인 연장 실패. 다시 로그인하세요.');
+          alert('로그인 실패. 다시 로그인하세요.');
+          window.open('/login', '_self');
         });
     }
   };

@@ -75,7 +75,7 @@ const TeampleHomePage = () => {
   }, []);
   return (
     <>
-      {isLoading3 && isLoading5 ? <Loading /> : null}
+      {/* {isLoading3 && isLoading5 ? <Loading /> : null} */}
       <Layout>
         <AllBox>
           <div>
