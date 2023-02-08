@@ -66,8 +66,7 @@ const AddTask = ({ setModal }: any) => {
       },
       params: { stageId: stageId },
     })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         alert('새로운 할일 추가 성공!');
         location.reload();
         // window.location.replace('/teample-home/${teamId}');
@@ -88,7 +87,7 @@ const AddTask = ({ setModal }: any) => {
       params: { teamId: teamid },
     })
       .then((response) => {
-        setTeamMates(response.data.data.teammates);
+        setTeamMates(response.data.data.teammateInfoVos);
         setUser(response.data.data);
       })
       .catch(function (error) {
@@ -119,20 +118,15 @@ const AddTask = ({ setModal }: any) => {
     }
   };
 
-  const checkDate = () =>{
+  const checkDate = () => {
     if (startDate > endDate) {
       setEndDate(startDate);
-    } 
-  }
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     checkDate();
-  },[startDate,endDate])
-
-  // const onRemoveHandle = (item: string, id:number) => {
-  //   setCheckedNameList(checkedNameList.filter((el) => el !== item));
-  //   setCheckedIdList(checkedIdList.filter((el) => el !== id));
-  // };
+  }, [startDate, endDate]);
 
   return (
     <Background>
@@ -179,12 +173,7 @@ const AddTask = ({ setModal }: any) => {
         <Tag3>담당자</Tag3>
         <ManagerContainer>
           {checkedNameList.map((item) => (
-            <Manager key={item}>
-              {item}
-              {/* <SmallCloseBtn onClick={() => onRemoveHandle(item)}>
-                <GrClose />
-              </SmallCloseBtn> */}
-            </Manager>
+            <Manager key={item}>{item}</Manager>
           ))}
         </ManagerContainer>
         <TeamMateContainer>
@@ -192,7 +181,7 @@ const AddTask = ({ setModal }: any) => {
           <TeamMateBox>
             {user && (
               <TeamMate>
-                <Profile profileImage={user.image}/>
+                <Profile profileImage={user.image} />
                 <TextInfo>
                   <Name>{user.name}</Name>
                   <School>
@@ -216,7 +205,7 @@ const AddTask = ({ setModal }: any) => {
             )}
             {teamMates.map((teammate: any, index: number) => (
               <TeamMate key={index}>
-                <Profile profileImage={teammate.image}/>
+                <Profile profileImage={teammate.image} />
                 <TextInfo>
                   <Name>{teammate.name}</Name>
                   <School>
@@ -226,7 +215,7 @@ const AddTask = ({ setModal }: any) => {
                 <CheckBox
                   type="checkbox"
                   value={teammate.name}
-                  id={teammate.teammateId}
+                  id={teammate.id}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -267,7 +256,6 @@ const AddTaskContainer = styled.div`
   position: fixed;
   top: 20.37037vh;
   left: 33.33333vw;
-  
 `;
 
 const CloseBtn = styled(GrClose)`
@@ -457,7 +445,8 @@ const Profile = styled.div<any>`
   height: 3.703704vh;
   border-radius: 16px;
   background: #fce44c;
-  background-image: url(${(props) => require('../images/profile/proImageU' + props.profileImage+ '.png')});
+  background-image: url(${(props) =>
+    require('../images/profile/proImageU' + props.profileImage + '.png')});
   background-size: cover;
 `;
 const TextInfo = styled.div`

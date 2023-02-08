@@ -23,7 +23,7 @@ export interface FileInfo {
 
 export interface StyledToDoInfo {
   pathname: string;
-  isNow : boolean;
+  isNow: boolean;
 }
 
 export interface StyledFeedInfo {
@@ -32,100 +32,103 @@ export interface StyledFeedInfo {
 
 export interface StyledToDoBoxInfo {
   pathname: string;
-}  
+}
 
 export interface SearchFileInfo {
   search: string;
-}  
+}
 
 export interface SearchInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}  
+}
 
 export interface IPlan {
   name: string;
   dueDate: string;
   dDay?: Date;
   now?: Date;
-}  
-
-
-export interface feedbacksInfo{
-  adviser : string;
-  comment : string;
-  createdAt : string;
-  adviserImage : string;
-  feedbackId : string;
 }
 
-export interface filesInfo{
-  filename : string
-  url : string
+export interface feedbacksInfo {
+  adviser: string;
+  comment: string;
+  createdAt: string;
+  adviserImage: string;
+  feedbackId: string;
+}
+
+export interface filesInfo {
+  filename: string;
+  url: string;
   size: number;
   updatedAt: string;
   fileId?: number;
 }
 
+export interface operatorsInfo {
+  name?: string;
+  id?: number;
+}
 
-export interface detailInfo{
-  done : boolean;
-  dueDate : string;  
-  feedbacks? : feedbacksInfo[];
+export interface detailInfo {
+  done: boolean;
+  dueDate: string;
+  feedbacks?: feedbacksInfo[];
   files?: filesInfo[];
-  operators : string[];
-  sequenceNum : number;
-  stageName : string;
-  startDate : string;
-  taskName : string;
+  operators: operatorsInfo[];
+  sequenceNum: number;
+  stageName: string;
+  startDate: string;
+  taskName: string;
 }
 
-export interface ModalProps{
-  setModal : React.Dispatch<React.SetStateAction<boolean>>;
-  setNextModal : React.Dispatch<React.SetStateAction<boolean>>;
+export interface ModalProps {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setNextModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface makeTeampleInfo{
+export interface makeTeampleInfo {
   goal: string;
-  name : string;
-  stages : stageInfo[];
-  dueDate : Date | string;
-  startDate : Date | string;
+  name: string;
+  stages: stageInfo[];
+  dueDate: Date | string;
+  startDate: Date | string;
 }
 
 export interface modTeampleInfo {
   stages: stageInfo[];
 }
 
-export interface stageInfo{
-  name: string
+export interface stageInfo {
+  name: string;
   sequenceNum: number;
   dueDate: Date | string;
   startDate: Date | string;
 }
 
-export interface userInfo{
-  email : string;
-  entranceYear : string;
-  major : string;
-  name : string;
-  profileImage : string;
-  schoolName : string;
-  subscribePlan : string;
-  }
+export interface userInfo {
+  email: string;
+  entranceYear: string;
+  major: string;
+  name: string;
+  profileImage: string;
+  schoolName: string;
+  subscribePlan: string;
+}
 
 export interface fbInfo {
-  checked: boolean,
-  modifiedAt: string,
-  taskId: number,
-  taskName: string,
-  teamId: number,
-  teamName: string
+  checked: boolean;
+  modifiedAt: string;
+  taskId: number;
+  taskName: string;
+  teamId: number;
+  teamName: string;
 }
 
 export interface fbListInfo {
-  feedbacks : fbInfo[]
+  feedbacks: fbInfo[];
 }
 
 export interface profileImg {
-  profileImg : string
+  profileImg: string;
 }

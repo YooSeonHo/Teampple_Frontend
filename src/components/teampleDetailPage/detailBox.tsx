@@ -735,7 +735,7 @@ const DetailBox = () => {
                 <div className="manager">
                   담당자
                   <span className="managerInput">
-                    {detail.operators.map((op) => `${op} `)}
+                    {detail.operators.map((op) => `${op.name} `)}
                   </span>
                 </div>
                 <div className="date">

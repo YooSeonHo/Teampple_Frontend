@@ -32,6 +32,7 @@ const LoginPage = () => {
       })
       .catch((e) => {
         console.log(e);
+        alert('유효하지 않은 초대코드입니다.');
       });
   };
 
@@ -58,13 +59,14 @@ const LoginPage = () => {
       },
     })
       .then((res) => {
-        console.log(res);
+        navigate(`/teample-home/${res.data.data.teamId}`);
+        window.location.reload();
         localStorage.removeItem('code');
-        navigate('/home');
-        location.reload();
       })
       .catch((e) => {
         console.log(e);
+        alert('이미 입장했거나 존재하지 않는 팀입니다.');
+        navigate('/home');
       });
   };
 
