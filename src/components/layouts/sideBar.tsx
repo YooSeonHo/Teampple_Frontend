@@ -98,6 +98,21 @@ const SideBarBox = styled.div`
     flex-direction: row;
   }
 
+  .nonbox {
+    color: #707070;
+    margin-left: 1.04vw;
+    margin-top: 0.6vh;
+    font-weight: 600;
+    font-size: 0.9375vw;
+    line-height: 100%;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    width: 10.42vw;
+    height: 4.3vh;
+    display: flex;
+    flex-direction: row;
+  }
+
   .box:hover {
     background-color: #d4e4ff;
     color: #487aff;
@@ -155,12 +170,11 @@ const SideBarBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  .newBox:hover {
-    cursor: grab;
-    background-color: #487aff;
-    color: #ffffff;
+    &:hover {
+      cursor: grab;
+      background-color: #d4e4ff;
+      color: #487aff;
+    }
   }
 
   .boxText {
@@ -216,6 +230,12 @@ const SideBarBox = styled.div`
     position: absolute;
     left: 1vw;
     padding: 0.2vw;
+  }
+
+  #logo {
+    &:hover{
+      cursor: pointer;
+    }
   }
 `;
 
@@ -381,12 +401,15 @@ const SideBar = () => {
     });
   };
 
+  const onClickLogo = () => {
+    if (localStorage.getItem('jwt_accessToken')) navigate('/home');
+    else navigate('/');
+  };
+
   return (
     <SideBarBox style={{ zIndex: zIndex }}>
       <div className="logo">
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <img src={logo} />
-        </Link>
+        <img src={logo} onClick={onClickLogo} id="logo" />
       </div>
       <div
         className="user"
@@ -424,7 +447,7 @@ const SideBar = () => {
         </div>
       </div>
 
-      <div className="box">
+      <div className="nonbox">
         <div className="iconWrap">
           <img src={usersThree} id="icon" />
         </div>
@@ -437,6 +460,7 @@ const SideBar = () => {
             id={team.teamId}
             onClick={(e: any) => {
               getTeamid(e.target);
+              window.open(`/teample-home/${team.teamId}`, '_self');
             }}
             key={index}
             style={
@@ -445,13 +469,7 @@ const SideBar = () => {
                 : {}
             }
           >
-            <div
-              className="subBoxText"
-              id={team.teamId}
-              onClick={() =>
-                window.open(`/teample-home/${team.teamId}`, '_self')
-              }
-            >
+            <div className="subBoxText" id={team.teamId}>
               {team.name}
             </div>
             {window.location.pathname === `/teample-home/${team.teamId}` ? (
@@ -477,6 +495,7 @@ const SideBar = () => {
             id={team.teamId}
             onClick={(e) => {
               getTeamid(e.target);
+              window.open(`/teample-home/${team.teamId}`, '_self');
             }}
             key={index}
             style={
@@ -488,9 +507,6 @@ const SideBar = () => {
             <div
               className="subBoxText"
               id={team.teamId}
-              onClick={() =>
-                window.open(`/teample-home/${team.teamId}`, '_self')
-              }
             >
               {team.name}
             </div>
@@ -509,8 +525,8 @@ const SideBar = () => {
             ) : null}
           </TeamBox>
         ))}
-        <div className="newBox" id="newTeample" onClick={showModal}>
-          <div>+ 새 팀플</div>
+        <div id="newTeample" onClick={showModal}>
+          <div className="newBox">+ 새 팀플</div>
         </div>
       </div>
 
