@@ -65,7 +65,6 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
         alertPostTeample(res);
         setModal(false);
         setNextModal(false);
-        console.log(res.data.data.teamId);
       })
       .catch((e) => {
         console.log(e);

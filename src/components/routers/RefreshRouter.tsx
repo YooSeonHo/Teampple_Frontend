@@ -26,7 +26,6 @@ const RefreshRouter = () => {
         },
       })
         .then((response) => {
-          console.log(response);
           localStorage.setItem(
             'jwt_accessToken',
             response.data.data.jwtAccessToken,
@@ -36,7 +35,6 @@ const RefreshRouter = () => {
             response.data.data.jwtRefreshToken,
           );
           setIsLoading(false);
-          console.log('reissue');
         })
         .catch((error) => {
           console.log(error);

@@ -29,9 +29,6 @@ const MoreSideBar = () => {
       },
       params: { taskId: taskId },
     })
-      .then((response) => {
-        console.log(response);
-      })
       .catch((e) => {
         console.log(e);
       });

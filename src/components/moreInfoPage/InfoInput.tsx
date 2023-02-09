@@ -50,7 +50,6 @@ const InfoInput = () => {
       },
     })
       .then((response) => {
-        console.log(response);
         setjwtAccessToken(response.data.data.jwtAccessToken);
         setjwtRefreshToken(response.data.data.jwtRefreshToken);
         localStorage.setItem(

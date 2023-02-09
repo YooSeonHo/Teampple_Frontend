@@ -25,7 +25,6 @@ const AddSchedule = ({ setModal }: any) => {
   };
   const onChangeTime = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTime(e.target.value);
-    console.log(e.target.value);
   };
 
   const onChangeDate = (pickedDate: any) => {
@@ -61,7 +60,6 @@ const AddSchedule = ({ setModal }: any) => {
       },
     })
       .then((response) => {
-        console.log(response);
         alert('새로운 일정 추가 성공!');
         location.reload();
       })

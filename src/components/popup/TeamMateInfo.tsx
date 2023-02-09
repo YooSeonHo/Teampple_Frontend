@@ -29,7 +29,6 @@ const TeamMateInfo = () => {
     })
       .then((response) => {
         setTeamMates(response.data.data.teammateInfoVos);
-        console.log(response.data.data.teammateInfoVos);
         setUser(response.data.data);
       })
       .catch(function (error) {
