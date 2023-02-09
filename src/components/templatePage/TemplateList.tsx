@@ -45,7 +45,9 @@ const TemplateList = () => {
         {templates && isSearch
           ? templates
               .filter((temp: ITemplate) => {
-                return temp.name.includes(searchTemp);
+                return temp.name
+                  .toLowerCase()
+                  .includes(searchTemp.toLowerCase());
               })
               .map((template: ITemplate) => (
                 <Template

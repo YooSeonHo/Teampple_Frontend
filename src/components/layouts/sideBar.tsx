@@ -459,7 +459,7 @@ const SideBar = () => {
             id={team.teamId}
             onClick={(e: any) => {
               getTeamid(e.target);
-              window.open(`/teample-home/${team.teamId}`, '_self');
+          
             }}
             key={index}
             style={
@@ -468,7 +468,10 @@ const SideBar = () => {
                 : {}
             }
           >
-            <div className="subBoxText" id={team.teamId}>
+            <div className="subBoxText" id={team.teamId} onClick={() => {
+             
+              window.open(`/teample-home/${team.teamId}`, '_self');
+            }}>
               {team.name}
             </div>
             {window.location.pathname === `/teample-home/${team.teamId}` ? (
@@ -494,7 +497,7 @@ const SideBar = () => {
             id={team.teamId}
             onClick={(e) => {
               getTeamid(e.target);
-              window.open(`/teample-home/${team.teamId}`, '_self');
+             
             }}
             key={index}
             style={
@@ -506,6 +509,10 @@ const SideBar = () => {
             <div
               className="subBoxText"
               id={team.teamId}
+              onClick={() => {
+              
+              window.open(`/teample-home/${team.teamId}`, '_self');
+            }}
             >
               {team.name}
             </div>
