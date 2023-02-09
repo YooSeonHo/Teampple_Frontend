@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import proImageU1 from '../images/profile/proImageU1.png';
-import proImageU2 from '../images/profile/proImageU2.png';
-import proImageU3 from '../images/profile/proImageU3.png';
-import proImageU4 from '../images/profile/proImageU4.png';
-import proImageU5 from '../images/profile/proImageU5.png';
-import proImageU6 from '../images/profile/proImageU6.png';
-import proImageU7 from '../images/profile/proImageU7.png';
-import proImageU8 from '../images/profile/proImageU8.png';
-import proImageU9 from '../images/profile/proImageU9.png';
 import HomeSummaryBg from '../images/HomeSummaryBg.png';
 import axios from 'axios';
 import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeample';

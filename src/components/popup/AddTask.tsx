@@ -67,7 +67,7 @@ const AddTask = ({ setModal }: any) => {
       params: { stageId: stageId },
     })
       .then(() => {
-        alert('새로운 할일 추가 성공!');
+        alert('새로운 할 일 추가 성공!');
         location.reload();
         // window.location.replace('/teample-home/${teamId}');
       })
@@ -96,7 +96,7 @@ const AddTask = ({ setModal }: any) => {
   };
 
   const onClickBtn = () => {
-    if (name === '') alert('할일 이름 입력은 필수입니다.');
+    if (name === '') alert('할 일 이름 입력은 필수입니다.');
     else {
       postTasksAPI();
       setZIndex(997);
@@ -427,7 +427,8 @@ const TeamMateBox = styled.div`
   left: 1.6666vw;
   width: 30vw;
   height: 14.074vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const TeamMate = styled.div`
