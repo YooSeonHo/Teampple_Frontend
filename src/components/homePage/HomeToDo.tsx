@@ -88,7 +88,6 @@ const HomeToDo = () => {
       return t.totalStage !== 0 
       //total이 0이 아닌애들만 필터 -> 테스크체크 길이가 0이면 다 0인거
     })
-
     if (TaskCheck.length <1){
       setIsZero(true);
     }

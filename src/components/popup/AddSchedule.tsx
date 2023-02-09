@@ -34,7 +34,7 @@ const AddSchedule = ({ setModal }: any) => {
 
   const closeModal = () => {
     setModal(false);
-    setZIndex(999);
+    setZIndex(997);
   };
 
   const token = localStorage.getItem('jwt_accessToken');
