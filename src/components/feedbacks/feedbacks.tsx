@@ -4,7 +4,7 @@ import profile1 from '../images/profile/proImageU1.png';
 import { StyledFeedInfo } from 'interfaces';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
-import { fbListState,taskIdState, profileImgState } from 'state';
+import { fbListState,taskIdState, profileImgState, feedbackState } from 'state';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -106,12 +106,14 @@ const Feed = styled.div<any>`
 const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useRecoilState(fbListState);
   const [taskId, setTaskId] = useRecoilState(taskIdState);
+  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
   const navigate = useNavigate();
 
   const getTaskId = (e: any) => {
     setTaskId(e.target.id);
     navigate(`/teample-detail/${e.target.id}`);
-    }
+    setIsOpen(false);
+      }
   const [profileImg,setProfileImg] = useRecoilState(profileImgState);
 
 
@@ -126,12 +128,13 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
             onClick={getTaskId}
             checked={fb.checked}
           >
-            <div className="icon">
+            <div className="icon" id={fb.taskId}>
               {profileImg && (
                 <img
                   src={require('../images/profile/proImageU' +
                     profileImg +
                     '.png')}
+                  id={fb.taskId}
                 />
               )}
             </div>
