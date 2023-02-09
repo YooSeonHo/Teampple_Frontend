@@ -128,12 +128,13 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
             onClick={getTaskId}
             checked={fb.checked}
           >
-            <div className="icon">
+            <div className="icon" id={fb.taskId}>
               {profileImg && (
                 <img
                   src={require('../images/profile/proImageU' +
                     profileImg +
                     '.png')}
+                  id={fb.taskId}
                 />
               )}
             </div>
