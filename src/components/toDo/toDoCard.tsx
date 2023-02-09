@@ -280,7 +280,6 @@ const ToDoCard = ({ todoList }: any) => {
   };
 
   const onClickedStage = (stage: any) => {
-    console.log(Number(stage.id));
     setStageId(Number(stage.id));
   };
 

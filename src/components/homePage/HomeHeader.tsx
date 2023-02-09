@@ -23,7 +23,6 @@ const HomeHeader = () => {
     })
       .then((response) => {
         setFbList(response.data.data.feedbacks.reverse());
-        console.log(response.data.data.feedbacks.reverse());
       })
       .catch(function (error) {
         console.log(error);

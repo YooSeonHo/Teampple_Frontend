@@ -154,7 +154,6 @@ const FileList = () => {
       })
         .then((res) => {
           setFiles(res.data.data);
-          console.log(res.data.data);
         })
         .catch((e) => {
           console.log(e);
@@ -166,7 +165,6 @@ const FileList = () => {
 
   const getTaskId = (e: any) => {
     setTaskId(Number(e.target.id));
-    console.log(Number(e.target.id))
   };
 
   return (

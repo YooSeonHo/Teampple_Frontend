@@ -60,8 +60,6 @@ const AddDiv = (props: any) => {
   const { register, handleSubmit } = useForm();
   const Subb = (data:any) => {
       setStep(data);
-      console.log(data);
-      console.log(step);
       // console.log(name, aim, startDate, endDate, stepTest);
       alert('팀플 만들기 완료');
   }

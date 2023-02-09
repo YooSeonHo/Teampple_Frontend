@@ -221,7 +221,6 @@ const EditProfile = () => {
       },
     })
       .then((response) => {
-        console.log(response);
         alert('프로필 수정이 완료되었습니다.');
       })
       .catch(function (error) {
