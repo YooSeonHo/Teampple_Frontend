@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import ModDiv from './ModTeample/ModDiv';
 import { stageInfo } from 'interfaces';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   stageState,
   makeTeampleState,
@@ -24,6 +24,7 @@ const ModifyStep = ({ setModal }: any) => {
   const token = localStorage.getItem('jwt_accessToken');
   const closeModal = () => {
     setModal(false);
+    resetStages();
   };
 
   const [countList, setCountList] = useState([0]);
@@ -32,6 +33,8 @@ const ModifyStep = ({ setModal }: any) => {
   const [makeTeample, setMakeTeample] = useRecoilState(makeTeampleState);
   const [modTeample, setModTeample] = useRecoilState(modTeampleState);
   const [teamid] = useRecoilState(teamidState);
+  const resetStages = useResetRecoilState(stageState);
+
 
   const putTeample = async () => {
     await axios({
