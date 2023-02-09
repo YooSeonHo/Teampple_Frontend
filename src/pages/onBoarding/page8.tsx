@@ -5,7 +5,7 @@ import btn from './images/Group 310.png';
 
 export const Background = styled.div`
   background-image: url('${page8}');
-  width: 100vw;
+  width: 100%;
   text-align: center;
   height: 63vh;
   background-size: 100vw;
