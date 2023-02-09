@@ -24,6 +24,14 @@ const ModifyStep = ({ setModal }: any) => {
   const token = localStorage.getItem('jwt_accessToken');
   const closeModal = () => {
     setModal(false);
+    setStages([
+      {
+        dueDate: new Date(),
+        name: '',
+        sequenceNum: 1,
+        startDate: new Date(),
+      },
+    ]);
   };
 
   const [countList, setCountList] = useState([0]);
