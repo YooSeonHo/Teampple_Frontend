@@ -299,7 +299,6 @@ const SideBar = () => {
       params: { teamId: teamid },
     })
       .then((response) => {
-        console.log(response);
         navigate('/home');
         location.reload();
       })
