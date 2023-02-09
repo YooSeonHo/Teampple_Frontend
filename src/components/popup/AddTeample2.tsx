@@ -16,7 +16,7 @@ import AddDiv from './AddTeample/AddDiv'; //단계 추가하기 버튼 클릭시
 import { Background } from './AddSchedule';
 import { ModalProps } from 'interfaces';
 import { stageInfo } from 'interfaces';
-import { stageState, makeTeampleState } from 'state';
+import { AddTeamzIndexState,stageState, makeTeampleState } from 'state';
 import axios from 'axios';
 import moment from 'moment';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
@@ -49,6 +49,7 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   const resetDue = useResetRecoilState(endDateState);
   const resetStages = useResetRecoilState(stageState);
   const token = localStorage.getItem('jwt_accessToken');
+  const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
 
   const postTeample = async () => {
     await axios({
@@ -173,6 +174,7 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   };
 
   const closeModal = () => {
+    setZIndex(997);
     reset();
     resetAim();
     resetDue();
@@ -180,6 +182,7 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
     resetStart();
     resetStages();
     setNextModal(false);
+    
   };
 
   return (
