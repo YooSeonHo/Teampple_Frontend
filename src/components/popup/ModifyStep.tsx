@@ -25,6 +25,14 @@ const ModifyStep = ({ setModal }: any) => {
   const closeModal = () => {
     setModal(false);
     resetStages();
+//    setStages([
+//      {
+//        dueDate: new Date(),
+//        name: '',
+//        sequenceNum: 1,
+//        startDate: new Date(),
+//      },
+//    ]);
   };
 
   const [countList, setCountList] = useState([0]);

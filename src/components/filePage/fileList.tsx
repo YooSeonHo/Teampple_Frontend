@@ -4,9 +4,15 @@ import arrow from '../images/rightArrow.png';
 import axios from 'axios';
 import { FileInfo } from 'interfaces';
 import { useRecoilState } from 'recoil';
-import { IsSearchState, searchFileState, teamidState,taskIdState } from 'state';
+import {
+  IsSearchState,
+  searchFileState,
+  teamidState,
+  taskIdState,
+} from 'state';
 import { Link } from 'react-router-dom';
 import { baseURL } from 'api/client';
+
 
 const ListBox = styled.div`
   width: 61.042vw;
@@ -180,76 +186,83 @@ const FileList = () => {
         <div className="fileList">
           {files && isSearch
             ? files
-                .filter((file: FileInfo) => {
-                  return file.fileName
+                .filter((filtfile: FileInfo) => {
+                  return filtfile.fileName
                     .toLowerCase()
                     .includes(searchFile.toLowerCase());
                 })
-                .map((file: FileInfo) => {
-                  return (
-                    <Link
-                      to={`/teample-detail/${file.taskId}`}
+                .map((file: FileInfo) => (
+                  <Link
+                    to={`/teample-detail/${file.taskId}`}
+                    key={file.fileId}
+                    style={{ textDecoration: 'none' }}
+                    id={file.taskId.toString()}
+                  >
+                    <File
                       key={file.fileId}
-                      style={{ textDecoration: 'none' }}
+                      onClick={getTaskId}
                       id={file.taskId.toString()}
                     >
-                      <File
-                        key={file.updatedAt}
-                        onClick={getTaskId}
-                        id={file.taskId.toString()}
-                      >
-                        <div className="name">{file.fileName}</div>
-                        <div className="loc">{file.route}</div>
-                        <div className="owner">{file.uploader}</div>
-                        <div className="size">
-                          {Math.round(file.size / 1024)}MB
-                        </div>
-                        <div className="date">
-                          {file.updatedAt
-                            .replace(/-/g, '.')
-                            .replace('T', ' ')
-                            .replace(/:[0-9]+$/, '')}
-                        </div>
-                        <div className="icon">
-                          <img src={arrow} />
-                        </div>
-                      </File>
-                    </Link>
-                  );
-                })
-            : files &&
-              files.map(
-                (file: FileInfo) =>
-                  file && (
-                    <Link
-                      to={`/teample-detail/${file.taskId}`}
-                      key={file.fileId}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <File
-                        key={file.updatedAt}
-                        onClick={getTaskId}
-                        id={file.taskId.toString()}
-                      >
-                        <div className="name">{file.fileName}</div>
-                        <div className="loc">{file.route}</div>
-                        <div className="owner">{file.uploader}</div>
-                        <div className="size">
-                          {(file.size / (1024 * 1024)).toFixed(1)}MB
-                        </div>
-                        <div className="date">
-                          {file.updatedAt
-                            .replace(/-/g, '.')
-                            .replace('T', ' ')
-                            .replace(/:[0-9]+$/, '')}
-                        </div>
-                        <div className="icon">
-                          <img src={arrow} />
-                        </div>
-                      </File>
-                    </Link>
-                  ),
-              )}
+                      <div className="name" id={file.taskId.toString()}>
+                        {file.fileName}
+                      </div>
+                      <div className="loc" id={file.taskId.toString()}>
+                        {file.route}
+                      </div>
+                      <div className="owner" id={file.taskId.toString()}>
+                        {file.uploader}
+                      </div>
+                      <div className="size" id={file.taskId.toString()}>
+                        {Math.round(file.size / 1024)}MB
+                      </div>
+                      <div className="date" id={file.taskId.toString()}>
+                        {file.updatedAt
+                          .replace(/-/g, '.')
+                          .replace('T', ' ')
+                          .replace(/:[0-9]+$/, '')}
+                      </div>
+                      <div className="icon" id={file.taskId.toString()}>
+                        <img src={arrow} id={file.taskId.toString()} />
+                      </div>
+                    </File>
+                  </Link>
+                ))
+            : files.map((file: FileInfo) => (
+                <Link
+                  to={`/teample-detail/${file.taskId}`}
+                  key={file.fileId}
+                  style={{ textDecoration: 'none' }}
+                  id={file.taskId.toString()}
+                >
+                  <File
+                    key={file.fileId}
+                    onClick={getTaskId}
+                    id={file.taskId.toString()}
+                  >
+                    <div className="name" id={file.taskId.toString()}>
+                      {file.fileName}
+                    </div>
+                    <div className="loc" id={file.taskId.toString()}>
+                      {file.route}
+                    </div>
+                    <div className="owner" id={file.taskId.toString()}>
+                      {file.uploader}
+                    </div>
+                    <div className="size" id={file.taskId.toString()}>
+                      {(file.size / (1024 * 1024)).toFixed(1)}MB
+                    </div>
+                    <div className="date" id={file.taskId.toString()}>
+                      {file.updatedAt
+                        .replace(/-/g, '.')
+                        .replace('T', ' ')
+                        .replace(/:[0-9]+$/, '')}
+                    </div>
+                    <div className="icon" id={file.taskId.toString()}>
+                      <img src={arrow} id={file.taskId.toString()} />
+                    </div>
+                  </File>
+                </Link>
+              ))}
         </div>
       </ListBox>
     </Container>
