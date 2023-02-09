@@ -89,7 +89,7 @@ const TeamMateInfo = () => {
       <TeamMateBox>
         {user && (
           <TeamMate>
-            <Profile profileImage={user.image}/>
+            <Profile profileImage={user.image} />
             <TextInfo>
               <Name>{user.name}</Name>
               <School>
@@ -102,7 +102,7 @@ const TeamMateInfo = () => {
         {teamMates &&
           teamMates.map((teamMate: ITeamMate) => (
             <TeamMate key={teamMate.name}>
-              <Profile profileImage={teamMate.image}/>
+              <Profile profileImage={teamMate.image} />
               <TextInfo>
                 <Name>{teamMate.name}</Name>
                 <School>
@@ -128,6 +128,7 @@ const TeamMateInfoContainer = styled.div`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
   border-radius: 16px;
   position: relative;
+  overflow-x: hidden;
 `;
 
 const Title = styled.div`
@@ -143,7 +144,8 @@ const TeamMateBox = styled.div`
   height: 23.7037vh;
   position: absolute;
   top: 4.9074vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 const TeamMate = styled.div`
   width: 16.458333vw;
@@ -153,6 +155,7 @@ const TeamMate = styled.div`
   padding-right: 0.9375vh;
   padding-left: 2vh;
   display: flex;
+  overflow-x: hidden;
 `;
 
 const Profile = styled.div<any>`
@@ -160,7 +163,8 @@ const Profile = styled.div<any>`
   height: 3.7037vh;
   border-radius: 16px;
   background: #fce44c;
-  background-image: url(${(props) => require('../images/profile/proImageU' + props.profileImage+ '.png')});
+  background-image: url(${(props) =>
+    require('../images/profile/proImageU' + props.profileImage + '.png')});
   background-size: cover;
 `;
 const TextInfo = styled.div`
