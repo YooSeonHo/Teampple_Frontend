@@ -6,6 +6,7 @@ import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { fbListState,taskIdState, profileImgState } from 'state';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const FeedBox = styled.div<StyledFeedInfo>`
@@ -105,10 +106,11 @@ const Feed = styled.div<any>`
 const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [fbList, setFbList] = useRecoilState(fbListState);
   const [taskId, setTaskId] = useRecoilState(taskIdState);
+  const navigate = useNavigate();
 
   const getTaskId = (e: any) => {
     setTaskId(e.target.id);
-    window.open(`/teample-detail/${e.target.id}`, '_self');
+    navigate(`/teample-detail/${e.target.id}`);
     }
   const [profileImg,setProfileImg] = useRecoilState(profileImgState);
 
