@@ -68,7 +68,7 @@ const Title = styled.div`
 `;
 
 const TemplateBoxContainer = styled.div`
-  overflow: auto;
+  overflow: hidden;
   height: 250px;
 `;
 
