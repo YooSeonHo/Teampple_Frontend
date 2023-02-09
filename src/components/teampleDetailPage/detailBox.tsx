@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import vector from '../images/Vector.png';
 import more from '../images/Group 419.png';
 import startBtn from '../images/Group 435.png';
-import finBtn from '../images/Group 437.png';
+import finBtn from '../images/Group 879.png';
 import download from '../images/DownloadSimple.png';
 import trash from '../images/Trash.png';
 import deleteBtn from '../images/delete.png';
@@ -737,7 +737,7 @@ const DetailBox = () => {
                 <div className="taskName">{detail.taskName}</div>
 
                 <div className="finBtn" onClick={onChangeStatus}>
-                  {detail.done ? <img src={startBtn} /> : <img src={finBtn} />}
+                  {detail.done ? <img src={finBtn} /> : <img src={startBtn} />}
                 </div>
               </div>
               <div className="subInfo">
