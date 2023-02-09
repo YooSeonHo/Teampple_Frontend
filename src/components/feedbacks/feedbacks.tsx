@@ -110,7 +110,7 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
     setTaskId(e.target.id);
     window.open(`/teample-detail/${e.target.id}`, '_self');
     }
-  const [profileImg,setProfileImg] = useRecoilState(profileImgState);
+  const [profileImg, setProfileImg] = useRecoilState(profileImgState);
 
 
   return (
