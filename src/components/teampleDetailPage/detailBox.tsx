@@ -562,8 +562,11 @@ const DetailBox = () => {
 
   useEffect(() => {
     getUser();
-    getDetail();
   }, []);
+
+  useEffect(() => {
+    getDetail();
+  }, [taskId]);
 
   useDidMountEffect(() => {
     postFile();
