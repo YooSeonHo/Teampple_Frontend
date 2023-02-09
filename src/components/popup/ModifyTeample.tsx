@@ -102,7 +102,6 @@ const ModifyTeample = ({ setModal1 }: any) => {
       },
     })
       .then((response) => {
-        console.log(response);
         alert('팀플 수정 성공');
         location.reload();
       })

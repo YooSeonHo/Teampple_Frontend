@@ -19,6 +19,4 @@
         "react",
         "@typescript-eslint"
     ],
-    "rules": {
-    }
 }

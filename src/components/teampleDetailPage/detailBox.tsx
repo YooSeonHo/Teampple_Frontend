@@ -446,7 +446,6 @@ const DetailBox = () => {
 
   const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      console.log(e.target.files[0]);
       setFile(e.target.files[0]);
       if (e.target.files[0].name.length > 0) {
         uploadFile(e.target.files[0]);
@@ -611,7 +610,6 @@ const DetailBox = () => {
   };
 
   const downloadFile = (url: any, filename: string) => {
-    console.log(url);
     fetch(url, { method: 'GET' })
       .then((res) => {
         return res.blob();
@@ -644,7 +642,6 @@ const DetailBox = () => {
       params: { fileId: fileId },
     })
       .then((response) => {
-        console.log(response);
         location.reload();
       })
       .catch((e) => {

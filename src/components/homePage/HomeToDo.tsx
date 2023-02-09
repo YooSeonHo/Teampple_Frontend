@@ -61,7 +61,6 @@ const HomeToDo = () => {
         setTeams(response.data.data.teams);
         setTaskId(0);
         setIsLoading2(false);
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
