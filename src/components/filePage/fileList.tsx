@@ -13,7 +13,6 @@ import {
 import { Link } from 'react-router-dom';
 import { baseURL } from 'api/client';
 
-
 const ListBox = styled.div`
   width: 61.042vw;
   height: 75vh;
@@ -173,6 +172,7 @@ const FileList = () => {
     setTaskId(Number(e.target.id));
   };
 
+
   return (
     <Container>
       <ListBox>
@@ -187,9 +187,9 @@ const FileList = () => {
           {files && isSearch
             ? files
                 .filter((filtfile: FileInfo) => {
-                  return filtfile.fileName
+                  return filtfile.fileName.normalize()
                     .toLowerCase()
-                    .includes(searchFile.toLowerCase());
+                    .includes(searchFile.normalize().toLowerCase());
                 })
                 .map((file: FileInfo) => (
                   <Link
