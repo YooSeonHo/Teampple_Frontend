@@ -128,7 +128,7 @@ const TeamMateInfoContainer = styled.div`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
   border-radius: 16px;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 `;
 
 const Title = styled.div`
@@ -155,7 +155,7 @@ const TeamMate = styled.div`
   padding-right: 0.9375vh;
   padding-left: 2vh;
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
 `;
 
 const Profile = styled.div<any>`
