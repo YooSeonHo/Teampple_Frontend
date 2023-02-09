@@ -35,7 +35,6 @@ const ModDiv = (props: any) => {
       },
     })
       .then((response) => {
-        console.log(response.data.data);
         setStages(response.data.data);
       })
       .catch((e) => {

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { baseURL } from 'api/client';
 
 const HeaderBox = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 7.5vh;
   background-color: #ffffff;
   display: flex;
