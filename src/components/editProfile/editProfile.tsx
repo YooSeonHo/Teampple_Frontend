@@ -135,28 +135,31 @@ const EditBox = styled.div`
     cursor: grab;
   }
 
-  .extraText {
-    font-weight: 500;
-    font-size: 1.042vw;
-    line-height: 100%;
-    color: #383838;
-    margin-top: 13vh;
-
-    .myPlan {
-      margin-bottom: 2.5926vh;
-    }
-
-    .myPlan:hover,
-    .delete:hover {
-      cursor: grab;
-    }
-  }
-
   .inputContainer {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 15px;
+  }
+`;
+
+const ExtraText = styled.div`
+  width: 50.625vw;
+  height: 10vh;
+  font-weight: 500;
+  font-size: 1.042vw;
+  line-height: 100%;
+  color: #383838;
+  margin-top: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  .myPlan {
+    margin-bottom: 2.5926vh;
+  }
+
+  .myPlan:hover,
+  .delete:hover {
+    cursor: grab;
   }
 `;
 
@@ -261,48 +264,54 @@ const EditProfile = () => {
   }, []);
 
   return (
-    <EditBox>
-      {profimg ? (
-        <img
-          className="profileImg"
-          src={require('../images/profile/proImageU' + profimg + '.png')}
-        />
-      ) : (
-        <img className="profileImg" src={prof1} />
-      )}
-      <div className="profileInfo">
-        <div className="profileName">{name}</div>
-        <div className="profileEmail">{email}</div>
-        <div className="logout" onClick={postAuthLogoutAPI}>
-          로그아웃
+    <>
+      <EditBox>
+        {profimg ? (
+          <img
+            className="profileImg"
+            src={require('../images/profile/proImageU' + profimg + '.png')}
+          />
+        ) : (
+          <img className="profileImg" src={prof1} />
+        )}
+        <div className="profileInfo">
+          <div className="profileName">{name}</div>
+          <div className="profileEmail">{email}</div>
+          <div className="logout" onClick={postAuthLogoutAPI}>
+            로그아웃
+          </div>
         </div>
-      </div>
-      <div className="inputContainer">
-        <div className="infoBox">
-          <div className="infoText">이름</div>
-          <input className="name" value={name} onChange={onName}></input>
+        <div className="inputContainer">
+          <div className="infoBox">
+            <div className="infoText">이름</div>
+            <input className="name" value={name} onChange={onName}></input>
+          </div>
+          <div className="infoBox">
+            <div className="infoText">이메일</div>
+            <input className="email" value={email} onChange={onEmail}></input>
+          </div>
+          <div className="infoBox">
+            <div className="infoText">학교</div>
+            <input
+              className="school"
+              value={school}
+              onChange={onSchool}
+            ></input>
+          </div>
+          <div className="infoBox">
+            <div className="infoText">전공</div>
+            <input className="major" value={major} onChange={onMajor}></input>
+          </div>
         </div>
-        <div className="infoBox">
-          <div className="infoText">이메일</div>
-          <input className="email" value={email} onChange={onEmail}></input>
+        <div className="editBtn" onClick={putProfile}>
+          <img src={editBtn} />
         </div>
-        <div className="infoBox">
-          <div className="infoText">학교</div>
-          <input className="school" value={school} onChange={onSchool}></input>
-        </div>
-        <div className="infoBox">
-          <div className="infoText">전공</div>
-          <input className="major" value={major} onChange={onMajor}></input>
-        </div>
-      </div>
-      <div className="editBtn" onClick={putProfile}>
-        <img src={editBtn} />
-      </div>
-      <div className="extraText">
+      </EditBox>
+      <ExtraText>
         <div className="myPlan">나의 구독 플랜</div>
         <div className="delete">탈퇴하기</div>
-      </div>
-    </EditBox>
+      </ExtraText>
+    </>
   );
 };
 
