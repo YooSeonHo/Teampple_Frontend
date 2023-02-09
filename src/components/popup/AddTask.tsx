@@ -427,7 +427,8 @@ const TeamMateBox = styled.div`
   left: 1.6666vw;
   width: 30vw;
   height: 14.074vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const TeamMate = styled.div`

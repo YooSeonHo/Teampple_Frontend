@@ -83,8 +83,8 @@ const PlanManager = () => {
   const getPlanDay = (dueDate: any) => {
     const setDate = new Date(dueDate);
     const now = new Date();
-    const distance = setDate.getTime() - now.getTime();
-    const day = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const distance = setDate.getDate() - now.getDate();
+    const day = Math.floor(distance);
     if (day === 0) return '-DAY';
     else if (day < 0) return `+` + Math.abs(day);
     else return `-` + (day);
