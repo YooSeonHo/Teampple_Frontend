@@ -160,9 +160,7 @@ const TeamMate = styled.div`
 
 const Profile = styled.div<any>`
   width: 2.08333vw;
-  height: 3.7037vh;
   border-radius: 16px;
-  background: #fce44c;
   background-image: url(${(props) =>
     require('../images/profile/proImageU' + props.profileImage + '.png')});
   background-size: cover;

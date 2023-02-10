@@ -16,6 +16,7 @@ import {
 import axios from 'axios';
 import { AiFillMessage } from 'react-icons/ai';
 import { baseURL } from 'api/client';
+import { BsFillPersonFill } from 'react-icons/bs';
 
 const MsgIcon = styled(AiFillMessage)`
   color: #487aff;
@@ -118,9 +119,8 @@ const HeaderBox = styled.div`
     height: 3.7037vh;
     margin-top: auto;
     margin-bottom: auto;
-    background-image: url(${group});
-    background-size: contain;
-    background-repeat: no-repeat;
+    border-radius: 8px;
+    border: 1px solid #d5dbee;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -290,11 +290,12 @@ const TeampleHeader = () => {
         {modal1 && <ModifyTeample setModal1={setModal1} />}
       </ModalContainer1>
       <div id="teamList" onClick={showModal2}>
+        <BsFillPersonFill style={{color: '#707070', marginLeft: '0.5vw', fontSize:'1.2vw'}} />
         <a id="teamNum">+{teamMatesNum}</a>
       </div>
       <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
       <div className="iconBox" onClick={openFeed}>
-        {isCheck?  <MsgIcon/> : <img id="feedback" src={feedback}/>}
+        {isCheck ? <MsgIcon /> : <img id="feedback" src={feedback} />}
       </div>
     </HeaderBox>
   );
