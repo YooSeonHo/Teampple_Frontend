@@ -17,7 +17,7 @@ const Ing = () => {
     localStorage.setItem('jwt_refreshToken', location.search.split('=')[2]);
     // 2. 토큰 저장 -> 유효성 검사 (로그인)
     if (localStorage.getItem('jwt_accessToken')) {
-      reToken();
+      
       // 3. 초대코드 존재하면 참여 post 전송, 조건별 리다렉
       if (localStorage.getItem('code')) {
         joinTeam();
