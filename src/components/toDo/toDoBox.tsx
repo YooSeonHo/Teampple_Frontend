@@ -62,6 +62,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
         setTodoList(response.data.data);
         setTaskId(0);
         setIsLoading3(false);
+        console.log(response.data)
       })
       .catch(function (error) {
         console.log(error);
