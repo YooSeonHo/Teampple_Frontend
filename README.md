@@ -1,4 +1,4 @@
-<h1 align='center'>🧑‍🤝‍🧑 Teampple</h1>
+
 
 ![217756466-13bca149-633a-42ba-9ea9-0e7c912fb33f](https://user-images.githubusercontent.com/69755027/218762724-52dd19fe-a3ef-458d-9b9c-4b0f0d40d208.jpeg)
 
