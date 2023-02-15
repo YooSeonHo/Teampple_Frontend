@@ -1,4 +1,4 @@
-# Teampple_Backend
+# Teampple_Frontend
 팀플 서비스 팀쁠(teampple) 프론트엔드 레포지토리 ✨
 
 ## Front-End Developers
