@@ -6,7 +6,7 @@
   <I>teampple.com</I>
 </a>
 
-## 🧑‍💻 Front-End Developers
+## 🧑‍💻 프론트엔드 개발자
 <div align="center"> 
   <table>
      <tr align="center">
@@ -36,7 +36,7 @@
   </table>
 </div>
 
-## 🪡 Skills
+## 🪡 사용 기술
 <div align="center"> 
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
 <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white"/>
