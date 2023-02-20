@@ -38,10 +38,14 @@
 
 ## 🪡 Skills
 <div align="center"> 
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/>
-<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
-<img src="https://img.shields.io/badge/github%20actions-2088FF?style=flat-square&logo=githubactions&logoColor=white"> 
-<img src="https://img.shields.io/badge/Amazone%20S3-23569A31?style=flat-square&logo=S3&logoColor=white"> 
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
+<img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white"/>
+<img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
+<img src="https://img.shields.io/badge/recoil-430098?style=for-the-badge&logoColor=white"/>
+<br />
+<img src="https://img.shields.io/badge/Amazone%20S3-23569A31?style=for-the-badge&logo=S3&logoColor=white"> 
+<img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=white">
+<img src="https://img.shields.io/badge/github%20actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white"> 
 </div>
 
 ## ⚙️ 기능 소개
