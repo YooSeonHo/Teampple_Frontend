@@ -470,33 +470,6 @@ const DetailBox = () => {
   };
   //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
 
-  const postFile = async () => {
-    await axios({
-      url: `/api/files`,
-      baseURL: baseURL,
-      method: 'post',
-      data: {
-        fileName: file?.name,
-        size: file?.size,
-        url: fileLoc,
-      },
-      params: {
-        taskId: taskId,
-        teamId: teamid,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then(() => {
-        alert('파일 등록이 완료되었습니다.');
-        location.reload();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
   const getDetail = async () => {
     await axios({
       url: `/api/tasks`,
@@ -570,7 +543,14 @@ const DetailBox = () => {
   }, [taskId]);
 
   useDidMountEffect(() => {
-    postFile();
+      filesApi.postFile(file?.name,file?.size,fileLoc,taskId,teamid)
+      .then(() => {
+        alert('파일 등록이 완료되었습니다.');
+        location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, [fileLoc]);
 
   const onChangeStatus = async () => {

@@ -2,7 +2,6 @@ import axios from "axios";
 import { baseURL } from 'api/client';
 const token = localStorage.getItem('jwt_accessToken');
 import { teamidState, taskIdState } from "state";
-import { FileInfo } from "interfaces";
 
 export default{
     getFiles : async (teamid : number) => await axios({
@@ -16,15 +15,16 @@ export default{
           teamId: teamid,
         },
       }),
-    postFile : async (file : File,fileLoc : string,taskId : typeof taskIdState,teamid : typeof teamidState) => 
+
+    postFile : async (fileName : string | undefined,size : number| undefined, fileLoc : string,taskId :number,teamid : number) => 
       await axios({
         url: `/api/files`,
         baseURL: baseURL,
         method: 'post',
         data: {
-          fileName: file?.name,
-          size: file?.size,
-          url: fileLoc,
+          fileName: fileName,
+          size: size,
+          key: fileLoc,
         },
         params: {
           taskId: taskId,
@@ -34,7 +34,7 @@ export default{
           Authorization: token,
         },
       }),
-      
+
     delFileAPI : async (fileId: number) =>
        await axios({
           baseURL: baseURL,
