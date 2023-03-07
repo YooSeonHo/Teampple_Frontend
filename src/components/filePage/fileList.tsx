@@ -12,6 +12,7 @@ import {
 } from 'state';
 import { Link } from 'react-router-dom';
 import { baseURL } from 'api/client';
+import filesApi from 'api/filesApi';
 
 const ListBox = styled.div`
   width: 61.042vw;
@@ -137,7 +138,7 @@ const Container = styled.div`
 `;
 
 const FileList = () => {
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState<FileInfo[]>([]);
   const [searchFile, setSearchFile] = useRecoilState(searchFileState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
   const [teamid] = useRecoilState(teamidState);
@@ -145,33 +146,18 @@ const FileList = () => {
   const [taskId, setTaskId] = useRecoilState(taskIdState);
 
   useEffect(() => {
-    const getFiles = async () => {
-      await axios({
-        url: `/api/files`,
-        baseURL: baseURL,
-        method: 'get',
-        params: {
-          teamId: teamid,
-        },
-        headers: {
-          Authorization: token,
-        },
-      })
-        .then((res) => {
-          setFiles(res.data.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-
-    getFiles();
+    filesApi.getFiles(teamid)
+    .then((res) => {
+      setFiles(res.data.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   }, []);
 
   const getTaskId = (e: any) => {
     setTaskId(Number(e.target.id));
   };
-
 
   return (
     <Container>

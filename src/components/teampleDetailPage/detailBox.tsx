@@ -27,6 +27,7 @@ import ModifyTask from 'components/popup/ModifyTask';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
+import filesApi from 'api/filesApi';
 
 const DetailContainer = styled.div`
   width: 52.0833vw;
@@ -634,22 +635,14 @@ const DetailBox = () => {
       });
   };
 
-  const delTaskAPI = async (fileId: number) => {
-    await axios({
-      baseURL: baseURL,
-      url: 'api/files',
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      params: { fileId: fileId },
-    })
-      .then((response) => {
-        location.reload();
-      })
+  const delTaskAPI = (fileId: number) => {
+    filesApi.delFileAPI(fileId)
+      .then(() => {
+          location.reload();
+        })
       .catch((e) => {
-        console.log(e);
-      });
+          console.log(e);
+        });
   };
 
   const alertDelFile = (e: any) => {
