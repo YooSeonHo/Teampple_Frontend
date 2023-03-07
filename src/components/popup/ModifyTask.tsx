@@ -19,6 +19,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { detailInfo } from 'interfaces';
 import { baseURL } from 'api/client';
+import taskAPI from 'api/taskAPI';
 
 const ModifyTask = ({ setBigModal }: any) => {
   const today = new window.Date();
@@ -82,30 +83,8 @@ const ModifyTask = ({ setBigModal }: any) => {
       });
   };
 
-  const putTasksAPI = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'put',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        dueDate: (
-          moment(endDate, 'YYYYMMDDTT').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-        name: name,
-        operators: checkedIdList,
-        startDate: (
-          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-      },
-      params: { taskId: taskId },
-    })
+  const putTasksAPI = () => {
+    taskAPI.put(taskId,name,checkedIdList,startDate,endDate)
       .then(() => {
         alert('할일 수정 완료');
         location.reload();

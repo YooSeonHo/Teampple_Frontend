@@ -12,7 +12,7 @@ import {
 } from 'state';
 import { Link } from 'react-router-dom';
 import { baseURL } from 'api/client';
-import filesApi from 'api/filesApi';
+import filesApi from 'api/fileAPI';
 
 const ListBox = styled.div`
   width: 61.042vw;

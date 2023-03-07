@@ -17,6 +17,7 @@ import {
 import moment from 'moment';
 import axios from 'axios';
 import { baseURL } from 'api/client';
+import taskAPI from 'api/taskAPI';
 
 const AddTask = ({ setModal }: any) => {
   const today = new window.Date();
@@ -42,30 +43,8 @@ const AddTask = ({ setModal }: any) => {
     setToDoZindex(997);
   };
 
-  const postTasksAPI = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        dueDate: (
-          moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-        name: name,
-        operators: checkedIdList,
-        startDate: (
-          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-      },
-      params: { stageId: stageId },
-    })
+  const postTasksAPI = () => {
+    taskAPI.post(stageId,name,checkedIdList,startDate,endDate)
       .then(() => {
         alert('새로운 할 일 추가 성공!');
         location.reload();

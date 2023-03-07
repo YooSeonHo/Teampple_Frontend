@@ -27,7 +27,9 @@ import ModifyTask from 'components/popup/ModifyTask';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
-import filesApi from 'api/filesApi';
+import filesApi from 'api/fileAPI';
+import feedbackAPI from 'api/feedbackAPI';
+import taskAPI from 'api/taskAPI';
 
 const DetailContainer = styled.div`
   width: 52.0833vw;
@@ -509,21 +511,7 @@ const DetailBox = () => {
   //새로고침 시에도 taskId에 맞는 디테일 정보를 가져와야 해서 양쪽에서 모두 get함수를..;;
 
   const postFeedback = async () => {
-    if (addFeed.trim() === '') {
-      alert('댓글 내용을 입력해주세요.');
-    } else {
-      await axios({
-        url: '/api/feedbacks',
-        baseURL: baseURL,
-        method: 'post',
-        headers: {
-          Authorization: token,
-        },
-        params: {
-          taskId: taskId,
-        },
-        data: { comment: addFeed },
-      })
+    feedbackAPI.post(taskId,addFeed)
         .then(() => {
           setAddFeed('');
           location.reload();
@@ -531,9 +519,7 @@ const DetailBox = () => {
         .catch((e) => {
           console.log(e);
         });
-    }
   };
-
   useEffect(() => {
     getUser();
   }, []);
@@ -554,33 +540,17 @@ const DetailBox = () => {
   }, [fileLoc]);
 
   const onChangeStatus = async () => {
-    await axios({
-      url: '/api/tasks/status',
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      params: { taskId: taskId },
+    taskAPI.toggle(taskId)
+    .then(() => {
+      location.reload();
     })
-      .then(() => {
-        location.reload();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    .catch((e) => {
+      console.log(e);
+    });
   };
 
   const onDeleteFeed = async (feedId: number) => {
-    await axios({
-      url: '/api/feedbacks',
-      baseURL: baseURL,
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      params: { feedbackId: feedId },
-    })
+    feedbackAPI.delete(feedId)
       .then(() => {
         location.reload();
       })

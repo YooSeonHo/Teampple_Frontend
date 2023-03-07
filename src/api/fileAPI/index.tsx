@@ -1,7 +1,6 @@
 import axios from "axios";
 import { baseURL } from 'api/client';
 const token = localStorage.getItem('jwt_accessToken');
-import { teamidState, taskIdState } from "state";
 
 export default{
     getFiles : async (teamid : number) => await axios({
