@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
 import styled from 'styled-components';
-
 import { AiOutlineLine } from 'react-icons/ai';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
 import DatePicker from 'react-datepicker';
@@ -15,6 +13,7 @@ import { stageState, teamidState } from 'state';
 import moment from 'moment';
 import axios from 'axios';
 import { baseURL } from 'api/client';
+import stageAPI from 'api/stageAPI';
 
 const ModDiv = (props: any) => {
   const [step, setStep] = useRecoilState(stepState);
@@ -23,17 +22,7 @@ const ModDiv = (props: any) => {
   const [teamid] = useRecoilState(teamidState);
 
   const getStage = async () => {
-    await axios({
-      url: '/api/stages',
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: {
-        teamId: teamid,
-      },
-    })
+    stageAPI.get(teamid)
       .then((response) => {
         setStages(response.data.data);
       })
