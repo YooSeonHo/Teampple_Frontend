@@ -6,21 +6,15 @@ import { feedbackState, fbListState, isCheckedState } from 'state';
 import feedback from '../images/feedback.png';
 import axios from 'axios';
 import { baseURL } from 'api/client';
+import userAPI from 'api/userAPI';
 
 const HomeHeader = () => {
   const token = localStorage.getItem('jwt_accessToken');
   const [fbList, setFbList] = useRecoilState(fbListState);
   const [isCheck, setIsCheck] = useRecoilState(isCheckedState);
 
-  const getFeedbackAPI = async () => {
-    await axios({
-      url: `/api/users/feedbacks`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+  const getFeedbackAPI = () => {
+    userAPI.getFeedback()
       .then((response) => {
         setFbList(response.data.data.feedbacks.reverse());
       })

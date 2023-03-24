@@ -30,6 +30,7 @@ import { baseURL } from 'api/client';
 import filesApi from 'api/fileAPI';
 import feedbackAPI from 'api/feedbackAPI';
 import taskAPI from 'api/taskAPI';
+import userAPI from 'api/userAPI';
 
 const DetailContainer = styled.div`
   width: 52.0833vw;
@@ -472,18 +473,8 @@ const DetailBox = () => {
   };
   //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
 
-  const getDetail = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      params: {
-        taskId: taskId,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
+  const getDetail = () => {
+    taskAPI.get(taskId)
       .then((res) => {
         setDetail(res.data.data);
       })
@@ -493,14 +484,7 @@ const DetailBox = () => {
   };
 
   const getUser = async () => {
-    await axios({
-      url: '/api/users/userprofiles',
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+    userAPI.getUserProfile()
       .then((res) => {
         setUser(res.data.data);
       })

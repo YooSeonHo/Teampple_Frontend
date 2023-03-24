@@ -17,6 +17,7 @@ import axios from 'axios';
 import { AiFillMessage } from 'react-icons/ai';
 import { baseURL } from 'api/client';
 import { BsFillPersonFill } from 'react-icons/bs';
+import userAPI from 'api/userAPI';
 
 const MsgIcon = styled(AiFillMessage)`
   color: #487aff;
@@ -198,15 +199,8 @@ const TeampleHeader = () => {
     setIsOpen(!isOpen);
   }
 
-  const getFeedbackAPI = async () => {
-    await axios({
-      url: `/api/users/feedbacks`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+  const getFeedbackAPI = () => {
+    userAPI.getFeedback()
       .then((response) => {
         setFbList(response.data.data.feedbacks);
       })
