@@ -8,6 +8,7 @@ import { profileImgState } from 'state';
 import prof1 from '../images/profile/proImageU1.png';
 import { baseURL } from 'api/client';
 import userAPI from 'api/userAPI';
+import authAPI from 'api/authAPI';
 
 const EditBox = styled.div`
   width: 50.625vw;
@@ -218,18 +219,19 @@ const EditProfile = () => {
   };
 
   const postAuthLogoutAPI = async () => {
-    await axios({
-      url: `/api/auth/logout`,
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        jwtAccessToken: localStorage.getItem('jwt_accessToken'),
-        jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
-      },
-    })
+    // await axios({
+    //   url: `/api/auth/logout`,
+    //   baseURL: baseURL,
+    //   method: 'post',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    //   data: {
+    //     jwtAccessToken: localStorage.getItem('jwt_accessToken'),
+    //     jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
+    //   },
+    // })
+    authAPI.postLogout()
       .then(() => {
         localStorage.removeItem('jwt_accessToken');
         localStorage.removeItem('jwt_refreshToken');

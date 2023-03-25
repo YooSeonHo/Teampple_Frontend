@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { taskIdState, teamidState, isLoading3State, teamEndDateState, } from 'state';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
 
 const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
   width: 66.25vw;
@@ -49,15 +50,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
 
   const getTodoAPI = async () => {
     setIsLoading3(true);
-    await axios({
-      url: `/api/teams/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
+    teamAPI.getTask(teamid)
       .then((response) => {
         setTodoList(response.data.data);
         setTaskId(0);
@@ -70,15 +63,7 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
   };
 
   const getEndDate = async () =>{
-    await axios({
-      url: `/api/teams`,
-      baseURL: baseURL,
-      method: 'get',
-      params: { teamId: teamid },
-      headers: {
-        Authorization: token,
-      },
-    })
+    teamAPI.get(teamid)
       .then((res) => {
         setTeamEndDate(res.data.data.dueDate);
       })

@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router';
 import axios from 'axios';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { baseURL } from 'api/client';
+import authAPI from 'api/authAPI';
+import inviteAPI from 'api/inviteAPI';
 
 const Ing = () => {
   const location = useLocation();
@@ -29,17 +31,19 @@ const Ing = () => {
   }, []);
 
   const joinTeam = async () => {
-    await axios({
-      url: `/api/invitations`,
-      baseURL: baseURL,
-      method: 'post',
-      params: {
-        code: localStorage.getItem('code'),
-      },
-      headers: {
-        Authorization: location.search.split('=')[1].split('&')[0],
-      },
-    })
+    // await axios({
+    //   url: `/api/invitations`,
+    //   baseURL: baseURL,
+    //   method: 'post',
+    //   params: {
+    //     code: localStorage.getItem('code'),
+    //   },
+    //   headers: {
+    //     Authorization: location.search.split('=')[1].split('&')[0],
+    //   },
+    // })
+    //문제 생기면 이부분 체크해보기.
+    inviteAPI.postInvite(localStorage.getItem('code'))
       .then((res) => {
         navigate(`/teample-home/${res.data.data.teamId}`);
         window.location.reload();
@@ -53,18 +57,19 @@ const Ing = () => {
 
   const reToken = () => {
     if (localStorage.getItem('jwt_accessToken')) {
-      axios({
-        url: '/api/auth/reIssuance',
-        baseURL: baseURL,
-        method: 'post',
-        headers: {
-          Authorization: localStorage.getItem('jwt_accessToken'),
-        },
-        data: {
-          jwtAccessToken: localStorage.getItem('jwt_accessToken'),
-          jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
-        },
-      })
+      // axios({
+      //   url: '/api/auth/reIssuance',
+      //   baseURL: baseURL,
+      //   method: 'post',
+      //   headers: {
+      //     Authorization: localStorage.getItem('jwt_accessToken'),
+      //   },
+      //   data: {
+      //     jwtAccessToken: localStorage.getItem('jwt_accessToken'),
+      //     jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
+      //   },
+      // })
+      authAPI.postRetoken()
         .then((response) => {
           localStorage.setItem(
             'jwt_accessToken',

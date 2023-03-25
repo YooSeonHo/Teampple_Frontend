@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { searchTemplateState, IsSearchTemplateState } from 'state';
 import { baseURL } from 'api/client';
+import templateAPI from 'api/templateAPI';
 
 interface ITemplate {
   templateId: number;
@@ -19,14 +20,15 @@ const TemplateList = () => {
   const [isSearch, setIsSearch] = useRecoilState(IsSearchTemplateState);
 
   const getTemplateAPI = async () => {
-    await axios({
-      url: `/api/templates`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+    // await axios({
+    //   url: `/api/templates`,
+    //   baseURL: baseURL,
+    //   method: 'get',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    // })
+    templateAPI.get()
       .then((response) => {
         setTemplates(response.data.data);
       })

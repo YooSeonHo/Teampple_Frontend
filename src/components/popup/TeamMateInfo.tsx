@@ -9,6 +9,8 @@ import { teamMateNumState, modal2State, teamidState } from 'state';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
+import inviteAPI from 'api/inviteAPI';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
@@ -18,15 +20,7 @@ const TeamMateInfo = () => {
   const [teamid] = useRecoilState(teamidState);
 
   const getTeamMateAPI = async () => {
-    await axios({
-      url: `/api/teams/teammates`,
-      baseURL: baseURL,
-      method: 'get',
-      params: { teamId: teamid },
-      headers: {
-        Authorization: token,
-      },
-    })
+    teamAPI.getTeamMate(teamid)
       .then((response) => {
         setTeamMates(response.data.data.teammateInfoVos);
         setUser(response.data.data);
@@ -37,15 +31,16 @@ const TeamMateInfo = () => {
   };
 
   const getLink = async () => {
-    await axios({
-      url: '/api/invitations',
-      baseURL: baseURL,
-      method: 'get',
-      params: { teamId: teamid },
-      headers: {
-        Authorization: token,
-      },
-    })
+    // await axios({
+    //   url: '/api/invitations',
+    //   baseURL: baseURL,
+    //   method: 'get',
+    //   params: { teamId: teamid },
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    // })
+    inviteAPI.getInvite(teamid)
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {
           alertCopyLink();

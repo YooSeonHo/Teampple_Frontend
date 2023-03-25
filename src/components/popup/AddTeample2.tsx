@@ -23,6 +23,7 @@ import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
 
 const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
@@ -52,15 +53,16 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
 
   const postTeample = async () => {
-    await axios({
-      url: '/api/teams',
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      data: makeTeample,
-    })
+    // await axios({
+    //   url: '/api/teams',
+    //   baseURL: baseURL,
+    //   method: 'post',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    //   data: makeTeample,
+    // })
+    teamAPI.post(makeTeample)
       .then((res) => {
         alertPostTeample(res);
         setModal(false);

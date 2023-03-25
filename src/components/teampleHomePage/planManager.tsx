@@ -6,6 +6,7 @@ import { zIndexState, feedbackState, modal2State, teamidState, teamEndDateState 
 import axios from 'axios';
 import { IPlan } from '../../interfaces';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
 
 const PlanManager = () => {
   const [modal, setModal] = useState(false);
@@ -28,15 +29,16 @@ const PlanManager = () => {
 
 
   const getPlanAPI = async () => {
-    await axios({
-      url: `/api/teams/schedules`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
+    // await axios({
+    //   url: `/api/teams/schedules`,
+    //   baseURL: baseURL,
+    //   method: 'get',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    //   params: { teamId: teamid },
+    // })
+    teamAPI.getSch(teamid)
       .then((response) => {
         setPlans(response.data.data.schedules);
         setDueDate(response.data.data.dueDate);
@@ -48,15 +50,16 @@ const PlanManager = () => {
   };
 
   const getEndDate = async () =>{
-    await axios({
-      url: `/api/teams`,
-      baseURL: baseURL,
-      method: 'get',
-      params: { teamId: teamid },
-      headers: {
-        Authorization: token,
-      },
-    })
+    // await axios({
+    //   url: `/api/teams`,
+    //   baseURL: baseURL,
+    //   method: 'get',
+    //   params: { teamId: teamid },
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    // })
+    teamAPI.get(teamid)
       .then((res) => {
         setTeamEndDate(res.data.data.dueDate);
       })

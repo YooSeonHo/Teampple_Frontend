@@ -30,6 +30,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
 import userAPI from 'api/userAPI';
+import teamAPI from 'api/teamAPI';
 
 const SideBarBox = styled.div`
   width: 12.5vw;
@@ -290,15 +291,16 @@ const SideBar = () => {
   };
 
   const delTeampleAPI = async () => {
-    await axios({
-      baseURL: baseURL,
-      url: 'api/teams',
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
+    // await axios({
+    //   baseURL: baseURL,
+    //   url: 'api/teams',
+    //   method: 'delete',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    //   params: { teamId: teamid },
+    // })
+    teamAPI.delete(teamid)
       .then(() => {
         navigate('/home');
         location.reload();
