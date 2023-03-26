@@ -457,7 +457,7 @@ const SideBar = () => {
           <TeamBox
             className="box"
             id={team.teamId}
-            onClick={(e: any) => {
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
               getTeamid(e.target);
           
             }}

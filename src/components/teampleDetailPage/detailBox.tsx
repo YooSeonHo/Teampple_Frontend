@@ -427,7 +427,7 @@ const DetailBox = () => {
   const [detail, setDetail] = useRecoilState(detailState);
   const [file, setFile] = useState<File>();
   const [fileLoc, setFileLoc] = useState('');
-  const fileInput = useRef<any>();
+  const fileInput = useRef<HTMLInputElement>(null);
   const [teamid] = useRecoilState(teamidState);
   const [user, setUser] = useState<userInfo>();
   const [addFeed, setAddFeed] = useState('');
@@ -459,7 +459,7 @@ const DetailBox = () => {
       .then((data: any) => {
         setFileLoc(data.location);
       })
-      .catch((e: any) => {
+      .catch((e: Error) => {
         console.log(e);
       });
   };
@@ -477,7 +477,7 @@ const DetailBox = () => {
       data: {
         fileName: file?.name,
         size: file?.size,
-        url: fileLoc,
+        key: fileLoc,
       },
       params: {
         taskId: taskId,
@@ -612,7 +612,7 @@ const DetailBox = () => {
     setAddFeed(e.target.value);
   };
 
-  const downloadFile = (url: any, filename: string) => {
+  const downloadFile = (url: string, filename: string) => {
     fetch(url, { method: 'GET' })
       .then((res) => {
         return res.blob();
@@ -644,7 +644,7 @@ const DetailBox = () => {
       },
       params: { fileId: fileId },
     })
-      .then((response) => {
+      .then(() => {
         location.reload();
       })
       .catch((e) => {
@@ -652,7 +652,7 @@ const DetailBox = () => {
       });
   };
 
-  const alertDelFile = (e: any) => {
+  const alertDelFile = (e: React.MouseEvent<HTMLElement>) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -665,7 +665,7 @@ const DetailBox = () => {
               </button>
               <button
                 onClick={() => {
-                  delTaskAPI(Number(e.target.id));
+                  delTaskAPI(Number((e.target as HTMLElement).id));
                 }}
                 className="alertYes"
               >
@@ -678,7 +678,7 @@ const DetailBox = () => {
     });
   };
 
-  const alertDelFeed = (e: any) => {
+  const alertDelFeed = (e: React.MouseEvent<HTMLElement>) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -690,7 +690,7 @@ const DetailBox = () => {
               </button>
               <button
                 onClick={() => {
-                  onDeleteFeed(Number(e.target.id));
+                  onDeleteFeed(Number((e.target as HTMLElement).id));
                 }}
                 className="alertYes"
               >

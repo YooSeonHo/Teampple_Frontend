@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import arrow from '../images/rightArrow.png';
 import done from '../images/done icon.png';
-import { StyledToDoInfo } from 'interfaces';
+import { StyledToDoInfo, teamtasksInfo } from 'interfaces';
 import AddTask from 'components/popup/AddTask';
 import { useRecoilState } from 'recoil';
 import {
@@ -198,7 +198,7 @@ const ToDoBox = styled.div`
   }
 `;
 
-const Box = styled.div<any>`
+const Box = styled.div`
   width: 17.291667vw;
   height: 6.66666vh;
   background-color: #ffffff;

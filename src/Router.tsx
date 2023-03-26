@@ -16,7 +16,7 @@ import RefreshRouter from 'components/routers/RefreshRouter';
 const Router = () => {
   return (
     <Routes>
-      <Route element={<RefreshRouter />}>
+      {/* <Route element={<RefreshRouter />}> */}
         <Route
           path="/home"
           element={
@@ -65,7 +65,7 @@ const Router = () => {
             </PrivateRouter>
           }
         />
-      </Route>
+      {/* </Route> */}
 
       <Route path="/" element={<OnboardingPage />} />
       <Route path="/login" element={<LoginPage />} />

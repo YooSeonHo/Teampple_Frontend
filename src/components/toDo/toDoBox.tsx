@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import ToDoCard from './toDoCard';
-import { StyledToDoBoxInfo } from 'interfaces';
+import { StyledToDoBoxInfo, teamtasksInfo } from 'interfaces';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { taskIdState, teamidState, isLoading3State, teamEndDateState, } from 'state';
@@ -40,7 +40,7 @@ const ToDoWrapper = styled.div<StyledToDoBoxInfo>`
 `;
 
 const ToDoBox = ({ pathname }: { pathname: string }) => {
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState<teamtasksInfo[]>([]);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
   const [taskId, setTaskId] = useRecoilState(taskIdState);

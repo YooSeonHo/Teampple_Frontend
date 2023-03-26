@@ -52,15 +52,15 @@ const FeedBox = styled.div<StyledFeedInfo>`
   }
 `;
 
-const Feed = styled.div<any>`
+const Feed = styled.div<StyledFeedInfo>`
   width: 17.1875vw;
   height: 4.925926vh;
   margin-left: 1.041667vw;
   margin-top: 1vh;
   display: flex;
   border-bottom: 1px solid #cccccc;
-  opacity: ${(props)=>props.checked? '0.5' : '1'};
-  
+  opacity: ${(props) => (props.checked ? '0.5' : '1')};
+
   :hover {
     cursor: pointer;
   }
@@ -96,8 +96,8 @@ const Feed = styled.div<any>`
     line-height: 100%;
     color: #a7a7a7;
     margin-top: 1.5vh;
-    margin-left : auto;
-    margin-right : 0.2vw;
+    margin-left: auto;
+    margin-right: 0.2vw;
     width: 4vw;
     // margin-left: 2.083333vw;
   }
@@ -109,11 +109,11 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
   const [isOpen,setIsOpen] = useRecoilState(feedbackState);
   const navigate = useNavigate();
 
-  const getTaskId = (e: any) => {
-    setTaskId(e.target.id);
-    navigate(`/teample-detail/${e.target.id}`);
+  const getTaskId = (e: React.MouseEvent<HTMLElement>) => {
+    setTaskId(parseInt((e.target as HTMLElement).id));
+    navigate(`/teample-detail/${(e.target as HTMLElement).id}`);
     setIsOpen(false);
-      }
+  };
   const [profileImg,setProfileImg] = useRecoilState(profileImgState);
 
 

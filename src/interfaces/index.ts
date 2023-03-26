@@ -6,8 +6,9 @@ export interface ITeamMate {
   name: string;
   major: string;
   schoolName: string;
-  index?: number;
   image: string;
+  teammateId?: number;
+  id?: number;
 }
 
 export interface FileInfo {
@@ -27,11 +28,20 @@ export interface StyledToDoInfo {
 }
 
 export interface StyledFeedInfo {
-  pathname: string;
+  pathname?: string;
+  checked?: boolean;
 }
 
 export interface StyledToDoBoxInfo {
   pathname: string;
+}
+
+export interface StyledProfileImgInfo {
+  profileImage: string;
+}
+
+export interface StyledFeedbackInfo {
+  profileImage: string;
 }
 
 export interface SearchFileInfo {
@@ -131,4 +141,21 @@ export interface fbListInfo {
 
 export interface profileImg {
   profileImg: string;
+}
+
+export interface teamtasksInfo {
+  stageId: number;
+  stageName: string;
+  startDate: string;
+  dueDate: string;
+  sequenceNum: number;
+  totaltask: number;
+  achievement: number;
+  tasks: tasksInfo[];
+}
+
+export interface tasksInfo {
+  taskId: number;
+  name: string;
+  done: boolean;
 }
