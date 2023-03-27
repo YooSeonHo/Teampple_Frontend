@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledFeedInfo } from 'interfaces';
+import { StyledFeedInfo } from 'interfaces/feedbackType';
 
 export const FeedBox = styled.div<StyledFeedInfo>`
   border: 1px solid #dedede;

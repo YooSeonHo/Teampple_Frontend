@@ -14,8 +14,8 @@ import {
 } from 'state/AddTeample/atom';
 import AddDiv from './AddTeample/AddDiv'; //단계 추가하기 버튼 클릭시 Add 컴포넌트 추가
 import { Background } from './AddSchedule';
-import { ModalProps } from 'interfaces';
-import { stageInfo } from 'interfaces';
+import { ModalProps } from 'interfaces/modalType';
+import { stageInfo } from 'interfaces/stageType';
 import { AddTeamzIndexState,stageState, makeTeampleState } from 'state';
 import axios from 'axios';
 import moment from 'moment';

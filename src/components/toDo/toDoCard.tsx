@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import arrow from '../images/rightArrow.png';
 import done from '../images/done icon.png';
-import { StyledToDoInfo, teamtasksInfo } from 'interfaces';
+import { StyledToDoInfo  } from 'interfaces/taskType';
+import {teamtasksInfo} from 'interfaces/taskType'
 import AddTask from 'components/popup/AddTask';
 import { useRecoilState } from 'recoil';
 import {

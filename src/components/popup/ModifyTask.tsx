@@ -17,7 +17,9 @@ import {
 } from 'state';
 import moment from 'moment';
 import axios from 'axios';
-import { detailInfo, StyledProfileImgInfo, ITeamMate } from 'interfaces';
+import { detailInfo } from 'interfaces/taskType';
+import { ITeamMate } from 'interfaces/teamType';
+import { StyledProfileImgInfo } from 'interfaces/userType';
 import { baseURL } from 'api/client';
 
 const ModifyTask = ({ setBigModal }: any) => {

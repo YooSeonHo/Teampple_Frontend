@@ -67,8 +67,8 @@ const HomeToDo = () => {
       });
   };
 
-  const onClick = (e: any) => {
-    setTaskId(e.currentTarget.id);
+  const onClick = (e: React.MouseEvent<HTMLElement>) => {
+    setTaskId(Number((e.currentTarget as HTMLElement).id));
   };
 
   useDidMountEffect(async () => {

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import ToDoCard from './toDoCard';
-import { StyledToDoBoxInfo, teamtasksInfo } from 'interfaces';
+import { StyledToDoBoxInfo } from 'interfaces/taskType';
+import { teamtasksInfo } from 'interfaces/taskType';
+
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { taskIdState, teamidState, isLoading3State, teamEndDateState, } from 'state';

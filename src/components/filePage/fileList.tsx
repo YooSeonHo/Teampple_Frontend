@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import arrow from '../images/rightArrow.png';
 import axios from 'axios';
-import { FileInfo } from 'interfaces';
+import { FileInfo } from 'interfaces/fileType';
 import { useRecoilState } from 'recoil';
 import {
   IsSearchState,
@@ -46,8 +46,8 @@ const FileList = () => {
     getFiles();
   }, []);
 
-  const getTaskId = (e: any) => {
-    setTaskId(Number(e.target.id));
+  const getTaskId = (e: React.MouseEvent<HTMLElement>) => {
+    setTaskId(Number((e.target as HTMLElement).id));
   };
 
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import headerImg from '../../components/images/Group 773.png';
-import { SearchInputProps } from 'interfaces';
+import { SearchInputProps } from 'interfaces/fileType';
 
 export const FileHeaderContainer = styled.div`
   width: 87.5vw;

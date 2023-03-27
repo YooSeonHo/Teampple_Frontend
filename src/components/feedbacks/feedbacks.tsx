@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import * as Style from '../../css/Feedbacks/FeedbackStyle';
-import { fbInfo } from 'interfaces';
+import { fbInfo } from 'interfaces/feedbackType';
 import { useRecoilState } from 'recoil';
 import {
   fbListState,

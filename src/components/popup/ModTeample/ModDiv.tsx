@@ -10,7 +10,7 @@ import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
 import { stepState } from 'state/AddTeample/atom';
 import { useForm } from 'react-hook-form';
-import { stageInfo } from 'interfaces';
+import { stageInfo } from 'interfaces/stageType';
 import { stageState, teamidState } from 'state';
 import moment from 'moment';
 import axios from 'axios';
