@@ -10,7 +10,7 @@ import inviteAPI from 'api/inviteAPI';
 
 const LoginPage = () => {
   // 초대받았다면 팀 이름 출력
-  const [teamname, setTeamname] = useState('경영전략');
+  const [teamname, setTeamname] = useState('');
   const [invited, setInvited] = useState(false);
   const navigate = useNavigate();
   const [, , code] = window.location.pathname.split('/');

@@ -17,7 +17,9 @@ import {
 } from 'state';
 import moment from 'moment';
 import axios from 'axios';
-import { detailInfo } from 'interfaces';
+import { detailInfo } from 'interfaces/taskType';
+import { ITeamMate } from 'interfaces/teamType';
+import { StyledProfileImgInfo } from 'interfaces/userType';
 import { baseURL } from 'api/client';
 import taskAPI from 'api/taskAPI';
 
@@ -35,7 +37,7 @@ const ModifyTask = ({ setBigModal }: any) => {
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
   const [taskId] = useRecoilState(taskIdState);
-  const [user, setUser] = useState<any | undefined>();
+  const [user, setUser] = useState<ITeamMate | undefined>();
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -205,7 +207,7 @@ const ModifyTask = ({ setBigModal }: any) => {
                 <CheckBox
                   type="checkbox"
                   value={user.name}
-                  id={user.teammateId}
+                  id={user.teammateId?.toString()}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -217,7 +219,7 @@ const ModifyTask = ({ setBigModal }: any) => {
                 />
               </TeamMate>
             )}
-            {teamMates.map((teammate: any, index: number) => (
+            {teamMates.map((teammate: ITeamMate, index: number) => (
               <TeamMate key={index}>
                 <Profile profileImage={teammate.image} />
                 <TextInfo>
@@ -229,7 +231,7 @@ const ModifyTask = ({ setBigModal }: any) => {
                 <CheckBox
                   type="checkbox"
                   value={teammate.name}
-                  id={teammate.id}
+                  id={teammate.id?.toString()}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -452,7 +454,7 @@ const TeamMate = styled.div`
   display: flex;
 `;
 
-const Profile = styled.div<any>`
+const Profile = styled.div<StyledProfileImgInfo>`
   width: 2.08333vw;
   height: 3.703704vh;
   border-radius: 16px;

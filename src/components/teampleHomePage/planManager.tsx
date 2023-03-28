@@ -4,7 +4,7 @@ import AddSchedule from 'components/popup/AddSchedule';
 import { useRecoilState } from 'recoil';
 import { zIndexState, feedbackState, modal2State, teamidState, teamEndDateState } from 'state';
 import axios from 'axios';
-import { IPlan } from '../../interfaces';
+import { IPlan } from '../../interfaces/teamType';
 import { baseURL } from 'api/client';
 import teamAPI from 'api/teamAPI';
 

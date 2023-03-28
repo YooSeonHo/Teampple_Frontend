@@ -16,8 +16,8 @@ import {
 } from 'state/AddTeample/atom';
 import { AddTeamzIndexState, makeTeampleState } from 'state';
 import { Background } from './AddSchedule';
-import { ModalProps } from 'interfaces';
-import { makeTeampleInfo } from 'interfaces';
+import { ModalProps } from 'interfaces/modalType';
+import { makeTeampleInfo } from 'interfaces/teamType';
 import moment from 'moment';
 
 const AddTeample = ({ setModal, setNextModal }: ModalProps) => {

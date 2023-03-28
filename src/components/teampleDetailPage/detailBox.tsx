@@ -10,7 +10,8 @@ import deleteBtn from '../images/delete.png';
 import ellipse from '../images/Ellipse 1.png';
 import Send from '../images/send.png';
 import axios from 'axios';
-import { detailInfo, userInfo } from 'interfaces';
+import { detailInfo } from 'interfaces/taskType';
+import { userInfo } from 'interfaces/userType';
 import S3 from 'react-aws-s3-typescript';
 import { config } from 'config';
 import { useRecoilState } from 'recoil';
@@ -431,7 +432,7 @@ const DetailBox = () => {
   const [detail, setDetail] = useRecoilState(detailState);
   const [file, setFile] = useState<File>();
   const [fileLoc, setFileLoc] = useState('');
-  const fileInput = useRef<any>();
+  const fileInput = useRef<HTMLInputElement>(null);
   const [teamid] = useRecoilState(teamidState);
   const [user, setUser] = useState<userInfo>();
   const [addFeed, setAddFeed] = useState('');
@@ -463,7 +464,7 @@ const DetailBox = () => {
       .then((data: any) => {
         setFileLoc(data.location);
       })
-      .catch((e: any) => {
+      .catch((e: Error) => {
         console.log(e);
       });
   };
@@ -473,8 +474,18 @@ const DetailBox = () => {
   };
   //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
 
-  const getDetail = () => {
-    taskAPI.get(taskId)
+  const getDetail = async () => {
+    await axios({
+      url: `/api/tasks`,
+      baseURL: baseURL,
+      method: 'get',
+      params: {
+        taskId: taskId,
+      },
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((res) => {
         setDetail(res.data.data);
       })
@@ -547,7 +558,7 @@ const DetailBox = () => {
     setAddFeed(e.target.value);
   };
 
-  const downloadFile = (url: any, filename: string) => {
+  const downloadFile = (url: string, filename: string) => {
     fetch(url, { method: 'GET' })
       .then((res) => {
         return res.blob();
@@ -579,7 +590,7 @@ const DetailBox = () => {
         });
   };
 
-  const alertDelFile = (e: any) => {
+  const alertDelFile = (e: React.MouseEvent<HTMLElement>) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -592,7 +603,7 @@ const DetailBox = () => {
               </button>
               <button
                 onClick={() => {
-                  delTaskAPI(Number(e.target.id));
+                  delTaskAPI(Number((e.target as HTMLElement).id));
                 }}
                 className="alertYes"
               >
@@ -605,7 +616,7 @@ const DetailBox = () => {
     });
   };
 
-  const alertDelFeed = (e: any) => {
+  const alertDelFeed = (e: React.MouseEvent<HTMLElement>) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -617,7 +628,7 @@ const DetailBox = () => {
               </button>
               <button
                 onClick={() => {
-                  onDeleteFeed(Number(e.target.id));
+                  onDeleteFeed(Number((e.target as HTMLElement).id));
                 }}
                 className="alertYes"
               >
