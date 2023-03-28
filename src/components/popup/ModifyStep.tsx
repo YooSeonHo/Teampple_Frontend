@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import ModDiv from './ModTeample/ModDiv';
-import { stageInfo } from 'interfaces';
+import { stageInfo } from 'interfaces/stageType';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   stageState,

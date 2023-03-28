@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import prof from '../images/template1.png';
 import { FiLink2 } from 'react-icons/fi';
 import axios from 'axios';
-import { ITeamMate } from '../../interfaces';
+import { ITeamMate } from 'interfaces/teamType';
+import { StyledProfileImgInfo } from 'interfaces/userType';
 import { useRecoilState } from 'recoil';
 import { teamMateNumState, modal2State, teamidState } from 'state';
 import { confirmAlert } from 'react-confirm-alert';
@@ -14,7 +15,7 @@ import inviteAPI from 'api/inviteAPI';
 
 const TeamMateInfo = () => {
   const [teamMates, setTeamMates] = useState([]);
-  const [user, setUser] = useState<any | undefined>();
+  const [user, setUser] = useState<ITeamMate | undefined>();
   const [modal2, setModal2] = useRecoilState(modal2State);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
@@ -153,7 +154,7 @@ const TeamMate = styled.div`
   overflow: hidden;
 `;
 
-const Profile = styled.div<any>`
+const Profile = styled.div<StyledProfileImgInfo>`
   width: 2.08333vw;
   border-radius: 16px;
   background-image: url(${(props) =>

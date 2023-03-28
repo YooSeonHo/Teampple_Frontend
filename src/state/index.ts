@@ -1,5 +1,7 @@
-// import { detailInfo } from 'interfaces';
-import { detailInfo, fbInfo, fbListInfo, makeTeampleInfo, stageInfo, modTeampleInfo } from 'interfaces';
+import { detailInfo } from 'interfaces/taskType';
+import { makeTeampleInfo, modTeampleInfo } from 'interfaces/teamType';
+import { stageInfo } from 'interfaces/stageType';
+import { fbInfo } from 'interfaces/feedbackType';
 import { atom } from 'recoil';
 import { v1 } from 'uuid'; // key duplicate 방지를 위한 라이브러리
 import { recoilPersist } from "recoil-persist";
