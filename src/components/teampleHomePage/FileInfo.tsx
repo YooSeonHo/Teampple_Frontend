@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
 import { baseURL } from 'api/client';
+import fileAPI from 'api/fileAPI';
 
 interface IFileMap {
   size: number;
@@ -20,18 +21,7 @@ const FileInfo = () => {
   const token = localStorage.getItem('jwt_accessToken');
 
   useEffect(() => {
-    const getFiles = async () => {
-      await axios({
-        url: `/api/files`,
-        baseURL: baseURL,
-        method: 'get',
-        headers: {
-          Authorization: token,
-        },
-        params: {
-          teamId: teamid,
-        },
-      })
+    fileAPI.getFiles(teamid)
         .then((res) => {
           setFileNum(res.data.data.length);
           {
@@ -44,8 +34,6 @@ const FileInfo = () => {
         .catch((e) => {
           console.log(e);
         });
-    };
-    getFiles();
   }, [teamid]);
 
   return (

@@ -29,6 +29,8 @@ import AddTeample2 from 'components/popup/AddTeample2';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
+import userAPI from 'api/userAPI';
+import teamAPI from 'api/teamAPI';
 
 const SideBarBox = styled.div`
   width: 12.5vw;
@@ -289,16 +291,17 @@ const SideBar = () => {
   };
 
   const delTeampleAPI = async () => {
-    await axios({
-      baseURL: baseURL,
-      url: 'api/teams',
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
-      .then((response) => {
+    // await axios({
+    //   baseURL: baseURL,
+    //   url: 'api/teams',
+    //   method: 'delete',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    //   params: { teamId: teamid },
+    // })
+    teamAPI.delete(teamid)
+      .then(() => {
         navigate('/home');
         location.reload();
       })
@@ -311,15 +314,8 @@ const SideBar = () => {
     setTeamid(t.id);
   };
 
-  const getProfile = async () => {
-    await axios({
-      baseURL: baseURL,
-      url: 'api/users/userprofiles',
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+  const getProfile = () => {
+    userAPI.getUserProfile()
       .then((res) => {
         setName(res.data.data.name);
         setSchool(res.data.data.schoolName);
@@ -331,16 +327,8 @@ const SideBar = () => {
       });
   };
 
-  const getActiveTeamsAPI = async () => {
-    await axios({
-      url: `/api/users/teams`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { active: 1 },
-    })
+  const getActiveTeamsAPI = () => {
+    userAPI.getActTeams()
       .then((response) => {
         setActTeamList(response.data.data.teams.reverse());
       })
@@ -348,16 +336,8 @@ const SideBar = () => {
         console.log(error);
       });
   };
-  const getFinishedTeamsAPI = async () => {
-    await axios({
-      url: `/api/users/teams`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { active: 0 },
-    })
+  const getFinishedTeamsAPI =  () => {
+    userAPI.getFinTeams()
       .then((response) => {
         setFinTeamList(response.data.data.teams);
       })

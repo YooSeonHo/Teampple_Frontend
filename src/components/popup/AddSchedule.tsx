@@ -11,6 +11,7 @@ import { zIndexState, teamidState } from 'state';
 import axios from 'axios';
 import moment from 'moment';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
 
 const AddSchedule = ({ setModal }: any) => {
   const today = new window.Date();
@@ -39,27 +40,28 @@ const AddSchedule = ({ setModal }: any) => {
   const token = localStorage.getItem('jwt_accessToken');
 
   const postSchedulesAPI = async () => {
-    await axios({
-      url: `/api/teams/schedules`,
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        dueDate: (
-          moment(pickedDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          time +
-          ':00'
-        ).toString(),
-        name: name,
-      },
-      params: {
-        teamId: teamid,
-      },
-    })
-      .then((response) => {
+    // await axios({
+    //   url: `/api/teams/schedules`,
+    //   baseURL: baseURL,
+    //   method: 'post',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    //   data: {
+    //     dueDate: (
+    //       moment(pickedDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+    //       'T' +
+    //       time +
+    //       ':00'
+    //     ).toString(),
+    //     name: name,
+    //   },
+    //   params: {
+    //     teamId: teamid,
+    //   },
+    // })
+    teamAPI.postSch(pickedDate,time,name,teamid)
+      .then(() => {
         alert('새로운 일정 추가 성공!');
         location.reload();
       })

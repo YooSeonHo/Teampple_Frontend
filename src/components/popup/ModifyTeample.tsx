@@ -11,6 +11,7 @@ import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
 
 const ModifyTeample = ({ setModal1 }: any) => {
   const today = new window.Date();
@@ -76,32 +77,33 @@ const ModifyTeample = ({ setModal1 }: any) => {
   }, [startDate, endDate]);
 
   const postSchedulesAPI = async () => {
-    await axios({
-      url: `/api/teams`,
-      baseURL: baseURL,
-      method: 'put',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        dueDate: (
-          moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-        startDate: (
-          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-        name: name,
-        goal: aim,
-      },
-      params: {
-        teamId: teamid,
-      },
-    })
-      .then((response) => {
+    // await axios({
+    //   url: `/api/teams`,
+    //   baseURL: baseURL,
+    //   method: 'put',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    //   data: {
+    //     dueDate: (
+    //       moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+    //       'T' +
+    //       '00:00:00'
+    //     ).toString(),
+    //     startDate: (
+    //       moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+    //       'T' +
+    //       '00:00:00'
+    //     ).toString(),
+    //     name: name,
+    //     goal: aim,
+    //   },
+    //   params: {
+    //     teamId: teamid,
+    //   },
+    // })
+    teamAPI.put(startDate,endDate,name,aim,teamid)
+      .then(() => {
         alert('팀플 수정 성공');
         location.reload();
       })

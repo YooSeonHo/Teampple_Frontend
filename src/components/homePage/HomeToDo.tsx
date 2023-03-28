@@ -14,6 +14,8 @@ import {
 } from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { baseURL } from 'api/client';
+import taskAPI from 'api/taskAPI';
+import userAPI from 'api/userAPI';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
@@ -27,17 +29,7 @@ const HomeToDo = () => {
 
   const getDetail = async () => {
     setIsLoading1(true);
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      params: {
-        taskId: taskId,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
+    taskAPI.get(taskId)
       .then((res) => {
         setDetail(res.data.data);
         setIsLoading1(false);
@@ -49,14 +41,7 @@ const HomeToDo = () => {
 
   const getTodoAPI = async () => {
     setIsLoading2(true);
-    await axios({
-      url: `/api/users/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+    userAPI.getTask()
       .then((response) => {
         setTeams(response.data.data.teams);
         setTaskId(0);

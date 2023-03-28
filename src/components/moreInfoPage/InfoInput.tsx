@@ -11,6 +11,7 @@ import {
   jwtRefreshTokenState,
 } from 'state';
 import { baseURL } from 'api/client';
+import authAPI from 'api/authAPI';
 
 const InfoInput = () => {
   const [name, setName] = useState('');
@@ -34,21 +35,22 @@ const InfoInput = () => {
   };
   const postAuthInfoAPI = async () => {
     // 3-2. 회원가입 (백한테 카카오 토큰 + 추가 정보 넘겨주기)
-    await axios({
-      url: `/api/auth/info`,
-      baseURL: baseURL,
-      method: 'post',
-      data: {
-        idToken: idToken,
-        // idToken: 'kakaoU17233456', //test
-        oauthAccessToken: kakaoAccessToken,
-        oauthRefreshToken: kakaoRefreshToken,
-        name: name,
-        schoolName: school,
-        major: major,
-        profileImage: `proImageU${randomNum}`,
-      },
-    })
+    // await axios({
+    //   url: `/api/auth/info`,
+    //   baseURL: baseURL,
+    //   method: 'post',
+    //   data: {
+    //     idToken: idToken,
+    //     // idToken: 'kakaoU17233456', //test
+    //     oauthAccessToken: kakaoAccessToken,
+    //     oauthRefreshToken: kakaoRefreshToken,
+    //     name: name,
+    //     schoolName: school,
+    //     major: major,
+    //     profileImage: `proImageU${randomNum}`,
+    //   },
+    // })
+    authAPI.postCreate(idToken,kakaoAccessToken,kakaoRefreshToken,name, school, major, randomNum)
       .then((response) => {
         setjwtAccessToken(response.data.data.jwtAccessToken);
         setjwtRefreshToken(response.data.data.jwtRefreshToken);

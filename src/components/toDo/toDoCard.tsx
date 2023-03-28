@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { baseURL } from 'api/client';
+import taskAPI from 'api/taskAPI';
 
 const CardBox = styled.div<StyledToDoInfo>`
   width: 19.375vw;
@@ -298,17 +299,7 @@ const ToDoCard = ({ todoList }: any) => {
   }, [taskId]);
 
   const getDetail = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      params: {
-        taskId: taskId,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
+    taskAPI.get(taskId)
       .then((res) => {
         setDetail(res.data.data);
       })

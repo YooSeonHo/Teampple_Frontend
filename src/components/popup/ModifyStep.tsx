@@ -19,6 +19,7 @@ import moment from 'moment';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import axios from 'axios';
 import { baseURL } from 'api/client';
+import stageAPI from 'api/stageAPI';
 
 const ModifyStep = ({ setModal }: any) => {
   const token = localStorage.getItem('jwt_accessToken');
@@ -43,20 +44,8 @@ const ModifyStep = ({ setModal }: any) => {
   const [teamid] = useRecoilState(teamidState);
   const resetStages = useResetRecoilState(stageState);
 
-
   const putTeample = async () => {
-    await axios({
-      url: '/api/stages',
-      baseURL: baseURL,
-      method: 'put',
-      headers: {
-        Authorization: token,
-      },
-      data: modTeample,
-      params: {
-        teamId: teamid,
-      },
-    })
+    stageAPI.put(modTeample,teamid)
       .then(() => {
         alert('단계 수정이 완료되었습니다.');
         // setModal(false);

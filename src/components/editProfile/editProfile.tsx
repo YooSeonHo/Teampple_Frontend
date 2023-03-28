@@ -7,6 +7,8 @@ import { useRecoilState } from 'recoil';
 import { profileImgState } from 'state';
 import prof1 from '../images/profile/proImageU1.png';
 import { baseURL } from 'api/client';
+import userAPI from 'api/userAPI';
+import authAPI from 'api/authAPI';
 
 const EditBox = styled.div`
   width: 50.625vw;
@@ -186,15 +188,8 @@ const EditProfile = () => {
 
   const token = localStorage.getItem('jwt_accessToken');
 
-  const getProfile = async () => {
-    await axios({
-      baseURL: baseURL,
-      url: 'api/users/userprofiles',
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+  const getProfile =  () => {
+    userAPI.getUserProfile()
       .then((res) => {
         setName(res.data.data.name);
         setEmail(res.data.data.email);
@@ -209,21 +204,8 @@ const EditProfile = () => {
   };
 
   const putProfileAPI = async () => {
-    await axios({
-      url: `api/users/userprofiles`,
-      baseURL: baseURL,
-      method: 'put',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        major: major,
-        schoolName: school,
-        email: email,
-        name: name,
-      },
-    })
-      .then((response) => {
+    userAPI.putUserProfile(major,school,email,name)
+      .then(() => {
         alert('프로필 수정이 완료되었습니다.');
       })
       .catch(function (error) {
@@ -237,18 +219,19 @@ const EditProfile = () => {
   };
 
   const postAuthLogoutAPI = async () => {
-    await axios({
-      url: `/api/auth/logout`,
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        jwtAccessToken: localStorage.getItem('jwt_accessToken'),
-        jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
-      },
-    })
+    // await axios({
+    //   url: `/api/auth/logout`,
+    //   baseURL: baseURL,
+    //   method: 'post',
+    //   headers: {
+    //     Authorization: token,
+    //   },
+    //   data: {
+    //     jwtAccessToken: localStorage.getItem('jwt_accessToken'),
+    //     jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
+    //   },
+    // })
+    authAPI.postLogout()
       .then(() => {
         localStorage.removeItem('jwt_accessToken');
         localStorage.removeItem('jwt_refreshToken');

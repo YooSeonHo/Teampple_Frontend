@@ -27,6 +27,10 @@ import ModifyTask from 'components/popup/ModifyTask';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
+import filesApi from 'api/fileAPI';
+import feedbackAPI from 'api/feedbackAPI';
+import taskAPI from 'api/taskAPI';
+import userAPI from 'api/userAPI';
 
 const DetailContainer = styled.div`
   width: 52.0833vw;
@@ -469,45 +473,8 @@ const DetailBox = () => {
   };
   //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
 
-  const postFile = async () => {
-    await axios({
-      url: `/api/files`,
-      baseURL: baseURL,
-      method: 'post',
-      data: {
-        fileName: file?.name,
-        size: file?.size,
-        url: fileLoc,
-      },
-      params: {
-        taskId: taskId,
-        teamId: teamid,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then(() => {
-        alert('파일 등록이 완료되었습니다.');
-        location.reload();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  const getDetail = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      params: {
-        taskId: taskId,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
+  const getDetail = () => {
+    taskAPI.get(taskId)
       .then((res) => {
         setDetail(res.data.data);
       })
@@ -517,14 +484,7 @@ const DetailBox = () => {
   };
 
   const getUser = async () => {
-    await axios({
-      url: '/api/users/userprofiles',
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+    userAPI.getUserProfile()
       .then((res) => {
         setUser(res.data.data);
       })
@@ -535,21 +495,7 @@ const DetailBox = () => {
   //새로고침 시에도 taskId에 맞는 디테일 정보를 가져와야 해서 양쪽에서 모두 get함수를..;;
 
   const postFeedback = async () => {
-    if (addFeed.trim() === '') {
-      alert('댓글 내용을 입력해주세요.');
-    } else {
-      await axios({
-        url: '/api/feedbacks',
-        baseURL: baseURL,
-        method: 'post',
-        headers: {
-          Authorization: token,
-        },
-        params: {
-          taskId: taskId,
-        },
-        data: { comment: addFeed },
-      })
+    feedbackAPI.post(taskId,addFeed)
         .then(() => {
           setAddFeed('');
           location.reload();
@@ -557,9 +503,7 @@ const DetailBox = () => {
         .catch((e) => {
           console.log(e);
         });
-    }
   };
-
   useEffect(() => {
     getUser();
   }, []);
@@ -569,37 +513,28 @@ const DetailBox = () => {
   }, [taskId]);
 
   useDidMountEffect(() => {
-    postFile();
-  }, [fileLoc]);
-
-  const onChangeStatus = async () => {
-    await axios({
-      url: '/api/tasks/status',
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      params: { taskId: taskId },
-    })
+      filesApi.postFile(file?.name,file?.size,fileLoc,taskId,teamid)
       .then(() => {
+        alert('파일 등록이 완료되었습니다.');
         location.reload();
       })
       .catch((e) => {
         console.log(e);
       });
+  }, [fileLoc]);
+
+  const onChangeStatus = async () => {
+    taskAPI.toggle(taskId)
+    .then(() => {
+      location.reload();
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   };
 
   const onDeleteFeed = async (feedId: number) => {
-    await axios({
-      url: '/api/feedbacks',
-      baseURL: baseURL,
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      params: { feedbackId: feedId },
-    })
+    feedbackAPI.delete(feedId)
       .then(() => {
         location.reload();
       })
@@ -634,22 +569,14 @@ const DetailBox = () => {
       });
   };
 
-  const delTaskAPI = async (fileId: number) => {
-    await axios({
-      baseURL: baseURL,
-      url: 'api/files',
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      params: { fileId: fileId },
-    })
-      .then((response) => {
-        location.reload();
-      })
+  const delTaskAPI = (fileId: number) => {
+    filesApi.delFileAPI(fileId)
+      .then(() => {
+          location.reload();
+        })
       .catch((e) => {
-        console.log(e);
-      });
+          console.log(e);
+        });
   };
 
   const alertDelFile = (e: any) => {
