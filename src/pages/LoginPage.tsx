@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import KakaoBtn from 'components/loginPage/KakaoBtn';
 import Logo from '../components/images/Logo_login.png';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
-import { baseURL } from 'api/client';
 import { kakaobaseURL } from 'api/client';
 import inviteAPI from 'api/inviteAPI';
 

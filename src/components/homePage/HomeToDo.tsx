@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import arrow from '../images/rightArrow.png';
 import done from '../images/done icon.png';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NotToDoBox from 'components/teampleHomePage/nothing/NotToDoBox';
 import { useRecoilState } from 'recoil';
 import {
@@ -13,23 +11,23 @@ import {
   isLoading2State,
 } from 'state';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
-import { baseURL } from 'api/client';
 import taskAPI from 'api/taskAPI';
 import userAPI from 'api/userAPI';
+import * as Style from '../../css/HomePage/HomeToDoStyle';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
-  const token = localStorage.getItem('jwt_accessToken');
   const [taskId, setTaskId] = useRecoilState(taskIdState);
   const [detail, setDetail] = useRecoilState(detailState);
   const navigate = useNavigate();
   const [isLoading1, setIsLoading1] = useRecoilState(isLoading1State);
   const [isLoading2, setIsLoading2] = useRecoilState(isLoading2State);
-  const [isZero,setIsZero] = useState(false);
+  const [isZero, setIsZero] = useState(false);
 
   const getDetail = async () => {
     setIsLoading1(true);
-    taskAPI.get(taskId)
+    taskAPI
+      .get(taskId)
       .then((res) => {
         setDetail(res.data.data);
         setIsLoading1(false);
@@ -41,7 +39,8 @@ const HomeToDo = () => {
 
   const getTodoAPI = async () => {
     setIsLoading2(true);
-    userAPI.getTask()
+    userAPI
+      .getTask()
       .then((response) => {
         setTeams(response.data.data.teams);
         setTaskId(0);
@@ -67,165 +66,60 @@ const HomeToDo = () => {
     getTodoAPI();
   }, []);
 
-  const checkTeams = () =>{
-    const TaskCheck = teams.filter((t : any)=>{
-      return t.totalStage !== 0 
+  const checkTeams = () => {
+    const TaskCheck = teams.filter((t: any) => {
+      return t.totalStage !== 0;
       //total이 0이 아닌애들만 필터 -> 테스크체크 길이가 0이면 다 0인거
-    })
-    if (TaskCheck.length <1){
+    });
+    if (TaskCheck.length < 1) {
       setIsZero(true);
-    }
-    else{
+    } else {
       setIsZero(false);
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     checkTeams();
-  },[teams]);
+  }, [teams]);
 
   return (
     <>
-       {teams.length === 0 || isZero ? (
+      {teams.length === 0 || isZero ? (
         <NotToDoBox />
-      ) : ( 
-      <HomeToDoContainer>
-        <Title>할 일</Title>
-        <ToDosContainer>
-          {teams &&
-            teams.map((team: any, index: number) => (
-              team.totalStage === 0 ? null :
-              <ToDoContainer key={index}>
-                <ToDoTitle style={{ color: '#383838' }}>{team.name}</ToDoTitle>
-                <Left>
-                  <LeftText>남은 일</LeftText>
-                  <LeftNum>{team.totalStage - team.achievement}</LeftNum>
-                </Left>
-                <ToDoList>
-                  {team.tasks.map((t: any, index: number) => (
-                    <ToDo onClick={onClick} key={index} id={t.taskId}>
-                      {t.done === true ? <Done src={done} /> : <></>}
-                      <ToDoText>{t.name}</ToDoText>
-                      <Arrow src={arrow} />
-                    </ToDo>
-                  ))}
-                </ToDoList>
-              </ToDoContainer>
-            ))}
-        </ToDosContainer>
-      </HomeToDoContainer>
-       )} 
+      ) : (
+        <Style.HomeToDoContainer>
+          <Style.Title>할 일</Style.Title>
+          <Style.ToDosContainer>
+            {teams &&
+              teams.map((team: any, index: number) =>
+                team.totalStage === 0 ? null : (
+                  <Style.ToDoContainer key={index}>
+                    <Style.ToDoTitle style={{ color: '#383838' }}>
+                      {team.name}
+                    </Style.ToDoTitle>
+                    <Style.Left>
+                      <Style.LeftText>남은 일</Style.LeftText>
+                      <Style.LeftNum>
+                        {team.totalStage - team.achievement}
+                      </Style.LeftNum>
+                    </Style.Left>
+                    <Style.ToDoList>
+                      {team.tasks.map((t: any, index: number) => (
+                        <Style.ToDo onClick={onClick} key={index} id={t.taskId}>
+                          {t.done === true ? <Style.Done src={done} /> : <></>}
+                          <Style.ToDoText>{t.name}</Style.ToDoText>
+                          <Style.Arrow src={arrow} />
+                        </Style.ToDo>
+                      ))}
+                    </Style.ToDoList>
+                  </Style.ToDoContainer>
+                ),
+              )}
+          </Style.ToDosContainer>
+        </Style.HomeToDoContainer>
+      )}
     </>
   );
 };
-
-const HomeToDoContainer = styled.div`
-  position: relative;
-  width: 87.5vw;
-  height: 50.926vh;
-`;
-const Title = styled.div`
-  position: absolute;
-  top: 2.222vh;
-  left: 2.8125vw;
-  font-weight: 500;
-  font-size: 1.457vw;
-  line-height: 100%;
-`;
-const ToDosContainer = styled.div`
-  position: absolute;
-  top: 7.40741vh;
-  left: 2.8125vw;
-  width: 87.5vw;
-  height: 44.444vh;
-  display: flex;
-  overflow: auto;
-  padding-right: 3vw;
-`;
-const ToDoContainer = styled.div`
-  width: 19.375vw;
-  height: 41.4815vh;
-  background: #f4f8ff;
-  border-radius: 16px;
-  margin-right: 1.4583vw;
-  position: relative;
-  flex-shrink: 0;
-`;
-const ToDoTitle = styled.div`
-  position: absolute;
-  top: 2.222vh;
-  left: 1.25vw;
-  font-weight: 600;
-  font-size: 1.145vw;
-  line-height: 100%;
-`;
-const Left = styled.div``;
-const LeftText = styled.span`
-  font-weight: 500;
-  font-size: 0.833vw;
-  line-height: 100%;
-  color: #487aff;
-  position: absolute;
-  right: 3.072vw;
-  top: 3vh;
-`;
-const LeftNum = styled.span`
-  position: absolute;
-  right: 1.042vw;
-  top: 2.4074vh;
-  width: 1.458333vw;
-  height: 2.592593vh;
-  border-radius: 50px;
-  background-color: #487aff;
-  color: white;
-  font-weight: 700;
-  font-size: 0.833vw;
-  line-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-`;
-const ToDoList = styled.div`
-  position: absolute;
-  top: 6.6667vh;
-  left: 1.041vw;
-  width: 18.33vw;
-  height: 34.8148vh;
-  overflow: auto;
-`;
-const ToDo = styled.div`
-  width: 17.29vw;
-  height: 6.66667vh;
-  background: #ffffff;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-bottom: 1.111vh;
-
-  :hover {
-    cursor: grab;
-  }
-`;
-
-const ToDoText = styled.span`
-  font-weight: 500;
-  font-size: 1.042vw;
-  line-height: 100%;
-  color: #505050;
-  margin-left: 0.83vw;
-`;
-
-const Arrow = styled.img`
-  position: absolute;
-  right: 1.2vw;
-  width: 9px;
-`;
-
-const Done = styled.img`
-  width: 2.8vw;
-  margin-left: 0.625vw;
-`;
 
 export default HomeToDo;
