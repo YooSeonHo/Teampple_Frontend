@@ -65,8 +65,8 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
     teamAPI.post(makeTeample)
       .then((res) => {
         alertPostTeample(res);
-        setModal(false);
-        setNextModal(false);
+        setModal && setModal(false);
+        setNextModal && setNextModal(false);
       })
       .catch((e) => {
         console.log(e);
@@ -99,8 +99,8 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   };
 
   const onClickPrev = (e: React.MouseEvent<HTMLElement>) => {
-    setModal(true);
-    setNextModal(false);
+    setModal && setModal(true);
+    setNextModal && setNextModal(false);
   };
 
   const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
@@ -182,7 +182,7 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
     resetName();
     resetStart();
     resetStages();
-    setNextModal(false);
+    setNextModal && setNextModal(false);
     
   };
 

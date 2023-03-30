@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Page1 from './onBoarding/page1';
 import Page2 from './onBoarding/page2';
 import Page3 from './onBoarding/page3';
@@ -9,18 +9,17 @@ import Page7 from './onBoarding/page7';
 import Page8 from './onBoarding/page8';
 import OnBoardingLayOut from 'components/layouts/onBoardingLayout';
 
-
 const OnboardingPage = () => {
   return (
     <OnBoardingLayOut>
-      <Page1/>
+      <Page1 />
       <Page2 />
-      <Page3/>
-      <Page4/>
-      <Page5/>
-      <Page6/>
-      <Page7/>
-      <Page8/>
+      <Page3 />
+      <Page4 />
+      <Page5 />
+      <Page6 />
+      <Page7 />
+      <Page8 />
     </OnBoardingLayOut>
   );
 };

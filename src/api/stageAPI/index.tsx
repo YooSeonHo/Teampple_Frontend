@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseURL } from 'api/client';
-import { modTeampleInfo } from "interfaces";
+import { modTeampleInfo } from "interfaces/teamType";
 const token = localStorage.getItem('jwt_accessToken');
 
 export default {
