@@ -20,20 +20,21 @@ import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import axios from 'axios';
 import { baseURL } from 'api/client';
 import stageAPI from 'api/stageAPI';
+import { ModalProps } from 'interfaces/modalType';
 
-const ModifyStep = ({ setModal }: any) => {
+const ModifyStep = ({ setModal }: ModalProps) => {
   const token = localStorage.getItem('jwt_accessToken');
   const closeModal = () => {
-    setModal(false);
+    setModal && setModal(false);
     resetStages();
-//    setStages([
-//      {
-//        dueDate: new Date(),
-//        name: '',
-//        sequenceNum: 1,
-//        startDate: new Date(),
-//      },
-//    ]);
+    //    setStages([
+    //      {
+    //        dueDate: new Date(),
+    //        name: '',
+    //        sequenceNum: 1,
+    //        startDate: new Date(),
+    //      },
+    //    ]);
   };
 
   const [countList, setCountList] = useState([0]);
@@ -45,7 +46,8 @@ const ModifyStep = ({ setModal }: any) => {
   const resetStages = useResetRecoilState(stageState);
 
   const putTeample = async () => {
-    stageAPI.put(modTeample,teamid)
+    stageAPI
+      .put(modTeample, teamid)
       .then(() => {
         alert('단계 수정이 완료되었습니다.');
         // setModal(false);
@@ -78,22 +80,25 @@ const ModifyStep = ({ setModal }: any) => {
       return stag.name.trim() === '';
     });
     const DateCheck: stageInfo[] = stages.filter((stag) => {
-      return ((moment(stag.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +'T' + '00:00:00') > 
-      moment(stag.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') +'T' + '00:00:00');
+      return (
+        moment(stag.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          '00:00:00' >
+        moment(stag.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'
+      );
     });
     if (TrimCheck.length >= 1 || DateCheck.length >= 1) {
-      if (TrimCheck.length >= 1){
-      TrimCheck.map((tr: stageInfo) =>
-        alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
-      );
+      if (TrimCheck.length >= 1) {
+        TrimCheck.map((tr: stageInfo) =>
+          alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
+        );
       }
-      if (DateCheck.length >= 1){
-        DateCheck.map((da : stageInfo) =>
-          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`)
-        )
+      if (DateCheck.length >= 1) {
+        DateCheck.map((da: stageInfo) =>
+          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`),
+        );
       }
-    }
-    else {
+    } else {
       setTemp(
         stages.map((s) => ({
           ...s,
@@ -108,7 +113,7 @@ const ModifyStep = ({ setModal }: any) => {
         })),
       );
     }
-  }
+  };
 
   useEffect(() => {
     setModTeample(() => ({

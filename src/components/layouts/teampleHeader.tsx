@@ -1,7 +1,5 @@
-import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import feedback from '../images/feedback.png';
-import group from '../images/Group 697.png';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
 import { useRecoilState } from 'recoil';
@@ -14,164 +12,15 @@ import {
   isCheckedState,
 } from 'state';
 import axios from 'axios';
-import { AiFillMessage } from 'react-icons/ai';
 import { baseURL } from 'api/client';
 import { BsFillPersonFill } from 'react-icons/bs';
 import userAPI from 'api/userAPI';
 import teamAPI from 'api/teamAPI';
-
-const MsgIcon = styled(AiFillMessage)`
-  color: #487aff;
-  font-size: 1.6vw;
-  margin-top: 1.6vh;
-  display: flex;
-  align-items: center;
-`;
-
-const HeaderBox = styled.div`
-  width: 87.5vw;
-  height: 6.6666vh;
-  background-color: #ffffff;
-  border-bottom: solid;
-  border-width: 3px;
-  border-color: #edeff6;
-  display: flex;
-  line-height: 6.66666vh;
-  white-space: nowrap;
-  position: relative;
-  z-index: 998;
-
-  #main {
-    margin-left: 2.8125vw;
-    width: 13.0208vw;
-    height: 2.22222vh;
-    max-width: 13.0208vw;
-    font-weight: 600;
-    font-size: 1.25vw;
-  }
-
-  #sub {
-    margin-left: 1.25vw;
-    width: 13.5416vw;
-    height: 1.851852vh;
-    font-weight: 500;
-    font-size: 1.041667vw;
-  }
-
-  #dDayBox {
-    display: flex;
-    padding: 0px;
-    gap: 8px;
-    width: 3.020833vw;
-    height: 2.6vh;
-    background: #ffffff;
-    border: 1px solid #88a9ff;
-    border-radius: 7px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 7.239583vw;
-  }
-
-  #dDay {
-    font-weight: 500;
-    font-size: 0.625vw;
-    line-height: 100%;
-    color: #487aff;
-    flex-grow: 0;
-    margin: auto;
-  }
-
-  #date {
-    margin-left: 0.416667vw;
-    width: 13.541667vw;
-    height: 1.851852vh;
-    font-weight: 400;
-    font-size: 0.9375vw;
-    color: #707070;
-  }
-
-  .editBox {
-    position: absolute;
-    width: 3.8vw;
-    height: 2.8vh;
-    left: 54.8958vw;
-    top: 2.037vh;
-    background: #ffffff;
-    border: 1px solid #d5dbee;
-    border-radius: 7px;
-    font-weight: 500;
-    font-size: 0.625vw;
-    line-height: 100%;
-    color: #707070;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-  }
-
-  img {
-    max-width: 100vw;
-    max-height: 100vh;
-  }
-
-  #teamList {
-    margin-left: 10.052vw;
-    /* 만약 팀장이어서 팀플 수정 버튼 있으면 마진 61  없으면 193*/
-    width: 3.75vw;
-    height: 3.7037vh;
-    margin-top: auto;
-    margin-bottom: auto;
-    border-radius: 8px;
-    border: 1px solid #d5dbee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  #teamNum {
-    font-weight: 500;
-    font-size: 0.9vw;
-    line-height: 100%;
-    text-align: center;
-    color: #a7a7a7;
-    margin-left: auto;
-    margin-right: 0.677083vw;
-    margin-top: 0.3vh;
-  }
-
-  .iconBox {
-    margin-left: auto;
-    margin-right: 2.81vw;
-  }
-
-  .iconBox:hover {
-    cursor: grab;
-  }
-
-  #feedback {
-    width: 1.8vw;
-    margin-top: 1.3vh;
-  }
-`;
-
-const ModalContainer1 = styled.div`
-  position: fixed;
-  margin: 0 auto;
-`;
-
-const ModalContainer2 = styled.div`
-  position: absolute;
-  top: 6.2037vh;
-  right: 19.33333vw;
-`;
+import * as Style from '../../css/Layout/TeampleHeaderStyle';
 
 const TeampleHeader = () => {
-  const [teamMatesNum,setTeamMatesNum] = useRecoilState(teamMateNumState);
-  const [isOpen,setIsOpen] = useRecoilState(feedbackState);
+  const [teamMatesNum, setTeamMatesNum] = useRecoilState(teamMateNumState);
+  const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const [name, setName] = useState();
@@ -181,27 +30,25 @@ const TeampleHeader = () => {
   const [deadDay, setDeadDay] = useState<any | null>(null);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
-  const [fbList,setFbList] = useRecoilState(fbListState)
-  const [isCheck,setIsCheck] = useRecoilState(isCheckedState);
-
+  const [fbList, setFbList] = useRecoilState(fbListState);
+  const [isCheck, setIsCheck] = useRecoilState(isCheckedState);
 
   const showModal1 = () => {
     setModal1(!modal1);
     setModal2(false);
     setIsOpen(false);
-
   };
   const showModal2 = () => {
     setModal2(!modal2);
   };
 
-
-  const openFeed = () =>{
+  const openFeed = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   const getFeedbackAPI = () => {
-    userAPI.getFeedback()
+    userAPI
+      .getFeedback()
       .then((response) => {
         setFbList(response.data.data.feedbacks);
       })
@@ -210,30 +57,27 @@ const TeampleHeader = () => {
       });
   };
 
-  const countChecked = () =>{
-    let cnt = 0
-    fbList && fbList.map((fb)=>{
-      if (!fb.checked) {
-        cnt += 1
-      }
-    })
-    if (cnt > 0){
+  const countChecked = () => {
+    let cnt = 0;
+    fbList &&
+      fbList.map((fb) => {
+        if (!fb.checked) {
+          cnt += 1;
+        }
+      });
+    if (cnt > 0) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
-  }
-  useEffect(()=>{
+  };
+  useEffect(() => {
     setIsCheck(countChecked());
-  },[fbList]);
-  
+  }, [fbList]);
+
   useEffect(() => {
     getFeedbackAPI();
   }, []);
-
-
-
 
   const getTHeader = async () => {
     teamAPI.get(teamid)
@@ -247,10 +91,10 @@ const TeampleHeader = () => {
     });
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getTHeader();
-  }, [teamid])
-  
+  }, [teamid]);
+
   const getDeadDay = (dueDate: Date) => {
     const setDate = new Date(dueDate);
     const now = new Date();
@@ -262,7 +106,7 @@ const TeampleHeader = () => {
   };
 
   return (
-    <HeaderBox>
+    <Style.HeaderBox>
       <div id="main">{name}</div>
       <div id="sub">{goal}</div>
       <div id="dDayBox">
@@ -274,18 +118,22 @@ const TeampleHeader = () => {
       <button className="editBox" onClick={showModal1}>
         팀플 수정
       </button>
-      <ModalContainer1>
+      <Style.ModalContainer1>
         {modal1 && <ModifyTeample setModal1={setModal1} />}
-      </ModalContainer1>
+      </Style.ModalContainer1>
       <div id="teamList" onClick={showModal2}>
-        <BsFillPersonFill style={{color: '#707070', marginLeft: '0.5vw', fontSize:'1.2vw'}} />
+        <BsFillPersonFill
+          style={{ color: '#707070', marginLeft: '0.5vw', fontSize: '1.2vw' }}
+        />
         <a id="teamNum">+{teamMatesNum}</a>
       </div>
-      <ModalContainer2>{modal2 && <TeamMateInfo />}</ModalContainer2>
+      <Style.ModalContainer2>
+        {modal2 && <TeamMateInfo />}
+      </Style.ModalContainer2>
       <div className="iconBox" onClick={openFeed}>
-        {isCheck ? <MsgIcon /> : <img id="feedback" src={feedback} />}
+        {isCheck ? <Style.MsgIcon /> : <img id="feedback" src={feedback} />}
       </div>
-    </HeaderBox>
+    </Style.HeaderBox>
   );
 };
 

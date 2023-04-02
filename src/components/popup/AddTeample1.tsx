@@ -44,8 +44,8 @@ const AddTeample = ({ setModal, setNextModal }: ModalProps) => {
     if (name === '') alert('이름을 입력하세요.');
     else if (aim === '') alert('목표를 입력하세요.');
     else {
-      setNextModal(true);
-      setModal(false);
+      setNextModal && setNextModal(true);
+      setModal && setModal(false);
       setMakeTeample((prev) => ({
         ...prev,
         name: name,
@@ -65,7 +65,7 @@ const AddTeample = ({ setModal, setNextModal }: ModalProps) => {
     resetDue();
     resetName();
     resetStart();
-    setModal(false);
+    setModal && setModal(false);
     setZIndex(997);
   };
 

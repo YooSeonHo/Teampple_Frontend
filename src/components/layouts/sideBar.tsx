@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import logo from '../images/logo.png';
 import house from '../images/House.png';
@@ -16,236 +15,20 @@ import {
   profileImgState,
 } from 'state';
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
 import {
   teamidState,
   AddTeamzIndexState,
   feedbackState,
   modal2State,
 } from 'state';
-import { ModalContainer } from 'components/teampleHomePage/planManager';
+import { ModalContainer } from '../../css/TeampleHomePage/PlanManagerStyle';
 import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { baseURL } from 'api/client';
 import userAPI from 'api/userAPI';
 import teamAPI from 'api/teamAPI';
-
-const SideBarBox = styled.div`
-  width: 12.5vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: #f4f8ff;
-  z-index: 998;
-  position: fixed;
-
-  .logo {
-    margin-left: 2.5vw;
-    margin-top: 1.759259vh;
-    width: 7.3vw;
-  }
-
-  img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-
-  .user {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.38888vh;
-    margin-left: 1.04vw;
-    width: 10.42vw;
-    height: 5.925926vh;
-    position: relative;
-    color: #383838;
-    border-radius: 8px;
-    overflow: hidden;
-
-    &:hover {
-      cursor: pointer;
-      background-color: #d4e4ff;
-      color: #487aff;
-    }
-  }
-
-  #userName {
-    font-family: 'Pretendard', 'Apple SD Gothic Neo';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 0.9375vw;
-    line-height: 2.037037vh;
-    position: absolute;
-    left: 4.5vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .box {
-    color: #707070;
-    margin-left: 1.04vw;
-    margin-top: 0.6vh;
-    font-weight: 600;
-    font-size: 0.9375vw;
-    line-height: 100%;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    width: 10.42vw;
-    height: 4.3vh;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .nonbox {
-    color: #707070;
-    margin-left: 1.04vw;
-    margin-top: 0.6vh;
-    font-weight: 600;
-    font-size: 0.9375vw;
-    line-height: 100%;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    width: 10.42vw;
-    height: 4.3vh;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .box:hover {
-    background-color: #d4e4ff;
-    color: #487aff;
-    cursor: grab;
-  }
-
-  #more {
-    width: 1.5625vw;
-    height: 2.7777vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #moreicon {
-    width: 1.041667vw;
-    height: 1.851852;
-    position: absolute;
-    right: 0.5208333vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .endBox {
-    color: #707070;
-    margin-left: 1.04vw;
-    font-weight: 600;
-    font-size: 0.9375vw;
-    line-height: 100%;
-    margin-bottom: 0.6vh;
-    border-radius: 8px;
-    width: 10.42vw;
-    height: 4.3vh;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .endBox:hover {
-    background-color: #f7b6b5;
-    color: #ff5854;
-    cursor: grab;
-  }
-  /* 추가로 클릭 되면 box 색 바뀌게 설정 */
-
-  .newBox {
-    color: #707070;
-    margin-left: 1.04vw;
-    font-weight: 600;
-    font-size: 0.9375vw;
-    line-height: 100%;
-    border-radius: 8px;
-    width: 10.42vw;
-    height: 3.703704vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:hover {
-      cursor: grab;
-      background-color: #d4e4ff;
-      color: #487aff;
-    }
-  }
-
-  .boxText {
-    margin-left: 0.625vw;
-    line-height: 3.703704vh;
-    font-weight: 600;
-    font-size: 0.9375vw;
-    color: #707070;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-
-  .subBoxText {
-    margin-left: 2.5vw;
-    line-height: 3.703704vh;
-    width: 5.5vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-
-  #icon {
-    width: 1.25vw;
-    margin-left: 0.625vw;
-  }
-
-  /* 호버 및 클릭시 아이콘 색깔 바뀌게  */
-
-  .iconWrap {
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-
-  #newTeample {
-    color: #c0c0c0;
-    line-height: 40px;
-    font-weight: 600;
-    font-size: 0.9375vw;
-    line-height: 100%;
-  }
-  /* 조금 더 왼쪽으로 땡겨야 할 듯 */
-
-  .btm {
-    margin-top: auto;
-    margin-bottom: 3vh;
-  }
-
-  .profileImg {
-    width: 2.8vw;
-    border-radius: 60%;
-    position: absolute;
-    left: 1vw;
-    padding: 0.2vw;
-  }
-
-  #logo {
-    &:hover{
-      cursor: pointer;
-    }
-  }
-`;
-
-const TeamBox = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-`;
+import * as Style from '../../css/Layout/SideBarStyle';
 
 const SideBar = () => {
   const [name, setName] = useRecoilState(usernameState);
@@ -256,7 +39,6 @@ const SideBar = () => {
   const [finTeamList, setFinTeamList] = useState([]);
   const [modal, setModal] = useState(false);
   const [nextModal, setNextModal] = useState(false);
-  const token = localStorage.getItem('jwt_accessToken');
   const [, setIsOpen] = useRecoilState(feedbackState);
   const [, setModal2] = useRecoilState(modal2State);
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
@@ -306,7 +88,8 @@ const SideBar = () => {
   };
 
   const getProfile = () => {
-    userAPI.getUserProfile()
+    userAPI
+      .getUserProfile()
       .then((res) => {
         setName(res.data.data.name);
         setSchool(res.data.data.schoolName);
@@ -319,7 +102,8 @@ const SideBar = () => {
   };
 
   const getActiveTeamsAPI = () => {
-    userAPI.getActTeams()
+    userAPI
+      .getActTeams()
       .then((response) => {
         setActTeamList(response.data.data.teams.reverse());
       })
@@ -327,8 +111,9 @@ const SideBar = () => {
         console.log(error);
       });
   };
-  const getFinishedTeamsAPI =  () => {
-    userAPI.getFinTeams()
+  const getFinishedTeamsAPI = () => {
+    userAPI
+      .getFinTeams()
       .then((response) => {
         setFinTeamList(response.data.data.teams);
       })
@@ -346,7 +131,7 @@ const SideBar = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
-          <Alert>
+          <Style.Alert>
             <img src={delSad} className="sad" />
             <div className="alertBody">
               팀플에서 나가면 프로젝트 데이터가 삭제됩니다
@@ -365,7 +150,7 @@ const SideBar = () => {
                 네,삭제할래요.
               </button>
             </div>
-          </Alert>
+          </Style.Alert>
         );
       },
     });
@@ -377,7 +162,7 @@ const SideBar = () => {
   };
 
   return (
-    <SideBarBox style={{ zIndex: zIndex }}>
+    <Style.SideBarBox style={{ zIndex: zIndex }}>
       <div className="logo">
         <img src={logo} onClick={onClickLogo} id="logo" />
       </div>
@@ -425,12 +210,11 @@ const SideBar = () => {
       </div>
       <div style={{ overflow: 'auto' }}>
         {actTeamList.map((team: any, index: number) => (
-          <TeamBox
+          <Style.TeamBox
             className="box"
             id={team.teamId}
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               getTeamid(e.target);
-          
             }}
             key={index}
             style={
@@ -439,10 +223,13 @@ const SideBar = () => {
                 : {}
             }
           >
-            <div className="subBoxText" id={team.teamId} onClick={() => {
-             
-              window.open(`/teample-home/${team.teamId}`, '_self');
-            }}>
+            <div
+              className="subBoxText"
+              id={team.teamId}
+              onClick={() => {
+                window.open(`/teample-home/${team.teamId}`, '_self');
+              }}
+            >
               {team.name}
             </div>
             {window.location.pathname === `/teample-home/${team.teamId}` ? (
@@ -458,17 +245,16 @@ const SideBar = () => {
                 />
               </button>
             ) : null}
-          </TeamBox>
+          </Style.TeamBox>
         ))}
 
         {/* 끝난 팀플 */}
         {finTeamList.map((team: any, index: number) => (
-          <TeamBox
+          <Style.TeamBox
             className="endBox"
             id={team.teamId}
             onClick={(e) => {
               getTeamid(e.target);
-             
             }}
             key={index}
             style={
@@ -481,9 +267,8 @@ const SideBar = () => {
               className="subBoxText"
               id={team.teamId}
               onClick={() => {
-              
-              window.open(`/teample-home/${team.teamId}`, '_self');
-            }}
+                window.open(`/teample-home/${team.teamId}`, '_self');
+              }}
             >
               {team.name}
             </div>
@@ -500,7 +285,7 @@ const SideBar = () => {
                 />
               </button>
             ) : null}
-          </TeamBox>
+          </Style.TeamBox>
         ))}
         <div id="newTeample" onClick={showModal}>
           <div className="newBox">+ 새 팀플</div>
@@ -531,64 +316,8 @@ const SideBar = () => {
           <AddTeample2 setModal={setModal} setNextModal={setNextModal} />
         )}
       </ModalContainer>
-    </SideBarBox>
+    </Style.SideBarBox>
   );
 };
-
-const Alert = styled.div`
-  width: 440px;
-  height: 193px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-  background-color: white;
-
-  .alertButtons {
-    position: absolute;
-    bottom: 34px;
-    right: 34px;
-    display: flex;
-    justify-content: right;
-  }
-
-  .alertBody {
-    position: absolute;
-    top: 91px;
-    font-size: 14px;
-    color: #707070;
-    font-weight: 400;
-  }
-
-  .alertTitle {
-    position: absolute;
-    font-size: 18px;
-    color: #383838;
-    font-weight: 600;
-    top: 113px;
-  }
-
-  .alertYes {
-    color: #487aff;
-    font-weight: 600;
-    font-size: 16px;
-  }
-
-  .alertNo {
-    color: #a7a7a7;
-    font-weight: 600;
-    font-size: 16px;
-    margin-right: 20px;
-  }
-
-  .sad {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    top: 18px;
-  }
-`;
 
 export default SideBar;
