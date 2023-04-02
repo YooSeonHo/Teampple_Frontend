@@ -6,6 +6,7 @@ import NotSummaryTeample from 'components/teampleHomePage/nothing/NotSummaryTeam
 import { useRecoilState } from 'recoil';
 import { profileImgState, isLoading4State } from 'state';
 import { baseURL } from 'api/client';
+import userAPI from 'api/userAPI';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -29,14 +30,7 @@ const SummaryHome = () => {
 
   const getTaskAPI = async () => {
     setIsLoading4(true);
-    await axios({
-      url: `/api/users/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-    })
+    userAPI.getTask()
       .then((response) => {
         setUsername(response.data.data.username);
         response.data.data.teams.map((t: any) =>

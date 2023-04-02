@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseURL } from 'api/client';
-import { makeTeampleInfo } from "interfaces";
+import { makeTeampleInfo } from "interfaces/teamType";
 const token = localStorage.getItem('jwt_accessToken');
 import moment from "moment";
 

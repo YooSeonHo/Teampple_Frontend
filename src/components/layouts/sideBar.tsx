@@ -291,15 +291,6 @@ const SideBar = () => {
   };
 
   const delTeampleAPI = async () => {
-    // await axios({
-    //   baseURL: baseURL,
-    //   url: 'api/teams',
-    //   method: 'delete',
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    //   params: { teamId: teamid },
-    // })
     teamAPI.delete(teamid)
       .then(() => {
         navigate('/home');

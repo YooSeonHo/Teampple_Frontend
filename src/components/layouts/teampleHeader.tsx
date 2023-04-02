@@ -18,6 +18,7 @@ import { AiFillMessage } from 'react-icons/ai';
 import { baseURL } from 'api/client';
 import { BsFillPersonFill } from 'react-icons/bs';
 import userAPI from 'api/userAPI';
+import teamAPI from 'api/teamAPI';
 
 const MsgIcon = styled(AiFillMessage)`
   color: #487aff;
@@ -235,15 +236,8 @@ const TeampleHeader = () => {
 
 
   const getTHeader = async () => {
-    await axios({
-      method: 'get',
-      baseURL: baseURL,
-      url: '/api/teams',
-      params: { teamId: teamid },
-      headers : {
-        Authorization: token,
-      }
-    }).then((res) => {
+    teamAPI.get(teamid)
+    .then((res) => {
       setName(res.data.data.name);
       setGoal(res.data.data.goal);
       setTeamMatesNum(res.data.data.teammatesNum);

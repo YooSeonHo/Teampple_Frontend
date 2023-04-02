@@ -475,17 +475,7 @@ const DetailBox = () => {
   //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
 
   const getDetail = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      params: {
-        taskId: taskId,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
+    taskAPI.get(taskId)
       .then((res) => {
         setDetail(res.data.data);
       })

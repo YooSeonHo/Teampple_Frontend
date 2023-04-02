@@ -3,6 +3,7 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import { baseURL } from 'api/client';
 import BeatLoader from 'react-spinners/BeatLoader';
+import authAPI from 'api/authAPI';
 
 const RefreshRouter = () => {
   const accessToken = localStorage.getItem('jwt_accessToken');
@@ -13,18 +14,7 @@ const RefreshRouter = () => {
   const reToken = async () => {
     setIsLoading(true);
     if (refreshToken) {
-      await axios({
-        url: '/api/auth/reIssuance',
-        baseURL: baseURL,
-        method: 'post',
-        headers: {
-          Authorization: accessToken,
-        },
-        data: {
-          jwtAccessToken: accessToken,
-          jwtRefreshToken: refreshToken,
-        },
-      })
+      authAPI.postRetoken()
         .then((response) => {
           localStorage.setItem(
             'jwt_accessToken',

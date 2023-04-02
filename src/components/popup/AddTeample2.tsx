@@ -53,15 +53,6 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
 
   const postTeample = async () => {
-    // await axios({
-    //   url: '/api/teams',
-    //   baseURL: baseURL,
-    //   method: 'post',
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    //   data: makeTeample,
-    // })
     teamAPI.post(makeTeample)
       .then((res) => {
         alertPostTeample(res);
