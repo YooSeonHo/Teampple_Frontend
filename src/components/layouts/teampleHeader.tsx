@@ -16,7 +16,7 @@ import { baseURL } from 'api/client';
 import { BsFillPersonFill } from 'react-icons/bs';
 import userAPI from 'api/userAPI';
 import teamAPI from 'api/teamAPI';
-import * as Style from '../../css/Layout/TeampleHeaderStyle';
+import * as Style from '../../css/Layout/Header';
 
 const TeampleHeader = () => {
   const [teamMatesNum, setTeamMatesNum] = useRecoilState(teamMateNumState);
@@ -106,7 +106,7 @@ const TeampleHeader = () => {
   };
 
   return (
-    <Style.HeaderBox>
+    <Style.Header isTeample={true}>
       <div id="main">{name}</div>
       <div id="sub">{goal}</div>
       <div id="dDayBox">
@@ -133,7 +133,7 @@ const TeampleHeader = () => {
       <div className="iconBox" onClick={openFeed}>
         {isCheck ? <Style.MsgIcon /> : <img id="feedback" src={feedback} />}
       </div>
-    </Style.HeaderBox>
+    </Style.Header>
   );
 };
 
