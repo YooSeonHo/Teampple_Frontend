@@ -6,7 +6,6 @@ import { AiOutlineLine } from 'react-icons/ai';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
 import {
   zIndexState,
@@ -17,14 +16,14 @@ import {
 } from 'state';
 import moment from 'moment';
 import axios from 'axios';
-import { detailInfo } from 'interfaces/taskType';
 import { ITeamMate } from 'interfaces/teamType';
 import { StyledProfileImgInfo } from 'interfaces/userType';
 import { baseURL } from 'api/client';
 import taskAPI from 'api/taskAPI';
+import { ModalProps } from 'interfaces/modalType';
 import teamAPI from 'api/teamAPI';
 
-const ModifyTask = ({ setBigModal }: any) => {
+const ModifyTask = ({ setBigModal }: ModalProps) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
@@ -44,7 +43,7 @@ const ModifyTask = ({ setBigModal }: any) => {
     setName(e.target.value);
   };
   const closeModal = () => {
-    setBigModal(false);
+    setBigModal && setBigModal(false);
   };
 
   const getDetail = async () => {
@@ -77,7 +76,8 @@ const ModifyTask = ({ setBigModal }: any) => {
   };
 
   const putTasksAPI = () => {
-    taskAPI.put(taskId,name,checkedIdList,startDate,endDate)
+    taskAPI
+      .put(taskId, name, checkedIdList, startDate, endDate)
       .then(() => {
         alert('할일 수정 완료');
         location.reload();

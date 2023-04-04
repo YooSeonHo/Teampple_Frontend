@@ -12,8 +12,9 @@ import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
 import { baseURL } from 'api/client';
 import teamAPI from 'api/teamAPI';
+import { ModalProps } from 'interfaces/modalType';
 
-const ModifyTeample = ({ setModal1 }: any) => {
+const ModifyTeample = ({ setModal1 }: ModalProps) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
@@ -30,7 +31,7 @@ const ModifyTeample = ({ setModal1 }: any) => {
   };
 
   const closeModal = () => {
-    setModal1(false);
+    setModal1 && setModal1(false);
   };
 
   const getTeamInfo = async () => {

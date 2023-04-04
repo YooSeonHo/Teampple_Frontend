@@ -6,6 +6,7 @@ import { profileImgState, isLoading4State } from 'state';
 import { baseURL } from 'api/client';
 import userAPI from 'api/userAPI';
 import * as Style from '../../css/HomePage/SummaryHomeStyle';
+import { userTaskInfo } from 'interfaces/userType';
 
 const SummaryHome = () => {
   const now = new Date();
@@ -32,11 +33,11 @@ const SummaryHome = () => {
     userAPI.getTask()
       .then((response) => {
         setUsername(response.data.data.username);
-        response.data.data.teams.map((t: any) =>
-          setDoneNum((s1 += parseInt(t.achievement))),
+        response.data.data.teams.map((t: userTaskInfo) =>
+          setDoneNum((s1 += parseInt(t.achievement.toString()))),
         );
-        response.data.data.teams.map((t: any) =>
-          setAllNum((s2 += parseInt(t.totalStage))),
+        response.data.data.teams.map((t: userTaskInfo) =>
+          setAllNum((s2 += parseInt(t.totalStage.toString()))),
         );
         if (allNum === 0) setRemainPercent(0);
         else setRemainPercent(Math.round(Number(doneNum / allNum) * 100));

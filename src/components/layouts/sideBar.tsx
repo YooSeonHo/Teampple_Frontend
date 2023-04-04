@@ -29,6 +29,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import userAPI from 'api/userAPI';
 import teamAPI from 'api/teamAPI';
 import * as Style from '../../css/Layout/SideBarStyle';
+import { userTeamInfo } from 'interfaces/userType';
 
 const SideBar = () => {
   const [name, setName] = useRecoilState(usernameState);
@@ -209,10 +210,10 @@ const SideBar = () => {
         <div className="boxText">팀플</div>
       </div>
       <div style={{ overflow: 'auto' }}>
-        {actTeamList.map((team: any, index: number) => (
+        {actTeamList.map((team: userTeamInfo, index: number) => (
           <Style.TeamBox
             className="box"
-            id={team.teamId}
+            id={team.teamId.toString()}
             onClick={(e: React.MouseEvent<HTMLElement>) => {
               getTeamid(e.target);
             }}
@@ -225,7 +226,7 @@ const SideBar = () => {
           >
             <div
               className="subBoxText"
-              id={team.teamId}
+              id={team.teamId.toString()}
               onClick={() => {
                 window.open(`/teample-home/${team.teamId}`, '_self');
               }}
@@ -249,10 +250,10 @@ const SideBar = () => {
         ))}
 
         {/* 끝난 팀플 */}
-        {finTeamList.map((team: any, index: number) => (
+        {finTeamList.map((team: userTeamInfo, index: number) => (
           <Style.TeamBox
             className="endBox"
-            id={team.teamId}
+            id={team.teamId.toString()}
             onClick={(e) => {
               getTeamid(e.target);
             }}
@@ -265,7 +266,7 @@ const SideBar = () => {
           >
             <div
               className="subBoxText"
-              id={team.teamId}
+              id={team.teamId.toString()}
               onClick={() => {
                 window.open(`/teample-home/${team.teamId}`, '_self');
               }}

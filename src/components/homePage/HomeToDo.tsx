@@ -14,6 +14,8 @@ import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import taskAPI from 'api/taskAPI';
 import userAPI from 'api/userAPI';
 import * as Style from '../../css/HomePage/HomeToDoStyle';
+import { userTaskInfo } from 'interfaces/userType';
+import { tasksInfo } from 'interfaces/taskType';
 
 const HomeToDo = () => {
   const [teams, setTeams] = useState([]);
@@ -67,7 +69,7 @@ const HomeToDo = () => {
   }, []);
 
   const checkTeams = () => {
-    const TaskCheck = teams.filter((t: any) => {
+    const TaskCheck = teams.filter((t: userTaskInfo) => {
       return t.totalStage !== 0;
       //total이 0이 아닌애들만 필터 -> 테스크체크 길이가 0이면 다 0인거
     });
@@ -91,7 +93,7 @@ const HomeToDo = () => {
           <Style.Title>할 일</Style.Title>
           <Style.ToDosContainer>
             {teams &&
-              teams.map((team: any, index: number) =>
+              teams.map((team: userTaskInfo, index: number) =>
                 team.totalStage === 0 ? null : (
                   <Style.ToDoContainer key={index}>
                     <Style.ToDoTitle style={{ color: '#383838' }}>
@@ -104,8 +106,8 @@ const HomeToDo = () => {
                       </Style.LeftNum>
                     </Style.Left>
                     <Style.ToDoList>
-                      {team.tasks.map((t: any, index: number) => (
-                        <Style.ToDo onClick={onClick} key={index} id={t.taskId}>
+                      {team.tasks.map((t: tasksInfo, index: number) => (
+                        <Style.ToDo onClick={onClick} key={index} id={t.taskId.toString()}>
                           {t.done === true ? <Style.Done src={done} /> : <></>}
                           <Style.ToDoText>{t.name}</Style.ToDoText>
                           <Style.Arrow src={arrow} />
