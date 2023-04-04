@@ -18,6 +18,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { baseURL } from 'api/client';
 import taskAPI from 'api/taskAPI';
+import teamAPI from 'api/teamAPI';
 
 const AddTask = ({ setModal }: any) => {
   const today = new window.Date();
@@ -56,15 +57,7 @@ const AddTask = ({ setModal }: any) => {
   };
 
   const getTeamMateAPI = async () => {
-    await axios({
-      url: `/api/teams/teammates`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
+    teamAPI.getTeamMate(teamid)
       .then((response) => {
         setTeamMates(response.data.data.teammateInfoVos);
         setUser(response.data.data);

@@ -4,6 +4,7 @@ import logo from '../../components/images/onboardingLogo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { baseURL } from 'api/client';
+import authAPI from 'api/authAPI';
 
 const HeaderBox = styled.div`
   width: 100%;
@@ -61,21 +62,8 @@ const Contents = styled.div`
 
 const OnBoardingHeader = () => {
   const token = localStorage.getItem('jwt_accessToken');
-  const navigate = useNavigate();
-
   const postAuthLogoutAPI = async () => {
-    await axios({
-      url: `/api/auth/logout`,
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        jwtAccessToken: localStorage.getItem('jwt_accessToken'),
-        jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
-      },
-    })
+    authAPI.postLogout()
       .then(() => {
         localStorage.removeItem('jwt_accessToken');
         localStorage.removeItem('jwt_refreshToken');

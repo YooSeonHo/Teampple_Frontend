@@ -17,16 +17,7 @@ const TemplateList = () => {
   const [isSearch, setIsSearch] = useRecoilState(IsSearchTemplateState);
 
   const getTemplateAPI = async () => {
-    // await axios({
-    //   url: `/api/templates`,
-    //   baseURL: baseURL,
-    //   method: 'get',
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    // })
-    templateAPI
-      .get()
+    templateAPI.get()
       .then((response) => {
         setTemplates(response.data.data);
       })

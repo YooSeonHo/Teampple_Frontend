@@ -1,15 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { AiFillMessage } from 'react-icons/ai';
 
-export const MsgIcon = styled(AiFillMessage)`
-  color: #487aff;
-  font-size: 1.6vw;
-  margin-top: 1.6vh;
-  display: flex;
-  align-items: center;
-`;
-
-export const HeaderBox = styled.div`
+export const Header = styled.div<{isTeample : boolean}>`
   width: 87.5vw;
   height: 6.6666vh;
   background-color: #ffffff;
@@ -21,6 +13,9 @@ export const HeaderBox = styled.div`
   white-space: nowrap;
   position: relative;
   z-index: 998;
+
+  justify-content: ${(props) => props.isTeample? null : 'center'};
+  align-items: ${(props) => props.isTeample? null : 'center'};
 
   #main {
     margin-left: 2.8125vw;
@@ -136,6 +131,24 @@ export const HeaderBox = styled.div`
   #feedback {
     width: 1.8vw;
     margin-top: 1.3vh;
+  }
+`;
+
+export const HomeTitle = styled.div`
+  position: absolute;
+  left: 5.2vw;
+  font-weight: 600;
+  font-size: 1.25vw;
+  line-height: 100%;
+`;
+
+export const MsgIcon = styled(AiFillMessage)`
+  top: 1.3vwh;
+  right: 2.81vw;
+  color: #487aff;
+  font-size: 1.6vw;
+  :hover {
+    cursor: grab;
   }
 `;
 
