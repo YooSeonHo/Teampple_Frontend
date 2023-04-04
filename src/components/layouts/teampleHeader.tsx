@@ -26,7 +26,7 @@ const TeampleHeader = () => {
   const [goal, setGoal] = useState();
   const [startDate, setStartDate] = useState();
   const [dueDate, setDueDate] = useState();
-  const [deadDay, setDeadDay] = useState<any | null>(null);
+  const [deadDay, setDeadDay] = useState<string | null>(null);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
   const [fbList, setFbList] = useRecoilState(fbListState);

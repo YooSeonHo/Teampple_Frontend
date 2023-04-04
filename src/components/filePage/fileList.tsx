@@ -34,7 +34,7 @@ const FileList = () => {
   }, []);
 
   const getTaskId = (e: React.MouseEvent<HTMLElement>) => {
-    setTaskId(Number((e.target as HTMLElement).id));
+    setTaskId(parseInt((e.target as HTMLElement).id));
   };
 
   return (

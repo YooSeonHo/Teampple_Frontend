@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { GrClose } from 'react-icons/gr';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
-import { AiOutlineLine } from 'react-icons/ai';
-import DatePicker from 'react-datepicker';
+
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
 import {
   zIndexState,
@@ -14,12 +10,14 @@ import {
   stageIdState,
   AddToDozIndexState,
 } from 'state';
-import moment from 'moment';
 import axios from 'axios';
 import { baseURL } from 'api/client';
 import taskAPI from 'api/taskAPI';
+import { ModalProps } from 'interfaces/modalType';
+import * as Style from '../../css/TeampleHomePage/AddTaskStyle';
+import { ITeamMate, ITeamMateAndMe } from 'interfaces/teamType';
 
-const AddTask = ({ setModal }: any) => {
+const AddTask = ({ setModal }: ModalProps) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
@@ -32,19 +30,20 @@ const AddTask = ({ setModal }: any) => {
   const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
-  const [user, setUser] = useState<any | undefined>();
+  const [user, setUser] = useState<ITeamMateAndMe | undefined>();
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
   const closeModal = () => {
-    setModal(false);
+    setModal && setModal(false);
     setZIndex(997);
     setToDoZindex(997);
   };
 
   const postTasksAPI = () => {
-    taskAPI.post(stageId,name,checkedIdList,startDate,endDate)
+    taskAPI
+      .post(stageId, name, checkedIdList, startDate, endDate)
       .then(() => {
         alert('새로운 할 일 추가 성공!');
         location.reload();
@@ -108,23 +107,23 @@ const AddTask = ({ setModal }: any) => {
   }, [startDate, endDate]);
 
   return (
-    <Background>
-      <AddTaskContainer>
-        <CloseBtn onClick={closeModal} />
-        <Title>할일 추가</Title>
-        <Tag1>할일</Tag1>
-        <Input1
+    <Style.Background>
+      <Style.AddTaskContainer>
+        <Style.CloseBtn onClick={closeModal} />
+        <Style.Title>할일 추가</Style.Title>
+        <Style.Tag1>할일</Style.Tag1>
+        <Style.Input1
           value={name}
           onChange={onChangeName}
           maxLength={12}
           placeholder="ex. 온라인 회의"
         />
-        <TextLength1>
+        <Style.TextLength1>
           ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
-        </TextLength1>
-        <Tag2>기간</Tag2>
-        <DateBox1>
-          <StyledDatePicker
+        </Style.TextLength1>
+        <Style.Tag2>기간</Style.Tag2>
+        <Style.DateBox1>
+          <Style.StyledDatePicker
             locale={ko} //한글
             dateFormat="yyyy.MM.dd"
             selected={startDate}
@@ -134,10 +133,10 @@ const AddTask = ({ setModal }: any) => {
           <IoCalendarNumberOutline
             style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
           />
-        </DateBox1>
-        <Dash />
-        <DateBox2>
-          <StyledDatePicker
+        </Style.DateBox1>
+        <Style.Dash />
+        <Style.DateBox2>
+          <Style.StyledDatePicker
             locale={ko} //한글
             dateFormat="yyyy.MM.dd"
             selected={endDate}
@@ -148,29 +147,29 @@ const AddTask = ({ setModal }: any) => {
           <IoCalendarNumberOutline
             style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
           />
-        </DateBox2>
-        <Tag3>담당자</Tag3>
-        <ManagerContainer>
+        </Style.DateBox2>
+        <Style.Tag3>담당자</Style.Tag3>
+        <Style.ManagerContainer>
           {checkedNameList.map((item) => (
-            <Manager key={item}>{item}</Manager>
+            <Style.Manager key={item}>{item}</Style.Manager>
           ))}
-        </ManagerContainer>
-        <TeamMateContainer>
-          <AddTeamMate>담당자 추가</AddTeamMate>
-          <TeamMateBox>
+        </Style.ManagerContainer>
+        <Style.TeamMateContainer>
+          <Style.AddTeamMate>담당자 추가</Style.AddTeamMate>
+          <Style.TeamMateBox>
             {user && (
-              <TeamMate>
-                <Profile profileImage={user.image} />
-                <TextInfo>
-                  <Name>{user.name}</Name>
-                  <School>
+              <Style.TeamMate>
+                <Style.Profile profileImage={user.image} />
+                <Style.TextInfo>
+                  <Style.Name>{user.name}</Style.Name>
+                  <Style.School>
                     {user.schoolName} {user.major}
-                  </School>
-                </TextInfo>
-                <CheckBox
+                  </Style.School>
+                </Style.TextInfo>
+                <Style.CheckBox
                   type="checkbox"
                   value={user.name}
-                  id={user.teammateId}
+                  id={user.teammateId.toString()}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -180,21 +179,21 @@ const AddTask = ({ setModal }: any) => {
                   }}
                   checked={checkedNameList.includes(user.name) ? true : false}
                 />
-              </TeamMate>
+              </Style.TeamMate>
             )}
-            {teamMates.map((teammate: any, index: number) => (
-              <TeamMate key={index}>
-                <Profile profileImage={teammate.image} />
-                <TextInfo>
-                  <Name>{teammate.name}</Name>
-                  <School>
+            {teamMates.map((teammate: ITeamMate, index: number) => (
+              <Style.TeamMate key={index}>
+                <Style.Profile profileImage={teammate.image} />
+                <Style.TextInfo>
+                  <Style.Name>{teammate.name}</Style.Name>
+                  <Style.School>
                     {teammate.schoolName} {teammate.major}
-                  </School>
-                </TextInfo>
-                <CheckBox
+                  </Style.School>
+                </Style.TextInfo>
+                <Style.CheckBox
                   type="checkbox"
                   value={teammate.name}
-                  id={teammate.id}
+                  id={teammate.id?.toString()}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -206,274 +205,16 @@ const AddTask = ({ setModal }: any) => {
                     checkedNameList.includes(teammate.name) ? true : false
                   }
                 />
-              </TeamMate>
+              </Style.TeamMate>
             ))}
-          </TeamMateBox>
-        </TeamMateContainer>
-        <SaveButton onClick={onClickBtn}>저장</SaveButton>
-      </AddTaskContainer>
-    </Background>
+          </Style.TeamMateBox>
+        </Style.TeamMateContainer>
+        <Style.SaveButton onClick={onClickBtn}>저장</Style.SaveButton>
+      </Style.AddTaskContainer>
+    </Style.Background>
   );
 };
 
-const Background = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.01);
-`;
 
-const AddTaskContainer = styled.div`
-  width: 33.33333vw;
-  height: 59.259vh;
-  background: #ffffff;
-  border-radius: 16px;
-  position: relative;
-  z-index: 999;
-  position: fixed;
-  top: 20.37037vh;
-  left: 33.33333vw;
-`;
-
-const CloseBtn = styled(GrClose)`
-  position: absolute;
-  top: 4.4444vh;
-  right: 1.66666vw;
-  cursor: pointer;
-`;
-
-const Title = styled.div`
-  font-weight: 600;
-  font-size: 1.25vw;
-  line-height: 100%;
-  text-align: center;
-  position: absolute;
-  top: 4.4444vh;
-  left: 14.375vw;
-`;
-
-const ManagerContainer = styled.div`
-  position: absolute;
-  width: 26.8229vw;
-  height: 4.44444vh;
-  left: 4.84375vw;
-  top: 25.925926vh;
-  display: flex;
-  flex-direction: row;
-  overflow: auto;
-`;
-const TeamMateContainer = styled.div``;
-
-const Tag1 = styled.span`
-  font-weight: 500;
-  font-size: 0.9375vw;
-  line-height: 100%;
-  color: #707070;
-  position: absolute;
-  top: 12.592593vh;
-  left: 1.66666vw;
-`;
-
-const Tag2 = styled(Tag1)`
-  top: 20vh;
-`;
-
-const Tag3 = styled(Tag1)`
-  top: 27.407407vh;
-`;
-
-const Input1 = styled.input`
-  width: 26.822817vw;
-  height: 4.4444vh;
-  border: none;
-  background-color: rgba(237, 239, 246, 0.5);
-  border-radius: 8px;
-  font-weight: 400;
-  line-height: 100%;
-  font-size: 0.83333vw;
-  padding-left: 0.8333vw;
-  padding-right: 0.8333vw;
-  padding-top: 1.481481vh;
-  padding-bottom: 1.481481vh;
-  position: absolute;
-  top: 11.11111vh;
-  left: 4.84375vw;
-  color: #707070;
-  ::placeholder {
-    color: #cccccc;
-  }
-  :focus {
-    border: solid 1px #487aff;
-  }
-`;
-
-const DateBox1 = styled.div`
-  width: 12.5vw;
-  height: 4.4444vh;
-  border: none;
-  background-color: rgba(237, 239, 246, 0.5);
-  border-radius: 8px;
-  font-weight: 400;
-  font-size: 0.83333vw;
-  padding-left: 0.8333vw;
-  padding-right: 0.8333vw;
-  padding-top: 1.481481vh;
-  padding-bottom: 1.481481vh;
-  line-height: 100%;
-  position: absolute;
-  top: 18.925926vh;
-  left: 4.84375vw;
-  display: flex;
-  align-items: center;
-  &:hover {
-    cursor: pointer;
-  }
-  :focus-within {
-    border: solid 1px #487aff;
-  }
-`;
-
-const DateBox2 = styled(DateBox1)`
-  left: 19.010417vw;
-`;
-
-const Dash = styled(AiOutlineLine)`
-  position: absolute;
-  width: 0.83333vw;
-  height: 0vh;
-  left: 17.760417vw;
-  top: 21.148148vh;
-  border: 0.6px solid #383838;
-`;
-
-const StyledDatePicker = styled(DatePicker)`
-  width: 12.5vw;
-  height: 4.4444vh;
-  border: none;
-  font-weight: 400;
-  font-size: 0.8333vw;
-  line-height: 100%;
-  padding-left: 1.041667vw;
-  padding-right: 1.041667vw;
-  padding-top: 1.851852vh;
-  padding-bottom: 1.851852vh;
-  background-color: transparent;
-  color: #707070;
-  position: absolute;
-  top: -2.777778vh;
-  left: -1.041667vw;
-`;
-
-const TextLength1 = styled.span`
-  position: absolute;
-  top: 12.777778vh;
-  right: 2.5vw;
-  font-weight: 400;
-  font-size: 0.625vw;
-  line-height: 100%;
-  color: #c0c0c0;
-`;
-
-const Manager = styled.div`
-  width: 5.208333vw;
-  height: 4.4444vh;
-  background: rgba(237, 239, 246, 0.5);
-  border-radius: 8px;
-  margin-right: 0.625vw;
-  font-weight: 400;
-  font-size: 0.83333vw;
-  line-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const AddTeamMate = styled.div`
-  font-weight: 500;
-  font-size: 0.83333vw;
-  line-height: 100%;
-  color: #c0c0c0;
-  position: absolute;
-  left: 1.6666vw;
-  top: 32.592593vh;
-`;
-
-const TeamMateBox = styled.div`
-  position: absolute;
-  top: 35.5555vh;
-  left: 1.6666vw;
-  width: 30vw;
-  height: 14.074vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-`;
-
-const TeamMate = styled.div`
-  width: 30vw;
-  height: 5.9259vh;
-  padding-top: 1.11111vh;
-  padding-bottom: 1.11111vh;
-  padding-left: 0.9375vw;
-  padding-right: 0.9375vw;
-  display: flex;
-`;
-
-const Profile = styled.div<any>`
-  width: 2.08333vw;
-  height: 3.703704vh;
-  border-radius: 16px;
-  background: #fce44c;
-  background-image: url(${(props) =>
-    require('../images/profile/proImageU' + props.profileImage + '.png')});
-  background-size: cover;
-`;
-const TextInfo = styled.div`
-  height: 3.981481vh;
-  width: 8.854167vw;
-  padding-top: 0vh;
-  padding-bottom: 0vh;
-  padding-left: 0.8333vw;
-  padding-right: 0.8333vw;
-`;
-const Name = styled.div`
-  font-weight: 500;
-  font-size: 0.9375vw;
-  line-height: 2.037vh;
-`;
-const School = styled.div`
-  font-weight: 400;
-  font-size: 0.72916vw;
-  line-height: 1.574vh;
-  color: #a7a7a7;
-  margin-top: 0.37037;
-`;
-const CheckBox = styled.input`
-  width: 1.25vw;
-  height: 2.222vh;
-  border: 1px solid #c0c0c0;
-  border-radius: 4px;
-  margin-left: 15.625vw;
-`;
-
-const SaveButton = styled.button`
-  position: absolute;
-  width: 30vw;
-  height: 5.185185vh;
-  left: 1.66666vw;
-  top: 51.1111vh;
-  background: #487aff;
-  border-radius: 12px;
-  color: #ffffff;
-  font-weight: 400;
-  font-size: 1.041667vw;
-  line-height: 100%;
-`;
-
-const SmallCloseBtn = styled.button`
-  opacity: 0.4;
-  margin-left: 0.729167vw;
-`;
 
 export default AddTask;

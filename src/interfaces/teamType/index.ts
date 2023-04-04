@@ -9,6 +9,15 @@ export interface ITeamMate {
   id?: number;
 }
 
+export interface ITeamMateAndMe {
+  image: number;
+  major: string;
+  name: string;
+  schoolName: string;
+  teammateId: number;
+  teammateInfoVos: ITeamMate[];
+}
+
 export interface makeTeampleInfo {
   goal: string;
   name: string;
