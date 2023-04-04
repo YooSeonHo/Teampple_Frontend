@@ -16,6 +16,7 @@ import taskAPI from 'api/taskAPI';
 import { ModalProps } from 'interfaces/modalType';
 import * as Style from '../../css/TeampleHomePage/AddTaskStyle';
 import { ITeamMate, ITeamMateAndMe } from 'interfaces/teamType';
+import teamAPI from 'api/teamAPI';
 
 const AddTask = ({ setModal }: ModalProps) => {
   const today = new window.Date();
@@ -55,15 +56,7 @@ const AddTask = ({ setModal }: ModalProps) => {
   };
 
   const getTeamMateAPI = async () => {
-    await axios({
-      url: `/api/teams/teammates`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
+    teamAPI.getTeamMate(teamid)
       .then((response) => {
         setTeamMates(response.data.data.teammateInfoVos);
         setUser(response.data.data);

@@ -4,7 +4,7 @@ import SummaryTeample from 'components/teampleHomePage/SummaryTeample';
 import FileInfo from 'components/teampleHomePage/FileInfo';
 import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
-import Layout from 'components/layouts/layout';
+import Layout from 'components/layouts/teampleLayout';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { teamidState, AddToDozIndexState } from 'state';

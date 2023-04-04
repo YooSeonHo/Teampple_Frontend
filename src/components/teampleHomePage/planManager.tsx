@@ -31,17 +31,7 @@ const PlanManager = () => {
   const now = new Date();
 
   const getPlanAPI = async () => {
-    // await axios({
-    //   url: `/api/teams/schedules`,
-    //   baseURL: baseURL,
-    //   method: 'get',
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    //   params: { teamId: teamid },
-    // })
-    teamAPI
-      .getSch(teamid)
+    teamAPI.getSch(teamid)
       .then((response) => {
         setPlans(response.data.data.schedules);
         setDueDate(response.data.data.dueDate);
@@ -52,18 +42,8 @@ const PlanManager = () => {
       });
   };
 
-  const getEndDate = async () => {
-    // await axios({
-    //   url: `/api/teams`,
-    //   baseURL: baseURL,
-    //   method: 'get',
-    //   params: { teamId: teamid },
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    // })
-    teamAPI
-      .get(teamid)
+  const getEndDate = async () =>{
+    teamAPI.get(teamid)
       .then((res) => {
         setTeamEndDate(res.data.data.dueDate);
       })

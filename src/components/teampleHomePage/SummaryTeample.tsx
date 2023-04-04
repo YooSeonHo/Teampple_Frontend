@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { teamidState, isLoading5State } from 'state';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
 import * as Style from '../../css/TeampleHomePage/SummaryTeampleStyle';
 
 const SummaryTeample = () => {
@@ -56,15 +57,7 @@ const SummaryTeample = () => {
 
   const getTaskAPI = async () => {
     setIsLoading5(true);
-    await axios({
-      url: `/api/teams/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
+    teamAPI.getTask(teamid)
       .then((response) => {
         const achievementAcum = response.data.data.map((t: any) =>
           setDoneNum((s1 += parseInt(t.achievement))),

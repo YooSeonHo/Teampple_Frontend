@@ -36,28 +36,7 @@ const AddSchedule = ({ setModal }: ModalProps) => {
   };
 
   const postSchedulesAPI = async () => {
-    // await axios({
-    //   url: `/api/teams/schedules`,
-    //   baseURL: baseURL,
-    //   method: 'post',
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    //   data: {
-    //     dueDate: (
-    //       moment(pickedDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-    //       'T' +
-    //       time +
-    //       ':00'
-    //     ).toString(),
-    //     name: name,
-    //   },
-    //   params: {
-    //     teamId: teamid,
-    //   },
-    // })
-    teamAPI
-      .postSch(pickedDate, time, name, teamid)
+    teamAPI.postSch(pickedDate,time,name,teamid)
       .then(() => {
         alert('새로운 일정 추가 성공!');
         location.reload();

@@ -64,18 +64,6 @@ const EditProfile = () => {
   };
 
   const postAuthLogoutAPI = async () => {
-    // await axios({
-    //   url: `/api/auth/logout`,
-    //   baseURL: baseURL,
-    //   method: 'post',
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    //   data: {
-    //     jwtAccessToken: localStorage.getItem('jwt_accessToken'),
-    //     jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
-    //   },
-    // })
     authAPI.postLogout()
       .then(() => {
         localStorage.removeItem('jwt_accessToken');

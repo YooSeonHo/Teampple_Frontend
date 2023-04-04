@@ -7,6 +7,7 @@ import axios from 'axios';
 import { taskIdState, teamidState } from 'state';
 import { useNavigate } from 'react-router-dom';
 import { baseURL } from 'api/client';
+import taskAPI from 'api/taskAPI';
 
 const MoreSideBar = () => {
   const [modal, setModal] = useRecoilState(teampleDetailState);
@@ -20,15 +21,7 @@ const MoreSideBar = () => {
   };
 
   const delTeampleAPI = async () => {
-    await axios({
-      baseURL: baseURL,
-      url: 'api/tasks',
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      params: { taskId: taskId },
-    })
+    taskAPI.delete(taskId)
       .catch((e) => {
         console.log(e);
       });
@@ -73,7 +66,5 @@ const SmallBox = styled.div`
     cursor: pointer;
   }
 `;
-
-const ModalContainer = styled.div``;
 
 export default MoreSideBar;

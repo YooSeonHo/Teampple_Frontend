@@ -35,15 +35,8 @@ const ModifyTeample = ({ setModal1 }: ModalProps) => {
   };
 
   const getTeamInfo = async () => {
-    await axios({
-      method: 'get',
-      baseURL: baseURL,
-      url: '/api/teams',
-      params: { teamId: teamid },
-      headers: {
-        Authorization: token,
-      },
-    }).then((res) => {
+    teamAPI.get(teamid)
+      .then((res) => {
       setStartDate(
         new Date(
           moment(res.data.data.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
@@ -78,33 +71,7 @@ const ModifyTeample = ({ setModal1 }: ModalProps) => {
   }, [startDate, endDate]);
 
   const postSchedulesAPI = async () => {
-    // await axios({
-    //   url: `/api/teams`,
-    //   baseURL: baseURL,
-    //   method: 'put',
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    //   data: {
-    //     dueDate: (
-    //       moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-    //       'T' +
-    //       '00:00:00'
-    //     ).toString(),
-    //     startDate: (
-    //       moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-    //       'T' +
-    //       '00:00:00'
-    //     ).toString(),
-    //     name: name,
-    //     goal: aim,
-    //   },
-    //   params: {
-    //     teamId: teamid,
-    //   },
-    // })
-    teamAPI
-      .put(startDate, endDate, name, aim, teamid)
+    teamAPI.put(startDate,endDate,name,aim,teamid)
       .then(() => {
         alert('팀플 수정 성공');
         location.reload();

@@ -21,6 +21,7 @@ import { StyledProfileImgInfo } from 'interfaces/userType';
 import { baseURL } from 'api/client';
 import taskAPI from 'api/taskAPI';
 import { ModalProps } from 'interfaces/modalType';
+import teamAPI from 'api/teamAPI';
 
 const ModifyTask = ({ setBigModal }: ModalProps) => {
   const today = new window.Date();
@@ -46,17 +47,7 @@ const ModifyTask = ({ setBigModal }: ModalProps) => {
   };
 
   const getDetail = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      params: {
-        taskId: taskId,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
+    taskAPI.get(taskId)
       .then((res) => {
         setName(res.data.data.taskName);
         const opList = res.data.data.operators;
@@ -97,15 +88,8 @@ const ModifyTask = ({ setBigModal }: ModalProps) => {
   };
 
   const getTeamMateAPI = async () => {
-    await axios({
-      url: `/api/teams/teammates`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
+
+    teamAPI.getTeamMate(teamid)
       .then((response) => {
         setTeamMates(response.data.data.teammateInfoVos);
         setUser(response.data.data);

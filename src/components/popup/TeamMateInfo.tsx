@@ -32,15 +32,7 @@ const TeamMateInfo = () => {
   };
 
   const getLink = async () => {
-    // await axios({
-    //   url: '/api/invitations',
-    //   baseURL: baseURL,
-    //   method: 'get',
-    //   params: { teamId: teamid },
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    // })
+
     inviteAPI.getInvite(teamid)
       .then((res) => {
         navigator.clipboard.writeText(res.data.data.url).then(() => {
