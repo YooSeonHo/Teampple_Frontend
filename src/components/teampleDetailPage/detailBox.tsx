@@ -80,7 +80,8 @@ const DetailBox = () => {
   //동일한 파일도 업로드 할 수 있도록 계속 초기화 시켜주는 부분입니당.
 
   const getDetail = async () => {
-    taskAPI.get(taskId)
+    taskAPI
+      .get(taskId)
       .then((res) => {
         setDetail(res.data.data);
       })
@@ -125,10 +126,12 @@ const DetailBox = () => {
       .postFile(file?.name, file?.size, fileLoc, taskId, teamid)
       .then(() => {
         alert('파일 등록이 완료되었습니다.');
+        console.log('파일 등록 성공');
         location.reload();
       })
       .catch((e) => {
         console.log(e);
+        console.log('파일 등록 실패');
       });
   }, [fileLoc]);
 
