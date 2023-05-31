@@ -41,8 +41,8 @@ const ToDoCard = ({ todoList }: any) => {
     setStageId(Number(stage.id));
   };
 
-  const onClick = async (e: any) => {
-    setTaskId(e.currentTarget.id);
+  const onClick = async (e: React.MouseEvent<HTMLElement>) => {
+    setTaskId(Number((e.currentTarget as HTMLElement).id));
     // taskId && await getDetail().then(()=>{
     //       navigate(`/teample-detail/${taskId}`);
     //   })
