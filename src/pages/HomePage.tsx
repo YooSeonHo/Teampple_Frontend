@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import styled from 'styled-components';
 import SummaryHome from 'components/homePage/SummaryHome';
 import MiniTemplate from 'components/homePage/MiniTemplate';
@@ -11,6 +11,10 @@ import Feedbacks from 'components/feedbacks/feedbacks';
 
 const HomePage = () => {
   const [isOpen] = useRecoilState(feedbackState);
+
+  useEffect(() => {
+    console.log('main update 12시 07분');
+  },[])
 
   return (
     <HomePageContainer>
