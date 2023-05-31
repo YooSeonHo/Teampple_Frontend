@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
+import taskAPI from 'api/taskAPI';
 
 const MoreTeampleDetail = () => {
   const [modal, setModal] = useRecoilState(teampleDetailState);
@@ -22,15 +23,7 @@ const MoreTeampleDetail = () => {
   };
 
   const delTaskAPI = async () => {
-    await axios({
-      baseURL: baseURL,
-      url: 'api/tasks',
-      method: 'delete',
-      headers: {
-        Authorization: token,
-      },
-      params: { taskId: taskId },
-    })
+    taskAPI.delete(taskId)
       .catch((e) => {
         console.log(e);
       });

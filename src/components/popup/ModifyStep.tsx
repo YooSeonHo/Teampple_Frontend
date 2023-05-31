@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import ModDiv from './ModTeample/ModDiv';
-import { stageInfo } from 'interfaces';
+import { stageInfo } from 'interfaces/stageType';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   stageState,
@@ -19,20 +19,22 @@ import moment from 'moment';
 import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import axios from 'axios';
 import { baseURL } from 'api/client';
+import stageAPI from 'api/stageAPI';
+import { ModalProps } from 'interfaces/modalType';
 
-const ModifyStep = ({ setModal }: any) => {
+const ModifyStep = ({ setModal }: ModalProps) => {
   const token = localStorage.getItem('jwt_accessToken');
   const closeModal = () => {
-    setModal(false);
+    setModal && setModal(false);
     resetStages();
-//    setStages([
-//      {
-//        dueDate: new Date(),
-//        name: '',
-//        sequenceNum: 1,
-//        startDate: new Date(),
-//      },
-//    ]);
+    //    setStages([
+    //      {
+    //        dueDate: new Date(),
+    //        name: '',
+    //        sequenceNum: 1,
+    //        startDate: new Date(),
+    //      },
+    //    ]);
   };
 
   const [countList, setCountList] = useState([0]);
@@ -43,20 +45,9 @@ const ModifyStep = ({ setModal }: any) => {
   const [teamid] = useRecoilState(teamidState);
   const resetStages = useResetRecoilState(stageState);
 
-
   const putTeample = async () => {
-    await axios({
-      url: '/api/stages',
-      baseURL: baseURL,
-      method: 'put',
-      headers: {
-        Authorization: token,
-      },
-      data: modTeample,
-      params: {
-        teamId: teamid,
-      },
-    })
+    stageAPI
+      .put(modTeample, teamid)
       .then(() => {
         alert('단계 수정이 완료되었습니다.');
         // setModal(false);
@@ -89,22 +80,25 @@ const ModifyStep = ({ setModal }: any) => {
       return stag.name.trim() === '';
     });
     const DateCheck: stageInfo[] = stages.filter((stag) => {
-      return ((moment(stag.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +'T' + '00:00:00') > 
-      moment(stag.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') +'T' + '00:00:00');
+      return (
+        moment(stag.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
+          'T' +
+          '00:00:00' >
+        moment(stag.dueDate, 'YYYYMMDD').format('YYYY-MM-DD') + 'T' + '00:00:00'
+      );
     });
     if (TrimCheck.length >= 1 || DateCheck.length >= 1) {
-      if (TrimCheck.length >= 1){
-      TrimCheck.map((tr: stageInfo) =>
-        alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
-      );
+      if (TrimCheck.length >= 1) {
+        TrimCheck.map((tr: stageInfo) =>
+          alert(`${tr.sequenceNum}단계 제목을 입력해주세요.`),
+        );
       }
-      if (DateCheck.length >= 1){
-        DateCheck.map((da : stageInfo) =>
-          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`)
-        )
+      if (DateCheck.length >= 1) {
+        DateCheck.map((da: stageInfo) =>
+          alert(`${da.sequenceNum}단계 마감일을 확인해주세요.`),
+        );
       }
-    }
-    else {
+    } else {
       setTemp(
         stages.map((s) => ({
           ...s,
@@ -119,7 +113,7 @@ const ModifyStep = ({ setModal }: any) => {
         })),
       );
     }
-  }
+  };
 
   useEffect(() => {
     setModTeample(() => ({

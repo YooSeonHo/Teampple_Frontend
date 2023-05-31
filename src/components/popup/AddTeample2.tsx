@@ -14,8 +14,8 @@ import {
 } from 'state/AddTeample/atom';
 import AddDiv from './AddTeample/AddDiv'; //단계 추가하기 버튼 클릭시 Add 컴포넌트 추가
 import { Background } from './AddSchedule';
-import { ModalProps } from 'interfaces';
-import { stageInfo } from 'interfaces';
+import { ModalProps } from 'interfaces/modalType';
+import { stageInfo } from 'interfaces/stageType';
 import { AddTeamzIndexState,stageState, makeTeampleState } from 'state';
 import axios from 'axios';
 import moment from 'moment';
@@ -23,6 +23,8 @@ import useDidMountEffect from 'components/hooks/useDidMountEffect';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
+import { makeTeampleInfo } from 'interfaces/teamType';
 
 const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   // stepState는 [1단계:{이름1,기간1},{이름2,기간2}, ...] 이런 형식이라 복잡해서 일단 testState으로 테스트만 함
@@ -48,23 +50,14 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   const resetStart = useResetRecoilState(startDateState);
   const resetDue = useResetRecoilState(endDateState);
   const resetStages = useResetRecoilState(stageState);
-  const token = localStorage.getItem('jwt_accessToken');
   const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
 
   const postTeample = async () => {
-    await axios({
-      url: '/api/teams',
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      data: makeTeample,
-    })
+    teamAPI.post(makeTeample)
       .then((res) => {
         alertPostTeample(res);
-        setModal(false);
-        setNextModal(false);
+        setModal && setModal(false);
+        setNextModal && setNextModal(false);
       })
       .catch((e) => {
         console.log(e);
@@ -97,8 +90,8 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
   };
 
   const onClickPrev = (e: React.MouseEvent<HTMLElement>) => {
-    setModal(true);
-    setNextModal(false);
+    setModal && setModal(true);
+    setNextModal && setNextModal(false);
   };
 
   const onClickMake = (event: React.MouseEvent<HTMLElement>) => {
@@ -180,7 +173,7 @@ const AddTeample2 = ({ setModal, setNextModal }: ModalProps) => {
     resetName();
     resetStart();
     resetStages();
-    setNextModal(false);
+    setNextModal && setNextModal(false);
     
   };
 

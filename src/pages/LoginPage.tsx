@@ -3,26 +3,26 @@ import styled from 'styled-components';
 import KakaoBtn from 'components/loginPage/KakaoBtn';
 import Logo from '../components/images/Logo_login.png';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
-import { baseURL } from 'api/client';
 import { kakaobaseURL } from 'api/client';
+import inviteAPI from 'api/inviteAPI';
 
 const LoginPage = () => {
   // 초대받았다면 팀 이름 출력
-  const [teamname, setTeamname] = useState('경영전략');
+  const [teamname, setTeamname] = useState('');
   const [invited, setInvited] = useState(false);
   const navigate = useNavigate();
   const [, , code] = window.location.pathname.split('/');
 
   const getTeamName = async () => {
-    await axios({
-      url: `/api/invitations/validation`,
-      baseURL: baseURL,
-      method: 'get',
-      params: {
-        code: code,
-      },
-    })
+    // await axios({
+    //   url: `/api/invitations/validation`,
+    //   baseURL: baseURL,
+    //   method: 'get',
+    //   params: {
+    //     code: code,
+    //   },
+    // })
+    inviteAPI.handleValidation(code)
       .then((res) => {
         if (res.data.data.valid) {
           setTeamname(res.data.data.teamName);
@@ -48,17 +48,18 @@ const LoginPage = () => {
   };
 
   const joinTeam = async () => {
-    await axios({
-      url: `/api/invitations`,
-      baseURL: baseURL,
-      method: 'post',
-      params: {
-        code: code,
-      },
-      headers: {
-        Authorization: localStorage.getItem('jwt_accessToken'),
-      },
-    })
+    // await axios({
+    //   url: `/api/invitations`,
+    //   baseURL: baseURL,
+    //   method: 'post',
+    //   params: {
+    //     code: code,
+    //   },
+    //   headers: {
+    //     Authorization: localStorage.getItem('jwt_accessToken'),
+    //   },
+    // })
+    inviteAPI.postInvite(code)
       .then((res) => {
         navigate(`/teample-home/${res.data.data.teamId}`);
         window.location.reload();
