@@ -1,14 +1,13 @@
 import React from 'react';
-import EditProfile from 'components/editProfile/editProfile';
-import ProfileLayout from 'components/layouts/profileLayout';
+import EditProfile from 'components/editProfilePage/editProfile';
+import ProfileLayout from 'components/layouts/commonLayout';
 
 const ProfilePage = () => {
   return (
-      <ProfileLayout>
-        <EditProfile />
-      </ProfileLayout>
+    <ProfileLayout title='프로필'>
+      <EditProfile />
+    </ProfileLayout>
   );
 };
-
 
 export default ProfilePage;

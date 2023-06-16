@@ -11,8 +11,10 @@ import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { teamidState } from 'state';
 import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
+import { ModalProps } from 'interfaces/modalType';
 
-const ModifyTeample = ({ setModal1 }: any) => {
+const ModifyTeample = ({ setModal1 }: ModalProps) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
@@ -29,19 +31,12 @@ const ModifyTeample = ({ setModal1 }: any) => {
   };
 
   const closeModal = () => {
-    setModal1(false);
+    setModal1 && setModal1(false);
   };
 
   const getTeamInfo = async () => {
-    await axios({
-      method: 'get',
-      baseURL: baseURL,
-      url: '/api/teams',
-      params: { teamId: teamid },
-      headers: {
-        Authorization: token,
-      },
-    }).then((res) => {
+    teamAPI.get(teamid)
+      .then((res) => {
       setStartDate(
         new Date(
           moment(res.data.data.startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
@@ -76,32 +71,8 @@ const ModifyTeample = ({ setModal1 }: any) => {
   }, [startDate, endDate]);
 
   const postSchedulesAPI = async () => {
-    await axios({
-      url: `/api/teams`,
-      baseURL: baseURL,
-      method: 'put',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        dueDate: (
-          moment(endDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-        startDate: (
-          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-        name: name,
-        goal: aim,
-      },
-      params: {
-        teamId: teamid,
-      },
-    })
-      .then((response) => {
+    teamAPI.put(startDate,endDate,name,aim,teamid)
+      .then(() => {
         alert('팀플 수정 성공');
         location.reload();
       })

@@ -8,13 +8,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
 import { zIndexState, teamidState } from 'state';
-import axios from 'axios';
-import moment from 'moment';
-import { baseURL } from 'api/client';
+import teamAPI from 'api/teamAPI';
+import { ModalProps } from 'interfaces/modalType';
 
-const AddSchedule = ({ setModal }: any) => {
+const AddSchedule = ({ setModal }: ModalProps) => {
   const today = new window.Date();
-  const [pickedDate, setPickedDate] = useState<any>(today);
+  const [pickedDate, setPickedDate] = useState<Date>(today);
   const [name, setName] = useState('');
   const [time, setTime] = useState('');
   const [zIndex, setZIndex] = useRecoilState(zIndexState);
@@ -27,39 +26,18 @@ const AddSchedule = ({ setModal }: any) => {
     setTime(e.target.value);
   };
 
-  const onChangeDate = (pickedDate: any) => {
+  const onChangeDate = (pickedDate: Date) => {
     setPickedDate(pickedDate);
   };
 
   const closeModal = () => {
-    setModal(false);
+    setModal && setModal(false);
     setZIndex(997);
   };
 
-  const token = localStorage.getItem('jwt_accessToken');
-
   const postSchedulesAPI = async () => {
-    await axios({
-      url: `/api/teams/schedules`,
-      baseURL: baseURL,
-      method: 'post',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        dueDate: (
-          moment(pickedDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          time +
-          ':00'
-        ).toString(),
-        name: name,
-      },
-      params: {
-        teamId: teamid,
-      },
-    })
-      .then((response) => {
+    teamAPI.postSch(pickedDate,time,name,teamid)
+      .then(() => {
         alert('새로운 일정 추가 성공!');
         location.reload();
       })

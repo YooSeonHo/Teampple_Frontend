@@ -4,17 +4,52 @@ import SummaryTeample from 'components/teampleHomePage/SummaryTeample';
 import FileInfo from 'components/teampleHomePage/FileInfo';
 import ToDoBox from 'components/toDo/toDoBox';
 import PlanManager from 'components/teampleHomePage/planManager';
-import Layout from 'components/layouts/layout';
+import Layout from 'components/layouts/teampleLayout';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import {
-  teamidState,
-  AddToDozIndexState,
-  isLoading3State,
-  isLoading5State,
-} from 'state';
+import { teamidState, AddToDozIndexState } from 'state';
 import ModifyStep from '../components/popup/ModifyStep';
-import Loading from 'components/common/Loading';
+
+const TeampleHomePage = () => {
+  const [teamid, setTeamid] = useRecoilState(teamidState);
+  const params = useParams();
+  const [modal, setModal] = useState(false);
+  const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
+
+  const showModal = () => {
+    setModal(!modal);
+    setToDoZindex(998);
+  };
+
+  useEffect(() => {
+    setTeamid(Number(params.teamid));
+  }, []);
+  return (
+    <>
+      <Layout>
+        <AllBox>
+          <div>
+            <ContentBox>
+              <SummaryTeample />
+              <FileInfo />
+            </ContentBox>
+            <div style={{ display: 'flex' }}>
+              <div className="text">할 일</div>
+              <EditBtn onClick={showModal}>단계 편집</EditBtn>
+            </div>
+            <ModalContainer>
+              {modal && <ModifyStep setModal={setModal} />}
+            </ModalContainer>
+            <MainContentBox>
+              <ToDoBox pathname={window.location.pathname} />
+            </MainContentBox>
+          </div>
+          <PlanManager />
+        </AllBox>
+      </Layout>
+    </>
+  );
+};
 
 const ContentBox = styled.div`
   display: flex;
@@ -56,49 +91,5 @@ const ModalContainer = styled.div`
   margin: 0 auto;
   z-index: 1000;
 `;
-
-const TeampleHomePage = () => {
-  const [teamid, setTeamid] = useRecoilState(teamidState);
-  const params = useParams();
-  const [modal, setModal] = useState(false);
-  const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
-  const [isLoading3,] = useRecoilState(isLoading3State);
-  const [isLoading5,] = useRecoilState(isLoading5State);
-
-  const showModal = () => {
-    setModal(!modal);
-    setToDoZindex(998);
-  };
-
-  useEffect(() => {
-    setTeamid(Number(params.teamid));
-  }, []);
-  return (
-    <>
-      {/* {isLoading3 && isLoading5 ? <Loading /> : null} */}
-      <Layout>
-        <AllBox>
-          <div>
-            <ContentBox>
-              <SummaryTeample />
-              <FileInfo />
-            </ContentBox>
-            <div style={{ display: 'flex' }}>
-              <div className="text">할 일</div>
-              <EditBtn onClick={showModal}>단계 편집</EditBtn>
-            </div>
-            <ModalContainer>
-              {modal && <ModifyStep setModal={setModal} />}
-            </ModalContainer>
-            <MainContentBox>
-              <ToDoBox pathname={window.location.pathname} />
-            </MainContentBox>
-          </div>
-          <PlanManager />
-        </AllBox>
-      </Layout>
-    </>
-  );
-};
 
 export default TeampleHomePage;

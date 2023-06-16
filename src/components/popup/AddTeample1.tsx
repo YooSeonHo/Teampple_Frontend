@@ -16,8 +16,8 @@ import {
 } from 'state/AddTeample/atom';
 import { AddTeamzIndexState, makeTeampleState } from 'state';
 import { Background } from './AddSchedule';
-import { ModalProps } from 'interfaces';
-import { makeTeampleInfo } from 'interfaces';
+import { ModalProps } from 'interfaces/modalType';
+import { makeTeampleInfo } from 'interfaces/teamType';
 import moment from 'moment';
 
 const AddTeample = ({ setModal, setNextModal }: ModalProps) => {
@@ -44,8 +44,8 @@ const AddTeample = ({ setModal, setNextModal }: ModalProps) => {
     if (name === '') alert('이름을 입력하세요.');
     else if (aim === '') alert('목표를 입력하세요.');
     else {
-      setNextModal(true);
-      setModal(false);
+      setNextModal && setNextModal(true);
+      setModal && setModal(false);
       setMakeTeample((prev) => ({
         ...prev,
         name: name,
@@ -65,7 +65,7 @@ const AddTeample = ({ setModal, setNextModal }: ModalProps) => {
     resetDue();
     resetName();
     resetStart();
-    setModal(false);
+    setModal && setModal(false);
     setZIndex(997);
   };
 

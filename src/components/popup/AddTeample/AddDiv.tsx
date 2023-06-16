@@ -12,7 +12,7 @@ import {
   stepState,
 } from 'state/AddTeample/atom';
 import { useForm } from 'react-hook-form';
-import { stageInfo } from 'interfaces';
+import { stageInfo } from 'interfaces/stageType';
 import { stageState } from 'state';
 import moment from 'moment';
 

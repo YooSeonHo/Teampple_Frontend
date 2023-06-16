@@ -6,7 +6,6 @@ import { AiOutlineLine } from 'react-icons/ai';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-import prof from '../images/template1.png';
 import { useRecoilState } from 'recoil';
 import {
   zIndexState,
@@ -17,10 +16,14 @@ import {
 } from 'state';
 import moment from 'moment';
 import axios from 'axios';
-import { detailInfo } from 'interfaces';
+import { ITeamMate } from 'interfaces/teamType';
+import { StyledProfileImgInfo } from 'interfaces/userType';
 import { baseURL } from 'api/client';
+import taskAPI from 'api/taskAPI';
+import { ModalProps } from 'interfaces/modalType';
+import teamAPI from 'api/teamAPI';
 
-const ModifyTask = ({ setBigModal }: any) => {
+const ModifyTask = ({ setBigModal }: ModalProps) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
@@ -34,27 +37,17 @@ const ModifyTask = ({ setBigModal }: any) => {
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
   const [taskId] = useRecoilState(taskIdState);
-  const [user, setUser] = useState<any | undefined>();
+  const [user, setUser] = useState<ITeamMate | undefined>();
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
   const closeModal = () => {
-    setBigModal(false);
+    setBigModal && setBigModal(false);
   };
 
   const getDetail = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'get',
-      params: {
-        taskId: taskId,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
+    taskAPI.get(taskId)
       .then((res) => {
         setName(res.data.data.taskName);
         const opList = res.data.data.operators;
@@ -82,30 +75,9 @@ const ModifyTask = ({ setBigModal }: any) => {
       });
   };
 
-  const putTasksAPI = async () => {
-    await axios({
-      url: `/api/tasks`,
-      baseURL: baseURL,
-      method: 'put',
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        dueDate: (
-          moment(endDate, 'YYYYMMDDTT').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-        name: name,
-        operators: checkedIdList,
-        startDate: (
-          moment(startDate, 'YYYYMMDD').format('YYYY-MM-DD') +
-          'T' +
-          '00:00:00'
-        ).toString(),
-      },
-      params: { taskId: taskId },
-    })
+  const putTasksAPI = () => {
+    taskAPI
+      .put(taskId, name, checkedIdList, startDate, endDate)
       .then(() => {
         alert('할일 수정 완료');
         location.reload();
@@ -116,15 +88,8 @@ const ModifyTask = ({ setBigModal }: any) => {
   };
 
   const getTeamMateAPI = async () => {
-    await axios({
-      url: `/api/teams/teammates`,
-      baseURL: baseURL,
-      method: 'get',
-      headers: {
-        Authorization: token,
-      },
-      params: { teamId: teamid },
-    })
+
+    teamAPI.getTeamMate(teamid)
       .then((response) => {
         setTeamMates(response.data.data.teammateInfoVos);
         setUser(response.data.data);
@@ -226,7 +191,7 @@ const ModifyTask = ({ setBigModal }: any) => {
                 <CheckBox
                   type="checkbox"
                   value={user.name}
-                  id={user.teammateId}
+                  id={user.teammateId?.toString()}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -238,7 +203,7 @@ const ModifyTask = ({ setBigModal }: any) => {
                 />
               </TeamMate>
             )}
-            {teamMates.map((teammate: any, index: number) => (
+            {teamMates.map((teammate: ITeamMate, index: number) => (
               <TeamMate key={index}>
                 <Profile profileImage={teammate.image} />
                 <TextInfo>
@@ -250,7 +215,7 @@ const ModifyTask = ({ setBigModal }: any) => {
                 <CheckBox
                   type="checkbox"
                   value={teammate.name}
-                  id={teammate.id}
+                  id={teammate.id?.toString()}
                   onChange={(e) => {
                     onCheckedHandle(
                       e.target.checked,
@@ -473,7 +438,7 @@ const TeamMate = styled.div`
   display: flex;
 `;
 
-const Profile = styled.div<any>`
+const Profile = styled.div<StyledProfileImgInfo>`
   width: 2.08333vw;
   height: 3.703704vh;
   border-radius: 16px;
