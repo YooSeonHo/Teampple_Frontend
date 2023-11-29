@@ -15,12 +15,7 @@ import {
   profileImgState,
 } from 'state';
 import { useRecoilState } from 'recoil';
-import {
-  teamidState,
-  AddTeamzIndexState,
-  feedbackState,
-  modal2State,
-} from 'state';
+import { teamidState, feedbackState, modal2State } from 'state';
 import { ModalContainer } from '../../css/TeampleHomePage/PlanManagerStyle';
 import AddTeample from 'components/popup/AddTeample1';
 import AddTeample2 from 'components/popup/AddTeample2';
@@ -30,6 +25,7 @@ import userAPI from 'api/userAPI';
 import teamAPI from 'api/teamAPI';
 import * as Style from '../../css/Layout/SideBarStyle';
 import { userTeamInfo } from 'interfaces/userType';
+import { ModalPortal } from 'hooks/usePortal';
 
 const SideBar = () => {
   const [name, setName] = useRecoilState(usernameState);
@@ -42,7 +38,6 @@ const SideBar = () => {
   const [nextModal, setNextModal] = useState(false);
   const [, setIsOpen] = useRecoilState(feedbackState);
   const [, setModal2] = useRecoilState(modal2State);
-  const [zIndex, setZIndex] = useRecoilState(AddTeamzIndexState);
   const [profileImg, setProfileImg] = useRecoilState(profileImgState);
   const navigate = useNavigate();
 
@@ -66,15 +61,11 @@ const SideBar = () => {
     setModal(!modal);
     setIsOpen(false);
     setModal2(false);
-    if (modal) {
-      setZIndex(997);
-    } else {
-      setZIndex(1000);
-    }
   };
 
   const delTeampleAPI = async () => {
-    teamAPI.delete(teamid)
+    teamAPI
+      .delete(teamid)
       .then(() => {
         navigate('/home');
         location.reload();
@@ -163,7 +154,7 @@ const SideBar = () => {
   };
 
   return (
-    <Style.SideBarBox style={{ zIndex: zIndex }}>
+    <Style.SideBarBox>
       <div className="logo">
         <img src={logo} onClick={onClickLogo} id="logo" />
       </div>
@@ -309,14 +300,16 @@ const SideBar = () => {
           <div className="boxText">고객센터</div>
         </div>
       </div>
-      <ModalContainer>
-        {modal && (
-          <AddTeample setModal={setModal} setNextModal={setNextModal} />
-        )}
-        {nextModal && (
-          <AddTeample2 setModal={setModal} setNextModal={setNextModal} />
-        )}
-      </ModalContainer>
+      <ModalPortal>
+        <ModalContainer>
+          {modal && (
+            <AddTeample setModal={setModal} setNextModal={setNextModal} />
+          )}
+          {nextModal && (
+            <AddTeample2 setModal={setModal} setNextModal={setNextModal} />
+          )}
+        </ModalContainer>
+      </ModalPortal>
     </Style.SideBarBox>
   );
 };

@@ -4,7 +4,7 @@ import { stageInfo } from 'interfaces/stageType';
 import { fbInfo } from 'interfaces/feedbackType';
 import { atom } from 'recoil';
 import { v1 } from 'uuid'; // key duplicate 방지를 위한 라이브러리
-import { recoilPersist } from "recoil-persist";
+import { recoilPersist } from 'recoil-persist';
 const { persistAtom } = recoilPersist();
 
 export const usernameState = atom<string>({
@@ -58,21 +58,6 @@ export const IsSearchTemplateState = atom<boolean>({
   default: false,
 });
 
-export const zIndexState = atom<number>({
-  key: `zIndex/${v1()}`,
-  default: 997,
-});
-
-export const AddTeamzIndexState = atom<number>({
-  key: `zIndex/${v1()}`,
-  default: 997,
-});
-
-export const AddToDozIndexState = atom<number>({
-  key: `zIndex/${v1()}`,
-  default: 997,
-});
-
 export const modal2State = atom<boolean>({
   key: `modal2/${v1()}`,
   default: false,
@@ -104,21 +89,21 @@ export const jwtRefreshTokenState = atom<string>({
 });
 
 export const makeTeampleState = atom<makeTeampleInfo>({
-  key : 'makeTeample',
-  default : {
-    dueDate: new Date,
+  key: 'makeTeample',
+  default: {
+    dueDate: new Date(),
     goal: '',
     name: '',
     stages: [
       {
         name: '',
         sequenceNum: 1,
-        dueDate: new Date,
-        startDate: new Date,
-      }
+        dueDate: new Date(),
+        startDate: new Date(),
+      },
     ],
-    startDate: new Date,
-  }  
+    startDate: new Date(),
+  },
 });
 
 export const modTeampleState = atom<modTeampleInfo>({
@@ -136,15 +121,16 @@ export const modTeampleState = atom<modTeampleInfo>({
 });
 
 export const stageState = atom<stageInfo[]>({
-  key : 'stage',
-  default :
-  [{
-    dueDate: new Date,
-    name: '',
-    sequenceNum: 1,
-    startDate: new Date,
-  }]
-})
+  key: 'stage',
+  default: [
+    {
+      dueDate: new Date(),
+      name: '',
+      sequenceNum: 1,
+      startDate: new Date(),
+    },
+  ],
+});
 export const sequenceNumState = atom<number>({
   key: `sequencenum/${v1()}`,
   default: 1,
@@ -156,21 +142,24 @@ export const stageIdState = atom<number>({
 });
 
 export const taskIdState = atom<number>({
-  key : `taskId`,
+  key: `taskId`,
   default: 1,
   effects_UNSTABLE: [persistAtom],
-})
+});
 
 export const fbListState = atom<fbInfo[]>({
-  key : `userfb`,
-  default : [
-  {checked: false,
-  modifiedAt: '',
-  taskId: 0,
-  taskName: '',
-  teamId: 0,
-  teamName: ''}]
-})
+  key: `userfb`,
+  default: [
+    {
+      checked: false,
+      modifiedAt: '',
+      taskId: 0,
+      taskName: '',
+      teamId: 0,
+      teamName: '',
+    },
+  ],
+});
 
 export const profileImgState = atom<string>({
   key: 'profileImg',
@@ -184,19 +173,18 @@ export const teampleDetailState = atom<boolean>({
 
 export const detailState = atom<detailInfo>({
   key: `detail/${v1()}`,
-  default:
-  {
+  default: {
     done: false,
     dueDate: '',
     feedbacks: [],
     files: [],
     operators: [],
-    sequenceNum : 0,
-    stageName : '',
-    startDate : '',
-    taskName : '',
-  }
-})
+    sequenceNum: 0,
+    stageName: '',
+    startDate: '',
+    taskName: '',
+  },
+});
 
 export const isLoginState = atom<boolean>({
   key: 'isLogin',
@@ -204,9 +192,9 @@ export const isLoginState = atom<boolean>({
 });
 
 export const isCheckedState = atom<boolean>({
-  key : 'checkedNum',
-  default : false,
-})
+  key: 'checkedNum',
+  default: false,
+});
 
 export const isLoading1State = atom<boolean>({
   key: 'isLoading1/${v1()}',
@@ -236,6 +224,6 @@ export const isLoading5State = atom<boolean>({
 });
 
 export const teamEndDateState = atom<string>({
-  key : 'teamEndDate',
-  default : ''
+  key: 'teamEndDate',
+  default: '',
 });

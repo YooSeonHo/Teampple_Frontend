@@ -6,7 +6,6 @@ import { useRecoilState } from 'recoil';
 import {
   feedbackState,
   modal2State,
-  AddToDozIndexState,
   stageIdState,
   taskIdState,
   detailState,
@@ -21,7 +20,6 @@ const ToDoCard = ({ todoList }: any) => {
   const [modal, setModal] = useState(false);
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
-  const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
   const [stageId, setStageId] = useRecoilState(stageIdState);
   const [taskId, setTaskId] = useRecoilState(taskIdState);
   const [detail, setDetail] = useRecoilState(detailState);
@@ -34,7 +32,6 @@ const ToDoCard = ({ todoList }: any) => {
     setModal(!modal);
     setIsOpen(false);
     setModal2(false);
-    setToDoZindex(999);
   };
 
   const onClickedStage = (stage: any) => {
@@ -96,7 +93,6 @@ const ToDoCard = ({ todoList }: any) => {
         <Style.CardBox
           pathname={window.location.pathname}
           key={index}
-          style={{ zIndex: toDoZindex }}
           isNow={nowCheck(
             todo.startDate.replaceAll('.', '-'),
             todo.dueDate.replaceAll('.', '-'),

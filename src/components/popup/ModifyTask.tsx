@@ -7,13 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
-import {
-  zIndexState,
-  teamidState,
-  stageIdState,
-  AddToDozIndexState,
-  taskIdState,
-} from 'state';
+import { teamidState, stageIdState, taskIdState } from 'state';
 import moment from 'moment';
 import axios from 'axios';
 import { ITeamMate } from 'interfaces/teamType';
@@ -22,20 +16,19 @@ import { baseURL } from 'api/client';
 import taskAPI from 'api/taskAPI';
 import { ModalProps } from 'interfaces/modalType';
 import teamAPI from 'api/teamAPI';
+import { ModalPortal } from 'hooks/usePortal';
 
 const ModifyTask = ({ setBigModal }: ModalProps) => {
   const today = new window.Date();
   const [startDate, setStartDate] = useState<Date>(today);
   const [endDate, setEndDate] = useState<Date>(today);
   const [name, setName] = useState('');
-  const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid, setTeamid] = useRecoilState(teamidState);
   const [teamMates, setTeamMates] = useState([]);
   const [checkedNameList, setCheckedNameList] = useState<string[]>([]);
   const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
   const [stageId, setStageId] = useRecoilState(stageIdState);
-  const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
   const [taskId] = useRecoilState(taskIdState);
   const [user, setUser] = useState<ITeamMate | undefined>();
 
@@ -47,7 +40,8 @@ const ModifyTask = ({ setBigModal }: ModalProps) => {
   };
 
   const getDetail = async () => {
-    taskAPI.get(taskId)
+    taskAPI
+      .get(taskId)
       .then((res) => {
         setName(res.data.data.taskName);
         const opList = res.data.data.operators;
@@ -88,8 +82,8 @@ const ModifyTask = ({ setBigModal }: ModalProps) => {
   };
 
   const getTeamMateAPI = async () => {
-
-    teamAPI.getTeamMate(teamid)
+    teamAPI
+      .getTeamMate(teamid)
       .then((response) => {
         setTeamMates(response.data.data.teammateInfoVos);
         setUser(response.data.data);
@@ -103,8 +97,6 @@ const ModifyTask = ({ setBigModal }: ModalProps) => {
     if (name === '') alert('할일 이름 입력은 필수입니다.');
     else {
       putTasksAPI();
-      setZIndex(997);
-      setToDoZindex(997);
     }
   };
 
@@ -134,106 +126,108 @@ const ModifyTask = ({ setBigModal }: ModalProps) => {
   }, [startDate, endDate]);
 
   return (
-    <Background>
-      <ModifyTeampleContainer>
-        <CloseBtn onClick={closeModal} />
-        <Title>할일 수정</Title>
-        <Tag1>할일</Tag1>
-        <Input1 value={name} onChange={onChangeName} maxLength={12} />
-        <TextLength1>
-          ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
-        </TextLength1>
-        <Tag2>기간</Tag2>
-        <DateBox1>
-          <StyledDatePicker
-            locale={ko} //한글
-            dateFormat="yyyy.MM.dd"
-            selected={startDate}
-            closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-            onChange={(date: Date) => setStartDate(date)}
-          />
-          <IoCalendarNumberOutline
-            style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
-          />
-        </DateBox1>
-        <Dash />
-        <DateBox2>
-          <StyledDatePicker
-            locale={ko} //한글
-            dateFormat="yyyy.MM.dd"
-            selected={endDate}
-            minDate={startDate}
-            closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
-            onChange={(date: Date) => setEndDate(date)}
-          />
-          <IoCalendarNumberOutline
-            style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
-          />
-        </DateBox2>
-        <Tag3>담당자</Tag3>
-        <ManagerContainer>
-          {checkedNameList.map((item) => (
-            <Manager key={item}>{item}</Manager>
-          ))}
-        </ManagerContainer>
-        <TeamMateContainer>
-          <AddTeamMate>담당자 추가</AddTeamMate>
-          <TeamMateBox>
-            {user && (
-              <TeamMate>
-                <Profile profileImage={user.image} />
-                <TextInfo>
-                  <Name>{user.name}</Name>
-                  <School>
-                    {user.schoolName} {user.major}
-                  </School>
-                </TextInfo>
-                <CheckBox
-                  type="checkbox"
-                  value={user.name}
-                  id={user.teammateId?.toString()}
-                  onChange={(e) => {
-                    onCheckedHandle(
-                      e.target.checked,
-                      e.target.value,
-                      Number(e.target.id),
-                    );
-                  }}
-                  checked={checkedNameList.includes(user.name) ? true : false}
-                />
-              </TeamMate>
-            )}
-            {teamMates.map((teammate: ITeamMate, index: number) => (
-              <TeamMate key={index}>
-                <Profile profileImage={teammate.image} />
-                <TextInfo>
-                  <Name>{teammate.name}</Name>
-                  <School>
-                    {teammate.schoolName} {teammate.major}
-                  </School>
-                </TextInfo>
-                <CheckBox
-                  type="checkbox"
-                  value={teammate.name}
-                  id={teammate.id?.toString()}
-                  onChange={(e) => {
-                    onCheckedHandle(
-                      e.target.checked,
-                      e.target.value,
-                      Number(e.target.id),
-                    );
-                  }}
-                  checked={
-                    checkedNameList.includes(teammate.name) ? true : false
-                  }
-                />
-              </TeamMate>
+    <ModalPortal>
+      <Background>
+        <ModifyTeampleContainer>
+          <CloseBtn onClick={closeModal} />
+          <Title>할일 수정</Title>
+          <Tag1>할일</Tag1>
+          <Input1 value={name} onChange={onChangeName} maxLength={12} />
+          <TextLength1>
+            ({name.replace(/<br\s*\/?>/gm, '\n').length}/12)
+          </TextLength1>
+          <Tag2>기간</Tag2>
+          <DateBox1>
+            <StyledDatePicker
+              locale={ko} //한글
+              dateFormat="yyyy.MM.dd"
+              selected={startDate}
+              closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+              onChange={(date: Date) => setStartDate(date)}
+            />
+            <IoCalendarNumberOutline
+              style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
+            />
+          </DateBox1>
+          <Dash />
+          <DateBox2>
+            <StyledDatePicker
+              locale={ko} //한글
+              dateFormat="yyyy.MM.dd"
+              selected={endDate}
+              minDate={startDate}
+              closeOnScroll={true} // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
+              onChange={(date: Date) => setEndDate(date)}
+            />
+            <IoCalendarNumberOutline
+              style={{ width: '1.25vw', height: '2.22222vh', color: '#a7a7a7' }}
+            />
+          </DateBox2>
+          <Tag3>담당자</Tag3>
+          <ManagerContainer>
+            {checkedNameList.map((item) => (
+              <Manager key={item}>{item}</Manager>
             ))}
-          </TeamMateBox>
-        </TeamMateContainer>
-        <SaveButton onClick={onClickBtn}>저장</SaveButton>
-      </ModifyTeampleContainer>
-    </Background>
+          </ManagerContainer>
+          <TeamMateContainer>
+            <AddTeamMate>담당자 추가</AddTeamMate>
+            <TeamMateBox>
+              {user && (
+                <TeamMate>
+                  <Profile profileImage={user.image} />
+                  <TextInfo>
+                    <Name>{user.name}</Name>
+                    <School>
+                      {user.schoolName} {user.major}
+                    </School>
+                  </TextInfo>
+                  <CheckBox
+                    type="checkbox"
+                    value={user.name}
+                    id={user.teammateId?.toString()}
+                    onChange={(e) => {
+                      onCheckedHandle(
+                        e.target.checked,
+                        e.target.value,
+                        Number(e.target.id),
+                      );
+                    }}
+                    checked={checkedNameList.includes(user.name) ? true : false}
+                  />
+                </TeamMate>
+              )}
+              {teamMates.map((teammate: ITeamMate, index: number) => (
+                <TeamMate key={index}>
+                  <Profile profileImage={teammate.image} />
+                  <TextInfo>
+                    <Name>{teammate.name}</Name>
+                    <School>
+                      {teammate.schoolName} {teammate.major}
+                    </School>
+                  </TextInfo>
+                  <CheckBox
+                    type="checkbox"
+                    value={teammate.name}
+                    id={teammate.id?.toString()}
+                    onChange={(e) => {
+                      onCheckedHandle(
+                        e.target.checked,
+                        e.target.value,
+                        Number(e.target.id),
+                      );
+                    }}
+                    checked={
+                      checkedNameList.includes(teammate.name) ? true : false
+                    }
+                  />
+                </TeamMate>
+              ))}
+            </TeamMateBox>
+          </TeamMateContainer>
+          <SaveButton onClick={onClickBtn}>저장</SaveButton>
+        </ModifyTeampleContainer>
+      </Background>
+    </ModalPortal>
   );
 };
 

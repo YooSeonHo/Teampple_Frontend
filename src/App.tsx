@@ -8,6 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <RecoilRoot>
+        <div id="modal_root"></div>
         <GlobalStyle />
         <Router />
       </RecoilRoot>

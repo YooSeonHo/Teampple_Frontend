@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { teamidState, AddToDozIndexState } from 'state';
 import ModifyStep from '../components/popup/ModifyStep';
+import { ModalPortal } from 'hooks/usePortal';
 
 const TeampleHomePage = () => {
   const [teamid, setTeamid] = useRecoilState(teamidState);
@@ -37,9 +38,11 @@ const TeampleHomePage = () => {
               <div className="text">할 일</div>
               <EditBtn onClick={showModal}>단계 편집</EditBtn>
             </div>
-            <ModalContainer>
-              {modal && <ModifyStep setModal={setModal} />}
-            </ModalContainer>
+            <ModalPortal>
+              <ModalContainer>
+                {modal && <ModifyStep setModal={setModal} />}
+              </ModalContainer>
+            </ModalPortal>
             <MainContentBox>
               <ToDoBox pathname={window.location.pathname} />
             </MainContentBox>

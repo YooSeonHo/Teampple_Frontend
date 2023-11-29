@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useRecoilState } from 'recoil';
-import { zIndexState, teamidState } from 'state';
+import { teamidState } from 'state';
 import teamAPI from 'api/teamAPI';
 import { ModalProps } from 'interfaces/modalType';
 
@@ -16,7 +16,6 @@ const AddSchedule = ({ setModal }: ModalProps) => {
   const [pickedDate, setPickedDate] = useState<Date>(today);
   const [name, setName] = useState('');
   const [time, setTime] = useState('');
-  const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const [teamid] = useRecoilState(teamidState);
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,11 +31,11 @@ const AddSchedule = ({ setModal }: ModalProps) => {
 
   const closeModal = () => {
     setModal && setModal(false);
-    setZIndex(997);
   };
 
   const postSchedulesAPI = async () => {
-    teamAPI.postSch(pickedDate,time,name,teamid)
+    teamAPI
+      .postSch(pickedDate, time, name, teamid)
       .then(() => {
         alert('새로운 일정 추가 성공!');
         location.reload();

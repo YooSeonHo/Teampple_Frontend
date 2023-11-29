@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import AddSchedule from 'components/popup/AddSchedule';
 import { useRecoilState } from 'recoil';
 import {
-  zIndexState,
   feedbackState,
   modal2State,
   teamidState,
@@ -14,14 +13,12 @@ import * as Style from '../../css/TeampleHomePage/PlanManagerStyle';
 
 const PlanManager = () => {
   const [modal, setModal] = useState(false);
-  const [zIndex, setZIndex] = useRecoilState(zIndexState);
   const [isOpen, setIsOpen] = useRecoilState(feedbackState);
   const [modal2, setModal2] = useRecoilState(modal2State);
   const showModal = () => {
     setModal(!modal);
     setIsOpen(false);
     setModal2(false);
-    setZIndex(999);
   };
   const [plans, setPlans] = useState([]);
   const [deadDay, setDeadDay] = useState<any | null>(null);
@@ -31,7 +28,8 @@ const PlanManager = () => {
   const now = new Date();
 
   const getPlanAPI = async () => {
-    teamAPI.getSch(teamid)
+    teamAPI
+      .getSch(teamid)
       .then((response) => {
         setPlans(response.data.data.schedules);
         setDueDate(response.data.data.dueDate);
@@ -42,8 +40,9 @@ const PlanManager = () => {
       });
   };
 
-  const getEndDate = async () =>{
-    teamAPI.get(teamid)
+  const getEndDate = async () => {
+    teamAPI
+      .get(teamid)
       .then((res) => {
         setTeamEndDate(res.data.data.dueDate);
       })
@@ -89,7 +88,7 @@ const PlanManager = () => {
   };
 
   return (
-    <Style.ManagerBox style={{ zIndex: zIndex }}>
+    <Style.ManagerBox>
       <div className="dDayHeader">
         <div className="text">일정 관리자</div>
         <div className="headerBox">

@@ -10,6 +10,7 @@ import {
 } from 'state';
 import teamAPI from 'api/teamAPI';
 import * as Style from '../../css/Todo/TodoBoxStyle';
+import { ModalPortal } from 'hooks/usePortal';
 
 const ToDoBox = ({ pathname }: { pathname: string }) => {
   const [todoList, setTodoList] = useState<teamtasksInfo[]>([]);
@@ -49,9 +50,11 @@ const ToDoBox = ({ pathname }: { pathname: string }) => {
     getEndDate();
   }, [teamid]);
   return (
-    <Style.ToDoWrapper pathname={pathname}>
-      <ToDoCard todoList={todoList} />
-    </Style.ToDoWrapper>
+    <ModalPortal>
+      <Style.ToDoWrapper pathname={pathname}>
+        <ToDoCard todoList={todoList} />
+      </Style.ToDoWrapper>
+    </ModalPortal>
   );
 };
 
