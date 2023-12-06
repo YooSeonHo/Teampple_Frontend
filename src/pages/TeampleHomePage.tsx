@@ -7,7 +7,7 @@ import PlanManager from 'components/teampleHomePage/planManager';
 import Layout from 'components/layouts/teampleLayout';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { teamidState, AddToDozIndexState } from 'state';
+import { teamidState } from 'state';
 import ModifyStep from '../components/popup/ModifyStep';
 import { ModalPortal } from 'hooks/usePortal';
 
@@ -15,11 +15,9 @@ const TeampleHomePage = () => {
   const [teamid, setTeamid] = useRecoilState(teamidState);
   const params = useParams();
   const [modal, setModal] = useState(false);
-  const [toDoZindex, setToDoZindex] = useRecoilState(AddToDozIndexState);
 
   const showModal = () => {
     setModal(!modal);
-    setToDoZindex(998);
   };
 
   useEffect(() => {
