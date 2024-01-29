@@ -20,49 +20,49 @@ const Router = () => {
         <Route
           path="/home"
           element={
-            <PrivateRouter>
-              <HomePage />
-            </PrivateRouter>
+            // <PrivateRouter>
+            <HomePage />
+            // </PrivateRouter>
           }
         />
         <Route
           path="/teample-home/:teamid"
           element={
-            <PrivateRouter>
-              <TeampleHomePage />
-            </PrivateRouter>
+            // <PrivateRouter>
+            <TeampleHomePage />
+            // </PrivateRouter>
           }
         />
         <Route
           path="/teample-detail/:taskId"
           element={
-            <PrivateRouter>
-              <TeampleDetailPage />
-            </PrivateRouter>
+            // <PrivateRouter>
+            <TeampleDetailPage />
+            // </PrivateRouter>
           }
         />
         <Route
           path="/template"
           element={
-            <PrivateRouter>
-              <TemplatePage />
-            </PrivateRouter>
+            // <PrivateRouter>
+            <TemplatePage />
+            // </PrivateRouter>
           }
         />
         <Route
           path="/profile"
           element={
-            <PrivateRouter>
-              <ProfilePage />
-            </PrivateRouter>
+            // <PrivateRouter>
+            <ProfilePage />
+            // </PrivateRouter>
           }
         />
         <Route
           path="/file"
           element={
-            <PrivateRouter>
-              <FilePage />
-            </PrivateRouter>
+            // <PrivateRouter>
+            <FilePage />
+            // </PrivateRouter>
           }
         />
       </Route>

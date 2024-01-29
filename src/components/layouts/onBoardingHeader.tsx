@@ -63,7 +63,8 @@ const Contents = styled.div`
 const OnBoardingHeader = () => {
   const token = localStorage.getItem('jwt_accessToken');
   const postAuthLogoutAPI = async () => {
-    authAPI.postLogout()
+    authAPI
+      .postLogout()
       .then(() => {
         localStorage.removeItem('jwt_accessToken');
         localStorage.removeItem('jwt_refreshToken');
@@ -76,6 +77,7 @@ const OnBoardingHeader = () => {
 
   return (
     <HeaderBox>
+      <a href="#main">주요 컨텐츠로 건너뛰기</a>
       <Logo>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <div className="logo">
