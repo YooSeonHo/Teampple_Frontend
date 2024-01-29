@@ -77,7 +77,6 @@ const OnBoardingHeader = () => {
 
   return (
     <HeaderBox>
-      <a href="#main">주요 컨텐츠로 건너뛰기</a>
       <Logo>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <div className="logo">
