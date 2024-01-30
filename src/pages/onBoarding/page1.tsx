@@ -76,17 +76,13 @@ const Page1 = (props: Props) => {
         <div className="mid">
           새내기 팀플 가이드 솔루션 <a>팀쁠</a>
         </div>
-        <button className="start">
-          {localStorage.getItem('jwt_accessToken') ? (
-            <Link to="/home" style={{ textDecoration: 'none' }}>
-              <img src={btn} />
-            </Link>
-          ) : (
-            <Link to="/login" style={{ textDecoration: 'none' }}>
-              <img src={btn} />
-            </Link>
-          )}
-        </button>
+        <Link
+          to={localStorage.getItem('jwt_accessToken') ? '/home' : '/login'}
+          style={{ textDecoration: 'none' }}
+          className="start"
+        >
+          <img src={btn} alt="시작하기" />
+        </Link>
       </ContentBox>
     </Background>
   );
