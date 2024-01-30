@@ -44,7 +44,8 @@ const Ing = () => {
     //   },
     // })
     //문제 생기면 이부분 체크해보기.
-    inviteAPI.postInvite(localStorage.getItem('code'))
+    inviteAPI
+      .postInvite(localStorage.getItem('code'))
       .then((res) => {
         navigate(`/teample-home/${res.data.data.teamId}`);
         window.location.reload();
@@ -70,7 +71,8 @@ const Ing = () => {
       //     jwtRefreshToken: localStorage.getItem('jwt_refreshToken'),
       //   },
       // })
-      authAPI.postRetoken()
+      authAPI
+        .postRetoken()
         .then((response) => {
           localStorage.setItem(
             'jwt_accessToken',

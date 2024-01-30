@@ -11,16 +11,18 @@ import OnBoardingLayOut from 'components/layouts/onBoardingLayout';
 
 const OnboardingPage = () => {
   return (
-    <OnBoardingLayOut>
-      <Page1 />
-      <Page2 />
-      <Page3 />
-      <Page4 />
-      <Page5 />
-      <Page6 />
-      <Page7 />
-      <Page8 />
-    </OnBoardingLayOut>
+    <>
+      <OnBoardingLayOut>
+        <Page1 id="main" />
+        <Page2 />
+        <Page3 />
+        <Page4 />
+        <Page5 />
+        <Page6 />
+        <Page7 />
+        <Page8 />
+      </OnBoardingLayOut>
+    </>
   );
 };
 

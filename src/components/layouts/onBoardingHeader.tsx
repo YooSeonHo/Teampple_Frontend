@@ -6,7 +6,7 @@ import axios from 'axios';
 import { baseURL } from 'api/client';
 import authAPI from 'api/authAPI';
 
-const HeaderBox = styled.div`
+const HeaderBox = styled.header`
   width: 100%;
   height: 7.5vh;
   background-color: #ffffff;
@@ -35,7 +35,7 @@ const Logo = styled.div`
   }
 `;
 
-const Contents = styled.div`
+const Contents = styled.ul`
   font-weight: 600;
   font-size: 0.9374vw;
   line-height: 140%;
@@ -44,6 +44,7 @@ const Contents = styled.div`
   margin-top: auto;
   margin-bottom: auto;
   display: flex;
+  list-style-type: none;
 
   .aboutUs,
   .plan,
@@ -63,7 +64,8 @@ const Contents = styled.div`
 const OnBoardingHeader = () => {
   const token = localStorage.getItem('jwt_accessToken');
   const postAuthLogoutAPI = async () => {
-    authAPI.postLogout()
+    authAPI
+      .postLogout()
       .then(() => {
         localStorage.removeItem('jwt_accessToken');
         localStorage.removeItem('jwt_refreshToken');
@@ -83,23 +85,31 @@ const OnBoardingHeader = () => {
           </div>
         </Link>
       </Logo>
-      <Contents>
-        <div className="aboutUs">ABOUT US</div>
-        <div className="plan">PLAN</div>
-        <div className="service">SERVICE</div>
-        {token ? (
-          <div className="login" onClick={postAuthLogoutAPI}>
-            LOGOUT
-          </div>
-        ) : (
-          <Link
-            to="/login"
-            style={{ textDecoration: 'none', color: '#383838' }}
-          >
-            <div className="login">LOGIN</div>
-          </Link>
-        )}
-      </Contents>
+      <nav style={{ display: 'flex' }}>
+        <Contents>
+          <li className="aboutUs" tabIndex={0}>
+            ABOUT US
+          </li>
+          <li className="plan" tabIndex={0}>
+            PLAN
+          </li>
+          <li className="service" tabIndex={0}>
+            SERVICE
+          </li>
+          {token ? (
+            <li className="login" onClick={postAuthLogoutAPI}>
+              LOGOUT
+            </li>
+          ) : (
+            <Link
+              to="/login"
+              style={{ textDecoration: 'none', color: '#383838' }}
+            >
+              <li className="login">LOGIN</li>
+            </Link>
+          )}
+        </Contents>
+      </nav>
     </HeaderBox>
   );
 };
