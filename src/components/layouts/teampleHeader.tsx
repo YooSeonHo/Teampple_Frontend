@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import feedback from '../images/feedback.png';
 import ModifyTeample from 'components/popup/ModifyTeample';
 import TeamMateInfo from 'components/popup/TeamMateInfo';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   feedbackState,
   modal2State,
@@ -30,7 +30,7 @@ const TeampleHeader = () => {
   const [deadDay, setDeadDay] = useState<string | null>(null);
   const token = localStorage.getItem('jwt_accessToken');
   const [teamid] = useRecoilState(teamidState);
-  const [fbList, setFbList] = useRecoilState(fbListState);
+  const fbList = useRecoilValue(fbListState);
   const [isCheck, setIsCheck] = useRecoilState(isCheckedState);
 
   const showModal1 = () => {
@@ -44,17 +44,6 @@ const TeampleHeader = () => {
 
   const openFeed = () => {
     setIsOpen(!isOpen);
-  };
-
-  const getFeedbackAPI = () => {
-    userAPI
-      .getFeedback()
-      .then((response) => {
-        setFbList(response.data.data.feedbacks);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   };
 
   const countChecked = () => {
@@ -75,13 +64,8 @@ const TeampleHeader = () => {
     setIsCheck(countChecked());
   }, [fbList]);
 
-  useEffect(() => {
-    getFeedbackAPI();
-  }, []);
-
   const getTHeader = async () => {
-    teamAPI.get(teamid)
-    .then((res) => {
+    teamAPI.get(teamid).then((res) => {
       setName(res.data.data.name);
       setGoal(res.data.data.goal);
       setTeamMatesNum(res.data.data.teammatesNum);

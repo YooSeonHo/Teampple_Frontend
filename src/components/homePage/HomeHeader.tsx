@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { fbListState, isCheckedState } from 'state';
 import feedback from '../images/feedback.png';
 import userAPI from 'api/userAPI';
 import * as Style from '../../css/HomePage/HomeHeaderStyle';
 import { useModal } from 'hooks/useModal';
 import Feedbacks from 'components/feedbacks/feedbacks';
+import { fbInfo } from 'interfaces/feedbackType';
 
 const HomeHeader = () => {
   const fbList = useRecoilValue(fbListState);
@@ -15,7 +16,7 @@ const HomeHeader = () => {
   const countChecked = () => {
     let cnt = 0;
     fbList &&
-      fbList.map((fb) => {
+      fbList.map((fb: fbInfo) => {
         if (!fb.checked) {
           cnt += 1;
         }
