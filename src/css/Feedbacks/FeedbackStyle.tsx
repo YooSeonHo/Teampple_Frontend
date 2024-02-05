@@ -16,7 +16,7 @@ export const FeedBox = styled.div<StyledFeedInfo>`
   position: absolute;
   margin-right: 2.8125vw;
   margin-top: ${(props) =>
-    props.pathname === '/home' ? '6.777777vh' : '0.1111111vh'};
+    props.pathname === '/home' ? '50.777777vh' : '0.1111111vh'};
   margin-left: auto;
   z-index: 1001;
 
