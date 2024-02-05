@@ -2,9 +2,10 @@ import { detailInfo } from 'interfaces/taskType';
 import { makeTeampleInfo, modTeampleInfo } from 'interfaces/teamType';
 import { stageInfo } from 'interfaces/stageType';
 import { fbInfo } from 'interfaces/feedbackType';
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { v1 } from 'uuid'; // key duplicate 방지를 위한 라이브러리
 import { recoilPersist } from 'recoil-persist';
+import userAPI from 'api/userAPI';
 const { persistAtom } = recoilPersist();
 
 export const usernameState = atom<string>({
@@ -147,18 +148,16 @@ export const taskIdState = atom<number>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const fbListState = atom<fbInfo[]>({
-  key: `userfb`,
-  default: [
-    {
-      checked: false,
-      modifiedAt: '',
-      taskId: 0,
-      taskName: '',
-      teamId: 0,
-      teamName: '',
-    },
-  ],
+export const fbListState = selector<fbInfo[]>({
+  key: 'userfb',
+  get: async () => {
+    try {
+      const feedbacks = await userAPI.getFeedback();
+      return feedbacks.data.data.feedbacks.reverse();
+    } catch (error) {
+      console.log(error);
+    }
+  },
 });
 
 export const profileImgState = atom<string>({

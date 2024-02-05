@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { feedbackState, fbListState, isCheckedState } from 'state';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { fbListState, isCheckedState } from 'state';
 import feedback from '../images/feedback.png';
 import userAPI from 'api/userAPI';
 import * as Style from '../../css/HomePage/HomeHeaderStyle';
@@ -8,20 +8,9 @@ import { useModal } from 'hooks/useModal';
 import Feedbacks from 'components/feedbacks/feedbacks';
 
 const HomeHeader = () => {
-  const [fbList, setFbList] = useRecoilState(fbListState);
+  const fbList = useRecoilValue(fbListState);
   const [isCheck, setIsCheck] = useRecoilState(isCheckedState);
   const { isOpen, toggleModal } = useModal();
-
-  const getFeedbackAPI = () => {
-    userAPI
-      .getFeedback()
-      .then((response) => {
-        setFbList(response.data.data.feedbacks.reverse());
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   const countChecked = () => {
     let cnt = 0;
@@ -40,10 +29,6 @@ const HomeHeader = () => {
   useEffect(() => {
     setIsCheck(countChecked());
   }, [fbList]);
-
-  useEffect(() => {
-    getFeedbackAPI();
-  }, []);
 
   return (
     <Style.HomeHeaderContainer>
