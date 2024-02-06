@@ -148,15 +148,33 @@ export const taskIdState = atom<number>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const fbListState = selector<fbInfo[]>({
+export const fbListState = atom<fbInfo[]>({
+  key: `userfb`,
+  default: [
+    {
+      checked: false,
+      modifiedAt: '',
+      taskId: 0,
+      taskName: '',
+      teamId: 0,
+      teamName: '',
+    },
+  ],
+});
+
+export const fbListSelector = selector<fbInfo[]>({
   key: 'userfb',
-  get: async () => {
+  get: async ({ get }) => {
     try {
+      get(fbListState);
       const feedbacks = await userAPI.getFeedback();
       return feedbacks.data.data.feedbacks.reverse();
     } catch (error) {
       console.log(error);
     }
+  },
+  cachePolicy_UNSTABLE: {
+    eviction: 'most-recent',
   },
 });
 
