@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import * as Style from '../../css/Feedbacks/FeedbackStyle';
 import { fbInfo } from 'interfaces/feedbackType';
-import { useRecoilState, useRecoilValueLoadable } from 'recoil';
-import { fbListState, taskIdState, profileImgState } from 'state';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { taskIdState, profileImgState, fbListState } from 'state';
 
 const Feedbacks = ({ pathname }: { pathname: string }) => {
-  const fbList = useRecoilValueLoadable(fbListState);
+  const fbList = useRecoilValue(fbListState);
   const [taskId, setTaskId] = useRecoilState(taskIdState);
   const navigate = useNavigate();
 
@@ -15,17 +15,14 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
     setTaskId(parseInt((e.target as HTMLElement).id));
     navigate(`/teample-detail/${(e.target as HTMLElement).id}`);
   };
-  const [profileImg, setProfileImg] = useRecoilState(profileImgState);
+  const [profileImg] = useRecoilValue(profileImgState);
 
   return (
     <Style.FeedBox pathname={pathname}>
       <div className="feedText">피드백</div>
       <div className="feedList">
-        {fbList.state === 'loading' ? (
-          <div>Loading...</div>
-        ) : (
-          fbList.contents &&
-          fbList.contents.map((fb: fbInfo, index: number) => (
+        {fbList &&
+          fbList.map((fb: fbInfo, index: number) => (
             <Style.Feed
               id={fb.taskId.toString()}
               key={index}
@@ -51,8 +48,7 @@ const Feedbacks = ({ pathname }: { pathname: string }) => {
                 {moment(fb.modifiedAt).format('MM-DD  HH:mm')}
               </div>
             </Style.Feed>
-          ))
-        )}
+          ))}
       </div>
     </Style.FeedBox>
   );

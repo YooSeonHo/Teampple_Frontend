@@ -162,16 +162,18 @@ export const fbListState = atom<fbInfo[]>({
   ],
 });
 
-export const fbListSelector = selector<fbInfo[]>({
-  key: 'userfb',
-  get: async ({ get }) => {
-    try {
-      get(fbListState);
-      const feedbacks = await userAPI.getFeedback();
-      return feedbacks.data.data.feedbacks.reverse();
-    } catch (error) {
-      console.log(error);
-    }
+export const checkedfbSelector = selector<number>({
+  key: 'checkedLength',
+  get: ({ get }) => {
+    let cnt = 0;
+    const checked = get(fbListState);
+    checked.map((fb: fbInfo) => {
+      if (!fb.checked) {
+        cnt += 1;
+      }
+    });
+
+    return cnt;
   },
   cachePolicy_UNSTABLE: {
     eviction: 'most-recent',
