@@ -2,9 +2,10 @@ import { detailInfo } from 'interfaces/taskType';
 import { makeTeampleInfo, modTeampleInfo } from 'interfaces/teamType';
 import { stageInfo } from 'interfaces/stageType';
 import { fbInfo } from 'interfaces/feedbackType';
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { v1 } from 'uuid'; // key duplicate 방지를 위한 라이브러리
 import { recoilPersist } from 'recoil-persist';
+import userAPI from 'api/userAPI';
 const { persistAtom } = recoilPersist();
 
 export const usernameState = atom<string>({
@@ -159,6 +160,24 @@ export const fbListState = atom<fbInfo[]>({
       teamName: '',
     },
   ],
+});
+
+export const checkedfbSelector = selector<number>({
+  key: 'checkedLength',
+  get: ({ get }) => {
+    let cnt = 0;
+    const checked = get(fbListState);
+    checked.map((fb: fbInfo) => {
+      if (!fb.checked) {
+        cnt += 1;
+      }
+    });
+
+    return cnt;
+  },
+  cachePolicy_UNSTABLE: {
+    eviction: 'most-recent',
+  },
 });
 
 export const profileImgState = atom<string>({
